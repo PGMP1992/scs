@@ -30,6 +30,8 @@ namespace SCSMock.Areas.Admin
 
         public IActionResult Index()
         {
+            // Show only users that have logged - PM 
+            
             return View();
         }
 
@@ -107,12 +109,15 @@ namespace SCSMock.Areas.Admin
         [HttpGet]
         public IActionResult GetAll()
         {
-            List<AppUser> objUserList = _unitOfWork.AppUser.GetAll().ToList();
+            
+            List<AppUser> objUserList = _unitOfWork.AppUser.GetAll(u => u.NormalizedEmail != null).ToList();
+            //List<AppUser> objUserList = _unitOfWork.AppUser.GetAll().ToList(); - Original showing all users - PM
             // Using AspNetUserRoles and AspNetRoles tables
             // - excluding the AspNet from the table name for all Identity tables works  
 
             foreach (var user in objUserList)
             {
+                // Don't show temp/ not logged  users 
                 user.Role = _userManager.GetRolesAsync(user).GetAwaiter().GetResult().FirstOrDefault();
             }
             return Json(new { data = objUserList });
