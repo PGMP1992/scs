@@ -1,0 +1,95 @@
+﻿@model CertificationSlotVM
+
+<div class="card shadow border-0 mt-4 mb-4">
+    <div class="card-header bg-primary bg-gradient m-lg-0 py-2 rounded">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white">@(Model.CertificationSlot.Id != 0 ? "Edit" : "New") Certification Slot</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <form method="post" class="row" enctype="multipart/form-data">
+            <input asp-for="CertificationSlot.Id" hidden />
+
+            <div class="row">
+                <div class="col-10">
+                    <div class="border p-3">
+
+                        <div class="form-floating py-2 col-12">
+                            <select asp-for="CertificationSlot.ProductId" asp-items="@Model.ProductList" class="form-select border-1">
+                                <option disabled selected>--Select Product--</option>
+                            </select>
+                            <label asp-for="CertificationSlot.ProductId" class="mt-2 "></label>
+                            <span asp-validation-for="CertificationSlot.ProductId" class="text-danger"></span>
+                        </div>
+                       
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="CertificationSlot.StartDate" type="date" class="form-control border-1" />
+                            <label asp-for="CertificationSlot.StartDate" class="mt-2 "></label>
+                            <span asp-validation-for="CertificationSlot.StartDate" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="CertificationSlot.EndDate" type="time" class="form-control border-1" />
+                            <label asp-for="CertificationSlot.EndDate" class="mt-2 "></label>
+                            <span asp-validation-for="CertificationSlot.EndDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="CertificationSlot.DayOfWeek" type="time" class="form-control border-1" />
+                            <label asp-for="CertificationSlot.DayOfWeek" class="mt-2 "></label>
+                            <span asp-validation-for="CertificationSlot.DayOfWeek" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="CertificationSlot.ParticipantsMax" class="form-control border-1" />
+                            <label asp-for="CertificationSlot.ParticipantsMax" class="mt-2 "></label>
+                            <span asp-validation-for="CertificationSlot.ParticipantsMax" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="CertificationSlot.ParticipantsRegistered" class="form-control border-1" />
+                            <label asp-for="CertificationSlot.ParticipantsRegistered" class="mt-2 "></label>
+                            <span asp-validation-for="CertificationSlot.ParticipantsRegistered" class="text-danger"></span>
+                        </div>
+
+                        <div class="row pt-2">
+                            <div class="col-6 col-md-3">
+                                @if (Model.CertificationSlot.Id == 0)
+                                {
+                                    <button type="submit" class="btn btn-primary form-control rounded">Save</button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-primary form-control rounded">Update</button>
+                                }
+
+
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <a asp-area="Admin" asp-controller="CertificationSlots" asp-action="Index" class="btn btn-secondary rounded form-control">Back to List</a>
+
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <button type="submit" asp-action="Delete" class="btn btn-danger form-control rounded">Delete</button>
+
+                            </div>
+                           
+                        </div>
+
+                    </div>
+                </div>
+               
+            </div>
+
+
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    @{
+        <partial name="_ValidationScriptsPartial" />
+
+    }
+}

@@ -1,0 +1,60 @@
+﻿@model Bundle
+<div class="card shadow border-0 mt-4 ">
+    <div class="card-header bg-primary bg-gradient m-lg-0 py-2 rounded">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white">Delete Bundle</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <form method="post" class="row">
+            <div class="border p-3">
+                <input asp-for="@Model.Id" type="hidden" />
+               
+
+                <div class="form-floating py-2 col-12">
+                    <input disabled asp-for="@Model.Name" class="form-control border-1 " />
+                    <label asp-for="@Model.Name" class="mt-2 "></label>
+                </div>
+                <h4>Contains</h4>
+                <div class="form-floating py-2 col-12">
+                    <input disabled asp-for="@Model.Product1.Name" class="form-control border-1 " />
+                    <label asp-for="@Model.Product1.Name" class="mt-2 "></label>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input disabled asp-for="@Model.Product2.Name" class="form-control border-1 " />
+                    <label asp-for="@Model.Product2" class="mt-2 "></label>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input disabled asp-for="@Model.Product3.Name" class="form-control border-1 " />
+                    <label asp-for="@Model.Product3.Name" class="mt-2 "></label>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input disabled asp-for="@Model.Price" class="form-control border-1 " />
+                    <label asp-for="@Model.Price" class="mt-2 "></label>
+
+                </div>
+
+
+                <div class="row pt-2">
+                    <div class="col-6 col-md-3">
+                        
+                            <button type="submit" asp-action="Delete" class="btn btn-danger form-control rounded">Delete</button>
+                       
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <a asp-area="Admin" asp-controller="Bundle" asp-action="Index" class="btn btn-secondary form-control rounded">
+                            Back to List
+                        </a>
+                    </div>
+                </div
+                    
+
+                
+            </div>
+        </form>
+    </div>
+</div>
+

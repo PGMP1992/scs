@@ -1,0 +1,83 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<ul class="navbar-nav">
+@if (SignInManager.IsSignedIn(User))
+{
+    @* User Profile ---------------------- *@
+    <li class="nav-item">
+        <a id="manage" class="nav-link text-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+            <i class="bi bi-person-check"></i>
+            Hello @User.Identity?.Name</a>
+    </li>
+    @* Logout ---------------------- *@
+    <li class="nav-item">
+        <form id="logoutForm "class="form-inline" asp-area="Identity" 
+            asp-page="/Account/Logout" 
+            asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+            <button id="logout" type="submit" class="nav-link btn btn-link text-light">
+                    <i class="bi bi-box-arrow-in-right"></i>
+                Logout
+            </button>
+        </form>
+    </li>
+}
+else
+{
+    @* Register ---------------------- *@
+    <li class="nav-item">
+        <a class="nav-link text-light" id="register" asp-area="Identity" asp-page="/Account/Register">
+        @* <a class="nav-link text-light" asp-area="Admin" asp-controller="Account" asp-action="Register"> *@
+                <i class="bi bi-box-arrow-in-right"></i>
+            Register</a>
+    </li>
+        @* Login ---------------------- *@
+    <li class="nav-item">
+        <a class="nav-link text-light" id="login" asp-area="Identity" asp-page="/Account/Login">
+        @* <a class="nav-link text-light" asp-area="Admin" asp-controller="Account" asp-action="Login"> *@
+            <i class="bi bi-person-check"></i>
+            Login
+        </a>
+    </li>
+}
+    @* Languages Drop Down ---------------------- *@
+    <li class="nav-item dropdown">
+        <a class="nav-link text-light dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
+            <i class="bi bi-translate"></i>
+            Language
+        </a>
+        <ul class="dropdown-menu" >
+            <li>
+                <a class="dropdown-item" href="#">
+                <span class="fi fi-se"></span>
+                Swedish</a>
+            </li>
+
+            <li><hr class="dropdown-divider"></li>
+            
+            <li>
+                <a class="dropdown-item" href="#">
+                <span class="fi fi-dk"></span>
+                Danish</a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="#">
+                <span class="fi fi-no"></span>
+                Norwegian
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="#">
+                    <span class="fi fi-fi"></span>
+                    Finnish</a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="#">
+                    <span class="fi fi-gb"></span>
+                    English
+                </a>
+            </li>
+        </ul>
+    </li>
+</ul>

@@ -1,0 +1,181 @@
+﻿@* Project: CSC
+   Product Controller
+   Index View
+   Author : Pedro Martinez
+*@
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+
+@model IEnumerable<Product>
+
+<form asp-area="Customer" asp-controller="Product" asp-action="Index" class="m-2">
+    <div class="container bg-primary bg-light">
+        <div class="row col-12">
+            <div class="mt-2">
+                <label for="search" name="search" class="form-check-label"><strong>Product:</strong></label>
+                <input class="col-8" type="text" name="search" placeholder="eg. Javascript, Google, etc">
+            </div>
+        </div>
+        <div class="row mb-2 mt-2">
+            <div class="col-2">
+                <button type="submit" value="search" class="btn btn-outline-primary col-10">
+                    Search
+                </button>
+            </div>
+            <div class="col">
+                <span class="text-danger">@ViewBag.Message </span>
+            </div>
+        </div>
+    </div>
+</form>
+
+@* Show Products ---------------- *@
+<div class="row row-cols-1 row-cols-md-5 g-2">
+        @foreach (var product in Model)
+        {
+        <div class="col">
+            <div class="card h-100">
+                <a asp-action="Details" asp-route-productId="@product.Id" class="btn form-control">
+                    @if (product.ProductImages != null && product.ProductImages.Count > 0)
+                    {
+                        <img src="@product.ProductImages.FirstOrDefault().ImageUrl" class="card-img-top" />
+                    }
+                    else
+                    {
+                        <img src="https://placehold.co/600x400/png" class="card-img-top" />
+                    }
+                    
+                    <div class="card-body">
+                        
+                        <div class="pl-0">
+                            <h6 class="card-title text-dark text-center">@product.Name</h6>
+                        </div>
+                        <div class="pl-1">
+                            <p class="card-text text-warning text-center"><b>@product.Provider.Name</b></p>
+                        </div>
+                        <div class="pl-1">
+                            <p class="card-text text-success text-center"><b>@product.Category.Name</b></p>
+                        </div>
+                    </div>
+                    Price: <span>@product.Price.ToString("c")</span>
+                </a>
+
+                @* Buttons ----------------------------------*@
+                <div class="card-footer border-0">
+                    <div class="row">
+                        <div class="col">
+                            @* has to pass route below to Controller.Details *@
+                            <a asp-area="Customer" asp-controller="Product" asp-action="Details" asp-route-productId="@product.Id"
+                                class="btn btn-primary form-control">
+                                Details
+                            </a>
+                        </div>
+                        <div class="col">
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <a asp-area="Customer" asp-controller="Product" asp-action="AddToCart" asp-route-productId="@product.Id"
+                                    class="btn btn-dark form-control">
+                                    <i class="bi bi-cart"></i> @* Cart *@
+                                </a>
+                            } else {
+                                <a asp-area="Customer" asp-controller="Product" asp-action="Buy" asp-route-productId="@product.Id"
+                                    class="btn btn-dark form-control">
+                                    Buy
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+</div>
+  
+@*
+    PM ---------------------------------------
+    This code was used to have 3 tabs at the top of the page with 3 options for search input
+    above the Product List 
+    Replaced with a simple Search InputBox
+<form>
+    <div class="card col-12 p-3 justify-content-around">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page"
+                    onclick="openTab(event, 'vouchers')" id="defaultOpen">Certification Vouchers</a>
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page"
+                    onclick="openTab(event, 'materials')">Learning Materials</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page"
+                        onclick="openTab(event, 'practice')">Practice Tests</a>
+            </li>
+        </ul>
+
+        <div class="card mb-3" style="max-width: 100%">
+            <div class="row g-0">
+                <div class="col-md-12">
+                    <div class="card-body-fluid">
+
+                        <!-- Vouchers -->
+                        <div id="vouchers" class="tabcontent">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <label for="searchResult" class="form-label">Courses</label>
+                                        <input type="text" class="form-control" id="searchResult" placeholder="eg. Javascript, Google, etc">
+                                    </div>
+                                    <div class="col-2">
+                                        <label for="startDate" class="form-label">Start Date</label>
+                                        <input type="date" class="form-control" id="startDate" placeholder="DD/MM/YYYY">
+                                    </div>
+                                    <div class="col-2">
+                                        <label for="endDate" class="form-label">End Date</label>
+                                        <input type="date" class="form-control" id="endDate" placeholder="DD/MM/YYYY">
+                                    </div>
+                                </div>
+                                <div class="row m-2">
+                                    <button type="button" class="btn btn-outline-primary col-2"
+                                        controller="Customer" action="Cert">Search
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Materials -->
+                        <div id="materials" class="tabcontent" style=" display:none">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <label for="searchResult" class="form-label">Learning Materials</label>
+                                        <input type="text" class="form-control" id="searchResult" placeholder="eg. Javascript, Google, etc">
+                                    </div>
+                                </div>
+                                <div class="row m-2">
+                                    <button type="button" class="btn btn-outline-primary col-2"
+                                        controller="Search" action="materials">Search</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Practice Tests -->
+                        <div id="practice" class="tabcontent" style="display:none">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <label for="searchResult" class="form-label">Practice Tests</label>
+                                        <input type="text" class="form-control" id="searchResult" placeholder="eg. Javascript, Google, etc">
+                                    </div>
+                                </div>
+                                <div class="row m-2">
+                                    <button type="button" class="btn btn-outline-primary col-2"
+                                        controller="Customer" action="practice">Search</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+        </div>
+    </div>
+</form>
+*@

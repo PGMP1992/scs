@@ -1,0 +1,83 @@
+﻿@model List<Provider>
+
+<div class="card shadow border-0 mt-4 rounded-2 ">
+
+    <div class=" card-header bg-primary bg-gradient ml-0 py-3 rounded">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">Providers</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4 mb-3">
+        <div class="row pb-3">
+            <div class="col-6">
+            </div>
+            <div class="col-6 text-end">
+                <a asp-controller="Providers" asp-action="Upsert" class="btn btn-primary rounded">
+                    <i class="bi bi-plus-circle"></i>
+                    New Provider
+                </a>
+            </div>
+        </div>
+        <table id="tblData" class="table table-borded table-light table-striped ">
+            <thead>
+                <tr>
+                    <th class="text-success-emphasis">
+                        Name
+                    </th>
+                    <th class="text-success-emphasis">
+                        Contact Name
+                    </th>
+                    <th class="text-success-emphasis">
+                        Contact Email
+                    </th>
+                    <th class="text-success-emphasis">
+                        Contact Phone
+                    </th>
+                    <th class="text-success-emphasis">
+                        
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var obj in Model.OrderBy(u => u.Name))
+                {
+                    <tr>
+                        <td>
+                            <a asp-controller="Providers" asp-action="Upsert" asp-route-id="@obj.Id" class="text-black
+    ">
+                                @obj.Name
+                            </a>
+                        </td>
+
+                        <td>
+                            @obj.ContactName
+                        </td>
+                         <td>
+                            @obj.ContactEmail
+                        </td>
+                        <td>
+                            @obj.ContactPhone
+                        </td>
+                        <td>
+                            <div class="w-75 btn-group" role="group">
+                                <a asp-controller="Providers" asp-action="Upsert" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
+                                    <i class="bi bi-pencil-square"></i> Edit
+                                </a>
+                                <a asp-controller="Providers" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-danger mx-2">
+                                    <i class="bi bi-trash-fill"></i> Delete
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
+@* @section Scripts {
+    <script src="~/js/provider.js"></script>
+
+} *@

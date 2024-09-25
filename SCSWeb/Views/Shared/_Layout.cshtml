@@ -1,0 +1,165 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Http 
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@inject IHttpContextAccessor HttpContextAccessor 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] SCS Mock Website</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/SCSMock.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="//cdn.datatables.net/2.1.5/css/dataTables.dataTables.min.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+</head>
+<body>
+    <header>
+        <img class="img-overlay con" src="~/images/scs_logo.png" width="15%" height="auto" align="middle" alt="SCS AB" />
+        @* <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light border-bottom box-shadow mb-3"> *@
+        <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="light">
+            <div class="container-fluid">
+                @* <img class="img-fluid" src="~/images/scs_logo.png" width="10%" height="auto" alt="SCS AB" /> *@
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" 
+                    aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span> 
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    
+                    <ul class="navbar-nav flex-grow-1">
+                        @* Home ----------------------*@
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="Customer" asp-controller="Home" asp-action="Index">
+                                Home
+                            </a>
+                        </li>
+
+                        @* Customer.Products ----------------------*@
+                        <li class="nav-item dropdown">
+                            <a class="nav-link text-light dropdown-toggle" data-bs-toggle="dropdown"
+                               href="#" role="button" aria-expanded="false">
+                                Products
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" asp-area="Customer" asp-controller="Product" asp-action="Index">
+                                        Products
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-area="Customer" asp-controller="Product" asp-action="IndexList">
+                                        Product List
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        @* Admin ----------------------*@
+                        @if (User.IsInRole(SD.Role_Admin))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link text-light dropdown-toggle" data-bs-toggle="dropdown" 
+                                    href="#" role="button" aria-expanded="false">
+                                    Admin
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Categories" 
+                                        asp-action="Index">Categories</a></li>
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Providers" 
+                                        asp-action="Index">Providers</a></li>
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Products" 
+                                        asp-action="Index">Products</a></li>
+                                    <li>
+                                        <a class="dropdown-item" asp-area="Admin" asp-controller="Bundle"
+                                           asp-action="Index">Bundles</a>
+                                    </li>
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="CertificationSlots" 
+                                        asp-action="Index">Certification Slots</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a asp-area="Admin" asp-controller="Order" asp-action="Index" class="dropdown-item">
+                                            <i class="bi bi-list-ol"></i>
+                                            Orders</a></li>
+                                    <li>
+                                        <a class="dropdown-item" asp-area="Admin" asp-controller="Users" asp-action="Index">
+                                            <i class="bi bi-people-fill"></i>
+                                            Users
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+
+                        @* About ---------------------- *@
+                        <li class="nav-item">
+                            @* <a class="nav-link text-dark" asp-area="Customer" asp-controller="Home" asp-action="About"> *@
+                            <a class="nav-link text-light" href="https://www.scservices.se/about-us/">
+                                About
+                            </a>
+                        </li>
+
+                        @* Contact ---------------------- *@
+                        <li class="nav-item">
+                            @* <a class="nav-link text-dark" asp-area="Customer" asp-controller="Home" asp-action="Contact"> *@
+                            <a class="nav-link text-light" href="https://www.scservices.se/contact/">
+                                Contact
+                            </a>
+                        </li>
+
+                        @* User Profile/ Dashboard  ---------------------- *@
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item dropdown">
+                            <a class="nav-link text-light dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                                <i class="bi bi-person-fill"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Orders</a></li>
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                            </ul>
+                            </li>
+                        }
+
+                        @* Shopping Cart ---------------------- *@
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="Customer" asp-controller="Cart" asp-action="Index">
+                                    @await Component.InvokeAsync("Cart")
+                                </a>
+                            </li>
+                        }
+                    </ul>
+
+                    @* Login/Register/ Languages ---------------------- *@
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            <partial name="_Notification" />
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer position-sticky text-muted">
+        <partial name="_FooterPartial" />
+    </footer>
+    
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="//cdn.datatables.net/2.1.5/js/dataTables.min.js" asp-append-version="true"></script>
+    <script src="https://cdn.tiny.cloud/1/vc5poozxpd6tn43acv2een8s0y2kl3usq3p4pizlga21bzme/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,146 @@
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using SCSMock.Models;
+using SCSMock.Models.ViewModels;
+using SCSMock.Repository.IRepository;
+using SCSMock.Utility;
+using System.Net;
+
+namespace SCSMock.Areas.Admin
+{
+    [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
+
+    public class UsersController : Controller
+    {
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IUnitOfWork _unitOfWork;
+
+        public UsersController(UserManager<IdentityUser> userManager,
+            RoleManager<IdentityRole> roleManager,
+            IUnitOfWork unitOfWork)
+        {
+            _userManager = userManager;
+            _roleManager = roleManager;
+            _unitOfWork = unitOfWork;
+        }
+
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult Edit(string userId)
+        {
+            var appUser = _unitOfWork.AppUser.Get(u => u.Id == userId, includeProperties: "Address");
+            UserVM userVM = new UserVM
+            {
+                AppUser = appUser,
+                RoleList = _roleManager.Roles.Select(i => new SelectListItem
+                {
+                    Text = i.Name,
+                    Value = i.Name
+                }),
+            };
+
+            userVM.AppUser.Role = _userManager.GetRolesAsync(_unitOfWork.AppUser
+                    .Get(u => u.Id == userId))
+                    .GetAwaiter().GetResult().FirstOrDefault();
+
+            return View(userVM);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(UserVM userVM)
+        {
+            // Update Role
+            string oldRole = _userManager.GetRolesAsync(_unitOfWork.AppUser
+                    .Get(u => u.Id == userVM.AppUser.Id))
+                    .GetAwaiter().GetResult().FirstOrDefault();
+
+            AppUser appUser = _unitOfWork.AppUser
+                .Get(u => u.Id == userVM.AppUser.Id, includeProperties: "Address", true);
+
+            // Update Address first ---------------------
+            var address = _unitOfWork.Address.Get(a => a.Id == appUser.AddressId, null, true);
+            
+            // New registered User has no Address. 
+            if (address == null)
+                address = new Address();
+            
+            // Need this otherwise updates Address.Id on Existing User.Address
+            address.Street1 = userVM.AppUser.Address.Street1;
+            address.Street2 = userVM.AppUser.Address.Street2;
+            address.City = userVM.AppUser.Address.City;
+            address.State = userVM.AppUser.Address.State;
+            address.Postcode = userVM.AppUser.Address.Postcode;
+            address.Country = userVM.AppUser.Address.Country;
+
+            _unitOfWork.Address.Update(address);
+            _unitOfWork.Save(); // Need to save changes in case of a new Address.Id
+
+            if (appUser.AddressId == null)
+            {
+                // Saves new AddressId to new user
+                appUser.AddressId = address.Id;
+            }
+
+            // Update Role
+            if (userVM.AppUser.Role != oldRole)
+            {
+                _userManager.RemoveFromRoleAsync(appUser, oldRole).GetAwaiter().GetResult();
+                _userManager.AddToRoleAsync(appUser, userVM.AppUser.Role).GetAwaiter().GetResult();
+            }
+            _unitOfWork.AppUser.Update(appUser);
+            _unitOfWork.Save();
+
+            return RedirectToAction("Index");
+        }
+
+        // --------------------------------------------------
+
+        #region API CALLS
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            List<AppUser> objUserList = _unitOfWork.AppUser.GetAll().ToList();
+            // Using AspNetUserRoles and AspNetRoles tables
+            // - excluding the AspNet from the table name for all Identity tables works  
+
+            foreach (var user in objUserList)
+            {
+                user.Role = _userManager.GetRolesAsync(user).GetAwaiter().GetResult().FirstOrDefault();
+            }
+            return Json(new { data = objUserList });
+        }
+
+        [HttpPost]
+        public IActionResult LockUnlock([FromBody] string id)
+        {
+            var objFromDb = _unitOfWork.AppUser.Get(u => u.Id == id);
+            if (objFromDb == null)
+            {
+                return Json(new { success = false, message = "Error Locking/Unlocking" });
+            }
+
+            if (objFromDb.LockoutEnd != null && objFromDb.LockoutEnd > DateTime.Now) // User is Locked 
+            {
+                objFromDb.LockoutEnd = DateTime.Now;
+            }
+            else
+            {
+                objFromDb.LockoutEnd = DateTime.Now.AddYears(1000);
+            }
+
+            _unitOfWork.AppUser.Update(objFromDb);
+            _unitOfWork.Save();
+            return Json(new { success = true, message = "Operation Successful" });
+        }
+
+        #endregion
+    }
+}

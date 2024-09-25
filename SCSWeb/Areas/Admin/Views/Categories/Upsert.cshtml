@@ -1,0 +1,65 @@
+﻿@model Category
+
+<div class="card shadow border-0 mt-4 ">
+    <div class="card-header bg-primary bg-gradient m-lg-0 py-2 rounded">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white">@(Model.Id != 0 ? "Edit category" : "New category")</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <form method="post" class="row">
+            <div class="border p-3">
+                <input asp-for="Id" type="hidden" />
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="Name" class="form-control border-1 " />
+                    <label asp-for="Name" class="mt-2 "></label>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="Description" class="form-control border-1 " />
+                    <label asp-for="Description" class="mt-2 "></label>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-6 col-md-3">
+                        @* Insert Mode - PM *@
+                        @if (Model.Id == 0)
+                        {
+                            <button type="submit" class="btn btn-primary form-control rounded">Save</button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn btn-primary form-control rounded">Update</button>
+                        }
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <a asp-area="Admin" asp-controller="Categories" asp-action="Index" class="btn btn-secondary form-control rounded">
+                            Back to List
+                        </a>
+                    </div>
+
+                    @* Update Mode - PM *@
+                    @if(Model.Id!=0)
+                    {
+                        @* Hard coded - if "Certification Vouchers", Id= 1 it can not be deleted - PM *@
+                        @if (Model.Id != 1) {
+                            <div class="col-6 col-md-3">
+                                <button type="submit" asp-action="Delete" class="btn btn-danger form-control rounded">Delete</button>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

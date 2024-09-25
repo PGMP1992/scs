@@ -1,0 +1,55 @@
+﻿@model Provider
+
+<div class="card shadow border-0 mt-4 ">
+    <div class="card-header bg-primary bg-gradient m-lg-0 py-2 rounded">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white">Delete Provider</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <form method="post" class="row">
+            <div class="border p-3">
+                <input asp-for="Id" type="hidden" />
+                <div class="form-floating py-2 col-12">
+                    <input disabled asp-for="Name" class="form-control border-1 " />
+                    <label asp-for="Name" class="mt-2 "></label>
+                    
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input disabled asp-for="ContactName" class="form-control border-1 " />
+                    <label asp-for="ContactName" class="mt-2 "></label>
+                   
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input disabled asp-for="ContactEmail" class="form-control border-1 " />
+                    <label asp-for="ContactEmail" class="mt-2 "></label>
+                   
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input disabled asp-for="ContactPhone" class="form-control border-1 " />
+                    <label asp-for="ContactPhone" class="mt-2 "></label>
+                   
+                </div>
+
+
+                <div class="row mt-3">
+                    <div class="col-6 col-md-3">
+                       
+                            <button type="submit" class="btn btn-danger form-control rounded">Delete</button>
+                       
+
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <a asp-area="Admin" asp-controller="Providers" asp-action="Index" class="btn btn-primary form-control rounded">Back to List</a>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+</div>
+

@@ -1,0 +1,151 @@
+﻿@using SCSMock.Utility
+@model OrderVM
+<form method="post">
+    <div class="card shadow border-0 mt-2 mb-4">
+        <input asp-for="OrderHeader.Id" hidden />
+        <div class="card-header bg-primary bg-gradient m-lg-0 py-2 rounded">
+            <div class="row">
+
+                <div class="col-12 d-none d-md-block col-md-6 py-3 text-white">
+                    <i class="bi bi-cart-fill"></i> &nbsp; Order Summary
+                </div>
+                <div class="col-12 col-md-4 offset-md-2 py-3 text-right">
+                    <a asp-action="Index" class="btn btn-outline-light rounded form-control btn-sm">Back to orders</a>
+                </div>
+
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="container rounded p-2">
+                <div class="row">
+                    <div class="col-12 col-lg-6 pb-4">
+                        <div class="row">
+                            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="text-primary">Details:</span>
+                            </h4>
+                        </div>
+                        <div class="row my-1">
+                            <div class="col-3">Name</div>
+                            <div class="col-9">
+                                @if (User.IsInRole(SD.Role_Admin) || User.IsInRole(SD.Role_Employee))
+                                {
+                                    <input asp-for="@Model.OrderHeader.Name" type="text" class="form-control" />
+                                    <span asp-validation="@Model.OrderHeader.Name" type="text" class="form-control" />
+                                }
+                                else
+                                {
+                                    <input asp-for="@Model.OrderHeader.Name" readonly type="text" class="form-control" />
+                                }
+
+                            </div>
+                        </div>
+                       
+                       
+                     
+
+                        <div class="row my-1">
+                            <div class="col-3">Email</div>
+                            <div class="col-9">
+
+                                <input asp-for="@Model.OrderHeader.Email" readonly type="text" class="form-control" />
+
+                            </div>
+                        </div>
+                        <div class="row my-1">
+                            <div class="col-3">OrderDate</div>
+                            <div class="col-9">
+
+                                <input value="@Model.OrderHeader.OrderDate.ToShortDateString()" readonly type="text" class="form-control" />
+                            </div>
+                        </div>
+                       
+                     
+                        @if (User.IsInRole(SD.Role_Admin) || User.IsInRole(SD.Role_Employee))
+                        {
+                            <div class="row my-1">
+                                <div class="col-3">Sessionsid</div>
+                                <div class="col-9">
+                                    <input asp-for="@Model.OrderHeader.SessionId" readonly type="text" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row my-1">
+                                <div class="col-3">Payment Intent ID</div>
+                                <div class="col-9">
+                                    <input asp-for="@Model.OrderHeader.PaymentIntentId" type="text" readonly class="form-control" />
+                                </div>
+                            </div>
+                        }
+                        <div class="row my-1">
+                            <div class="col-3">PaymentStatus</div>
+                            <div class="col-9">
+                                <input asp-for="OrderHeader.PaymentStatus" readonly type="text" class="form-control" />
+                            </div>
+                        </div>
+                        @if (User.IsInRole(SD.Role_Admin) || User.IsInRole(SD.Role_Employee))
+                        {
+                            <button type="submit" asp-action="UpdateOrderDetails" class="btn btn-primary form-control my-1 rounded mb-1">Uppdate Order Details</button>
+                        }
+
+                    </div>
+                    <div class="col-12 col-lg-5 offset-lg-1">
+                        <h4 class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="text-primary">Order Details: </span>
+                        </h4>
+                        <label class="btn btn-outline-primary form-control my-2 rounded">Orderstatus - @Model.OrderHeader.OrderStatus</label>
+
+                        <ul class="list-group mb-3">
+                            @foreach (var item in Model.OrderDetails)
+                            {
+
+                                <li class="list-group-item d-flex justify-content-between p-2">
+                                    <div class="row container">
+                                        <div class="col-8">
+
+                                            <h6 class="my-0 text-primary">@item.Product.Name</h6>
+                                            <small class="text-dark">Price : @(item.Price.ToString("c"))</small><br />
+                                            <small class="text-dark">Quantity : @item.Count</small>
+                                        </div>
+                                        <div class="col-4 text-end">
+                                            <p class="text-success">@((item.Price * item.Count).ToString("c"))</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                            <li class="list-group-item bg-primary">
+                                <div class="row container">
+                                    <div class="col-6">
+                                        <h5 class="text-white">TOTAL </h5>
+                                    </div>
+                                    <div class="col-6 text-end">
+                                        <h5 class="text-white">@Model.OrderHeader.OrderTotal.ToString("c")</h5>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+
+                        @if (User.IsInRole(SD.Role_Admin) || User.IsInRole(SD.Role_Employee))
+                        {
+                            if (Model.OrderHeader.OrderStatus == SD.StatusApproved)
+                            {
+                                <button asp-action="StartProcessing" type="submit" asp-action="StartProcessing" class="btn btn-primary form-control my-1 rounded">Start Processing</button>
+                            }
+                            @if (Model.OrderHeader.OrderStatus == SD.StatusInProcess)
+                            {
+                                <button type="submit" asp-action="ShipOrder" onclick="return validateInput()" class="btn btn-primary form-control my-1 rounded">Ship Order</button>
+                            }
+                            @if (Model.OrderHeader.OrderStatus != SD.StatusRefunded &&
+                           Model.OrderHeader.OrderStatus != SD.StatusCancelled &&
+                           Model.OrderHeader.OrderStatus != SD.StatusShipped)
+                            {
+                                <button type="submit" asp-action="CancelOrder" class="btn btn-danger form-control my-1 rounded">Cancel Order</button>
+                            }
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</form>
+</div>
