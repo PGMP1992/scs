@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace SCSMock.Models.ViewModels
+namespace SCS.Models.ViewModels
 {
     public class UserVM
     {

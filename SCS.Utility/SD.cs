@@ -1,4 +1,4 @@
-﻿namespace SCSMock.Utility
+﻿namespace SCS.Utility
 {
     public class SD
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace SCSMock.Models.ViewModels
+namespace SCS.Models.ViewModels
 {
     public class ProductVM
     {

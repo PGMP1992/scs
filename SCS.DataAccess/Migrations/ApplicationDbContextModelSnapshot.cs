@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SCSMock.Data;
+using SCS.Data;
 
 #nullable disable
 
@@ -229,7 +229,7 @@ namespace SCS.DataAccess.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("SCSMock.Models.Address", b =>
+            modelBuilder.Entity("SCS.Models.Address", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -284,7 +284,7 @@ namespace SCS.DataAccess.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SCSMock.Models.Bundle", b =>
+            modelBuilder.Entity("SCS.Models.Bundle", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -324,7 +324,7 @@ namespace SCS.DataAccess.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SCSMock.Models.Cart", b =>
+            modelBuilder.Entity("SCS.Models.Cart", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -351,7 +351,7 @@ namespace SCS.DataAccess.Migrations
                     b.ToTable("Carts");
                 });
 
-            modelBuilder.Entity("SCSMock.Models.Category", b =>
+            modelBuilder.Entity("SCS.Models.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -399,7 +399,7 @@ namespace SCS.DataAccess.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SCSMock.Models.CertificationSlot", b =>
+            modelBuilder.Entity("SCS.Models.CertificationSlot", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -471,7 +471,7 @@ namespace SCS.DataAccess.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SCSMock.Models.OrderDetails", b =>
+            modelBuilder.Entity("SCS.Models.OrderDetails", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -500,7 +500,7 @@ namespace SCS.DataAccess.Migrations
                     b.ToTable("OrderDetails");
                 });
 
-            modelBuilder.Entity("SCSMock.Models.OrderHeader", b =>
+            modelBuilder.Entity("SCS.Models.OrderHeader", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -548,7 +548,7 @@ namespace SCS.DataAccess.Migrations
                     b.ToTable("OrderHeaders");
                 });
 
-            modelBuilder.Entity("SCSMock.Models.Product", b =>
+            modelBuilder.Entity("SCS.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -695,7 +695,7 @@ namespace SCS.DataAccess.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SCSMock.Models.ProductImage", b =>
+            modelBuilder.Entity("SCS.Models.ProductImage", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -720,7 +720,7 @@ namespace SCS.DataAccess.Migrations
                     b.ToTable("ProductImages");
                 });
 
-            modelBuilder.Entity("SCSMock.Models.Provider", b =>
+            modelBuilder.Entity("SCS.Models.Provider", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -784,7 +784,7 @@ namespace SCS.DataAccess.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SCSMock.Models.AppUser", b =>
+            modelBuilder.Entity("SCS.Models.AppUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
@@ -851,15 +851,15 @@ namespace SCS.DataAccess.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SCSMock.Models.Cart", b =>
+            modelBuilder.Entity("SCS.Models.Cart", b =>
                 {
-                    b.HasOne("SCSMock.Models.AppUser", "AppUser")
+                    b.HasOne("SCS.Models.AppUser", "AppUser")
                         .WithMany()
                         .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SCSMock.Models.Product", "Product")
+                    b.HasOne("SCS.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -870,9 +870,9 @@ namespace SCS.DataAccess.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("SCSMock.Models.CertificationSlot", b =>
+            modelBuilder.Entity("SCS.Models.CertificationSlot", b =>
                 {
-                    b.HasOne("SCSMock.Models.Product", "Product")
+                    b.HasOne("SCS.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -881,15 +881,15 @@ namespace SCS.DataAccess.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("SCSMock.Models.OrderDetails", b =>
+            modelBuilder.Entity("SCS.Models.OrderDetails", b =>
                 {
-                    b.HasOne("SCSMock.Models.OrderHeader", "OrderHeader")
+                    b.HasOne("SCS.Models.OrderHeader", "OrderHeader")
                         .WithMany()
                         .HasForeignKey("OrderHeaderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SCSMock.Models.Product", "Product")
+                    b.HasOne("SCS.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -900,9 +900,9 @@ namespace SCS.DataAccess.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("SCSMock.Models.OrderHeader", b =>
+            modelBuilder.Entity("SCS.Models.OrderHeader", b =>
                 {
-                    b.HasOne("SCSMock.Models.AppUser", "AppUser")
+                    b.HasOne("SCS.Models.AppUser", "AppUser")
                         .WithMany()
                         .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -911,19 +911,19 @@ namespace SCS.DataAccess.Migrations
                     b.Navigation("AppUser");
                 });
 
-            modelBuilder.Entity("SCSMock.Models.Product", b =>
+            modelBuilder.Entity("SCS.Models.Product", b =>
                 {
-                    b.HasOne("SCSMock.Models.Bundle", "Bundle")
+                    b.HasOne("SCS.Models.Bundle", "Bundle")
                         .WithMany()
                         .HasForeignKey("BundleId");
 
-                    b.HasOne("SCSMock.Models.Category", "Category")
+                    b.HasOne("SCS.Models.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SCSMock.Models.Provider", "Provider")
+                    b.HasOne("SCS.Models.Provider", "Provider")
                         .WithMany()
                         .HasForeignKey("ProviderId");
 
@@ -934,9 +934,9 @@ namespace SCS.DataAccess.Migrations
                     b.Navigation("Provider");
                 });
 
-            modelBuilder.Entity("SCSMock.Models.ProductImage", b =>
+            modelBuilder.Entity("SCS.Models.ProductImage", b =>
                 {
-                    b.HasOne("SCSMock.Models.Product", "Product")
+                    b.HasOne("SCS.Models.Product", "Product")
                         .WithMany("ProductImages")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -945,16 +945,16 @@ namespace SCS.DataAccess.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("SCSMock.Models.AppUser", b =>
+            modelBuilder.Entity("SCS.Models.AppUser", b =>
                 {
-                    b.HasOne("SCSMock.Models.Address", "Address")
+                    b.HasOne("SCS.Models.Address", "Address")
                         .WithMany()
                         .HasForeignKey("AddressId");
 
                     b.Navigation("Address");
                 });
 
-            modelBuilder.Entity("SCSMock.Models.Product", b =>
+            modelBuilder.Entity("SCS.Models.Product", b =>
                 {
                     b.Navigation("ProductImages");
                 });

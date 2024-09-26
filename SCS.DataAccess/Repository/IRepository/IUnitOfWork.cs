@@ -1,4 +1,4 @@
-﻿namespace SCSMock.Repository.IRepository
+﻿namespace SCS.Repository.IRepository
 {
     public interface IUnitOfWork
     {

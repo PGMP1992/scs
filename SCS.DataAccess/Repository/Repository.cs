@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SCSMock.Data;
-using SCSMock.Repository.IRepository;
+using SCS.Data;
+using SCS.Repository.IRepository;
 using System.Linq.Expressions;
 
-namespace SCSMock.Repository;
+namespace SCS.Repository;
 
 public class Repository<T> : IRepository<T> where T : class
 {

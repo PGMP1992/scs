@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace SCSMock.Repository.IRepository;
+namespace SCS.Repository.IRepository;
 
 public interface IRepository<T> where T : class
 {

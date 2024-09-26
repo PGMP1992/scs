@@ -1,8 +1,8 @@
-﻿using SCSMock.Data;
-using SCSMock.Models;
-using SCSMock.Repository.IRepository;
+﻿using SCS.Data;
+using SCS.Models;
+using SCS.Repository.IRepository;
 
-namespace SCSMock.Repository;
+namespace SCS.Repository;
 
 internal class BundleRepository : Repository<Bundle>, IBundleRepository
 {

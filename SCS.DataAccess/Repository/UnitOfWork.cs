@@ -1,7 +1,7 @@
-﻿using SCSMock.Data;
-using SCSMock.Repository.IRepository;
+﻿using SCS.Data;
+using SCS.Repository.IRepository;
 
-namespace SCSMock.Repository;
+namespace SCS.Repository;
 
 public class UnitOfWork : IUnitOfWork
 {

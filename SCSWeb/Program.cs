@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
-using SCSMock.Data;
-using SCSMock.Data.DbInitializer;
-using SCSMock.Repository;
-using SCSMock.Repository.IRepository;
-using SCSMock.Utility;
+using SCS.Data;
+using SCS.Data.DbInitializer;
+using SCS.Repository;
+using SCS.Repository.IRepository;
+using SCS.Utility;
 using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using SCSMock.Models;
-using SCSMock.Repository.IRepository;
-using SCSMock.Utility;
+using SCS.Models;
+using SCS.Repository.IRepository;
+using SCS.Utility;
 
-namespace SCSMock.Data.DbInitializer;
+namespace SCS.Data.DbInitializer;
 
 public class DbInitializer : IDbInitializer
 {

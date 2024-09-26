@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using SCSMock.Models;
-using SCSMock.Models.ViewModels;
-using SCSMock.Repository.IRepository;
-using SCSMock.Utility;
+using SCS.Models;
+using SCS.Models.ViewModels;
+using SCS.Repository.IRepository;
+using SCS.Utility;
 
-namespace SCSMock.Areas.Admin.Controllers;
+namespace SCS.Areas.Admin.Controllers;
 
 [Area("Admin")]
 [Authorize(Roles = SD.Role_Admin)]

@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using SCSMock.Models;
-using SCSMock.Utility;
+using SCS.Models;
+using SCS.Utility;
 
-namespace SCSMock.Data
+namespace SCS.Data
 {
     public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {

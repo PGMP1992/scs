@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
-using SCSMock.Models;
-using SCSMock.Repository.IRepository;
-using SCSMock.Utility;
+using SCS.Models;
+using SCS.Repository.IRepository;
+using SCS.Utility;
 using System.Diagnostics;
 
-namespace SCSMock.Areas.Customer;
+namespace SCS.Areas.Customer;
 [Area("Customer")]
 
 public class HomeController : Controller

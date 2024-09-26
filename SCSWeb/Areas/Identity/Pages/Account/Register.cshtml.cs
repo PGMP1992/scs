@@ -10,13 +10,13 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
-using SCSMock.Models;
-using SCSMock.Utility;
+using SCS.Models;
+using SCS.Utility;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
 
-namespace SCSMock.Areas.Identity.Pages.Account
+namespace SCS.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {

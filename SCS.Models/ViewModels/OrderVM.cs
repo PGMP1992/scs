@@ -1,5 +1,5 @@
 ﻿
-namespace SCSMock.Models.ViewModels;
+namespace SCS.Models.ViewModels;
 
 public class OrderVM
 {

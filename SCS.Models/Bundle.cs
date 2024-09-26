@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Permissions;
 
-namespace SCSMock.Models;
+namespace SCS.Models;
 
 public class Bundle
 {

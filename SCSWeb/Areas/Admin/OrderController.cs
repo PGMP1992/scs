@@ -2,10 +2,10 @@
 using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using SCSMock.Models;
-using SCSMock.Models.ViewModels;
-using SCSMock.Repository.IRepository;
-using SCSMock.Utility;
+using SCS.Models;
+using SCS.Models.ViewModels;
+using SCS.Repository.IRepository;
+using SCS.Utility;
 using Stripe;
 using Stripe.Climate;
 using Stripe.Issuing;

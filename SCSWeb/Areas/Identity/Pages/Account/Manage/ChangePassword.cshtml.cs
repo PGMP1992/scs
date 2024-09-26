@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
-namespace SCSMock.Areas.Identity.Pages.Account.Manage
+namespace SCS.Areas.Identity.Pages.Account.Manage
 {
     public class ChangePasswordModel : PageModel
     {

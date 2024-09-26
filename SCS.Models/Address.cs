@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SCSMock.Models
+namespace SCS.Models
 {
     public class Address
     {

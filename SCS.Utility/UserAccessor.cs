@@ -1,7 +1,7 @@
-﻿//using SCSMock.Utility.Interfaces;
+﻿//using SCS.Utility.Interfaces;
 using System.Security.Claims;
 
-namespace SCSMock.Utility
+namespace SCS.Utility
 {
     public static class UserAccessor
     {

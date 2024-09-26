@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
-using SCSMock.Data;
-using SCSMock.Models;
-using SCSMock.Models.ViewModels;
-using SCSMock.Repository.IRepository;
-using SCSMock.Utility;
+using SCS.Data;
+using SCS.Models;
+using SCS.Models.ViewModels;
+using SCS.Repository.IRepository;
+using SCS.Utility;
 using Stripe.Checkout;
 
-namespace SCSMock.Areas.Customer
+namespace SCS.Areas.Customer
 {
     [Area("Customer")]
 

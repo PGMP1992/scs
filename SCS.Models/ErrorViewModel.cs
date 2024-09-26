@@ -1,4 +1,4 @@
-namespace SCSMock.Models
+namespace SCS.Models
 {
     public class ErrorViewModel
     {

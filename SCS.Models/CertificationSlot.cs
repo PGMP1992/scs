@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SCSMock.Models;
+namespace SCS.Models;
 
 public class CertificationSlot
 {

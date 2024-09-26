@@ -3,14 +3,14 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using SCSMock.Models;
-using SCSMock.Models.ViewModels;
-using SCSMock.Repository.IRepository;
-using SCSMock.Repository;
-using SCSMock.Utility;
+using SCS.Models;
+using SCS.Models.ViewModels;
+using SCS.Repository.IRepository;
+using SCS.Repository;
+using SCS.Utility;
 using System.Reflection.Metadata;
 
-namespace SCSMock.Areas.Admin;
+namespace SCS.Areas.Admin;
 
 [Area("Admin")]
 [Authorize(Roles = SD.Role_Admin)]

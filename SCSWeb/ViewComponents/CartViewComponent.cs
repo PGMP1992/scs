@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SCSMock.Repository.IRepository;
-using SCSMock.Utility;
+using SCS.Repository.IRepository;
+using SCS.Utility;
 
-namespace SCSMock.ViewComponents
+namespace SCS.ViewComponents
 {
     public class CartViewComponent : ViewComponent
     {
