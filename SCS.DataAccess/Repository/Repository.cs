@@ -65,9 +65,9 @@ public class Repository<T> : IRepository<T> where T : class
         }
         return query.ToList();
     }
+    
     public bool Any(Expression<Func<T, bool>> filter)
     {
-
         return dbSet.Any(filter);
     }
 
