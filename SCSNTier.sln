@@ -10,6 +10,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCS.Utility", "SCS.Utility\SCS.Utility.csproj", "{057EA65B-7C7C-40D6-AB41-E7826851087E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCSWeb", "SCSWeb\SCSWeb.csproj", "{A6EB4A81-0E27-420B-8295-AE3C57D72B92}"
+	ProjectSection(ProjectDependencies) = postProject
+		{057EA65B-7C7C-40D6-AB41-E7826851087E} = {057EA65B-7C7C-40D6-AB41-E7826851087E}
+		{0A3EDACE-AFAD-4FBE-B27A-F05E0E1F983F} = {0A3EDACE-AFAD-4FBE-B27A-F05E0E1F983F}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

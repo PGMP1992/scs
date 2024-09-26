@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using SCSMock.Utility;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -21,7 +20,7 @@ public class Product
     [DisplayFormat()]
     [DataType(DataType.Currency)]
     public double Price { get; set; }
-    public string Status { get; set; } = SD.ProductStatusRegistrated;
+    public string Status { get; set; } = "";
 
     public int CategoryId { get; set; }
     [ForeignKey(nameof(CategoryId))]
