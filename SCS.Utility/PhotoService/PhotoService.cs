@@ -29,7 +29,7 @@ namespace SCS.Utility.PhotoService
                 {
                     File = new FileDescription(file.FileName, stream),
                     //Transformation = new Transformation().Height(500).Width(500).Crop("fill").Gravity("face")
-                    Transformation = new Transformation().Height(300).Width(500)
+                    Transformation = new Transformation().Height(600).Width(1000)
                 };
                 uploadResult = await _cloudinary.UploadAsync(uploadParams);
             }
