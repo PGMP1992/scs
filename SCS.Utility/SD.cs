@@ -10,7 +10,7 @@
         //Static Data
         public const string ProductStatusRegistrated = "Registred";
         public const string ProductStatusActive = "Active";
-        public const string ProductStatusExpierd = "Expired";
+        public const string ProductStatusExpired = "Expired";
 
         // Order Status
         public const string StatusPending = "Pending";

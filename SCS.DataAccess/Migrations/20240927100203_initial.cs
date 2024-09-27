@@ -449,9 +449,9 @@ namespace SCS.DataAccess.Migrations
                 columns: new[] { "Id", "DayOfWeek", "EndDate", "ParticipantsMax", "ParticipantsRegistered", "ProductId", "StartDate", "WeekNumbers" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2024, 11, 25, 8, 58, 37, 431, DateTimeKind.Local).AddTicks(6271), 10, 0, 1, new DateTime(2024, 9, 26, 8, 58, 37, 431, DateTimeKind.Local).AddTicks(6268), "[39,41,43]" },
-                    { 2, 2, new DateTime(2024, 12, 15, 8, 58, 37, 431, DateTimeKind.Local).AddTicks(6301), 15, 0, 1, new DateTime(2024, 10, 6, 8, 58, 37, 431, DateTimeKind.Local).AddTicks(6299), "[43,45,437]" },
-                    { 3, 2, new DateTime(2024, 12, 15, 8, 58, 37, 431, DateTimeKind.Local).AddTicks(6311), 15, 0, 2, new DateTime(2024, 10, 6, 8, 58, 37, 431, DateTimeKind.Local).AddTicks(6309), "[43,45,47]" }
+                    { 1, 1, new DateTime(2024, 11, 26, 12, 2, 1, 896, DateTimeKind.Local).AddTicks(4289), 10, 0, 1, new DateTime(2024, 9, 27, 12, 2, 1, 896, DateTimeKind.Local).AddTicks(4287), "[39,41,43]" },
+                    { 2, 2, new DateTime(2024, 12, 16, 12, 2, 1, 896, DateTimeKind.Local).AddTicks(4315), 15, 0, 1, new DateTime(2024, 10, 7, 12, 2, 1, 896, DateTimeKind.Local).AddTicks(4313), "[43,45,437]" },
+                    { 3, 2, new DateTime(2024, 12, 16, 12, 2, 1, 896, DateTimeKind.Local).AddTicks(4325), 15, 0, 2, new DateTime(2024, 10, 7, 12, 2, 1, 896, DateTimeKind.Local).AddTicks(4323), "[43,45,47]" }
                 });
 
             migrationBuilder.CreateIndex(
