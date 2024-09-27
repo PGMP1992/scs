@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SCS.DataAccess.Data;
-using SCS.DataAccess.Repository.IRepository;
+using SCS.Data;
+using SCS.Repository.IRepository;
 using System.Linq.Expressions;
 
-namespace SCS.DataAccess.Repository;
+namespace SCS.Repository;
 
 public class Repository<T> : IRepository<T> where T : class
 {
@@ -13,7 +13,7 @@ public class Repository<T> : IRepository<T> where T : class
     public Repository(ApplicationDbContext db)
     {
         _db = db;
-        dbSet = _db.Set<T>();
+        this.dbSet = _db.Set<T>();
     }
 
     public async void Add(T entity)
@@ -21,7 +21,7 @@ public class Repository<T> : IRepository<T> where T : class
         await dbSet.AddAsync(entity);
     }
 
-    public T Get(Expression<Func<T, bool>> filter,
+    public T Get( Expression<Func<T, bool>> filter,
         string? includeProperties = null,
         bool tracked = false)
     {
@@ -47,7 +47,7 @@ public class Repository<T> : IRepository<T> where T : class
         return query.FirstOrDefault();
     }
 
-    public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter,
+    public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter, 
         string? includeProperties = null)
     {
         IQueryable<T> query = dbSet;
@@ -65,7 +65,7 @@ public class Repository<T> : IRepository<T> where T : class
         }
         return query.ToList();
     }
-
+    
     public bool Any(Expression<Func<T, bool>> filter)
     {
         return dbSet.Any(filter);

@@ -1,6 +1,6 @@
 ﻿using SCS.Models;
 
-namespace SCS.DataAccess.Repository.IRepository;
+namespace SCS.Repository.IRepository;
 
 public interface IProviderRepository : IRepository<Provider>
 {

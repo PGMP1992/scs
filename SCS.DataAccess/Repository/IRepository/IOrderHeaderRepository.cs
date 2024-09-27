@@ -1,12 +1,12 @@
 ﻿using SCS.Models;
 
-namespace SCS.DataAccess.Repository.IRepository
+namespace SCS.Repository.IRepository
 {
     public interface IOrderHeaderRepository : IRepository<OrderHeader>
     {
-        void Update(OrderHeader obj);
-        void UpdateStatus(int id, string orderStatus, string? paymentStatus = null);
-        void UpdateStripePaymentID(int id, string sessionId, string paymentIntentId);
-    }
+		void Update(OrderHeader obj);
+		void UpdateStatus(int id, string orderStatus, string? paymentStatus = null);
+		void UpdateStripePaymentID(int id, string sessionId, string paymentIntentId);
+	}
 }
 

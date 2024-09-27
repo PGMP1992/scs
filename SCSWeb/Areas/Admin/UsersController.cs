@@ -2,13 +2,13 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using SCS.DataAccess.Repository.IRepository;
 using SCS.Models;
 using SCS.Models.ViewModels;
+using SCS.Repository.IRepository;
 using SCS.Utility;
 using System.Net;
 
-namespace SCSWeb.Areas.Admin
+namespace SCS.Areas.Admin
 {
     [Area("Admin")]
     [Authorize(Roles = SD.Role_Admin)]
@@ -31,7 +31,7 @@ namespace SCSWeb.Areas.Admin
         public IActionResult Index()
         {
             // Show only users that have logged - PM 
-
+            
             return View();
         }
 
@@ -68,11 +68,11 @@ namespace SCSWeb.Areas.Admin
 
             // Update Address first ---------------------
             var address = _unitOfWork.Address.Get(a => a.Id == appUser.AddressId, null, true);
-
+            
             // New registered User has no Address. 
             if (address == null)
                 address = new Address();
-
+            
             // Need this otherwise updates Address.Id on Existing User.Address
             address.Street1 = userVM.AppUser.Address.Street1;
             address.Street2 = userVM.AppUser.Address.Street2;
@@ -109,7 +109,7 @@ namespace SCSWeb.Areas.Admin
         [HttpGet]
         public IActionResult GetAll()
         {
-
+            
             List<AppUser> objUserList = _unitOfWork.AppUser.GetAll(u => u.NormalizedEmail != null).ToList();
             //List<AppUser> objUserList = _unitOfWork.AppUser.GetAll().ToList(); - Original showing all users - PM
             // Using AspNetUserRoles and AspNetRoles tables

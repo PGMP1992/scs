@@ -1,4 +1,4 @@
-﻿namespace SCS.DataAccess.Data.DbInitializer;
+﻿namespace SCS.Data.DbInitializer;
 
 public interface IDbInitializer
 {

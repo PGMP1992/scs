@@ -1,13 +1,13 @@
-﻿using SCS.DataAccess.Data;
-using SCS.DataAccess.Repository.IRepository;
+﻿using SCS.Data;
 using SCS.Models;
+using SCS.Repository.IRepository;
 
-namespace SCS.DataAccess.Repository
+namespace SCS.Repository
 {
     public class CartRepository : Repository<Cart>, ICartRepository
     {
         private ApplicationDbContext _db;
-
+        
         public CartRepository(ApplicationDbContext db) : base(db)
         {
             _db = db;

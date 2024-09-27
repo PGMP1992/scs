@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using SCS.DataAccess.Data;
-using SCS.DataAccess.Repository.IRepository;
 using SCS.Models;
+using SCS.Repository.IRepository;
 using SCS.Utility;
 
-namespace SCS.DataAccess.Data.DbInitializer;
+namespace SCS.Data.DbInitializer;
 
 public class DbInitializer : IDbInitializer
 {
@@ -67,7 +66,7 @@ public class DbInitializer : IDbInitializer
 
         AppUser user = _db.AppUsers.FirstOrDefault(u => u.Email == SD.AdminEmail);
         _userManager.AddToRoleAsync(user, SD.Role_Admin).GetAwaiter().GetResult();
-
+        
         return;
     }
 }

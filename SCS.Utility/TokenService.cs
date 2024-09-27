@@ -5,12 +5,12 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace SCS.Utility
+namespace SCS.Services
 {
     public class TokenService
     {
         private readonly IConfiguration _config;
-
+        
         public TokenService(IConfiguration config)
         {
             _config = config;

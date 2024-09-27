@@ -1,8 +1,8 @@
 ﻿using SCS.Models;
 
-namespace SCS.DataAccess.Repository.IRepository
+namespace SCS.Repository.IRepository
 {
-    public interface ICartRepository : IRepository<Cart>
+    public interface ICartRepository :IRepository<Cart>
     {
         void Update(Cart cart);
     }

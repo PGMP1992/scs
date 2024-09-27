@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using SCS.DataAccess.Repository.IRepository;
 using SCS.Models;
 using SCS.Models.ViewModels;
+using SCS.Repository.IRepository;
 using SCS.Utility;
 
-namespace SCSWeb.Areas.Admin;
+namespace SCS.Areas.Admin;
 
 
 [Area("Admin")]
@@ -25,10 +25,10 @@ public class CertificationSlotsController : Controller
 
     public IActionResult Index()
     {
-        IEnumerable<CertificationSlot> certificationSlotList = _unitOfWork.CertificationSlot.GetAll(includeProperties: "Product");
+        IEnumerable<CertificationSlot> certificationSlotList =_unitOfWork.CertificationSlot.GetAll(includeProperties: "Product");
 
         return View(certificationSlotList);
-
+       
     }
     public IActionResult Upsert(int? id)
     {
@@ -68,7 +68,7 @@ public class CertificationSlotsController : Controller
             }
             _unitOfWork.Save();
 
-
+          
 
             TempData["success"] = "The certificationSlot was created/updated";
             return RedirectToAction("Index");
@@ -81,14 +81,14 @@ public class CertificationSlotsController : Controller
                 Value = u.Id.ToString()
             });
 
-
+           
             return View(certificationSlotVM);
         }
     }
 
     public IActionResult Delete(int id)
     {
-
+       
         if (id != null && id > 0)
         {
             CertificationSlot certificationSlot = _unitOfWork.CertificationSlot.Get(u => u.Id == id, includeProperties: "Product");
@@ -107,7 +107,7 @@ public class CertificationSlotsController : Controller
             TempData["error"] = "Error with deleting";
         }
 
-
+       
 
         _unitOfWork.CertificationSlot.Remove(certificationSlot);
         _unitOfWork.Save();

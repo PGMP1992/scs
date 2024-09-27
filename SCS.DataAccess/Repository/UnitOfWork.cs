@@ -1,8 +1,7 @@
-﻿using SCS.DataAccess.Data;
-using SCS.DataAccess.Repository.IRepository;
-using SCS.Repository;
+﻿using SCS.Data;
+using SCS.Repository.IRepository;
 
-namespace SCS.DataAccess.Repository;
+namespace SCS.Repository;
 
 public class UnitOfWork : IUnitOfWork
 {
@@ -36,7 +35,7 @@ public class UnitOfWork : IUnitOfWork
         Bundle = new BundleRepository(_db);
     }
 
-    public void Save()
+    public  void Save()
     {
         _db.SaveChanges();
     }

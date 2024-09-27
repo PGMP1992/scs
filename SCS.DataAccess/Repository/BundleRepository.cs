@@ -1,8 +1,8 @@
-﻿using SCS.DataAccess.Data;
-using SCS.DataAccess.Repository.IRepository;
+﻿using SCS.Data;
 using SCS.Models;
+using SCS.Repository.IRepository;
 
-namespace SCS.DataAccess.Repository;
+namespace SCS.Repository;
 
 internal class BundleRepository : Repository<Bundle>, IBundleRepository
 {

@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using SCS.DataAccess.Repository.IRepository;
 using SCS.Models;
 using SCS.Models.ViewModels;
+using SCS.Repository.IRepository;
 using SCS.Utility;
 
-namespace SCSWeb.Areas.Admin;
+namespace SCS.Areas.Admin.Controllers;
 
 [Area("Admin")]
 [Authorize(Roles = SD.Role_Admin)]
@@ -149,10 +149,10 @@ public class ProductsController : Controller
 
     public IActionResult Delete(int id)
     {
-
+        
         if (id != null && id > 0)
         {
-            Product product = _unitOfWork.Product.Get(u => u.Id == id, includeProperties: "ProductImages,Category,Provider");
+            Product product =  _unitOfWork.Product.Get(u => u.Id == id, includeProperties: "ProductImages,Category,Provider");
             return View(product);
         }
         TempData["error"] = "No product to delete";
@@ -169,26 +169,26 @@ public class ProductsController : Controller
             TempData["error"] = "Error with deleting";
         }
 
-        if (_unitOfWork.Bundle.Any(u => u.ProductId1 == id) || _unitOfWork.Bundle.Any(u => u.ProductId2 == id) || _unitOfWork.Bundle.Any(u => u.ProductId3 == id))
+        if(_unitOfWork.Bundle.Any(u=>u.ProductId1==id) || _unitOfWork.Bundle.Any(u => u.ProductId2 == id) || _unitOfWork.Bundle.Any(u => u.ProductId3 == id))
         {
             TempData["error"] = "The product is a part of a bundle, delete the bundle first";
             return View(product);
         }
 
 
-        if (!_unitOfWork.OrderDetails.Any(u => u.ProductId == id))
+        if(!_unitOfWork.OrderDetails.Any(u=>u.ProductId == id) )
         {
-            string productPath = @"images\products\product-" + id;
-            string finalPath = Path.Combine(_webHostEnvironment.WebRootPath, productPath);
-            if (Directory.Exists(finalPath))
+        string productPath = @"images\products\product-" + id;
+        string finalPath = Path.Combine(_webHostEnvironment.WebRootPath, productPath);
+        if (Directory.Exists(finalPath))
+        {
+            string[] filePaths = Directory.GetFiles(finalPath);
+            foreach (string filePath in filePaths)
             {
-                string[] filePaths = Directory.GetFiles(finalPath);
-                foreach (string filePath in filePaths)
-                {
-                    System.IO.File.Delete(filePath);
-                }
-                Directory.Delete(finalPath);
+                System.IO.File.Delete(filePath);
             }
+            Directory.Delete(finalPath);
+        }
             _unitOfWork.Product.Remove(product);
             TempData["success"] = "The product was deleted";
         }
@@ -200,7 +200,7 @@ public class ProductsController : Controller
 
         }
         _unitOfWork.Save();
-
+       
         return RedirectToAction("Index");
     }
 
