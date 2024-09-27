@@ -1,5 +1,5 @@
 ﻿.footer {
-    background-color: #002c41;
+    background-color: #052742;
     padding: 70px 0;
 }
 
@@ -9,7 +9,7 @@
 }
 
     .footer-col h4 {
-        font-size: 18px;
+        font-size: 15px;
         color: #ffffff;
         text-transform: capitalize;
         margin-bottom: 35px;
@@ -22,10 +22,10 @@
             position: absolute;
             left: 0;
             bottom: -10px;
-            background-color: #e91e63;
-            height: 2px;
+            background-color: #ffffff;
+            height: 1px;
             box-sizing: border-box;
-            width: 50px;
+            width: 70px;
         }
 
     .footer-col ul li:not(:last-child) {
@@ -33,7 +33,7 @@
     }
 
     .footer-col ul li a {
-        font-size: 16px;
+        font-size: 18px;
         color: #bbbbbb;
         text-decoration: none;
         transition: all 0.3s ease;
@@ -65,7 +65,7 @@
 @media(max-width: 767px) {
     .footer-col {
         width: 50%;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
     }
 }
 

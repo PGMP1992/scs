@@ -2,6 +2,9 @@
    Product Controller
    Index View
    Author : Pedro Martinez
+
+    <label for="search" name="search" class="form-check-label"><strong>Product:</strong></label>
+                <input class="col-8" type="text" name="search" placeholder="eg. Javascript, Google, etc">
 *@
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
@@ -12,8 +15,10 @@
     <div class="container bg-primary bg-light">
         <div class="row col-12">
             <div class="mt-2">
-                <label for="search" name="search" class="form-check-label"><strong>Product:</strong></label>
-                <input class="col-8" type="text" name="search" placeholder="eg. Javascript, Google, etc">
+     
+
+                <label for="search" class="form-check-label"><strong>Product:</strong></label>
+                <input id="search" class="form-control col-8" type="text" name="search" placeholder="Search products by name or provider..." aria-label="Product Search">
             </div>
         </div>
         <div class="row mb-2 mt-2">
@@ -30,57 +35,53 @@
 </form>
 
 @* Show Products ---------------- *@
-<div class="row row-cols-1 row-cols-md-5 g-2">
-        @foreach (var product in Model)
-        {
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-5 g-2">
+    @foreach (var product in Model)
+    {
         <div class="col">
             <div class="card h-100">
                 <a asp-action="Details" asp-route-productId="@product.Id" class="btn form-control">
+                    @* Lazy loading and alt attribute for better performance and SEO *@
                     @if (product.ProductImages != null && product.ProductImages.Count > 0)
                     {
-                        <img src="@product.ProductImages.FirstOrDefault().ImageUrl" class="card-img-top" />
+                        <img src="@product.ProductImages.FirstOrDefault().ImageUrl" class="card-img-top" alt="@product.Name image" loading="lazy" />
                     }
                     else
                     {
-                        <img src="https://placehold.co/600x400/png" class="card-img-top" />
+                        <img src="https://placehold.co/600x400/png" class="card-img-top" alt="Default product image" loading="lazy" />
                     }
-                    
+
                     <div class="card-body">
-                        
-                        <div class="pl-0">
-                            <h6 class="card-title text-dark text-center">@product.Name</h6>
-                        </div>
-                        <div class="pl-1">
-                            <p class="card-text text-warning text-center"><b>@product.Provider.Name</b></p>
-                        </div>
-                        <div class="pl-1">
-                            <p class="card-text text-success text-center"><b>@product.Category.Name</b></p>
-                        </div>
+                        <h6 class="card-title text-dark text-center">@product.Name</h6>
+                        <p class="card-text text-warning text-center"><b>@product.Provider.Name</b></p>
+                        <p class="card-text text-success text-center"><b>@product.Category.Name</b></p>
+                        @* Improved price formatting *@
+                        <div class="text-center">Price: <span>@string.Format("{0:C}", product.Price)</span></div>
                     </div>
-                    Price: <span>@product.Price.ToString("c")</span>
                 </a>
 
-                @* Buttons ----------------------------------*@
+                @* Buttons ---------------------------------- *@
                 <div class="card-footer border-0">
                     <div class="row">
                         <div class="col">
-                            @* has to pass route below to Controller.Details *@
-                            <a asp-area="Customer" asp-controller="Product" asp-action="Details" asp-route-productId="@product.Id"
-                                class="btn btn-primary form-control">
+                            @* Details button *@
+                            <a asp-area="Customer" asp-controller="Product" asp-action="Details" asp-route-productId="@product.Id" class="btn btn-primary form-control">
                                 Details
                             </a>
                         </div>
                         <div class="col">
                             @if (SignInManager.IsSignedIn(User))
                             {
-                                <a asp-area="Customer" asp-controller="Product" asp-action="AddToCart" asp-route-productId="@product.Id"
-                                    class="btn btn-dark form-control">
-                                    <i class="bi bi-cart"></i> @* Cart *@
+                                @* Add to Cart button with icon *@
+                                <a asp-area="Customer" asp-controller="Product" asp-action="AddToCart" asp-route-productId="@product.Id" class="btn btn-dark form-control">
+                                    <i class="bi bi-cart"></i> Add to Cart
                                 </a>
-                            } else {
-                                <a asp-area="Customer" asp-controller="Product" asp-action="Buy" asp-route-productId="@product.Id"
-                                    class="btn btn-dark form-control">
-                                    Buy
+                            }
+                            else
+                            {
+                                @* Buy button with icon *@
+                                <a asp-area="Customer" asp-controller="Product" asp-action="Buy" asp-route-productId="@product.Id" class="btn btn-dark form-control">
+                                    <i class="bi bi-bag"></i> Buy
                                 </a>
                             }
                         </div>
@@ -88,8 +89,17 @@
                 </div>
             </div>
         </div>
-        }
+    }
 </div>
+
+@* Hover effect styling for interactivity *@
+<style>
+    .card:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transform: scale(1.02);
+        transition: all 0.3s ease;
+    }
+</style>
   
 @*
     PM ---------------------------------------
