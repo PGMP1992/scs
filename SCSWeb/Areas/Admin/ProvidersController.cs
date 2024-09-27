@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SCS.DataAccess.Repository.IRepository;
 using SCS.Models;
-using SCS.Repository.IRepository;
 using SCS.Utility;
 
-namespace SCS.Areas.Admin.Controllers;
+namespace SCSWeb.Areas.Admin;
 
 [Area("Admin")]
 [Authorize(Roles = SD.Role_Admin)]

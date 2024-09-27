@@ -1,8 +1,8 @@
-﻿using SCS.Data;
+﻿using SCS.DataAccess.Data;
+using SCS.DataAccess.Repository.IRepository;
 using SCS.Models;
-using SCS.Repository.IRepository;
 
-namespace SCS.Repository;
+namespace SCS.DataAccess.Repository;
 
 internal class ProviderRepository : Repository<Provider>, IProviderRepository
 {

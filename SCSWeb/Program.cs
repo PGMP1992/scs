@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
-using SCS.Data;
-using SCS.Data.DbInitializer;
-using SCS.Repository;
-using SCS.Repository.IRepository;
+using SCS.DataAccess.Data;
+using SCS.DataAccess.Data.DbInitializer;
+using SCS.DataAccess.Repository;
+using SCS.DataAccess.Repository.IRepository;
 using SCS.Utility;
 using Stripe;
 

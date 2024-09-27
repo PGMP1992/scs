@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using SCS.DataAccess.Repository.IRepository;
 using SCS.Models;
 using SCS.Models.ViewModels;
-using SCS.Repository.IRepository;
 using SCS.Utility;
 using Stripe;
 using Stripe.Climate;
@@ -12,7 +12,7 @@ using Stripe.Issuing;
 using System.Diagnostics;
 using System.Security.Claims;
 
-namespace SiasGarden.Web.Areas.Admin.Controllers;
+namespace SCSWeb.Areas.Admin;
 
 [Area("Admin")]
 [Authorize]
@@ -72,7 +72,7 @@ public class OrderController : Controller
         orderHeaderFromDb.Name = OrderVM.OrderHeader.Name;
         orderHeaderFromDb.AppUser.Address = OrderVM.OrderHeader.AppUser.Address;
 
-      
+
         _unitOfWork.OrderHeader.Update(orderHeaderFromDb);
         _unitOfWork.Save();
         TempData["Success"] = "Orderdetaljer har uppdaterats";

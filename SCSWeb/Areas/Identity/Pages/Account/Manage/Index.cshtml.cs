@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace SCS.Areas.Identity.Pages.Account.Manage
+namespace SCSWeb.Areas.Identity.Pages.Account.Manage
 {
     public class IndexModel : PageModel
     {

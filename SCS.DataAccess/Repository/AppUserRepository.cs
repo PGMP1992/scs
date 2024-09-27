@@ -1,8 +1,8 @@
-﻿using SCS.Data;
+﻿using SCS.DataAccess.Data;
+using SCS.DataAccess.Repository.IRepository;
 using SCS.Models;
-using SCS.Repository.IRepository;
 
-namespace SCS.Repository
+namespace SCS.DataAccess.Repository
 {
     internal class AppUserRepository : Repository<AppUser>, IAppUserRepository
     {
@@ -28,12 +28,12 @@ namespace SCS.Repository
             return _db.AppUsers.FirstOrDefault(u => u.Id == id).Email;
         }
 
-        public void SetName(string id,string name)
+        public void SetName(string id, string name)
         {
-            _db.AppUsers.FirstOrDefault(u=>u.Id == id).Name = name;
+            _db.AppUsers.FirstOrDefault(u => u.Id == id).Name = name;
         }
 
-        public void SetEmail(string id, string email) 
+        public void SetEmail(string id, string email)
         {
             _db.AppUsers.FirstOrDefault(u => u.Id == id).Email = email;
         }

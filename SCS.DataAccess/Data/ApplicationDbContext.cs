@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using SCS.Models;
 using SCS.Utility;
 
-namespace SCS.Data
+namespace SCS.DataAccess.Data
 {
     public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
@@ -24,7 +24,7 @@ namespace SCS.Data
         public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Bundle> Bundles { get; set; }
-           
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -111,20 +111,20 @@ namespace SCS.Data
                   ProductId1 = 3,
                   ProductId2 = 4,
                   ProductId3 = 5,
-                  Price=8500
+                  Price = 8500
               }
 
          );
             modelBuilder.Entity<Product>().HasData(
                 new Product
                 {
-                     Id = 1,
-                     Name = "Certificate in Sanctions",
-                     CategoryId = 1,
-                     Description = "E-learning om efterlevnad av sanktioner i egen takt (15–20 timmar långt)",
-                     Price = 7200,
-                     Status = SD.ProductStatusRegistrated,
-                     ProviderId = 1
+                    Id = 1,
+                    Name = "Certificate in Sanctions",
+                    CategoryId = 1,
+                    Description = "E-learning om efterlevnad av sanktioner i egen takt (15–20 timmar långt)",
+                    Price = 7200,
+                    Status = SD.ProductStatusRegistrated,
+                    ProviderId = 1
                 },
                 new Product
                 {
@@ -149,12 +149,12 @@ namespace SCS.Data
                 new Product
                 {
                     Id = 4,
-                   Name = "C# Begginner",
-                   CategoryId = 2,
-                   Description = "C# Begginner Programming",
-                   Price = 200,
-                   Status = SD.ProductStatusRegistrated,
-                   ProviderId = 2
+                    Name = "C# Begginner",
+                    CategoryId = 2,
+                    Description = "C# Begginner Programming",
+                    Price = 200,
+                    Status = SD.ProductStatusRegistrated,
+                    ProviderId = 2
                 },
                 new Product
                 {
@@ -215,7 +215,7 @@ namespace SCS.Data
                     Price = 300,
                     Status = SD.ProductStatusRegistrated,
                     ProviderId = 2,
-                    BundleId=1
+                    BundleId = 1
                 }
             );
 
@@ -229,7 +229,7 @@ namespace SCS.Data
                    StartDate = DateTime.Now,
                    EndDate = DateTime.Now.AddDays(60),
                    DayOfWeek = DayOfWeek.Monday,
-                   WeekNumbers = new List<int>( ) { 39, 41, 43 }
+                   WeekNumbers = new List<int>() { 39, 41, 43 }
                },
 
                new CertificationSlot
@@ -241,7 +241,7 @@ namespace SCS.Data
                    StartDate = DateTime.Now.AddDays(10),
                    EndDate = DateTime.Now.AddDays(80),
                    DayOfWeek = DayOfWeek.Tuesday,
-                   WeekNumbers = new List<int>() { 43, 45, 437}
+                   WeekNumbers = new List<int>() { 43, 45, 437 }
 
                },
                 new CertificationSlot
@@ -256,7 +256,7 @@ namespace SCS.Data
                     WeekNumbers = new List<int>() { 43, 45, 47 }
                 }
            );
-           
+
 
 
         }

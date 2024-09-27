@@ -1,6 +1,6 @@
 ﻿using SCS.Models;
 
-namespace SCS.Repository.IRepository;
+namespace SCS.DataAccess.Repository.IRepository;
 
 public interface IBundleRepository : IRepository<Bundle>
 {

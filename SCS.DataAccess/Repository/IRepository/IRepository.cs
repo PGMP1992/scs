@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace SCS.Repository.IRepository;
+namespace SCS.DataAccess.Repository.IRepository;
 
 public interface IRepository<T> where T : class
 {

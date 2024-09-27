@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SCS.DataAccess.Repository.IRepository;
 using SCS.Models;
-using SCS.Repository.IRepository;
 using SCS.Utility;
 
-namespace SCS.Areas.Admin.Controllers;
+namespace SCSWeb.Areas.Admin;
 
 [Area("Admin")]
 [Authorize(Roles = SD.Role_Admin)]
@@ -29,7 +29,7 @@ public class CategoriesController : Controller
         Category categoryFromDb = new Category();
         if (id != null)
         {
-            categoryFromDb =  _unitOfWork.Category.Get(c => c.Id == id);
+            categoryFromDb = _unitOfWork.Category.Get(c => c.Id == id);
         }
         return View(categoryFromDb);
     }
@@ -87,7 +87,7 @@ public class CategoriesController : Controller
         _unitOfWork.Category.Remove(category);
         _unitOfWork.Save();
         TempData["success"] = "The category was deleted";
-        
+
         return RedirectToAction("Index");
     }
 

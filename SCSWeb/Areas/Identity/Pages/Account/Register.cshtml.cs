@@ -16,7 +16,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
 
-namespace SCS.Areas.Identity.Pages.Account
+namespace SCSWeb.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {
@@ -104,7 +104,7 @@ namespace SCS.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
 
             // Added for Roles - PM
-            public string? Role { get; set; }
+            public string Role { get; set; }
             [ValidateNever]
             public IEnumerable<SelectListItem> RoleList { get; set; }
         }
@@ -157,7 +157,7 @@ namespace SCS.Areas.Identity.Pages.Account
                     _logger.LogInformation("User created a new account with password.");
 
                     // Added to Role Select input - PM 
-                    if (!String.IsNullOrEmpty(Input.Role))
+                    if (!string.IsNullOrEmpty(Input.Role))
                     {
                         await _userManager.AddToRoleAsync(user, Input.Role);
                     }
@@ -172,7 +172,7 @@ namespace SCS.Areas.Identity.Pages.Account
                     var callbackUrl = Url.Page(
                         "/Account/ConfirmEmail",
                         pageHandler: null,
-                        values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
+                        values: new { area = "Identity", userId, code, returnUrl },
                         protocol: Request.Scheme);
 
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
@@ -180,7 +180,7 @@ namespace SCS.Areas.Identity.Pages.Account
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
-                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl });
                     }
                     else
                     {
