@@ -27,9 +27,9 @@ Get the element with id="defaultOpen" above and click on it */
 function clickTab() {
 
     document.getElementById("defaultOpen").click();
-    tabcontent = document.getElementsByClassName("tabcontent");
+    var tabcontent = document.getElementsByClassName("tabcontent");
 
-    for (i = 0; i < tabcontent.length; i++) {
+    for (var i = 0; i < tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
     } let slideIndex = 0;
     showSlides();

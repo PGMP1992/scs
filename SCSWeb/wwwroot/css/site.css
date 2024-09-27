@@ -1,26 +1,60 @@
-html {
-  font-size: 14px;
-}
-
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
+    font-size: 14px;
+    font-family: 'Public Sans', sans-serif;
 }
 
 body {
-  margin-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
 }
 
-.nav-item, dropdown-menu, dropdown-item {
+.navbar-nav {
+    font-family: 'Public Sans', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    word-spacing: 0.2em;
+}
+
+.nav-item,
+.dropdown-menu,
+.dropdown-item {
     color: black;
+}
+
+.container {
+    flex: 1;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.bg-primary {
+    background-color: #002c41 !important;
+}
+
+.custom-title {
+    color: #052742 !important;
+}
+
+.custom-margin {
+    margin-left: 3rem;
+    margin-right: 3rem;
 }

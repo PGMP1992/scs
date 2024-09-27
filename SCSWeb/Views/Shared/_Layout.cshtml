@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;800&display=swap">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/SCS.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="//cdn.datatables.net/2.1.5/css/dataTables.dataTables.min.css" />
@@ -20,10 +21,10 @@
 </head>
 <body>
     <header>
-        <img class="img-overlay offset-md-1" src="~/images/scs_logo.png" width="15%" height="auto" align="middle" alt="SCS AB" />
+      
         @* <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light border-bottom box-shadow mb-3"> *@
-        <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="light">
-            <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg" style="background-color: #052742;" data-bs-theme="light">
+            <div class="container">
                 @* <img class="img-fluid" src="~/images/scs_logo.png" width="10%" height="auto" alt="SCS AB" /> *@
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" 
@@ -153,6 +154,7 @@
     <footer>
         <partial name="_FooterPartial" />
     </footer>
+
     
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -162,4 +164,5 @@
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>
