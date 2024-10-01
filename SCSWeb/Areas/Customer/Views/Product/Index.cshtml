@@ -65,7 +65,8 @@
                     <div class="row">
                         <div class="col">
                             @* Details button *@
-                            <a asp-area="Customer" asp-controller="Product" asp-action="Details" asp-route-productId="@product.Id" class="btn btn-primary form-control">
+                            <a asp-area="Customer" asp-controller="Product" asp-action="Details" 
+                                asp-route-productId="@product.Id" class="btn btn-primary form-control">
                                 Details
                             </a>
                         </div>
@@ -74,14 +75,15 @@
                             {
                                 @* Add to Cart button with icon *@
                                 <a asp-area="Customer" asp-controller="Product" asp-action="AddToCart" asp-route-productId="@product.Id" class="btn btn-dark form-control">
-                                    <i class="bi bi-cart"></i> Add to Cart
+                                    <i class="bi bi-cart"></i>
                                 </a>
                             }
                             else
                             {
                                 @* Buy button with icon *@
                                 <a asp-area="Customer" asp-controller="Product" asp-action="Buy" asp-route-productId="@product.Id" class="btn btn-dark form-control">
-                                    <i class="bi bi-bag"></i> Buy
+                                    <i class="bi bi-bag"></i> 
+                                    Buy
                                 </a>
                             }
                         </div>

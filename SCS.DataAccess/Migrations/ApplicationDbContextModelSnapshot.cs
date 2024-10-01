@@ -440,33 +440,33 @@ namespace SCS.DataAccess.Migrations
                         {
                             Id = 1,
                             DayOfWeek = 1,
-                            EndDate = new DateTime(2024, 11, 26, 12, 2, 1, 896, DateTimeKind.Local).AddTicks(4289),
+                            EndDate = new DateTime(2024, 11, 30, 10, 23, 28, 576, DateTimeKind.Local).AddTicks(4541),
                             ParticipantsMax = 10,
                             ParticipantsRegistered = 0,
                             ProductId = 1,
-                            StartDate = new DateTime(2024, 9, 27, 12, 2, 1, 896, DateTimeKind.Local).AddTicks(4287),
+                            StartDate = new DateTime(2024, 10, 1, 10, 23, 28, 576, DateTimeKind.Local).AddTicks(4534),
                             WeekNumbers = "[39,41,43]"
                         },
                         new
                         {
                             Id = 2,
                             DayOfWeek = 2,
-                            EndDate = new DateTime(2024, 12, 16, 12, 2, 1, 896, DateTimeKind.Local).AddTicks(4315),
+                            EndDate = new DateTime(2024, 12, 20, 10, 23, 28, 576, DateTimeKind.Local).AddTicks(4595),
                             ParticipantsMax = 15,
                             ParticipantsRegistered = 0,
                             ProductId = 1,
-                            StartDate = new DateTime(2024, 10, 7, 12, 2, 1, 896, DateTimeKind.Local).AddTicks(4313),
+                            StartDate = new DateTime(2024, 10, 11, 10, 23, 28, 576, DateTimeKind.Local).AddTicks(4589),
                             WeekNumbers = "[43,45,437]"
                         },
                         new
                         {
                             Id = 3,
                             DayOfWeek = 2,
-                            EndDate = new DateTime(2024, 12, 16, 12, 2, 1, 896, DateTimeKind.Local).AddTicks(4325),
+                            EndDate = new DateTime(2024, 12, 20, 10, 23, 28, 576, DateTimeKind.Local).AddTicks(4623),
                             ParticipantsMax = 15,
                             ParticipantsRegistered = 0,
                             ProductId = 2,
-                            StartDate = new DateTime(2024, 10, 7, 12, 2, 1, 896, DateTimeKind.Local).AddTicks(4323),
+                            StartDate = new DateTime(2024, 10, 11, 10, 23, 28, 576, DateTimeKind.Local).AddTicks(4617),
                             WeekNumbers = "[43,45,47]"
                         });
                 });
