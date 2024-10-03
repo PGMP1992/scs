@@ -10,5 +10,6 @@ namespace SCS.Models.ViewModels
         public IEnumerable<SelectListItem> CategoryList { get; set; }
         [ValidateNever]
         public IEnumerable<SelectListItem> ProviderList { get; set; }
+        public IEnumerable<SelectListItem> CertSlotList { get; set; }
     }
 }

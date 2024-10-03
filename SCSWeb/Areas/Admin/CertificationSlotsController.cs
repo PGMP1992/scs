@@ -25,46 +25,37 @@ public class CertificationSlotsController : Controller
 
     public IActionResult Index()
     {
-        IEnumerable<CertificationSlot> certificationSlotList =_unitOfWork.CertificationSlot.GetAll();
+        
+        IEnumerable<CertificationSlot> cerSlotList =_unitOfWork.CertificationSlot.GetAll();
 
-        return View(certificationSlotList);
+        return View(cerSlotList);
        
     }
     public IActionResult Upsert(int? id)
     {
-        CertificationSlotVM certificationSlotVM = new CertificationSlotVM()
-        {
-            CertificationSlot = new CertificationSlot(),
-
-            ProductList = _unitOfWork.Product.GetAll().Select(u => new SelectListItem
-            {
-                Text = u.Name,
-                Value = u.Id.ToString()
-            }),
-
-
-        };
+        CertificationSlot certSlot = new CertificationSlot();
+        
 
         if (id != null && id > 0)
         {
-            certificationSlotVM.CertificationSlot = _unitOfWork.CertificationSlot.Get(u=>u.Id==id);
+            certSlot = _unitOfWork.CertificationSlot.Get(u=>u.Id==id);
         }
 
-        return View(certificationSlotVM);
+        return View(certSlot);
     }
 
     [HttpPost]
-    public IActionResult Upsert(CertificationSlotVM certificationSlotVM)
+    public IActionResult Upsert(CertificationSlot certSlot)
     {
         if (ModelState.IsValid)
         {
-            if (certificationSlotVM.CertificationSlot.Id == 0)
+            if (certSlot.Id == 0)
             {
-                _unitOfWork.CertificationSlot.Add(certificationSlotVM.CertificationSlot);
+                _unitOfWork.CertificationSlot.Add(certSlot);
             }
             else
             {
-                _unitOfWork.CertificationSlot.Update(certificationSlotVM.CertificationSlot);
+                _unitOfWork.CertificationSlot.Update(certSlot);
             }
             _unitOfWork.Save();
 
@@ -73,17 +64,9 @@ public class CertificationSlotsController : Controller
             TempData["success"] = "The certificationSlot was created/updated";
             return RedirectToAction("Index");
         }
-        else
-        {
-            certificationSlotVM.ProductList = _unitOfWork.Product.GetAll().Select(u => new SelectListItem
-            {
-                Text = u.Name,
-                Value = u.Id.ToString()
-            });
-
-           
-            return View(certificationSlotVM);
-        }
+        CertificationSlot newCertSlot = new CertificationSlot();
+        TempData["error"] = "The certification slot couldnt be updated";
+        return View(newCertSlot);
     }
 
     public IActionResult Delete(int id)
@@ -120,7 +103,7 @@ public class CertificationSlotsController : Controller
     [HttpGet]
     public IActionResult GetAll()
     {
-        IEnumerable<CertificationSlot> CertificationSlotList = _unitOfWork.CertificationSlot.GetAll(includeProperties: "Product");
+        IEnumerable<CertificationSlot> CertificationSlotList = _unitOfWork.CertificationSlot.GetAll();
         foreach (var item in CertificationSlotList)
         {
 
