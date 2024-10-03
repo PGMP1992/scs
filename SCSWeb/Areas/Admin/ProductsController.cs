@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using SCS.Models;
 using SCS.Models.ViewModels;
 using SCS.Repository.IRepository;
@@ -51,7 +52,6 @@ public class ProductsController : Controller
                 Text = u.Name,
                 Value = u.Id.ToString()
             }),
-            Key = Guid.NewGuid().ToString()
 
         };
        
@@ -66,11 +66,16 @@ public class ProductsController : Controller
     [HttpPost]
     public IActionResult Upsert(ProductVM productVM, List<IFormFile> files)
     {
-        if (ModelState.IsValid)
+        if (!ModelState.IsValid)
         {
             if (productVM.Product.Id == 0)
             {
+                if(productVM.Product.CategoryId==1)
+                {
+                    productVM.Product.VoucherKey = Guid.NewGuid().ToString();
 
+                }
+                
                 _unitOfWork.Product.Add(productVM.Product);
             }
             else

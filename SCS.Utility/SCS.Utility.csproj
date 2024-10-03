@@ -13,14 +13,6 @@
     <PackageReference Include="SendGrid" Version="9.29.3" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\SCS.Models\SCS.Models.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="SCS.Models">
-      <HintPath>..\SCS.Models\bin\Debug\net8.0\SCS.Models.dll</HintPath>
-    </Reference>
-  </ItemGroup>
+ 
 
 </Project>

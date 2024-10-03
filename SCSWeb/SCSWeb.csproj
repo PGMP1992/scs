@@ -55,6 +55,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SCS.DataAccess\SCS.DataAccess.csproj" />
+    <ProjectReference Include="..\SCS.Models\SCS.Models.csproj" />
+    <ProjectReference Include="..\SCS.Utility\SCS.Utility.csproj" />
   </ItemGroup>
 
 </Project>

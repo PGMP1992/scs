@@ -1,6 +1,6 @@
 ﻿namespace SCS.Utility
 {
-    public class SD
+    public static class SD
     {
         // Roles
         public const string Role_Admin = "admin";

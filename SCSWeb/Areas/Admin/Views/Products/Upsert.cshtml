@@ -10,7 +10,7 @@
     </div>
     <div class="card-body p-4">
         <form method="post" class="row" enctype="multipart/form-data">
-            <input asp-for="Product.Id" hidden />
+            <input asp-for="@Model.Product.Id" hidden />
 
             <div class="row">
                 <div class="col-10">
@@ -52,20 +52,12 @@
                         </div>
                         @if(Model.Product.CategoryId==1)
                         {
-                            if(Model.Product.Id==0)
-                            {
-                                <div class="form-floating py-2 col-12">
-                                    <input disabled asp-for="Product.VoucherKey" value="@Model.Key" class="form-control border-1" />
-                                    <label asp-for="Product.VoucherKey" class="mt-2 "></label>
-                                </div>
-                            }
-                            else
-                            {
+                            
                                 <div class="form-floating py-2 col-12">
                                     <input disabled asp-for="Product.VoucherKey" class="form-control border-1" />
-                                    <label asp-for="Product.VoucherKey" class="mt-2 "></label>
+                                    <label asp-for="Product.VoucherKey" class="mt-2 ">Generats on save</label>
                                 </div>
-                            }
+                            
                        
                         }
                         <div class="form-floating py-2 col-12">

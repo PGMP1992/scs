@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using SCS.Utility;
+
 
 namespace SCS.Models;
-
 
 public class Product
 {
@@ -20,7 +21,7 @@ public class Product
     [DisplayFormat()]
     [DataType(DataType.Currency)]
     public double Price { get; set; }
-    public string Status { get; set; } = "";
+    public string Status { get; set; } = SD.ProductStatusRegistrated;
 
     public int CategoryId { get; set; }
     [ForeignKey(nameof(CategoryId))]
