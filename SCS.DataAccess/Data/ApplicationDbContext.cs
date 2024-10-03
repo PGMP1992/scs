@@ -158,7 +158,8 @@ namespace SCS.Data
                      Price = 7200,
                      Status = SD.ProductStatusRegistrated,
                      ProviderId = 1,
-                     CertSlotId=1
+                     CertSlotId=1,
+                     VoucherKey= "0f8fad5b-d9cb-469f-a165-70867728950e"
                 },
                 new Product
                 {
@@ -169,7 +170,8 @@ namespace SCS.Data
                     Price = 8400,
                     Status = SD.ProductStatusRegistrated,
                     ProviderId = 1,
-                    CertSlotId=1
+                    CertSlotId=1,
+                    VoucherKey = "7c9e6679-7425-40de-944b-e07fc1f90ae7"
                 },
                 new Product
                 {
@@ -180,7 +182,8 @@ namespace SCS.Data
                     Price = 1000,
                     Status = SD.ProductStatusRegistrated,
                     ProviderId = 2,
-                    CertSlotId=1
+                    CertSlotId=1,
+                    VoucherKey = "9x9e5429-7125-299c-v09fd1390bd3"
                 },
                 new Product
                 {

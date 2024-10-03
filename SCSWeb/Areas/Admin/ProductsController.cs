@@ -50,9 +50,11 @@ public class ProductsController : Controller
             {
                 Text = u.Name,
                 Value = u.Id.ToString()
-            })
-        };
+            }),
+            Key = Guid.NewGuid().ToString()
 
+        };
+       
         if (id != null && id > 0)
         {
             productVM.Product = _unitOfWork.Product.Get(u => u.Id == id, includeProperties: "ProductImages,Provider,Category,CertificationSlot");
@@ -68,6 +70,7 @@ public class ProductsController : Controller
         {
             if (productVM.Product.Id == 0)
             {
+
                 _unitOfWork.Product.Add(productVM.Product);
             }
             else
