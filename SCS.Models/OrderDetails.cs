@@ -17,6 +17,8 @@ public class OrderDetails
     
     [Required]
     public int ProductId { get; set; }
+
+    public string? VoucherKey { get; set; }
     
     [ForeignKey("ProductId")]
     [ValidateNever]
