@@ -15,4 +15,5 @@ namespace SCS.Models
         [Required]
         public int ProductId { get; set; }
     }
+
 }
