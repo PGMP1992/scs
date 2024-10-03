@@ -40,7 +40,7 @@ namespace SCS.Data
                     Country = "Country Admin",
                     Postcode = "111111"
                 }
-                );
+            );
 
             modelBuilder.Entity<Category>().HasData(
                 new Category
@@ -103,6 +103,7 @@ namespace SCS.Data
                    ContactPhone = "44444444"
                }
             );
+            
             modelBuilder.Entity<Bundle>().HasData(
               new Bundle
               {
@@ -113,8 +114,8 @@ namespace SCS.Data
                   ProductId3 = 5,
                   Price=8500
               }
-
-         );
+            );
+            
             modelBuilder.Entity<Product>().HasData(
                 new Product
                 {
@@ -256,9 +257,6 @@ namespace SCS.Data
                     WeekNumbers = new List<int>() { 43, 45, 47 }
                 }
            );
-           
-
-
         }
     }
 }
