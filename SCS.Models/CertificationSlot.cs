@@ -13,8 +13,8 @@ public class CertificationSlot
     public DateTime StartDate { get; set; } = DateTime.Now;
     [Display(Name = "Start Date (yyyy-mm-dd)")]
     public DateTime EndDate { get; set; } = DateTime.Now.AddDays(30);
-    public DayOfWeek? DayOfWeek { get; set; }
-    public List<DateOnly>? Dates { get; set; }
     
-     
+    public DayOfWeek? DayOfWeek { get; set; }
+    
+    public List<DateOnly> Dates { get; set; }
 }
