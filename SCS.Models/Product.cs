@@ -33,6 +33,7 @@ public class Product
     public Provider Provider { get; set; }
 
     public int? BundleId { get; set; }
+    public string? VoucherKey { get; set; }
 
     [ForeignKey(nameof(BundleId))]
     [ValidateNever]
