@@ -1,4 +1,6 @@
-﻿namespace SCS.Repository.IRepository
+﻿using SCS.DataAccess.Repository.IRepository;
+
+namespace SCS.Repository.IRepository
 {
     public interface IUnitOfWork
     {
@@ -13,6 +15,7 @@
         IOrderHeaderRepository OrderHeader { get; }
         IOrderDetailsRepository OrderDetails { get; }
         IBundleRepository Bundle { get; }
+        IBookingRepository Booking { get; }
 
         void Save();
     }

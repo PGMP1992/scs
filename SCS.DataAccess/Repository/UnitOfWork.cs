@@ -1,4 +1,5 @@
 ﻿using SCS.Data;
+using SCS.DataAccess.Repository.IRepository;
 using SCS.Repository.IRepository;
 
 namespace SCS.Repository;
@@ -16,6 +17,8 @@ public class UnitOfWork : IUnitOfWork
     public IOrderHeaderRepository OrderHeader { get; private set; }
     public IOrderDetailsRepository OrderDetails { get; private set; }
     public IBundleRepository Bundle { get; private set; }
+    public IBookingRepository Booking { get; private set; }
+    
 
     private ApplicationDbContext _db;
 
@@ -33,6 +36,7 @@ public class UnitOfWork : IUnitOfWork
         OrderHeader = new OrderHeaderRepository(_db);
         OrderDetails = new OrderDetailsRepository(_db);
         Bundle = new BundleRepository(_db);
+        Booking = new BookingRepository(_db);
     }
 
     public  void Save()
