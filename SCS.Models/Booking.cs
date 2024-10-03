@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SCS.Models
 {
@@ -7,13 +9,25 @@ namespace SCS.Models
         public int Id { get; set; }
 
         [Required]
+        public int AppUserId { get; set; }
+
+        [ForeignKey("AppUserId")]
+        [ValidateNever]
         public AppUser AppUser { get; set; }
-        
+
         [Required]
         public int CertificationSlotId {  get; set; }
-        
+
+        [ForeignKey("CertificationSlotId")]
+        [ValidateNever]
+        public CertificationSlot CertificationSlot { get; set; }
+
         [Required]
         public int ProductId { get; set; }
+
+        [ForeignKey("ProductId")]
+        [ValidateNever]
+        public Product Product { get; set; }
     }
 
 }
