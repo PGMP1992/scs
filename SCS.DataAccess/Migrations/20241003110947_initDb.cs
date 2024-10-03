@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SCS.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class initDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -74,6 +74,22 @@ namespace SCS.DataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CertificationSlots",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DayOfWeek = table.Column<int>(type: "int", nullable: true),
+                    Dates = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CertificationSlots", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -158,7 +174,8 @@ namespace SCS.DataAccess.Migrations
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     ProviderId = table.Column<int>(type: "int", nullable: true),
-                    BundleId = table.Column<int>(type: "int", nullable: true)
+                    BundleId = table.Column<int>(type: "int", nullable: true),
+                    CertSlotId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -322,31 +339,6 @@ namespace SCS.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CertificationSlots",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DayOfWeek = table.Column<int>(type: "int", nullable: false),
-                    WeekNumbers = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ParticipantsMax = table.Column<int>(type: "int", nullable: false),
-                    ParticipantsRegistered = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CertificationSlots", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_CertificationSlots_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ProductImages",
                 columns: table => new
                 {
@@ -417,6 +409,15 @@ namespace SCS.DataAccess.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "CertificationSlots",
+                columns: new[] { "Id", "Dates", "DayOfWeek", "EndDate", "StartDate" },
+                values: new object[,]
+                {
+                    { 1, "[\"2024-10-10\",\"2024-10-17\",\"2024-10-20\"]", null, new DateTime(2024, 11, 2, 13, 9, 47, 206, DateTimeKind.Local).AddTicks(176), new DateTime(2024, 10, 3, 13, 9, 47, 206, DateTimeKind.Local).AddTicks(174) },
+                    { 2, "[\"2024-10-10\",\"2024-10-17\",\"2024-10-27\",\"2024-11-02\",\"2024-11-27\"]", null, new DateTime(2024, 12, 2, 13, 9, 47, 206, DateTimeKind.Local).AddTicks(198), new DateTime(2024, 10, 3, 13, 9, 47, 206, DateTimeKind.Local).AddTicks(196) }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Providers",
                 columns: new[] { "Id", "ContactEmail", "ContactName", "ContactPhone", "Name" },
                 values: new object[,]
@@ -429,29 +430,19 @@ namespace SCS.DataAccess.Migrations
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "Id", "BundleId", "CategoryId", "Description", "Name", "Price", "ProviderId", "Status" },
+                columns: new[] { "Id", "BundleId", "CategoryId", "CertSlotId", "Description", "Name", "Price", "ProviderId", "Status" },
                 values: new object[,]
                 {
-                    { 1, null, 1, "E-learning om efterlevnad av sanktioner i egen takt (15–20 timmar långt)", "Certificate in Sanctions", 7200.0, 1, "Registred" },
-                    { 2, null, 1, "E-learning om efterlevnad av sanktioner i egen takt (15–20 timmar långt)", "Certificate in Corporate Governance", 8400.0, 1, "Registred" },
-                    { 3, null, 1, "C# Certification", "C# Certificate", 1000.0, 2, "Registred" },
-                    { 4, null, 2, "C# Begginner Programming", "C# Begginner", 200.0, 2, "Registred" },
-                    { 5, null, 3, "C# Begginner Programming", "C# Begginner", 300.0, 2, "Registred" },
-                    { 6, null, 2, "C# Intermediate Programming", "C# Intermediate", 200.0, 2, "Registred" },
-                    { 7, null, 3, "C# Intermediate Programming", "C# Intermediate", 300.0, 2, "Registred" },
-                    { 8, null, 2, "C# Advanced Programming", "C# Advanced", 200.0, 2, "Registred" },
-                    { 9, null, 3, "C# Advanced Programming", "C# Advanced", 300.0, 2, "Registred" },
-                    { 10, 1, 3, "C# Advanced Programming", "C# for beginners, Bundle", 300.0, 2, "Registred" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "CertificationSlots",
-                columns: new[] { "Id", "DayOfWeek", "EndDate", "ParticipantsMax", "ParticipantsRegistered", "ProductId", "StartDate", "WeekNumbers" },
-                values: new object[,]
-                {
-                    { 1, 1, new DateTime(2024, 11, 30, 10, 23, 28, 576, DateTimeKind.Local).AddTicks(4541), 10, 0, 1, new DateTime(2024, 10, 1, 10, 23, 28, 576, DateTimeKind.Local).AddTicks(4534), "[39,41,43]" },
-                    { 2, 2, new DateTime(2024, 12, 20, 10, 23, 28, 576, DateTimeKind.Local).AddTicks(4595), 15, 0, 1, new DateTime(2024, 10, 11, 10, 23, 28, 576, DateTimeKind.Local).AddTicks(4589), "[43,45,437]" },
-                    { 3, 2, new DateTime(2024, 12, 20, 10, 23, 28, 576, DateTimeKind.Local).AddTicks(4623), 15, 0, 2, new DateTime(2024, 10, 11, 10, 23, 28, 576, DateTimeKind.Local).AddTicks(4617), "[43,45,47]" }
+                    { 1, null, 1, 1, "E-learning om efterlevnad av sanktioner i egen takt (15–20 timmar långt)", "Certificate in Sanctions", 7200.0, 1, "Registred" },
+                    { 2, null, 1, 1, "E-learning om efterlevnad av sanktioner i egen takt (15–20 timmar långt)", "Certificate in Corporate Governance", 8400.0, 1, "Registred" },
+                    { 3, null, 1, 1, "C# Certification", "C# Certificate", 1000.0, 2, "Registred" },
+                    { 4, null, 2, null, "C# Begginner Programming", "C# Begginner", 200.0, 2, "Registred" },
+                    { 5, null, 3, null, "C# Begginner Programming", "C# Begginner", 300.0, 2, "Registred" },
+                    { 6, null, 2, null, "C# Intermediate Programming", "C# Intermediate", 200.0, 2, "Registred" },
+                    { 7, null, 3, null, "C# Intermediate Programming", "C# Intermediate", 300.0, 2, "Registred" },
+                    { 8, null, 2, null, "C# Advanced Programming", "C# Advanced", 200.0, 2, "Registred" },
+                    { 9, null, 3, null, "C# Advanced Programming", "C# Advanced", 300.0, 2, "Registred" },
+                    { 10, 1, 3, null, "C# Advanced Programming", "C# for beginners, Bundle", 300.0, 2, "Registred" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -506,11 +497,6 @@ namespace SCS.DataAccess.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Carts_ProductId",
                 table: "Carts",
-                column: "ProductId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CertificationSlots_ProductId",
-                table: "CertificationSlots",
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(

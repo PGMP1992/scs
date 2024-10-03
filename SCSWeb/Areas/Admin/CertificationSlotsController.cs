@@ -25,7 +25,7 @@ public class CertificationSlotsController : Controller
 
     public IActionResult Index()
     {
-        IEnumerable<CertificationSlot> certificationSlotList =_unitOfWork.CertificationSlot.GetAll(includeProperties: "Product");
+        IEnumerable<CertificationSlot> certificationSlotList =_unitOfWork.CertificationSlot.GetAll();
 
         return View(certificationSlotList);
        
@@ -47,7 +47,7 @@ public class CertificationSlotsController : Controller
 
         if (id != null && id > 0)
         {
-            certificationSlotVM.CertificationSlot = _unitOfWork.CertificationSlot.Get(u => u.Id == id, includeProperties: "Product");
+            certificationSlotVM.CertificationSlot = _unitOfWork.CertificationSlot.Get(u=>u.Id==id);
         }
 
         return View(certificationSlotVM);
@@ -91,7 +91,7 @@ public class CertificationSlotsController : Controller
        
         if (id != null && id > 0)
         {
-            CertificationSlot certificationSlot = _unitOfWork.CertificationSlot.Get(u => u.Id == id, includeProperties: "Product");
+            CertificationSlot certificationSlot = _unitOfWork.CertificationSlot.Get(u=>u.Id==id);
             return View(certificationSlot);
         }
         TempData["error"] = "No certificationSlot to delete";

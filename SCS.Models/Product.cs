@@ -16,7 +16,7 @@ public class Product
     [Required]
     public string? Description { get; set; }
 
-    [Range(0, 100000, ErrorMessage = "Please enter a value between 0.00 and 100,000.00")]
+    [Range(1, 100000, ErrorMessage = "Please enter a value between 1 and 100,000.00")]
     [DisplayFormat()]
     [DataType(DataType.Currency)]
     public double Price { get; set; }
@@ -41,6 +41,8 @@ public class Product
     [ValidateNever]
     public List<ProductImage> ProductImages { get; set; }
 
-    //  [ValidateNever]
-    //  public List<CertificationSlot> CertificationSlots { get; set; }
+    public int? CertSlotId { get; set; }
+    [ForeignKey(nameof(CertSlotId))]
+    [ValidateNever]
+    CertificationSlot CertificationSlot { get; set; }
 }

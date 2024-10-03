@@ -12,8 +12,8 @@ using SCS.Data;
 namespace SCS.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241001082331_initial")]
-    partial class initial
+    [Migration("20241003110947_initDb")]
+    partial class initDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -410,31 +410,20 @@ namespace SCS.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("DayOfWeek")
+                    b.Property<string>("Dates")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("DayOfWeek")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ParticipantsMax")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ParticipantsRegistered")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("WeekNumbers")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("CertificationSlots");
 
@@ -442,35 +431,16 @@ namespace SCS.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            DayOfWeek = 1,
-                            EndDate = new DateTime(2024, 11, 30, 10, 23, 28, 576, DateTimeKind.Local).AddTicks(4541),
-                            ParticipantsMax = 10,
-                            ParticipantsRegistered = 0,
-                            ProductId = 1,
-                            StartDate = new DateTime(2024, 10, 1, 10, 23, 28, 576, DateTimeKind.Local).AddTicks(4534),
-                            WeekNumbers = "[39,41,43]"
+                            Dates = "[\"2024-10-10\",\"2024-10-17\",\"2024-10-20\"]",
+                            EndDate = new DateTime(2024, 11, 2, 13, 9, 47, 206, DateTimeKind.Local).AddTicks(176),
+                            StartDate = new DateTime(2024, 10, 3, 13, 9, 47, 206, DateTimeKind.Local).AddTicks(174)
                         },
                         new
                         {
                             Id = 2,
-                            DayOfWeek = 2,
-                            EndDate = new DateTime(2024, 12, 20, 10, 23, 28, 576, DateTimeKind.Local).AddTicks(4595),
-                            ParticipantsMax = 15,
-                            ParticipantsRegistered = 0,
-                            ProductId = 1,
-                            StartDate = new DateTime(2024, 10, 11, 10, 23, 28, 576, DateTimeKind.Local).AddTicks(4589),
-                            WeekNumbers = "[43,45,437]"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            DayOfWeek = 2,
-                            EndDate = new DateTime(2024, 12, 20, 10, 23, 28, 576, DateTimeKind.Local).AddTicks(4623),
-                            ParticipantsMax = 15,
-                            ParticipantsRegistered = 0,
-                            ProductId = 2,
-                            StartDate = new DateTime(2024, 10, 11, 10, 23, 28, 576, DateTimeKind.Local).AddTicks(4617),
-                            WeekNumbers = "[43,45,47]"
+                            Dates = "[\"2024-10-10\",\"2024-10-17\",\"2024-10-27\",\"2024-11-02\",\"2024-11-27\"]",
+                            EndDate = new DateTime(2024, 12, 2, 13, 9, 47, 206, DateTimeKind.Local).AddTicks(198),
+                            StartDate = new DateTime(2024, 10, 3, 13, 9, 47, 206, DateTimeKind.Local).AddTicks(196)
                         });
                 });
 
@@ -565,6 +535,9 @@ namespace SCS.DataAccess.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("CertSlotId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -599,6 +572,7 @@ namespace SCS.DataAccess.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
+                            CertSlotId = 1,
                             Description = "E-learning om efterlevnad av sanktioner i egen takt (15–20 timmar långt)",
                             Name = "Certificate in Sanctions",
                             Price = 7200.0,
@@ -609,6 +583,7 @@ namespace SCS.DataAccess.Migrations
                         {
                             Id = 2,
                             CategoryId = 1,
+                            CertSlotId = 1,
                             Description = "E-learning om efterlevnad av sanktioner i egen takt (15–20 timmar långt)",
                             Name = "Certificate in Corporate Governance",
                             Price = 8400.0,
@@ -619,6 +594,7 @@ namespace SCS.DataAccess.Migrations
                         {
                             Id = 3,
                             CategoryId = 1,
+                            CertSlotId = 1,
                             Description = "C# Certification",
                             Name = "C# Certificate",
                             Price = 1000.0,
@@ -869,17 +845,6 @@ namespace SCS.DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("AppUser");
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("SCS.Models.CertificationSlot", b =>
-                {
-                    b.HasOne("SCS.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
 
                     b.Navigation("Product");
                 });

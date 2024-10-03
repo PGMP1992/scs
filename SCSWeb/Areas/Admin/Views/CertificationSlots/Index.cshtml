@@ -34,18 +34,7 @@
                     <th class="text-success-emphasis">
                         EndDate
                     </th>
-                    <th class="text-success-emphasis">
-                        Day of Week
-                    </th>
-                    <th class="text-success-emphasis">
-                        Week Numbers
-                    </th>
-                    <th class="text-success-emphasis">
-                        Number of Participants max
-                    </th>
-                    <th class="text-success-emphasis">
-                        Number of Registered participants
-                    </th>
+                   
                     <th class="text-success-emphasis">
 
                     </th>
@@ -53,38 +42,17 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var obj in Model.OrderBy(u => u.Product.Name))
+                @foreach (var obj in Model)
                 {
                     <tr>
-                        <td>
-                            <a asp-controller="CertificationSlots" asp-action="Upsert" asp-route-id="@obj.Id" class="text-black
-    ">
-                                @obj.Product.Name
-                            </a>
-                        </td>
-
+                      
                         <td>
                             @obj.StartDate
                         </td>
                         <td>
                             @obj.EndDate
                         <td>
-                            @obj.DayOfWeek
-                        </td>
-                        <td>
-                            @foreach(int i in obj.WeekNumbers)
-                                {
-                                    @i
-                                    <br />
-                                }
-                            </td>
-                        <td>
-                            @obj.ParticipantsMax
-                        </td>
-                        <td>
-                            @obj.ParticipantsRegistered
-                        </td>
-                        <td>
+                  
                             <div class="w-75 btn-group" role="group">
                                 <a asp-controller="CertificationSlots" asp-action="Upsert" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
                                     <i class="bi bi-pencil-square"></i> Edit

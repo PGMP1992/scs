@@ -115,6 +115,36 @@ namespace SCS.Data
               }
 
          );
+            modelBuilder.Entity<CertificationSlot>().HasData(
+               new CertificationSlot
+               {
+                   Id = 1,
+                   StartDate = DateTime.Now,
+                   EndDate = DateTime.Now.AddDays(30),
+                   Dates=new List<DateOnly>()
+                   {
+                       DateOnly.FromDateTime( DateTime.Now.AddDays(7) ),
+                       DateOnly.FromDateTime( DateTime.Now.AddDays(14) ),
+                       DateOnly.FromDateTime( DateTime.Now.AddDays(17) ),
+
+
+                   }
+               },
+                new CertificationSlot
+                {
+                    Id = 2,
+                    StartDate = DateTime.Now,
+                    EndDate = DateTime.Now.AddDays(60),
+                    Dates = new List<DateOnly>()
+                   {
+                       DateOnly.FromDateTime( DateTime.Now.AddDays(7) ),
+                       DateOnly.FromDateTime( DateTime.Now.AddDays(14) ),
+                       DateOnly.FromDateTime( DateTime.Now.AddDays(24) ),
+                       DateOnly.FromDateTime( DateTime.Now.AddDays(30) ),
+                       DateOnly.FromDateTime( DateTime.Now.AddDays(55) ),
+                   }
+                }
+           );
             modelBuilder.Entity<Product>().HasData(
                 new Product
                 {
@@ -124,7 +154,8 @@ namespace SCS.Data
                      Description = "E-learning om efterlevnad av sanktioner i egen takt (15–20 timmar långt)",
                      Price = 7200,
                      Status = SD.ProductStatusRegistrated,
-                     ProviderId = 1
+                     ProviderId = 1,
+                     CertSlotId=1
                 },
                 new Product
                 {
@@ -134,7 +165,8 @@ namespace SCS.Data
                     Description = "E-learning om efterlevnad av sanktioner i egen takt (15–20 timmar långt)",
                     Price = 8400,
                     Status = SD.ProductStatusRegistrated,
-                    ProviderId = 1
+                    ProviderId = 1,
+                    CertSlotId=1
                 },
                 new Product
                 {
@@ -144,7 +176,8 @@ namespace SCS.Data
                     Description = "C# Certification",
                     Price = 1000,
                     Status = SD.ProductStatusRegistrated,
-                    ProviderId = 2
+                    ProviderId = 2,
+                    CertSlotId=1
                 },
                 new Product
                 {
@@ -219,43 +252,7 @@ namespace SCS.Data
                 }
             );
 
-            modelBuilder.Entity<CertificationSlot>().HasData(
-               new CertificationSlot
-               {
-                   Id = 1,
-                   ProductId = 1,
-                   ParticipantsMax = 10,
-                   ParticipantsRegistered = 0,
-                   StartDate = DateTime.Now,
-                   EndDate = DateTime.Now.AddDays(60),
-                   DayOfWeek = DayOfWeek.Monday,
-                   WeekNumbers = new List<int>( ) { 39, 41, 43 }
-               },
-
-               new CertificationSlot
-               {
-                   Id = 2,
-                   ProductId = 1,
-                   ParticipantsMax = 15,
-                   ParticipantsRegistered = 0,
-                   StartDate = DateTime.Now.AddDays(10),
-                   EndDate = DateTime.Now.AddDays(80),
-                   DayOfWeek = DayOfWeek.Tuesday,
-                   WeekNumbers = new List<int>() { 43, 45, 437}
-
-               },
-                new CertificationSlot
-                {
-                    Id = 3,
-                    ProductId = 2,
-                    ParticipantsMax = 15,
-                    ParticipantsRegistered = 0,
-                    StartDate = DateTime.Now.AddDays(10),
-                    EndDate = DateTime.Now.AddDays(80),
-                    DayOfWeek = DayOfWeek.Tuesday,
-                    WeekNumbers = new List<int>() { 43, 45, 47 }
-                }
-           );
+            
            
 
 
