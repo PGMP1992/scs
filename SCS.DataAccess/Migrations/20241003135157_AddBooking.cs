@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SCS.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class initDb : Migration
+    public partial class AddBooking : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -82,6 +82,7 @@ namespace SCS.DataAccess.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DayOfWeek = table.Column<int>(type: "int", nullable: true),
@@ -175,6 +176,7 @@ namespace SCS.DataAccess.Migrations
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     ProviderId = table.Column<int>(type: "int", nullable: true),
                     BundleId = table.Column<int>(type: "int", nullable: true),
+                    VoucherKey = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CertSlotId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -191,6 +193,11 @@ namespace SCS.DataAccess.Migrations
                         principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Products_CertificationSlots_CertSlotId",
+                        column: x => x.CertSlotId,
+                        principalTable: "CertificationSlots",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Products_Providers_ProviderId",
                         column: x => x.ProviderId,
@@ -278,6 +285,27 @@ namespace SCS.DataAccess.Migrations
                     table.ForeignKey(
                         name: "FK_AspNetUserTokens_AspNetUsers_UserId",
                         column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Bookings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CertificationSlotId = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Bookings", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Bookings_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -410,11 +438,11 @@ namespace SCS.DataAccess.Migrations
 
             migrationBuilder.InsertData(
                 table: "CertificationSlots",
-                columns: new[] { "Id", "Dates", "DayOfWeek", "EndDate", "StartDate" },
+                columns: new[] { "Id", "Dates", "DayOfWeek", "EndDate", "Name", "StartDate" },
                 values: new object[,]
                 {
-                    { 1, "[\"2024-10-10\",\"2024-10-17\",\"2024-10-20\"]", null, new DateTime(2024, 11, 2, 13, 9, 47, 206, DateTimeKind.Local).AddTicks(176), new DateTime(2024, 10, 3, 13, 9, 47, 206, DateTimeKind.Local).AddTicks(174) },
-                    { 2, "[\"2024-10-10\",\"2024-10-17\",\"2024-10-27\",\"2024-11-02\",\"2024-11-27\"]", null, new DateTime(2024, 12, 2, 13, 9, 47, 206, DateTimeKind.Local).AddTicks(198), new DateTime(2024, 10, 3, 13, 9, 47, 206, DateTimeKind.Local).AddTicks(196) }
+                    { 1, "[\"2024-10-10\",\"2024-10-17\",\"2024-10-20\"]", null, new DateTime(2024, 11, 2, 15, 51, 56, 652, DateTimeKind.Local).AddTicks(3046), "Slot1", new DateTime(2024, 10, 3, 15, 51, 56, 652, DateTimeKind.Local).AddTicks(3044) },
+                    { 2, "[\"2024-10-10\",\"2024-10-17\",\"2024-10-27\",\"2024-11-02\",\"2024-11-27\"]", null, new DateTime(2024, 12, 2, 15, 51, 56, 652, DateTimeKind.Local).AddTicks(3076), "Slot2", new DateTime(2024, 10, 3, 15, 51, 56, 652, DateTimeKind.Local).AddTicks(3074) }
                 });
 
             migrationBuilder.InsertData(
@@ -430,19 +458,19 @@ namespace SCS.DataAccess.Migrations
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "Id", "BundleId", "CategoryId", "CertSlotId", "Description", "Name", "Price", "ProviderId", "Status" },
+                columns: new[] { "Id", "BundleId", "CategoryId", "CertSlotId", "Description", "Name", "Price", "ProviderId", "Status", "VoucherKey" },
                 values: new object[,]
                 {
-                    { 1, null, 1, 1, "E-learning om efterlevnad av sanktioner i egen takt (15–20 timmar långt)", "Certificate in Sanctions", 7200.0, 1, "Registred" },
-                    { 2, null, 1, 1, "E-learning om efterlevnad av sanktioner i egen takt (15–20 timmar långt)", "Certificate in Corporate Governance", 8400.0, 1, "Registred" },
-                    { 3, null, 1, 1, "C# Certification", "C# Certificate", 1000.0, 2, "Registred" },
-                    { 4, null, 2, null, "C# Begginner Programming", "C# Begginner", 200.0, 2, "Registred" },
-                    { 5, null, 3, null, "C# Begginner Programming", "C# Begginner", 300.0, 2, "Registred" },
-                    { 6, null, 2, null, "C# Intermediate Programming", "C# Intermediate", 200.0, 2, "Registred" },
-                    { 7, null, 3, null, "C# Intermediate Programming", "C# Intermediate", 300.0, 2, "Registred" },
-                    { 8, null, 2, null, "C# Advanced Programming", "C# Advanced", 200.0, 2, "Registred" },
-                    { 9, null, 3, null, "C# Advanced Programming", "C# Advanced", 300.0, 2, "Registred" },
-                    { 10, 1, 3, null, "C# Advanced Programming", "C# for beginners, Bundle", 300.0, 2, "Registred" }
+                    { 1, null, 1, 1, "E-learning om efterlevnad av sanktioner i egen takt (15–20 timmar långt)", "Certificate in Sanctions", 7200.0, 1, "Registred", null },
+                    { 2, null, 1, 1, "E-learning om efterlevnad av sanktioner i egen takt (15–20 timmar långt)", "Certificate in Corporate Governance", 8400.0, 1, "Registred", null },
+                    { 3, null, 1, 1, "C# Certification", "C# Certificate", 1000.0, 2, "Registred", null },
+                    { 4, null, 2, null, "C# Begginner Programming", "C# Begginner", 200.0, 2, "Registred", null },
+                    { 5, null, 3, null, "C# Begginner Programming", "C# Begginner", 300.0, 2, "Registred", null },
+                    { 6, null, 2, null, "C# Intermediate Programming", "C# Intermediate", 200.0, 2, "Registred", null },
+                    { 7, null, 3, null, "C# Intermediate Programming", "C# Intermediate", 300.0, 2, "Registred", null },
+                    { 8, null, 2, null, "C# Advanced Programming", "C# Advanced", 200.0, 2, "Registred", null },
+                    { 9, null, 3, null, "C# Advanced Programming", "C# Advanced", 300.0, 2, "Registred", null },
+                    { 10, 1, 3, null, "C# Advanced Programming", "C# for beginners, Bundle", 300.0, 2, "Registred", null }
                 });
 
             migrationBuilder.CreateIndex(
@@ -490,6 +518,11 @@ namespace SCS.DataAccess.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Bookings_AppUserId",
+                table: "Bookings",
+                column: "AppUserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Carts_AppUserId",
                 table: "Carts",
                 column: "AppUserId");
@@ -530,6 +563,11 @@ namespace SCS.DataAccess.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Products_CertSlotId",
+                table: "Products",
+                column: "CertSlotId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Products_ProviderId",
                 table: "Products",
                 column: "ProviderId");
@@ -554,10 +592,10 @@ namespace SCS.DataAccess.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Carts");
+                name: "Bookings");
 
             migrationBuilder.DropTable(
-                name: "CertificationSlots");
+                name: "Carts");
 
             migrationBuilder.DropTable(
                 name: "OrderDetails");
@@ -582,6 +620,9 @@ namespace SCS.DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "CertificationSlots");
 
             migrationBuilder.DropTable(
                 name: "Providers");

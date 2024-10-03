@@ -12,8 +12,8 @@ using SCS.Data;
 namespace SCS.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241003123948_addVoucherKey")]
-    partial class addVoucherKey
+    [Migration("20241003135157_AddBooking")]
+    partial class AddBooking
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -287,6 +287,31 @@ namespace SCS.DataAccess.Migrations
                         });
                 });
 
+            modelBuilder.Entity("SCS.Models.Booking", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("CertificationSlotId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("Bookings");
+                });
+
             modelBuilder.Entity("SCS.Models.Bundle", b =>
                 {
                     b.Property<int>("Id")
@@ -411,6 +436,7 @@ namespace SCS.DataAccess.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Dates")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("DayOfWeek")
@@ -435,17 +461,17 @@ namespace SCS.DataAccess.Migrations
                         {
                             Id = 1,
                             Dates = "[\"2024-10-10\",\"2024-10-17\",\"2024-10-20\"]",
-                            EndDate = new DateTime(2024, 11, 2, 14, 39, 47, 727, DateTimeKind.Local).AddTicks(5652),
+                            EndDate = new DateTime(2024, 11, 2, 15, 51, 56, 652, DateTimeKind.Local).AddTicks(3046),
                             Name = "Slot1",
-                            StartDate = new DateTime(2024, 10, 3, 14, 39, 47, 727, DateTimeKind.Local).AddTicks(5650)
+                            StartDate = new DateTime(2024, 10, 3, 15, 51, 56, 652, DateTimeKind.Local).AddTicks(3044)
                         },
                         new
                         {
                             Id = 2,
                             Dates = "[\"2024-10-10\",\"2024-10-17\",\"2024-10-27\",\"2024-11-02\",\"2024-11-27\"]",
-                            EndDate = new DateTime(2024, 12, 2, 14, 39, 47, 727, DateTimeKind.Local).AddTicks(5668),
+                            EndDate = new DateTime(2024, 12, 2, 15, 51, 56, 652, DateTimeKind.Local).AddTicks(3076),
                             Name = "Slot2",
-                            StartDate = new DateTime(2024, 10, 3, 14, 39, 47, 727, DateTimeKind.Local).AddTicks(5667)
+                            StartDate = new DateTime(2024, 10, 3, 15, 51, 56, 652, DateTimeKind.Local).AddTicks(3074)
                         });
                 });
 
@@ -838,6 +864,17 @@ namespace SCS.DataAccess.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("SCS.Models.Booking", b =>
+                {
+                    b.HasOne("SCS.Models.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
                 });
 
             modelBuilder.Entity("SCS.Models.Cart", b =>
