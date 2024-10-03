@@ -16,7 +16,11 @@
                 <div class="col-10">
                     <div class="border p-3">
 
-                       
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="Name" type="text" class="form-control border-1" />
+                            <label asp-for="Name" class="mt-2 "></label>
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
                         <div class="form-floating py-2 col-12">
                             <input asp-for="StartDate" type="date" class="form-control border-1" />
                             <label asp-for="StartDate" class="mt-2 "></label>

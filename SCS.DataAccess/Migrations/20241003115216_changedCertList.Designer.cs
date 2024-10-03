@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SCS.Data;
 
@@ -11,9 +12,11 @@ using SCS.Data;
 namespace SCS.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241003115216_changedCertList")]
+    partial class changedCertList
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -416,10 +419,6 @@ namespace SCS.DataAccess.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
@@ -432,17 +431,15 @@ namespace SCS.DataAccess.Migrations
                         {
                             Id = 1,
                             Dates = "[\"2024-10-10\",\"2024-10-17\",\"2024-10-20\"]",
-                            EndDate = new DateTime(2024, 11, 2, 14, 36, 42, 63, DateTimeKind.Local).AddTicks(4601),
-                            Name = "Slot1",
-                            StartDate = new DateTime(2024, 10, 3, 14, 36, 42, 63, DateTimeKind.Local).AddTicks(4599)
+                            EndDate = new DateTime(2024, 11, 2, 13, 52, 16, 349, DateTimeKind.Local).AddTicks(8225),
+                            StartDate = new DateTime(2024, 10, 3, 13, 52, 16, 349, DateTimeKind.Local).AddTicks(8224)
                         },
                         new
                         {
                             Id = 2,
                             Dates = "[\"2024-10-10\",\"2024-10-17\",\"2024-10-27\",\"2024-11-02\",\"2024-11-27\"]",
-                            EndDate = new DateTime(2024, 12, 2, 14, 36, 42, 63, DateTimeKind.Local).AddTicks(4617),
-                            Name = "Slot2",
-                            StartDate = new DateTime(2024, 10, 3, 14, 36, 42, 63, DateTimeKind.Local).AddTicks(4616)
+                            EndDate = new DateTime(2024, 12, 2, 13, 52, 16, 349, DateTimeKind.Local).AddTicks(8248),
+                            StartDate = new DateTime(2024, 10, 3, 13, 52, 16, 349, DateTimeKind.Local).AddTicks(8247)
                         });
                 });
 
@@ -564,8 +561,6 @@ namespace SCS.DataAccess.Migrations
                     b.HasIndex("BundleId");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("CertSlotId");
 
                     b.HasIndex("ProviderId");
 
@@ -895,10 +890,6 @@ namespace SCS.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SCS.Models.CertificationSlot", "CertificationSlot")
-                        .WithMany()
-                        .HasForeignKey("CertSlotId");
-
                     b.HasOne("SCS.Models.Provider", "Provider")
                         .WithMany()
                         .HasForeignKey("ProviderId");
@@ -906,8 +897,6 @@ namespace SCS.DataAccess.Migrations
                     b.Navigation("Bundle");
 
                     b.Navigation("Category");
-
-                    b.Navigation("CertificationSlot");
 
                     b.Navigation("Provider");
                 });

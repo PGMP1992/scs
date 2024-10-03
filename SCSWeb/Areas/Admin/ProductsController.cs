@@ -30,7 +30,7 @@ public class ProductsController : Controller
 
     public IActionResult Index()
     {
-        IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Provider,Category");
+        IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Provider,Category,CertificationSlot");
         return View(productList);
     }
 
@@ -55,7 +55,7 @@ public class ProductsController : Controller
 
         if (id != null && id > 0)
         {
-            productVM.Product = _unitOfWork.Product.Get(u => u.Id == id, includeProperties: "ProductImages,Provider,Category");
+            productVM.Product = _unitOfWork.Product.Get(u => u.Id == id, includeProperties: "ProductImages,Provider,Category,CertificationSlot");
         }
 
         return View(productVM);
@@ -129,6 +129,11 @@ public class ProductsController : Controller
             });
 
             productVM.ProviderList = _unitOfWork.Provider.GetAll().Select(u => new SelectListItem
+            {
+                Text = u.Name,
+                Value = u.Id.ToString()
+            });
+            productVM.CertSlotList = _unitOfWork.CertificationSlot.GetAll().Select(u => new SelectListItem
             {
                 Text = u.Name,
                 Value = u.Id.ToString()

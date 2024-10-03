@@ -44,5 +44,5 @@ public class Product
     public int? CertSlotId { get; set; }
     [ForeignKey(nameof(CertSlotId))]
     [ValidateNever]
-    CertificationSlot CertificationSlot { get; set; }
+    public CertificationSlot CertificationSlot { get; set; }
 }

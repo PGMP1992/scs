@@ -26,7 +26,7 @@
             <thead>
                 <tr>
                     <th class="text-success-emphasis">
-                        Product
+                       Name
                     </th>
                     <th class="text-success-emphasis">
                        StartDate
@@ -45,7 +45,9 @@
                 @foreach (var obj in Model)
                 {
                     <tr>
-                      
+                      <td>
+                            @obj.Name
+                        </td>
                         <td>
                             @obj.StartDate
                         </td>
