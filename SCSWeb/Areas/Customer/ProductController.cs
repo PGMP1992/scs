@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using SCS.Data;
@@ -16,39 +17,67 @@ namespace SCS.Areas.Customer
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IEmailSender _emailSender;
-		
+        private readonly SignInManager<IdentityUser> _signInManager;
+
         [BindProperty]
 		public CartVM CartVM { get; set; }
 		
 		public ProductController(ApplicationDbContext context
                                  , IUnitOfWork unitOfWork
-                                 , IEmailSender emailSender)
+                                 , IEmailSender emailSender
+                                 , SignInManager<IdentityUser> signInManager
+            )
         {
             _unitOfWork = unitOfWork;
             _emailSender = emailSender;
+            _signInManager = signInManager;
         }
 
         public IActionResult Index(string search)
         {
-            IEnumerable<Product> productList = _unitOfWork.Product
-                .GetAll(includeProperties: "ProductImages,Provider,Category");
+            
 
-            ViewBag.Message = "";
-
-            if (!String.IsNullOrEmpty(search))
+            // If User is signed in it can buy Vouchers otherwise we have to exclude them - PM
+            if (_signInManager.IsSignedIn(User))
             {
-                IEnumerable<Product> searchList = _unitOfWork.Product
-                    .GetAll(p => p.Name.Contains(search), includeProperties: "ProductImages,Provider,Category");
+                IEnumerable<Product> productList = _unitOfWork.Product
+                    .GetAll(includeProperties: "ProductImages,Provider,Category");
 
-                if (searchList.Count() > 0)
+                ViewBag.Message = "";
+
+                if (!String.IsNullOrEmpty(search))
                 {
-                    return View(searchList);
+                    IEnumerable<Product> searchList = _unitOfWork.Product
+                        .GetAll(p => p.Name.Contains(search), includeProperties: "ProductImages,Provider,Category");
+
+                     if (searchList.Count() > 0)
+                     {
+                        return View(searchList);
+                     }
+                     ViewBag.Message = "There are not products with that Name.";
                 }
-
-                ViewBag.Message = "There are not products with that Name.";
+                return View(productList);
             }
+            else //Get all products excluding Certification Vouchers
+            {
+                IEnumerable<Product> productList = _unitOfWork.Product
+                    .GetAll(p => p.CategoryId != 1, includeProperties: "ProductImages,Provider,Category");
+                
+                ViewBag.Message = "";
 
-            return View(productList);
+                if (!String.IsNullOrEmpty(search))
+                {
+                    IEnumerable<Product> searchList = _unitOfWork.Product
+                        .GetAll(p => p.Name.Contains(search) && p.CategoryId != 1, includeProperties: "ProductImages,Provider,Category");
+
+                    if (searchList.Count() > 0)
+                    {
+                        return View(searchList);
+                    }
+                    ViewBag.Message = "There are not products with that Name.";
+                }
+                return View(productList);
+            }
         }
 
         public IActionResult IndexList(string search)

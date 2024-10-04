@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.UI.Services;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using SCS.Models;
 using SCS.Models.ViewModels;
@@ -9,7 +10,8 @@ using Stripe.Checkout;
 namespace SCS.Areas.Customer
 {
 	[Area("Customer")]
-	//[Authorize]
+	[Authorize]
+
 	public class CartController : Controller
 	{
 		private readonly IUnitOfWork _unitOfWork;
