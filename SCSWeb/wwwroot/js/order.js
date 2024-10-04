@@ -12,7 +12,6 @@ $(document).ready(function () {
         {
             loadDataTable("completed");
         }
-
         else
         {
             if (url.includes("approved"))
@@ -31,14 +30,14 @@ $(document).ready(function () {
 function loadDataTable(status) {
    
         dataTable = $('#tblData').DataTable({
-        language: {
-            search: "S\u00F6k:",
-            lengthMenu: " _MENU_ per sida",
-            info: "Visar _START_ - _END_ av _TOTAL_ poster",
-            infoFiltered: "(filtrerat fr\u00E5n _MAX_ poster totalt)"
-        },
-        scrollY:400,
-       "ajax": { url: '/admin/order/getall?status=' + status },
+        //language: {
+        //    search: "S\u00F6k:",
+        //    lengthMenu: " _MENU_ per sida",
+        //    info: "Visar _START_ - _END_ av _TOTAL_ poster",
+        //    infoFiltered: "(filtrerat fr\u00E5n _MAX_ poster totalt)"
+        //},
+        //scrollY:400,
+        "ajax": { url: '/admin/order/getall?status=' + status },
 
        "columns": [
             { data: 'id', "width": "5%" },

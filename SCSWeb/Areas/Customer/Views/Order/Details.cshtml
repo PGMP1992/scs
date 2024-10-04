@@ -1,4 +1,5 @@
-﻿@using SCS.Utility
+﻿@using SCS.Models.ViewModels
+@using SCS.Utility
 
 @model OrderVM
 
@@ -10,7 +11,7 @@
                 <div class="col-12 d-none d-md-block col-md-6 py-3 text-white">
                     <i class="bi bi-cart-fill"></i> &nbsp; Order Summary
                 </div>
-                <div class="col-12 col-md-2 offset-md-4 py-3 text-right">
+                <div class="col-12 col-md-4 offset-md-2 py-3 text-right">
                     <a asp-action="Index" class="btn btn-outline-light rounded form-control btn-sm">Back to Orders</a>
                 </div>
             </div>
@@ -31,7 +32,7 @@
                                 @if (User.IsInRole(SD.Role_Admin) || User.IsInRole(SD.Role_Employee))
                                 {
                                     <input asp-for="@Model.OrderHeader.Name" type="text" class="form-control" />
-                                    <span asp-validation="@Model.OrderHeader.Name" type="text" class="form-control alert-danger" />
+                                    <span asp-validation="@Model.OrderHeader.Name" type="text" class="form-control" />
                                 }
                                 else
                                 {
