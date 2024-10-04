@@ -79,10 +79,13 @@ namespace SCS.Areas.Customer
 			CartVM.CartList = _unitOfWork.Cart.GetAll(u => u.AppUserId == userId,
 				includeProperties: "Product");
 
+			// Order Header -------------------------------------
 			CartVM.OrderHeader.OrderDate = System.DateTime.Now;
 			CartVM.OrderHeader.AppUserId = userId;
             CartVM.OrderHeader.Name = _unitOfWork.AppUser.GetName(userId);
             CartVM.OrderHeader.Email = _unitOfWork.AppUser.GetEmail(userId);
+
+            
 
             foreach (var cart in CartVM.CartList)
 			{
@@ -96,7 +99,9 @@ namespace SCS.Areas.Customer
 			_unitOfWork.OrderHeader.Add(CartVM.OrderHeader);
 			_unitOfWork.Save(); // ???? 
 
-			foreach (var cart in CartVM.CartList)
+            // Order Details -------------------------------------
+
+            foreach (var cart in CartVM.CartList)
 			{
 				var orderDetail = new OrderDetails()
 				{
@@ -105,11 +110,13 @@ namespace SCS.Areas.Customer
 					Price = cart.Price,
 					Count = cart.ProdCount
 				};
+			
 				_unitOfWork.OrderDetails.Add(orderDetail);
 				_unitOfWork.Save(); // ??? 
 			}
 
 			//Stripe logic ------------------------------------------------
+			
 			var domain = Request.Scheme + "://" + Request.Host.Value + "/";
 			var options = new SessionCreateOptions
 			{
@@ -139,6 +146,7 @@ namespace SCS.Areas.Customer
 
 			var service = new SessionService();
 			Session session = service.Create(options);
+			
 			_unitOfWork.OrderHeader.UpdateStripePaymentID(CartVM.OrderHeader.Id, session.Id, session.PaymentIntentId);
 			_unitOfWork.Save();
 			
@@ -158,8 +166,13 @@ namespace SCS.Areas.Customer
 			{
 				_unitOfWork.OrderHeader.UpdateStripePaymentID(id, session.Id, session.PaymentIntentId);
 				_unitOfWork.OrderHeader.UpdateStatus(id, SD.StatusApproved, SD.PaymentStatusApproved);
+				
+				// Create Certification Voucher
+				// With Product VoucherKey + new Guid  and save to Order Details - PM -------------------------------------------------- 
+				
 				_unitOfWork.Save();
 			}
+
 			HttpContext.Session.Clear();
 			
 			_emailSender.SendEmailAsync(orderHeader.AppUser.Email, "New Order - SCS AB",

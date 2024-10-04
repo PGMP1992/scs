@@ -29,34 +29,21 @@ namespace SCSWeb.Areas.Customer
         {
             var userId = HttpContext.User.GetUserId();
 
-            var BookingVM = new BookingVM()
-            {
-                BookingList = _unitOfWork.Booking.GetAll(u => u.AppUserId == userId,
-                                includeProperties: "Product"),
-                OrderHeader = new()
-            };
-
-            IEnumerable<ProductImage> productImages = _unitOfWork.ProductImage.GetAll();
-
-            foreach (var Booking in BookingVM.BookingList)
-            {
-                Booking.Product.ProductImages = productImages.Where(u => u.ProductId == Booking.Product.Id).ToList();
-                //Booking.Price = Booking.Product.Price * Booking.ProdCount;
-                //BookingVM.OrderHeader.OrderTotal += Booking.Price;
-            }
-            return View(BookingVM);
+            IEnumerable<Product> products = _unitOfWork.Product.GetAll(p=>p.VoucherKey != null );
+                      
+            return View(products);
         }
 
-        public IActionResult Summary()
+        public IActionResult Book()
         {
             var userId = HttpContext.User.GetUserId();
 
-            BookingVM = new BookingVM()
-            {
-                BookingList = _unitOfWork.Booking.GetAll(u => u.AppUserId == userId,
-                    includeProperties: "Product"),
-                OrderHeader = new()
-            };
+            //BookingVM = new BookingVM()
+            //{
+            //    BookingList = _unitOfWork.Booking.GetAll(u => u.AppUserId == userId,
+            //        includeProperties: "Product"),
+            //    OrderHeader = new()
+            //};
 
             //BookingVM.OrderHeader.Name = _unitOfWork.AppUser.GetName(userId);
             //BookingVM.OrderHeader.Email = _unitOfWork.AppUser.GetEmail(userId);
