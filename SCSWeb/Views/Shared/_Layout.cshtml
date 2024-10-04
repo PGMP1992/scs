@@ -62,6 +62,15 @@
                             </ul>
                         </li>
                         
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li>
+                                <a class="nav-link text-light" asp-area="Admin" asp-controller="Order" asp-action="Index">
+                                    Orders
+                                </a>
+                            </li>
+                        }
+
                         @* Admin ----------------------*@
                         @if (User.IsInRole(SD.Role_Admin))
                         {
@@ -98,7 +107,7 @@
                                     </li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li>
-                                        <a asp-area="Customer" asp-controller="Order" asp-action="Index" class="dropdown-item">
+                                        <a asp-area="Admin" asp-controller="Order" asp-action="Index" class="dropdown-item">
                                             <i class="bi bi-list-ol"></i>
                                             Orders
                                         </a>
@@ -137,12 +146,11 @@
                                     <i class="bi bi-person-fill"></i>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    @* <li><a class="dropdown-item" href="#">Orders</a></li> *@
-                                    <li><a asp-area="Customer" asp-controller="Order" asp-action="Index" class="dropdown-item">
-                                                <i class="bi bi-list-ol"></i>
-                                                Orders</a></li>
                                     <li>
-                                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                                        <a class="dropdown-item" href="#">
+                                            Profile
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                         
