@@ -52,10 +52,7 @@
                 {
                     <tr>
                         <td>
-                            <a asp-controller="Products" asp-action="Upsert" asp-route-id="@obj.Id" class="text-black
-    ">
-                                @obj.Name
-                            </a>
+                            @obj.Name
                         </td>
 
                         <td>
@@ -68,7 +65,7 @@
                             @obj.Price
                         </td>
                         <td>
-                            
+                            @obj.CertificationSlot.Name
                         </td>
                         <td>
                             @obj.Status
