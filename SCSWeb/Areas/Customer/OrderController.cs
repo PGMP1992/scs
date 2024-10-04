@@ -7,9 +7,9 @@ using SCS.Utility;
 using Stripe;
 using System.Security.Claims;
 
-namespace SCS.Areas.Admin.Controllers;
+namespace SCS.Areas.Customer.Controllers;
 
-[Area("Admin")]
+[Area("Customer")]
 [Authorize]
 public class OrderController : Controller
 {

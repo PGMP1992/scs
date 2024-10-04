@@ -71,22 +71,38 @@
                                     Admin
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Categories" 
-                                        asp-action="Index">Categories</a></li>
-                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Providers" 
-                                        asp-action="Index">Providers</a></li>
-                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Products" 
-                                        asp-action="Index">Products</a></li>
                                     <li>
-                                        <a class="dropdown-item" asp-area="Admin" asp-controller="Bundle"
-                                           asp-action="Index">Bundles</a>
+                                        <a class="dropdown-item" asp-area="Admin" asp-controller="Categories" asp-action="Index">
+                                            Categories
+                                        </a>
                                     </li>
-                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="CertificationSlots" 
-                                        asp-action="Index">Certification Slots</a></li>
+                                    <li>
+                                        <a class="dropdown-item" asp-area="Admin" asp-controller="Providers" asp-action="Index">
+                                            Providers
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-area="Admin" asp-controller="Products" asp-action="Index">
+                                            Products
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-area="Admin" asp-controller="Bundle" asp-action="Index">
+                                            Bundles
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-area="Admin" asp-controller="CertificationSlots" asp-action="Index">
+                                            Certification Slots
+                                        </a>
+                                    </li>
                                     <li><hr class="dropdown-divider"></li>
-                                    <li><a asp-area="Admin" asp-controller="Order" asp-action="Index" class="dropdown-item">
+                                    <li>
+                                        <a asp-area="Customer" asp-controller="Order" asp-action="Index" class="dropdown-item">
                                             <i class="bi bi-list-ol"></i>
-                                            Orders</a></li>
+                                            Orders
+                                        </a>
+                                    </li>
                                     <li>
                                         <a class="dropdown-item" asp-area="Admin" asp-controller="Users" asp-action="Index">
                                             <i class="bi bi-people-fill"></i>
@@ -112,24 +128,25 @@
                                 Contact
                             </a>
                         </li>
-
-                        @* User Profile/ Dashboard  ---------------------- *@
+                        
                         @if (SignInManager.IsSignedIn(User))
                         {
+                            @* User Profile/ Dashboard  ---------------------- *@
                             <li class="nav-item dropdown">
-                            <a class="nav-link text-light dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
-                                <i class="bi bi-person-fill"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Orders</a></li>
-                                <li><a class="dropdown-item" href="#">Profile</a></li>
-                            </ul>
+                                <a class="nav-link text-light dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                                    <i class="bi bi-person-fill"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    @* <li><a class="dropdown-item" href="#">Orders</a></li> *@
+                                    <li><a asp-area="Customer" asp-controller="Order" asp-action="Index" class="dropdown-item">
+                                                <i class="bi bi-list-ol"></i>
+                                                Orders</a></li>
+                                    <li>
+                                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                                </ul>
                             </li>
-                        }
-
-                        @* Shopping Cart ---------------------- *@
-                        @if (SignInManager.IsSignedIn(User))
-                        {
+                        
+                            @* Shopping Cart ---------------------- *@
                             <li class="nav-item">
                                 <a class="nav-link text-light" asp-area="Customer" asp-controller="Cart" asp-action="Index">
                                     @await Component.InvokeAsync("Cart")
