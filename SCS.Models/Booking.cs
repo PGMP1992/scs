@@ -9,7 +9,7 @@ namespace SCS.Models
         public int Id { get; set; }
 
         [Required]
-        public int AppUserId { get; set; }
+        public string AppUserId { get; set; }
 
         [ForeignKey("AppUserId")]
         [ValidateNever]

@@ -16,17 +16,13 @@ namespace SCS.Areas.Admin.Controllers;
 public class ProductsController : Controller
 {
     private readonly IUnitOfWork _unitOfWork;
-    //private readonly IWebHostEnvironment _webHostEnvironment;
-    private readonly IPhotoService _photoService;
+    private readonly IWebHostEnvironment _webHostEnvironment;
 
-    public ProductsController(IUnitOfWork unitOfWork 
-        //,IWebHostEnvironment webHostEnvironment
-        ,IPhotoService photoService
-        )
+    public ProductsController(IUnitOfWork unitOfWork
+        , IWebHostEnvironment webHostEnvironment)
     {
         _unitOfWork = unitOfWork;
-        //_webHostEnvironment = webHostEnvironment;
-        _photoService = photoService;
+        _webHostEnvironment = webHostEnvironment;
     }
 
     public IActionResult Index()
@@ -66,7 +62,7 @@ public class ProductsController : Controller
     [HttpPost]
     public IActionResult Upsert(ProductVM productVM, List<IFormFile> files)
     {
-        if (!ModelState.IsValid)
+        if (ModelState.IsValid)
         {
             if (productVM.Product.Id == 0)
             {
@@ -83,41 +79,33 @@ public class ProductsController : Controller
                 _unitOfWork.Product.Update(productVM.Product);
             }
             _unitOfWork.Save();
-            
-            //string wwwRootPath = _webHostEnvironment.WebRootPath;
+
+            string wwwRootPath = _webHostEnvironment.WebRootPath;
             if (files != null)
             {
                 foreach (IFormFile file in files)
                 {
-                    //string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                    //string productPath = @"images\products\product-" + productVM.Product.Id;
-                    //string finalPath = Path.Combine(wwwRootPath, productPath);
 
-                    //if (!Directory.Exists(finalPath))
-                    //{
-                    //    Directory.CreateDirectory(finalPath);
-                    //}
-
-                    //using (var fileStream = new FileStream(Path.Combine(finalPath, fileName), FileMode.Create))
-                    //{
-                    //    file.CopyTo(fileStream);
-                    //}
-
-                    var result = _photoService.AddPhotoAsync(file);
-
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                    string productPath = @"images\products\product-" + productVM.Product.Id;
+                    string finalPath = Path.Combine(wwwRootPath, productPath);
+                    if (!Directory.Exists(finalPath))
+                    {
+                        Directory.CreateDirectory(finalPath);
+                    }
+                    using (var fileStream = new FileStream(Path.Combine(finalPath, fileName), FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
                     ProductImage productImage = new ProductImage()
                     {
-                        //ImageUrl = @"\" + productPath + @"\" + fileName,
-                        //ImageUrl = file.FileName,
-                        ImageUrl = result.Result.Url.ToString(),
+                        ImageUrl = @"\" + productPath + @"\" + fileName,
                         ProductId = productVM.Product.Id,
                     };
-
                     if (productVM.Product.ProductImages == null)
                     {
                         productVM.Product.ProductImages = new List<ProductImage>();
                     }
-                    
                     productVM.Product.ProductImages.Add(productImage);
 
                 }
@@ -157,18 +145,15 @@ public class ProductsController : Controller
 
         if (imgToBeDeleted != null)
         {
-            //if (!string.IsNullOrEmpty(imgToBeDeleted.ImageUrl))
-            //{
-            //    var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, imgToBeDeleted.ImageUrl.TrimStart('\\'));
-            //    if (System.IO.File.Exists(oldImagePath))
-            //    {
-            //        System.IO.File.Delete(oldImagePath);
-            //    }
-            //}
-            if (! string.IsNullOrEmpty(imgToBeDeleted.ImageUrl))
+            if (!string.IsNullOrEmpty(imgToBeDeleted.ImageUrl))
             {
-                _ = _photoService.DeletePhotoAsync(imgToBeDeleted.ImageUrl);
+                var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, imgToBeDeleted.ImageUrl.TrimStart('\\'));
+                if (System.IO.File.Exists(oldImagePath))
+                {
+                    System.IO.File.Delete(oldImagePath);
+                }
             }
+
 
             _unitOfWork.ProductImage.Remove(imgToBeDeleted);
             _unitOfWork.Save();
@@ -189,27 +174,27 @@ public class ProductsController : Controller
     }
 
     [HttpPost]
-    public IActionResult Delete(int? id)
+    public IActionResult Delete(int? Id)
     {
         //If the product is in order register it will change status to expired but not be deleted
-        var product = _unitOfWork.Product.Get(u => u.Id == id);
+        var product = _unitOfWork.Product.Get(u => u.Id == Id);
         if (product == null)
         {
             TempData["error"] = "Error with deleting";
         }
 
-        if(_unitOfWork.Bundle.Any(u=>u.ProductId1==id) 
-            || _unitOfWork.Bundle.Any(u => u.ProductId2 == id) 
-            || _unitOfWork.Bundle.Any(u => u.ProductId3 == id))
+        if(_unitOfWork.Bundle.Any(u=>u.ProductId1==Id) 
+            || _unitOfWork.Bundle.Any(u => u.ProductId2 == Id) 
+            || _unitOfWork.Bundle.Any(u => u.ProductId3 == Id))
         {
             TempData["error"] = "The product is a part of a bundle, delete the bundle first";
             return View(product);
         }
 
-        if(!_unitOfWork.OrderDetails.Any(u=>u.ProductId == id) )
+        if(!_unitOfWork.OrderDetails.Any(u=>u.ProductId == Id) )
         {
-            /*
-            string productPath = @"images\products\product-" + id;
+
+            string productPath = @"images\products\product-" + Id;
             string finalPath = Path.Combine(_webHostEnvironment.WebRootPath, productPath);
             if (Directory.Exists(finalPath))
             {
@@ -220,7 +205,7 @@ public class ProductsController : Controller
                 }
                 Directory.Delete(finalPath);
             }
-            */
+
 
             _unitOfWork.Product.Remove(product);
             TempData["success"] = "The product was deleted";
