@@ -50,7 +50,8 @@
                         <div class="row my-1">
                             <div class="col-3">Order Date</div>
                             <div class="col-9">
-                                <input value="@Model.OrderHeader.OrderDate.ToShortDateString()" readonly type="text" class="form-control" />
+                                <input value="@Model.OrderHeader.OrderDate.ToShortDateString()" 
+                                    readonly type="text" class="form-control" />
                             </div>
                         </div>
                      
@@ -86,7 +87,9 @@
                         <h4 class="d-flex justify-content-between align-items-center mb-3">
                             <span class="text-primary">Order Details: </span>
                         </h4>
-                        <label class="btn btn-outline-primary form-control my-2 rounded">Order Status - @Model.OrderHeader.OrderStatus</label>
+                        <label class="btn btn-outline-primary form-control my-2 rounded">
+                            Order Status - @Model.OrderHeader.OrderStatus
+                        </label>
 
                         <ul class="list-group mb-3">
                             @foreach (var item in Model.OrderDetails)
@@ -94,7 +97,6 @@
                                 <li class="list-group-item d-flex justify-content-between p-2">
                                     <div class="row container">
                                         <div class="col-8">
-
                                             <h6 class="my-0 text-primary">@item.Product.Name</h6>
                                             <small class="text-dark">Price : @(item.Price.ToString("c"))</small><br />
                                             <small class="text-dark">Quantity : @item.Count</small>
@@ -121,17 +123,22 @@
                         {
                             if (Model.OrderHeader.OrderStatus == SD.StatusApproved)
                             {
-                                <button asp-action="StartProcessing" type="submit" asp-action="StartProcessing" class="btn btn-primary form-control my-1 rounded">Start Processing</button>
+                                <button asp-action="StartProcessing" type="submit" asp-action="StartProcessing" 
+                                    class="btn btn-primary form-control my-1 rounded">Start Processing
+                                </button>
                             }
                             @if (Model.OrderHeader.OrderStatus == SD.StatusInProcess)
                             {
-                                <button type="submit" asp-action="ShipOrder" onclick="return validateInput()" class="btn btn-primary form-control my-1 rounded">Ship Order</button>
+                                <button type="submit" asp-action="ShipOrder" onclick="return validateInput()" 
+                                    class="btn btn-primary form-control my-1 rounded">Ship Order</button>
                             }
                             @if (Model.OrderHeader.OrderStatus != SD.StatusRefunded &&
                                 Model.OrderHeader.OrderStatus != SD.StatusCancelled &&
                                 Model.OrderHeader.OrderStatus != SD.StatusShipped)
                             {
-                                <button type="submit" asp-action="CancelOrder" class="btn btn-danger form-control my-1 rounded">Cancel Order</button>
+                                <button type="submit" asp-action="CancelOrder" 
+                                    class="btn btn-danger form-control my-1 rounded">Cancel Order
+                                </button>
                             }
                         }
                     </div>
