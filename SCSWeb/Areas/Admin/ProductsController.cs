@@ -6,7 +6,6 @@ using SCS.Models;
 using SCS.Models.ViewModels;
 using SCS.Repository.IRepository;
 using SCS.Utility;
-using SCS.Utility.PhotoService;
 
 namespace SCS.Areas.Admin.Controllers;
 
