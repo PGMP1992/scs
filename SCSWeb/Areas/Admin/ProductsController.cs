@@ -47,7 +47,11 @@ public class ProductsController : Controller
                 Text = u.Name,
                 Value = u.Id.ToString()
             }),
-
+            CertSlotList = _unitOfWork.CertificationSlot.GetAll().Select(u => new SelectListItem
+            {
+                Text = u.Name,
+                Value = u.Id.ToString()
+            })
         };
        
         if (id != null && id > 0)

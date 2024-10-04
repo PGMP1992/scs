@@ -10,7 +10,7 @@
     </div>
     <div class="card-body p-4">
         <form method="post" class="row" enctype="multipart/form-data">
-            <input asp-for="@Model.Product.Id" />
+            <input asp-for="@Model.Product.Id" hidden/>
 
             <div class="row">
                 <div class="col-10">
@@ -34,14 +34,14 @@
                             <select asp-for="Product.CategoryId" asp-items="@Model.CategoryList" class="form-select border-1">
                                 <option disabled selected>--Select Category--</option>
                             </select>
-                            <label asp-for="Product.CategoryId" class="mt-2 "></label>
+                            <label asp-for="Product.CategoryId" class="mt-2 ">Category</label>
                             <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
                         </div>
                         <div class="form-floating py-2 col-12">
                             <select asp-for="Product.ProviderId" asp-items="@Model.ProviderList" class="form-select border-1">
                                 <option disabled selected>--Select Provider--</option>
                             </select>
-                            <label asp-for="Product.ProviderId" class="mt-2 "></label>
+                            <label asp-for="Product.ProviderId" class="mt-2 ">Provider</label>
                             <span asp-validation-for="Product.ProviderId" class="text-danger"></span>
                         </div>
                       
@@ -50,6 +50,14 @@
                             <label asp-for="Product.Price" class="mt-2 "></label>
                             <span asp-validation-for="Product.Price" class="text-danger"></span>
                         </div>
+                        <div class="form-floating py-2 col-12">
+
+                            <select asp-for="Product.CertSlotId" asp-items="@Model.CertSlotList" class="form-select border-1">
+                                <option disabled selected>--Select Certification Slot--</option>
+                            </select>
+                            <label asp-for="Product.CertSlotId" class="mt-2 ">CertificationSlot</label>
+                        </div>
+
                         @if(Model.Product.CategoryId==1)
                         {
                             
@@ -76,11 +84,7 @@
                                     <button type="submit" class="btn btn-primary form-control rounded">Update</button>
                                 }
                             </div>
-                             <div class="col-6 col-md-3">
-                                <a asp-area="Admin" asp-controller="CertificationSlots" asp-action="Index" class="btn btn-primary rounded form-control">Add Certification Slots</a>
-
-                            </div>
-
+                            
 
                             <div class="col-6 col-md-3">
                                 <a asp-area="Admin"  asp-controller="Products" asp-action="Index" class="btn btn-primary rounded form-control">Back to List</a>

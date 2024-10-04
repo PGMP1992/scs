@@ -65,7 +65,11 @@
                             @obj.Price
                         </td>
                         <td>
-                            @obj.CertificationSlot.Name
+                            @if(obj.CertSlotId>0)
+                            {
+                                @obj.CertificationSlot.Name
+                            }
+                           
                         </td>
                         <td>
                             @obj.Status
