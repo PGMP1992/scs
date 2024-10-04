@@ -6,7 +6,6 @@ using SCS.Data.DbInitializer;
 using SCS.Repository;
 using SCS.Repository.IRepository;
 using SCS.Utility;
-using SCS.Utility.PhotoService;
 using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,8 +20,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddDefaultTokenProviders();
 
 builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
-builder.Services.AddScoped<IPhotoService, PhotoService>(); // Cloudinary Interface
-builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
+//builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
 
 // Changed Defaul Error Pages. PS has to be after Identity - PM
 builder.Services.ConfigureApplicationCookie(options =>
@@ -54,9 +52,6 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IEmailSender, EmailSender>(); // Implemented for Register.cshtml.cs
 
 var app = builder.Build();
-
-//await Seed.SeedUsersAndRolesAsync(app);
-//await Seed.SeedData(app);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
