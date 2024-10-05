@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
-using SCS.Data;
 using SCS.Models;
 using SCS.Models.ViewModels;
 using SCS.Repository.IRepository;
@@ -19,12 +17,10 @@ namespace SCS.Areas.Customer
         private readonly IEmailSender _emailSender;
 
         [BindProperty]
-		public CartVM CartVM { get; set; }
-		
-		public ProductController(ApplicationDbContext context
-                                 , IUnitOfWork unitOfWork
-                                 , IEmailSender emailSender
-            )
+        public CartVM CartVM { get; set; }
+
+        public ProductController(IUnitOfWork unitOfWork
+                                 , IEmailSender emailSender)
         {
             _unitOfWork = unitOfWork;
             _emailSender = emailSender;
@@ -60,7 +56,6 @@ namespace SCS.Areas.Customer
 
             if (!String.IsNullOrEmpty(search))
             {
-                //IEnumerable<Product> searchList =  _context.Products.Where(p => p.Name.Contains(search));
                 IEnumerable<Product> searchList = _unitOfWork.Product
                     .GetAll(p => p.Name.Contains(search), includeProperties: "ProductImages,Provider,Category");
 
@@ -70,7 +65,6 @@ namespace SCS.Areas.Customer
                 }
                 ViewBag.Message = "There are not products with that Name.";
             }
-
             return View(productList);
         }
 
@@ -112,7 +106,7 @@ namespace SCS.Areas.Customer
             TempData["success"] = "Product Added to Cart!";
             return RedirectToAction(nameof(Index));
         }
-        
+
         //public IActionResult Description(int id)
         //{
         //    var product = _unitOfWork.Product.Get(p => p.Id == id, includeProperties:"ProductImages,Provider,Category"); 
@@ -172,18 +166,18 @@ namespace SCS.Areas.Customer
                 //},
             };
             _unitOfWork.AppUser.Add(tempUser);
-			_unitOfWork.Save();
-			
+            _unitOfWork.Save();
+
             // Save Sesssion TempUserId 
-			HttpContext.Session.SetString(SD.SessionTempUserId, tempUser.Id);
-            
+            HttpContext.Session.SetString(SD.SessionTempUserId, tempUser.Id);
+
             Cart cart = new()
             {
                 Product = _unitOfWork.Product.Get(p => p.Id == productId, includeProperties: "ProductImages,Provider,Category", true),
                 ProdCount = 1,
                 ProductId = productId,
                 AppUserId = HttpContext.Session.GetString(SD.SessionTempUserId)
-			};
+            };
 
             // Create Cart
             cart.ProdCount = 1;
@@ -220,19 +214,19 @@ namespace SCS.Areas.Customer
         {
             var tempUserId = HttpContext.Session.GetString(SD.SessionTempUserId);
 
-			CartVM.CartList = _unitOfWork.Cart.GetAll(u => u.AppUserId == tempUserId,
+            CartVM.CartList = _unitOfWork.Cart.GetAll(u => u.AppUserId == tempUserId,
                 includeProperties: "Product");
 
             CartVM.OrderHeader.OrderDate = System.DateTime.Now;
             CartVM.OrderHeader.AppUserId = tempUserId;
 
             // Save Name and Email to User in OrderHeaders and AppUsers - PM
-            var appUser = _unitOfWork.AppUser.Get(u => u.Id == tempUserId, tracked:true);
+            var appUser = _unitOfWork.AppUser.Get(u => u.Id == tempUserId, tracked: true);
             _unitOfWork.AppUser.SetName(appUser.Id, CartVM.OrderHeader.Name);
             _unitOfWork.AppUser.SetEmail(appUser.Id, CartVM.OrderHeader.Email);
             _unitOfWork.AppUser.Update(appUser);
             _unitOfWork.Save();
-            
+
             foreach (var cart in CartVM.CartList)
             {
                 cart.Price = cart.Product.Price * cart.ProdCount;
@@ -243,7 +237,7 @@ namespace SCS.Areas.Customer
             CartVM.OrderHeader.OrderStatus = SD.StatusPending;
 
             _unitOfWork.OrderHeader.Add(CartVM.OrderHeader);
-            _unitOfWork.Save(); 
+            _unitOfWork.Save();
 
             foreach (var cart in CartVM.CartList)
             {
@@ -255,7 +249,7 @@ namespace SCS.Areas.Customer
                     Count = cart.ProdCount
                 };
                 _unitOfWork.OrderDetails.Add(orderDetail);
-                _unitOfWork.Save(); 
+                _unitOfWork.Save();
             }
 
             //Stripe logic ------------------------------------------------
@@ -324,7 +318,7 @@ namespace SCS.Areas.Customer
             // Remove Temp User
             //var tempUserId = HttpContext.Session.GetString(SD.SessionTempUserId);
             //_unitOfWork.AppUser.Remove(_unitOfWork.AppUser.Get(u => u.Id == tempUserId));
-            
+
             // Remove the carts from DB 
             List<Cart> Carts = _unitOfWork.Cart
                 .GetAll(u => u.AppUserId == orderHeader.AppUserId).ToList();
