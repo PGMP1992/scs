@@ -20,7 +20,6 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddDefaultTokenProviders();
 
 builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
-//builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
 
 // Changed Defaul Error Pages. PS has to be after Identity - PM
 builder.Services.ConfigureApplicationCookie(options =>
