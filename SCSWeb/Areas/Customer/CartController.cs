@@ -85,8 +85,6 @@ namespace SCS.Areas.Customer
             CartVM.OrderHeader.Name = _unitOfWork.AppUser.GetName(userId);
             CartVM.OrderHeader.Email = _unitOfWork.AppUser.GetEmail(userId);
 
-            
-
             foreach (var cart in CartVM.CartList)
 			{
 				cart.Price = cart.Product.Price * cart.ProdCount;

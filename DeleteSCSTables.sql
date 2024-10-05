@@ -1,3 +1,6 @@
+-- SQL File to Delete all tables in SCS Db
+-- Author: Pedro Martinez
+-- 
 USE [SCS]
 GO
 
