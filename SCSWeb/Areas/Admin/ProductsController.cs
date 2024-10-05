@@ -61,6 +61,8 @@ public class ProductsController : Controller
     [HttpPost]
     public IActionResult Upsert(ProductVM productVM, List<IFormFile> files)
     {
+        string message = "";
+
         if (ModelState.IsValid)
         {
             if (productVM.Product.Id == 0)
@@ -68,51 +70,55 @@ public class ProductsController : Controller
                 if(productVM.Product.CategoryId==1)
                 {
                     productVM.Product.VoucherKey = Guid.NewGuid().ToString();
-
                 }
-                
                 _unitOfWork.Product.Add(productVM.Product);
+                message = "Product was Created";
             }
             else
             {
                 _unitOfWork.Product.Update(productVM.Product);
+                message = "Product Updated";
             }
             _unitOfWork.Save();
 
             string wwwRootPath = _webHostEnvironment.WebRootPath;
+            
             if (files != null)
             {
                 foreach (IFormFile file in files)
                 {
-
                     string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
                     string productPath = @"images\products\product-" + productVM.Product.Id;
                     string finalPath = Path.Combine(wwwRootPath, productPath);
-                    if (!Directory.Exists(finalPath))
+
+                    if (! Directory.Exists(finalPath))
                     {
                         Directory.CreateDirectory(finalPath);
                     }
+
                     using (var fileStream = new FileStream(Path.Combine(finalPath, fileName), FileMode.Create))
                     {
                         file.CopyTo(fileStream);
                     }
+
                     ProductImage productImage = new ProductImage()
                     {
                         ImageUrl = @"\" + productPath + @"\" + fileName,
                         ProductId = productVM.Product.Id,
                     };
+
                     if (productVM.Product.ProductImages == null)
                     {
                         productVM.Product.ProductImages = new List<ProductImage>();
                     }
+                 
                     productVM.Product.ProductImages.Add(productImage);
-
                 }
                 _unitOfWork.Product.Update(productVM.Product);
                 _unitOfWork.Save();
             }
 
-            TempData["success"] = "The product was created/updated";
+            TempData["success"] = message;
             return RedirectToAction("Index");
         }
         else
@@ -153,7 +159,6 @@ public class ProductsController : Controller
                 }
             }
 
-
             _unitOfWork.ProductImage.Remove(imgToBeDeleted);
             _unitOfWork.Save();
             TempData["success"] = "The image was removed";
@@ -192,7 +197,6 @@ public class ProductsController : Controller
 
         if(!_unitOfWork.OrderDetails.Any(u=>u.ProductId == Id) )
         {
-
             string productPath = @"images\products\product-" + Id;
             string finalPath = Path.Combine(_webHostEnvironment.WebRootPath, productPath);
             if (Directory.Exists(finalPath))
@@ -204,8 +208,6 @@ public class ProductsController : Controller
                 }
                 Directory.Delete(finalPath);
             }
-
-
             _unitOfWork.Product.Remove(product);
             TempData["success"] = "The product was deleted";
         }
