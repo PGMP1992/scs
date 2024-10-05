@@ -93,7 +93,10 @@ namespace SCS.Areas.Admin
             // Update Role
             if (userVM.AppUser.Role != oldRole)
             {
-                _userManager.RemoveFromRoleAsync(appUser, oldRole).GetAwaiter().GetResult();
+                if ( oldRole != null)
+                {
+                    _userManager.RemoveFromRoleAsync(appUser, oldRole).GetAwaiter().GetResult();
+                }
                 _userManager.AddToRoleAsync(appUser, userVM.AppUser.Role).GetAwaiter().GetResult();
             }
             _unitOfWork.AppUser.Update(appUser);
