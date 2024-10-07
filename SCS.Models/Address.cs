@@ -10,17 +10,15 @@ namespace SCS.Models
         [MaxLength(100)]
         public string Street1 { get; set; } = "";
 
-        [Required]
         [MaxLength(100)]
-        public string Street2 { get; set; } = "";
+        public string? Street2 { get; set; } = "";
 
         [Required]
         [MaxLength(50)]
         public string City { get; set; } = "";
 
-        [Required]
         [MaxLength(50)]
-        public string State { get; set; } = "";
+        public string? State { get; set; } = "";
 
         [Required]
         [MaxLength(50)]

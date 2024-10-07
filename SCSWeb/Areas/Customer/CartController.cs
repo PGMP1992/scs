@@ -106,8 +106,9 @@ namespace SCS.Areas.Customer
 					ProductId = cart.ProductId,
 					OrderHeaderId = CartVM.OrderHeader.Id,
 					Price = cart.Price,
-					Count = cart.ProdCount
-				};
+					Count = cart.ProdCount,
+					VoucherKey = Guid.NewGuid().ToString()
+                };
 			
 				_unitOfWork.OrderDetails.Add(orderDetail);
 				_unitOfWork.Save(); // ??? 
@@ -156,8 +157,10 @@ namespace SCS.Areas.Customer
 		public IActionResult OrderConfirmation(int id)
 		{
 			OrderHeader orderHeader = _unitOfWork.OrderHeader.Get(u => u.Id == id, includeProperties: "AppUser");
-			//OrderDetails orderDetails = _unitOfWork.OrderDetails.Get(u => u.OrderHeaderId == id, includeProperties: "OrderHeader,Product");
-            var service = new SessionService();
+			List<OrderDetails> orderDetails = _unitOfWork.OrderDetails.GetAll(u => u.OrderHeaderId == id, 
+					includeProperties: "OrderHeader,Product").ToList();
+            
+			var service = new SessionService();
 			Session session = service.Get(orderHeader.SessionId);
 
 			if (session.PaymentStatus.ToLower() == "paid")
@@ -172,17 +175,27 @@ namespace SCS.Areas.Customer
 			}
 
 			HttpContext.Session.Clear();
+
+			string emailHeader =
+				  $"<p>New Order Number :{orderHeader.Id}</p>"
+				+ $"<p>Date  : {orderHeader.OrderDate}</P>"
+				+ $"<p>Status: {orderHeader.OrderStatus}</P>"
+				+ $"<p>Total : {orderHeader.OrderTotal}</P>"
+				+ $"<p> ------------------------------------------------------------------------------------------------------------------</p>";
+				
+			string emailDetails = "";
+
+            foreach (var item in orderDetails)
+			{
+				emailDetails += 
+					$"<p>Product : {item.Product.Name}</p>" 
+					+ $"<p>Count : {item.Count}</p>"
+                    + $"<p>Price : {item.Product.Price}</p>"
+                    + $"<p>Voucher Key : {item.VoucherKey}</p>"
+                    + $"<p> ------------------------------------------------------------------------------------------------------------------</p>";
+            }
 			
-			_emailSender.SendEmailAsync(orderHeader.AppUser.Email, "New Order - SCS AB",
-                $"<p>New Order Created - {orderHeader.Id}</p>"  
-				+ $"<p>Date: {orderHeader.OrderDate}</P>"  
-				+$"<p>Status: {orderHeader.OrderStatus}</P>"  
-                +$"<p>Total: {orderHeader.OrderTotal}</P>" 
-				//$"<p> ------------------------------------------</p>" 
-                //$"<p> Product : {orderDetails.Product.Name}</P>" 
-                //$"<p> Quantity: {orderDetails.Count}</P>" 
-                //$"<p> Price   : {orderDetails.Product.Price.ToString("c")}
-				);
+			_emailSender.SendEmailAsync(orderHeader.AppUser.Email, "New Order - SCS AB", emailHeader + emailDetails);
 
 			// Remove the carts from DB 
 			List<Cart> Carts = _unitOfWork.Cart
