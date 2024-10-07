@@ -65,6 +65,11 @@
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li>
+                                <a class="nav-link text-light" asp-area="Customer" asp-controller="Booking" asp-action="Index">
+                                    Bookings
+                                </a>
+                            </li>
+                            <li>
                                 <a class="nav-link text-light" asp-area="Admin" asp-controller="Order" asp-action="Index">
                                     Orders
                                 </a>
