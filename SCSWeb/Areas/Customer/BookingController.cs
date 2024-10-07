@@ -41,9 +41,7 @@ namespace SCSWeb.Areas.Customer
 
             BookingVM = new BookingVM()
             {
-                BookingList = _unitOfWork.Booking.GetAll(u => u.AppUserId == userId,
-                    includeProperties: "Product"),
-                OrderHeader = new()
+                BookingList = _unitOfWork.Booking.GetAll(includeProperties: "Product")
             };
 
             //BookingVM.OrderHeader.Name = _unitOfWork.AppUser.GetName(userId);
@@ -63,8 +61,8 @@ namespace SCSWeb.Areas.Customer
         {
             var userId = HttpContext.User.GetUserId();
 
-            BookingVM.BookingList = _unitOfWork.Booking.GetAll(u => u.AppUserId == userId,
-                includeProperties: "Product");
+            //BookingVM.BookingList = _unitOfWork.Booking.GetAll(u => u.AppUserId == userId,
+            //    includeProperties: "Product");
 
             //BookingVM.OrderHeader.OrderDate = System.DateTime.Now;
             //BookingVM.OrderHeader.AppUserId = userId;

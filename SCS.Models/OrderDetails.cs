@@ -19,6 +19,8 @@ public class OrderDetails
     public int ProductId { get; set; }
 
     public string? VoucherKey { get; set; }
+
+    public bool? VoucherBooked {  get; set; }
     
     [ForeignKey("ProductId")]
     [ValidateNever]

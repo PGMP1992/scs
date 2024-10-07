@@ -107,7 +107,8 @@ namespace SCS.Areas.Customer
 					OrderHeaderId = CartVM.OrderHeader.Id,
 					Price = cart.Price,
 					Count = cart.ProdCount,
-					VoucherKey = Guid.NewGuid().ToString()
+					VoucherKey = Guid.NewGuid().ToString(),
+					VoucherBooked = false
                 };
 			
 				_unitOfWork.OrderDetails.Add(orderDetail);
