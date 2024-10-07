@@ -29,22 +29,22 @@ namespace SCSWeb.Areas.Customer
         {
             var userId = HttpContext.User.GetUserId();
 
-            IEnumerable<OrderDetails> orderDetails = _unitOfWork.OrderDetails
-                .GetAll(p=>p.VoucherKey != null );
+            IEnumerable<OrderHeader> orderHeaders = _unitOfWork.OrderHeader
+                .GetAll(o =>o.AppUserId == userId, includeProperties:"OrderDetails");
                       
-            return View(orderDetails);
+            return View(orderHeaders);
         }
 
         public IActionResult Book()
         {
             var userId = HttpContext.User.GetUserId();
 
-            //BookingVM = new BookingVM()
-            //{
-            //    BookingList = _unitOfWork.Booking.GetAll(u => u.AppUserId == userId,
-            //        includeProperties: "Product"),
-            //    OrderHeader = new()
-            //};
+            BookingVM = new BookingVM()
+            {
+                BookingList = _unitOfWork.Booking.GetAll(u => u.AppUserId == userId,
+                    includeProperties: "Product"),
+                OrderHeader = new()
+            };
 
             //BookingVM.OrderHeader.Name = _unitOfWork.AppUser.GetName(userId);
             //BookingVM.OrderHeader.Email = _unitOfWork.AppUser.GetEmail(userId);
