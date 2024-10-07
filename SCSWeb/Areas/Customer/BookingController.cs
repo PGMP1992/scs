@@ -29,9 +29,10 @@ namespace SCSWeb.Areas.Customer
         {
             var userId = HttpContext.User.GetUserId();
 
-            IEnumerable<Product> products = _unitOfWork.Product.GetAll(p=>p.VoucherKey != null );
+            IEnumerable<OrderDetails> orderDetails = _unitOfWork.OrderDetails
+                .GetAll(p=>p.VoucherKey != null );
                       
-            return View(products);
+            return View(orderDetails);
         }
 
         public IActionResult Book()
