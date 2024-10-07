@@ -124,14 +124,17 @@
                                 <button asp-action="StartProcessing" type="submit" asp-action="StartProcessing" 
                                     class="btn btn-primary form-control my-1 rounded">Start Processing</button>
                             }
-                            @if (Model.OrderHeader.OrderStatus == SD.StatusInProcess)
+                            @* // That does not Apply - PM
+                                @if (Model.OrderHeader.OrderStatus == SD.StatusInProcess)
                             {
                                 <button type="submit" asp-action="ShipOrder" onclick="return validateInput()" 
                                     class="btn btn-primary form-control my-1 rounded">Ship Order</button>
-                            }
-                            @if (Model.OrderHeader.OrderStatus != SD.StatusRefunded &&
-                                Model.OrderHeader.OrderStatus != SD.StatusCancelled &&
-                                Model.OrderHeader.OrderStatus != SD.StatusShipped)
+                            } *@
+
+                            @if (Model.OrderHeader.OrderStatus != SD.StatusRefunded 
+                                && Model.OrderHeader.OrderStatus != SD.StatusCancelled
+                            //&& Model.OrderHeader.OrderStatus != SD.StatusShipped  // That does not Apply - PM
+                            )
                             {
                                 <button type="submit" asp-action="CancelOrder" 
                                     class="btn btn-danger form-control my-1 rounded">Cancel Order</button>

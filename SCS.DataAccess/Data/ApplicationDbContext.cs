@@ -117,22 +117,21 @@ namespace SCS.Data
               }
 
          );
+
             modelBuilder.Entity<CertificationSlot>().HasData(
-               new CertificationSlot
-               {
-                   Id = 1,
-                   Name= "Slot1",
-                   StartDate = DateTime.Now,
-                   EndDate = DateTime.Now.AddDays(30),
-                   Dates=new List<DateOnly>()
-                   {
-                       DateOnly.FromDateTime( DateTime.Now.AddDays(7) ),
-                       DateOnly.FromDateTime( DateTime.Now.AddDays(14) ),
-                       DateOnly.FromDateTime( DateTime.Now.AddDays(17) ),
-
-
-                   }
-               },
+                new CertificationSlot
+                {
+                    Id = 1,
+                    Name= "Slot1",
+                    StartDate = DateTime.Now,
+                    EndDate = DateTime.Now.AddDays(30),
+                    Dates=new List<DateOnly>()
+                    {
+                        DateOnly.FromDateTime( DateTime.Now.AddDays(7) ),
+                        DateOnly.FromDateTime( DateTime.Now.AddDays(14) ),
+                        DateOnly.FromDateTime( DateTime.Now.AddDays(17) ),
+                    }
+                },
                 new CertificationSlot
                 {
                     Id = 2,
@@ -140,22 +139,23 @@ namespace SCS.Data
                     StartDate = DateTime.Now,
                     EndDate = DateTime.Now.AddDays(60),
                     Dates = new List<DateOnly>()
-                   {
-                       DateOnly.FromDateTime( DateTime.Now.AddDays(7) ),
-                       DateOnly.FromDateTime( DateTime.Now.AddDays(14) ),
-                       DateOnly.FromDateTime( DateTime.Now.AddDays(24) ),
-                       DateOnly.FromDateTime( DateTime.Now.AddDays(30) ),
-                       DateOnly.FromDateTime( DateTime.Now.AddDays(55) ),
-                   }
+                    {
+                        DateOnly.FromDateTime( DateTime.Now.AddDays(7) ),
+                        DateOnly.FromDateTime( DateTime.Now.AddDays(14) ),
+                        DateOnly.FromDateTime( DateTime.Now.AddDays(24) ),
+                        DateOnly.FromDateTime( DateTime.Now.AddDays(30) ),
+                        DateOnly.FromDateTime( DateTime.Now.AddDays(55) ),
+                    }
                 }
-           );
+            );
+            
             modelBuilder.Entity<Product>().HasData(
                 new Product
                 {
                      Id = 1,
                      Name = "Certificate in Sanctions",
                      CategoryId = 1,
-                     Description = "E-learning om efterlevnad av sanktioner i egen takt (15–20 timmar långt)",
+                     Description = "Certificate in Sanctions Description....",
                      Price = 7200,
                      Status = SD.ProductStatusRegistrated,
                      ProviderId = 1,
@@ -167,7 +167,7 @@ namespace SCS.Data
                     Id = 2,
                     Name = "Certificate in Corporate Governance",
                     CategoryId = 1,
-                    Description = "E-learning om efterlevnad av sanktioner i egen takt (15–20 timmar långt)",
+                    Description = "Certificate in Corporate Governance Description....",
                     Price = 8400,
                     Status = SD.ProductStatusRegistrated,
                     ProviderId = 1,
@@ -179,7 +179,7 @@ namespace SCS.Data
                     Id = 3,
                     Name = "C# Certificate",
                     CategoryId = 1,
-                    Description = "C# Certification",
+                    Description = "C# Certification Description...",
                     Price = 1000,
                     Status = SD.ProductStatusRegistrated,
                     ProviderId = 2,
@@ -191,7 +191,7 @@ namespace SCS.Data
                     Id = 4,
                    Name = "C# Begginner",
                    CategoryId = 2,
-                   Description = "C# Begginner Programming",
+                   Description = "C# Begginner Programming Description...",
                    Price = 200,
                    Status = SD.ProductStatusRegistrated,
                    ProviderId = 2
@@ -201,7 +201,7 @@ namespace SCS.Data
                     Id = 5,
                     Name = "C# Begginner",
                     CategoryId = 3,
-                    Description = "C# Begginner Programming",
+                    Description = "C# Begginner Programming Description...",
                     Price = 300,
                     Status = SD.ProductStatusRegistrated,
                     ProviderId = 2
@@ -211,7 +211,7 @@ namespace SCS.Data
                     Id = 6,
                     Name = "C# Intermediate",
                     CategoryId = 2,
-                    Description = "C# Intermediate Programming",
+                    Description = "C# Intermediate Programming Description...",
                     Price = 200,
                     Status = SD.ProductStatusRegistrated,
                     ProviderId = 2
@@ -221,7 +221,7 @@ namespace SCS.Data
                     Id = 7,
                     Name = "C# Intermediate",
                     CategoryId = 3,
-                    Description = "C# Intermediate Programming",
+                    Description = "C# Intermediate Programming Description...",
                     Price = 300,
                     Status = SD.ProductStatusRegistrated,
                     ProviderId = 2
@@ -231,7 +231,7 @@ namespace SCS.Data
                     Id = 8,
                     Name = "C# Advanced",
                     CategoryId = 2,
-                    Description = "C# Advanced Programming",
+                    Description = "C# Advanced Programming Description...",
                     Price = 200,
                     Status = SD.ProductStatusRegistrated,
                     ProviderId = 2
@@ -241,7 +241,7 @@ namespace SCS.Data
                     Id = 9,
                     Name = "C# Advanced",
                     CategoryId = 3,
-                    Description = "C# Advanced Programming",
+                    Description = "C# Advanced Programming Description...",
                     Price = 300,
                     Status = SD.ProductStatusRegistrated,
                     ProviderId = 2
@@ -251,18 +251,13 @@ namespace SCS.Data
                     Id = 10,
                     Name = "C# for beginners, Bundle",
                     CategoryId = 3,
-                    Description = "C# Advanced Programming",
+                    Description = "C# Advanced Programming Description...",
                     Price = 300,
                     Status = SD.ProductStatusRegistrated,
                     ProviderId = 2,
                     BundleId=1
                 }
             );
-
-            
-           
-
-
         }
     }
 }

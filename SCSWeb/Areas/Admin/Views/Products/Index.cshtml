@@ -1,4 +1,10 @@
-﻿@model List<Product>
+﻿@* Project: CSC Mock Test
+    Controller: Product
+    View      : Index 
+    Author    : Pedro Martinez
+*@
+
+@model List<Product>
 
 <div class="card shadow border-0 mt-4 mb-4">
 
@@ -52,7 +58,9 @@
                 {
                     <tr>
                         <td>
-                            @obj.Name
+                            <a asp-controller="Products" asp-action="Upsert" asp-route-id="@obj.Id" class="text-black">
+                                @obj.Name
+                            </a>
                         </td>
 
                         <td>

@@ -5,29 +5,29 @@ using SCS.Models.ViewModels;
 using SCS.Repository.IRepository;
 using SCS.Utility;
 using Stripe;
-using System.Security.Claims;
 
 namespace SCS.Areas.Admin.Controllers;
 
 [Area("Admin")]
 [Authorize]
+
 public class OrderController : Controller
 {
     public readonly IUnitOfWork _unitOfWork;
-    
+
     [BindProperty]
     public OrderVM OrderVM { get; set; }
-    
+
     public OrderController(IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }
-    
+
     public IActionResult Index()
     {
         return View();
     }
-    
+
     public IActionResult Details(int orderId)
     {
         OrderVM = new OrderVM()
@@ -44,22 +44,23 @@ public class OrderController : Controller
     {
         _unitOfWork.OrderHeader.UpdateStatus(OrderVM.OrderHeader.Id, SD.StatusInProcess);
         _unitOfWork.Save();
-        TempData["Success"] = "Orderstatus har satts till 'På gång'.";
+        TempData["Success"] = "Order status changed to Processing";
         return RedirectToAction(nameof(Details), new { orderId = OrderVM.OrderHeader.Id }); ;
     }
 
-    [HttpPost]
-    [Authorize(Roles = SD.Role_Admin + "," + SD.Role_Employee)]
-    public IActionResult ShipOrder()
-    {
-        var orderHeader = _unitOfWork.OrderHeader.Get(u => u.Id == OrderVM.OrderHeader.Id);
-        orderHeader.OrderStatus = SD.StatusShipped;
+    // This does not Apply - PM
+    //[HttpPost]
+    //[Authorize(Roles = SD.Role_Admin + "," + SD.Role_Employee)]
+    //public IActionResult ShipOrder()
+    //{
+    //    var orderHeader = _unitOfWork.OrderHeader.Get(u => u.Id == OrderVM.OrderHeader.Id);
+    //    orderHeader.OrderStatus = SD.StatusShipped;
 
-        _unitOfWork.OrderHeader.Update(orderHeader);
-        _unitOfWork.Save();
-        TempData["Success"] = "Orderstatus har satts till 'Skickad'.";
-        return RedirectToAction(nameof(Details), new { orderId = OrderVM.OrderHeader.Id }); ;
-    }
+    //    _unitOfWork.OrderHeader.Update(orderHeader);
+    //    _unitOfWork.Save();
+    //    TempData["Success"] = "Orders status changed to Shipped.";
+    //    return RedirectToAction(nameof(Details), new { orderId = OrderVM.OrderHeader.Id }); ;
+    //}
 
     [HttpPost]
     [Authorize(Roles = SD.Role_Admin + "," + SD.Role_Employee)]
@@ -71,10 +72,10 @@ public class OrderController : Controller
 
         _unitOfWork.OrderHeader.Update(orderHeaderFromDb);
         _unitOfWork.Save();
-        TempData["Success"] = "Orderdetaljer har uppdaterats";
+        TempData["Success"] = "Order details Updated";
         return RedirectToAction(nameof(Details), new { orderId = orderHeaderFromDb.Id });
     }
-    
+
     public IActionResult CancelOrder()
     {
         OrderHeader orderHeaderFromDb = _unitOfWork.OrderHeader.Get(u => u.Id == OrderVM.OrderHeader.Id);
@@ -82,10 +83,10 @@ public class OrderController : Controller
         {
             var options = new RefundCreateOptions
             {
-
                 Reason = RefundReasons.RequestedByCustomer,
                 PaymentIntent = orderHeaderFromDb.PaymentIntentId
             };
+
             var service = new RefundService();
             Refund refund = service.Create(options);
             _unitOfWork.OrderHeader.UpdateStatus(orderHeaderFromDb.Id, SD.StatusCancelled, SD.StatusRefunded);
@@ -96,7 +97,7 @@ public class OrderController : Controller
         }
 
         _unitOfWork.Save();
-        TempData["Success"] = "Ordern har annulerats";
+        TempData["Success"] = "Order has been Cancelled";
         return RedirectToAction(nameof(Details), new { orderId = orderHeaderFromDb.Id });
     }
 
@@ -112,8 +113,7 @@ public class OrderController : Controller
         }
         else
         {
-            var claimsIdentity = (ClaimsIdentity)User.Identity;
-            var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var userId = HttpContext.User.GetUserId();
             orderHeaderList = _unitOfWork.OrderHeader.GetAll(u => u.AppUser.Id == userId, includeProperties: "AppUser").ToList();
         }
         switch (status)
