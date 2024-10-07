@@ -10,7 +10,6 @@ using Stripe.Checkout;
 namespace SCS.Areas.Customer
 {
     [Area("Customer")]
-
     public class ProductController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -107,13 +106,6 @@ namespace SCS.Areas.Customer
             return RedirectToAction(nameof(Index));
         }
 
-        //public IActionResult Description(int id)
-        //{
-        //    var product = _unitOfWork.Product.Get(p => p.Id == id, includeProperties:"ProductImages,Provider,Category"); 
-        //    return View(product);
-        //}
-
-
         [Authorize]
         public IActionResult AddToCart(int productId)
         {
@@ -155,16 +147,8 @@ namespace SCS.Areas.Customer
                 Name = "Temp",
                 UserName = SD.TempEmail,
                 Email = SD.TempEmail,
-                //Address = new Address()
-                //{
-                //    Street1 = "Temp Street 1",
-                //    Street2 = "Temp Street 2",
-                //    City = "Temp City",
-                //    State = "Temp State",
-                //    Postcode = "Temp postocode",
-                //    Country = "Temp Country"
-                //},
             };
+
             _unitOfWork.AppUser.Add(tempUser);
             _unitOfWork.Save();
 
@@ -221,11 +205,15 @@ namespace SCS.Areas.Customer
             CartVM.OrderHeader.AppUserId = tempUserId;
 
             // Save Name and Email to User in OrderHeaders and AppUsers - PM
-            var appUser = _unitOfWork.AppUser.Get(u => u.Id == tempUserId, tracked: true);
-            _unitOfWork.AppUser.SetName(appUser.Id, CartVM.OrderHeader.Name);
-            _unitOfWork.AppUser.SetEmail(appUser.Id, CartVM.OrderHeader.Email);
-            _unitOfWork.AppUser.Update(appUser);
+            var newAppUser = _unitOfWork.AppUser.Get(u => u.Id == tempUserId, tracked: true);
+            _unitOfWork.AppUser.SetName(newAppUser.Id, CartVM.OrderHeader.Name);
+            _unitOfWork.AppUser.SetEmail(newAppUser.Id, CartVM.OrderHeader.Email);
+            _unitOfWork.AppUser.Update(newAppUser);
             _unitOfWork.Save();
+
+            // Save new UserId to Session after creating Users
+            HttpContext.Session.SetString(SD.SessionTempUserId, newAppUser.Id);
+            newAppUser.Id = HttpContext.Session.GetString(SD.SessionTempUserId);
 
             foreach (var cart in CartVM.CartList)
             {
@@ -257,7 +245,7 @@ namespace SCS.Areas.Customer
             var options = new SessionCreateOptions
             {
                 SuccessUrl = domain + $"customer/product/BuyOrderConfirmation?id={CartVM.OrderHeader.Id}",
-                CancelUrl = domain + "customer/product/buySummary",
+                CancelUrl = domain + "customer/product/Index",
                 LineItems = new List<SessionLineItemOptions>(),
                 Mode = "payment",
                 CustomerEmail = CartVM.OrderHeader.Email,
@@ -293,6 +281,7 @@ namespace SCS.Areas.Customer
         public IActionResult BuyOrderConfirmation(int id)
         {
             OrderHeader orderHeader = _unitOfWork.OrderHeader.Get(u => u.Id == id, includeProperties: "AppUser");
+            
             var service = new SessionService();
             Session session = service.Get(orderHeader.SessionId);
 
@@ -301,33 +290,42 @@ namespace SCS.Areas.Customer
                 _unitOfWork.OrderHeader.UpdateStripePaymentID(id, session.Id, session.PaymentIntentId);
                 _unitOfWork.OrderHeader.UpdateStatus(id, SD.StatusApproved, SD.PaymentStatusApproved);
                 _unitOfWork.Save();
+                // Email --------------------------
+
+                _emailSender.SendEmailAsync(orderHeader.AppUser.Email, "New Order - SCS AB",
+                    $"<p>New Order Created - {orderHeader.Id}</p>"
+                    + $"<p>Date: {orderHeader.OrderDate}</P>"
+                    + $"<p>Status: {orderHeader.OrderStatus}</P>"
+                    + $"<p>Total: {orderHeader.OrderTotal}</P>"
+                    //$"<p> ------------------------------------------</p>" 
+                    //$"<p> Product : {orderDetails.Product.Name}</P>" 
+                    //$"<p> Quantity: {orderDetails.Count}</P>" 
+                    //$"<p> Price   : {orderDetails.Product.Price.ToString("c")}
+                    );
+                
+                // Remove the carts from DB 
+                List<Cart> Carts = _unitOfWork.Cart
+                    .GetAll(u => u.AppUserId == orderHeader.AppUserId).ToList();
+
+                _unitOfWork.Cart.RemoveRange(Carts);
+                _unitOfWork.Save();
+                // Clear Session 
+
+                HttpContext.Session.Clear();
+                return View(id);
             }
+            else // Payment didn't go through  
+            {
+                // Have  to delete user if not paid
+                //_unitOfWork.OrderHeader.Remove(orderHeader);
+                //_unitOfWork.OrderDetails.Remove();
+                
+                // Deleting User will cascade to OrderHeader, OrderDetails and Hopefully CartList - PM
+                _unitOfWork.AppUser.Remove(orderHeader.AppUser);
+                _unitOfWork.Save();
 
-            // Email --------------------------
-            _emailSender.SendEmailAsync(orderHeader.AppUser.Email, "New Order - SCS AB",
-                $"<p>New Order Created - {orderHeader.Id}</p>"
-                + $"<p>Date: {orderHeader.OrderDate}</P>"
-                + $"<p>Status: {orderHeader.OrderStatus}</P>"
-                + $"<p>Total: {orderHeader.OrderTotal}</P>"
-                //$"<p> ------------------------------------------</p>" 
-                //$"<p> Product : {orderDetails.Product.Name}</P>" 
-                //$"<p> Quantity: {orderDetails.Count}</P>" 
-                //$"<p> Price   : {orderDetails.Product.Price.ToString("c")}
-                );
-
-            // Remove Temp User
-            //var tempUserId = HttpContext.Session.GetString(SD.SessionTempUserId);
-            //_unitOfWork.AppUser.Remove(_unitOfWork.AppUser.Get(u => u.Id == tempUserId));
-
-            // Remove the carts from DB 
-            List<Cart> Carts = _unitOfWork.Cart
-                .GetAll(u => u.AppUserId == orderHeader.AppUserId).ToList();
-
-            _unitOfWork.Cart.RemoveRange(Carts);
-            _unitOfWork.Save();
-            // Clear Session 
-            HttpContext.Session.Clear();
-            return View(id);
+                return RedirectToAction(nameof(Index));
+            }
         }
     }
 }
