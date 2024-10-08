@@ -2,7 +2,8 @@
 {
     public class BookingVM
     {
-        public IEnumerable<Booking> BookingList { get; set; }
-        public OrderHeader OrderHeader { get; set; }
+        //public int Id { get; set; }
+        public IEnumerable<CertificationSlot> Slots { get; set; }
+        //public OrderHeader OrderHeader { get; set; }
     }
 }
