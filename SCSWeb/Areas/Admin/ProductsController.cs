@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using SCS.Models;
 using SCS.Models.ViewModels;
 using SCS.Repository.IRepository;
@@ -53,7 +52,7 @@ public class ProductsController : Controller
                 Value = u.Id.ToString()
             })
         };
-       
+
         if (id != null && id > 0)
         {
             productVM.Product = _unitOfWork.Product.Get(u => u.Id == id, includeProperties: "ProductImages,Provider,Category,CertificationSlot");
@@ -71,7 +70,7 @@ public class ProductsController : Controller
         {
             if (productVM.Product.Id == 0)
             {
-                if(productVM.Product.CategoryId==1)
+                if (productVM.Product.CategoryId == 1)
                 {
                     productVM.Product.VoucherKey = Guid.NewGuid().ToString();
                 }
@@ -86,7 +85,7 @@ public class ProductsController : Controller
             _unitOfWork.Save();
 
             string wwwRootPath = _webHostEnvironment.WebRootPath;
-            
+
             if (files != null)
             {
                 foreach (IFormFile file in files)
@@ -95,7 +94,7 @@ public class ProductsController : Controller
                     string productPath = @"images\products\product-" + productVM.Product.Id;
                     string finalPath = Path.Combine(wwwRootPath, productPath);
 
-                    if (! Directory.Exists(finalPath))
+                    if (!Directory.Exists(finalPath))
                     {
                         Directory.CreateDirectory(finalPath);
                     }
@@ -115,7 +114,7 @@ public class ProductsController : Controller
                     {
                         productVM.Product.ProductImages = new List<ProductImage>();
                     }
-                 
+
                     productVM.Product.ProductImages.Add(productImage);
                 }
                 _unitOfWork.Product.Update(productVM.Product);
@@ -143,7 +142,7 @@ public class ProductsController : Controller
                 Text = u.Name,
                 Value = u.Id.ToString()
             });
-            
+
             return View(productVM);
         }
     }
@@ -174,7 +173,7 @@ public class ProductsController : Controller
     {
         if (id != null && id > 0)
         {
-            Product product =  _unitOfWork.Product.Get(u => u.Id == id, includeProperties: "ProductImages,Category,Provider");
+            Product product = _unitOfWork.Product.Get(u => u.Id == id, includeProperties: "ProductImages,Category,Provider");
             return View(product);
         }
         TempData["error"] = "No product to delete";
@@ -191,15 +190,15 @@ public class ProductsController : Controller
             TempData["error"] = "Error with deleting";
         }
 
-        if(_unitOfWork.Bundle.Any(u=>u.ProductId1==Id) 
-            || _unitOfWork.Bundle.Any(u => u.ProductId2 == Id) 
+        if (_unitOfWork.Bundle.Any(u => u.ProductId1 == Id)
+            || _unitOfWork.Bundle.Any(u => u.ProductId2 == Id)
             || _unitOfWork.Bundle.Any(u => u.ProductId3 == Id))
         {
             TempData["error"] = "The product is a part of a bundle, delete the bundle first";
             return View(product);
         }
 
-        if(!_unitOfWork.OrderDetails.Any(u=>u.ProductId == Id) )
+        if (!_unitOfWork.OrderDetails.Any(u => u.ProductId == Id))
         {
             string productPath = @"images\products\product-" + Id;
             string finalPath = Path.Combine(_webHostEnvironment.WebRootPath, productPath);
@@ -222,7 +221,7 @@ public class ProductsController : Controller
             TempData["success"] = "The product status is changed to expired";
         }
         _unitOfWork.Save();
-       
+
         return RedirectToAction("Index");
     }
 

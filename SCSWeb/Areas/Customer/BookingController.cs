@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
-using SCS.Models.ViewModels;
 using SCS.Models;
+using SCS.Models.ViewModels;
 using SCS.Repository.IRepository;
-using SCS.Utility;
 
 namespace SCSWeb.Areas.Customer
 {
@@ -30,11 +29,11 @@ namespace SCSWeb.Areas.Customer
             ViewBag.Message = "";
 
             IEnumerable<CertificationSlot> slots = _unitOfWork.CertificationSlot.GetAll();
-            
+
             BookingVM bookingVM = new BookingVM();
-            
+
             bookingVM.Slots = slots;
-            
+
             return View(bookingVM);
         }
 
