@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace SCS.Models;
 
@@ -18,6 +19,7 @@ public class CertificationSlot
     public DayOfWeek? DayOfWeek { get; set; }
 
     public List<DateOnly>? Dates { get; set; }
+    
     [ValidateNever]
     public IEnumerable<CertificationDay> CertificationDays { get; set; }
 }
