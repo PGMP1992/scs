@@ -27,7 +27,7 @@ namespace SCSWeb.Areas.Customer
 
         public async Task<IActionResult> Book()
         {
-            //var userId = HttpContext.User.GetUserId();
+            ViewBag.Message = "";
 
             IEnumerable<CertificationSlot> slots = _unitOfWork.CertificationSlot.GetAll();
             
@@ -35,37 +35,46 @@ namespace SCSWeb.Areas.Customer
             
             bookingVM.Slots = slots;
             
-            ViewBag.Message = "";
-
             return View(bookingVM);
         }
 
         [HttpPost]
         [ActionName("Book")]
-        public IActionResult BookPOST()
+        public IActionResult BookPOST(string voucherId)
         {
-            if (String.IsNullOrEmpty(BookingVM.VoucherId)) 
+            if (!String.IsNullOrEmpty(voucherId))
             {
-                ViewBag.Message = "Please enter a valid Voucher Key.";
-                return View(nameof(BookingVM));
-            }
-            else
-            {
-                var voucher = _unitOfWork.OrderDetails.Get(v => v.VoucherKey == BookingVM.VoucherId);
-                if (voucher.VoucherBooked == true)
+                var orderDetail = _unitOfWork.OrderDetails.Get(v => v.VoucherKey == voucherId);
+
+                if (orderDetail == null)
                 {
-                    ViewBag.Message = "This Voucher has already been Booked.";
-                    return View(nameof(BookingVM));
+                    ViewBag.Message = "Voucher not found.";
                 }
                 else
                 {
-                    voucher.VoucherBooked = true;
-                    _unitOfWork.OrderDetails.Update(voucher);
-                    _unitOfWork.Save();
-                    ViewBag.Message = "Voucher has been Booked.";
+                    if (orderDetail.VoucherBooked == true)
+                    {
+                        ViewBag.Message = "This Voucher has already been Booked.";
+                    }
+
+                    var voucher = _unitOfWork.OrderDetails.Get(v => v.VoucherKey == BookingVM.VoucherId);
+                    if (voucher != null)
+                    {
+                        voucher.VoucherBooked = true;
+                        _unitOfWork.OrderDetails.Update(voucher);
+                        _unitOfWork.Save();
+                        ViewBag.Message = "Voucher has been Booked.";
+                        return RedirectToAction(nameof(OrderConfirmation), new { id = BookingVM.VoucherId });
+                    }
+                    return View(Book);
                 }
             }
-            return RedirectToAction(nameof(OrderConfirmation), new { id = BookingVM.VoucherId });
+            else
+            {
+                ViewBag.Message = "Please enter a valid Voucher Key.";
+                return NotFound();
+            }
+            return NotFound();
         }
 
         public IActionResult OrderConfirmation(string id)
