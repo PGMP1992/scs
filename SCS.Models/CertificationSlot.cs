@@ -10,11 +10,14 @@ public class CertificationSlot
     [Required]
     public string Name { get; set; }
     [Display(Name = "Start Date (yyyy-mm-dd)")]
-    public DateTime StartDate { get; set; } = DateTime.Now;
-    [Display(Name = "Start Date (yyyy-mm-dd)")]
-    public DateTime EndDate { get; set; } = DateTime.Now.AddDays(30);
+    public DateOnly StartDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
     
+    [Display(Name = "End Date (yyyy-mm-dd)")]
+    public DateOnly EndDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
+
     public DayOfWeek? DayOfWeek { get; set; }
-    
-    public List<DateOnly> Dates { get; set; }
+
+    public List<DateOnly>? Dates { get; set; }
+    [ValidateNever]
+    public IEnumerable<CertificationDay> CertificationDays { get; set; }
 }

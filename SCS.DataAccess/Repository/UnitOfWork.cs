@@ -13,6 +13,8 @@ public class UnitOfWork : IUnitOfWork
     public IAppUserRepository AppUser { get; private set; }
     public IAddressRepository Address { get; private set; }
     public ICertificationSlotRepository CertificationSlot { get; private set; }
+    public ICertificationDayRepository CertificationDay { get; private set; }
+
     public ICartRepository Cart { get; private set; }
     public IOrderHeaderRepository OrderHeader { get; private set; }
     public IOrderDetailsRepository OrderDetails { get; private set; }
@@ -32,6 +34,7 @@ public class UnitOfWork : IUnitOfWork
         AppUser = new AppUserRepository(_db);
         Address = new AddressRepository(_db);
         CertificationSlot = new CertificationSlotRepository(_db);
+        CertificationDay = new CertificationDayRepository(_db);
         Cart = new CartRepository(_db);
         OrderHeader = new OrderHeaderRepository(_db);
         OrderDetails = new OrderDetailsRepository(_db);

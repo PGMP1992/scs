@@ -12,29 +12,81 @@
 
     <div class="card-body p-4">
         <form method="post" class="row" enctype="multipart/form-data">
-            <input asp-for="CertificationSlot.Id" hidden />
-
+            <input asp-for="@Model.CertificationSlot.Id" hidden />
             <div class="row">
                 <div class="col-10">
                     <div class="border p-3">
-                       
                         <div class="form-floating py-2 col-12">
-                            <input asp-for="CertificationSlot.StartDate" type="date" class="form-control border-1" />
+                            <input asp-for="@Model.CertificationSlot.Name" type="text" class="form-control border-1" />
+                            <label asp-for="CertificationSlot.Name" class="mt-2 "></label>
+                            <span asp-validation-for="CertificationSlot.Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="@Model.CertificationSlot.StartDate" type="date" class="form-control border-1" />
                             <label asp-for="CertificationSlot.StartDate" class="mt-2 "></label>
                             <span asp-validation-for="CertificationSlot.StartDate" class="text-danger"></span>
                         </div>
 
                         <div class="form-floating py-2 col-12">
-                            <input asp-for="CertificationSlot.EndDate" type="date" class="form-control border-1" />
+                            <input asp-for="@Model.CertificationSlot.EndDate" type="date" asp-action ="checkDate" class="form-control border-1" />
                             <label asp-for="CertificationSlot.EndDate" class="mt-2 "></label>
                             <span asp-validation-for="CertificationSlot.EndDate" class="text-danger"></span>
                         </div>
+
+                        @if (Model.ShowDays)
+                        {
+                            <input asp-for="@Model.CertificationSlot.CertificationDays" hidden />
+
+                            <table class="table table-bordered  table-striped table-light" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th class="text-success-emphasis">
+                                            Datum
+                                        </th>
+                                        <th class="text-success-emphasis">
+                                            Veckodag
+                                        </th>
+                                        <th class="text-success-emphasis">
+                                            Certification
+                                        </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+
+                                    @foreach (var obj in Model.CertificationSlot.CertificationDays)
+                                    {
+                                        <input hidden asp-for="@obj" />
+                                        <tr>
+                                            <td>
+                                                @obj.Date
+
+                                            </td>
+                                            <td>
+                                                @obj.Date.DayOfWeek
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" asp-for="@obj.IsCertDay" class="form-check-input" />
+                                                <input hidden asp.for=@obj.Id />
+                                                <input type="hidden" asp-for="@obj.IsCertDay" />
+                                            </td>
+
+
+                                        </tr>
+
+                                    }
+                                    <input asp-for="@Model.CertificationSlot.CertificationDays" />
+
+                                </tbody>
+                            </table>
+                        }
 
                         <div class="row pt-2">
                             <div class="col-6 col-md-3">
                                 @if (Model.CertificationSlot.Id == 0)
                                 {
-                                    <button type="submit" class="btn btn-primary form-control rounded">Save</button>
+                                    <button type="submit" asp-action="ShowDays"  class="btn btn-primary form-control rounded">Save</button>
                                 }
                                 else
                                 {
@@ -64,4 +116,6 @@
         <partial name="_ValidationScriptsPartial" />
 
     }
+
+   
 }

@@ -9,6 +9,7 @@ namespace SCS.Repository.IRepository
         IProviderRepository Provider { get; }
         IProductImageRepository ProductImage { get; }
         ICertificationSlotRepository CertificationSlot { get;}
+        ICertificationDayRepository CertificationDay { get; }
         IAppUserRepository AppUser { get; }
         IAddressRepository Address { get; }
         ICartRepository Cart { get; }

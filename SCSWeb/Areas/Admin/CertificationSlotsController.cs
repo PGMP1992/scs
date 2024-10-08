@@ -5,6 +5,7 @@ using SCS.Models;
 using SCS.Models.ViewModels;
 using SCS.Repository.IRepository;
 using SCS.Utility;
+using Stripe;
 
 namespace SCS.Areas.Admin;
 
@@ -26,36 +27,81 @@ public class CertificationSlotsController : Controller
     public IActionResult Index()
     {
         
-        IEnumerable<CertificationSlot> cerSlotList =_unitOfWork.CertificationSlot.GetAll();
+        IEnumerable<CertificationSlot> cerSlotList =_unitOfWork.CertificationSlot.GetAll(includeProperties: "CertificationDays");
 
         return View(cerSlotList);
        
     }
     public IActionResult Upsert(int? id)
     {
-        CertificationSlot certSlot = new CertificationSlot();
-        
+
+        CertificationSlotVM certSlotVM = new CertificationSlotVM()
+        {
+            CertificationSlot=new CertificationSlot(),
+            ShowDays=false
+        };
+       
 
         if (id != null && id > 0)
         {
-            certSlot = _unitOfWork.CertificationSlot.Get(u=>u.Id==id);
+            certSlotVM.CertificationSlot = _unitOfWork.CertificationSlot.Get(u => u.Id == id,includeProperties:"CertificationDays");
+
+            bool isCertDay = false;
+           
+            foreach (var item in certSlotVM.CertificationSlot.CertificationDays)
+            {
+                if (certSlotVM.CertificationSlot.Dates is not null)
+                { 
+                    if(certSlotVM.CertificationSlot.Dates.Contains(item.Date))
+                    {
+                        item.IsCertDay = true;
+                    }
+                    else
+                    {
+                        item.IsCertDay= false;
+                    }
+                }
+                else
+                {
+                    item.IsCertDay=false;
+                }
+            }
+            
+
+            if (certSlotVM.CertificationSlot.EndDate>certSlotVM.CertificationSlot.StartDate)
+            {
+                certSlotVM.ShowDays=true;
+            }
+            
         }
 
-        return View(certSlot);
+        return View(certSlotVM);
     }
 
     [HttpPost]
-    public IActionResult Upsert(CertificationSlot certSlot)
+    public IActionResult Upsert(CertificationSlotVM certSlotVM)
     {
-        if (ModelState.IsValid)
+      
+        if (ModelState.IsValid )
         {
-            if (certSlot.Id == 0)
+            if (certSlotVM.CertificationSlot.CertificationDays is not null)
+            { 
+            foreach (var item in certSlotVM.CertificationSlot.CertificationDays)
             {
-                _unitOfWork.CertificationSlot.Add(certSlot);
+                if(item.IsCertDay)
+                {
+                    certSlotVM.CertificationSlot.Dates.Add(item.Date);
+                }
+            }
+            }
+            if (certSlotVM.CertificationSlot.Id == 0)
+            {
+                
+                _unitOfWork.CertificationSlot.Add(certSlotVM.CertificationSlot);
             }
             else
             {
-                _unitOfWork.CertificationSlot.Update(certSlot);
+                _unitOfWork.CertificationSlot.Update(certSlotVM.CertificationSlot);
             }
             _unitOfWork.Save();
 
@@ -96,6 +142,47 @@ public class CertificationSlotsController : Controller
         _unitOfWork.Save();
         TempData["success"] = "The certificationSlot was deleted";
         return RedirectToAction("Index");
+    }
+
+    [HttpPost]
+    public IActionResult ShowDays(CertificationSlotVM certSlotVM)
+    {
+        if (certSlotVM.CertificationSlot.EndDate<=certSlotVM.CertificationSlot.StartDate)
+        {
+            TempData["error"] = "The End Date has to be larger than the Start Date";
+            return RedirectToAction(nameof(Upsert),new {id=certSlotVM.CertificationSlot.Id});
+        }
+        _unitOfWork.CertificationSlot.Add(certSlotVM.CertificationSlot);
+        _unitOfWork.Save();
+        CertificationSlot certSlotFromDb = _unitOfWork.CertificationSlot.Get(u => u.Id == certSlotVM.CertificationSlot.Id);
+        TimeOnly time=new TimeOnly(00,00,00);
+        TimeSpan intervall= certSlotVM.CertificationSlot.EndDate.ToDateTime(time) - certSlotVM.CertificationSlot.StartDate.ToDateTime(time);
+        DateOnly newDate = certSlotVM.CertificationSlot.StartDate;
+        CertificationDay certDay= new CertificationDay();
+        List<CertificationDay> days= new List<CertificationDay>();
+        for (int i = 0; i<intervall.Days;i++)
+        {
+            newDate=newDate.AddDays(1);
+       
+            certDay = new()
+            {
+                Date = newDate,
+                IsCertDay = false,
+                CertSlotId=certSlotFromDb.Id
+            };
+            _unitOfWork.CertificationDay.Add(certDay);
+            _unitOfWork.Save();
+            days.Add(certDay);
+        }
+        certSlotVM.CertificationSlot.CertificationDays = days;
+        certSlotVM.ShowDays = true;
+
+      
+       
+       
+       
+        return RedirectToAction(nameof(Upsert),new {id=certSlotVM.CertificationSlot.Id });
+
     }
 
     #region APICALLS

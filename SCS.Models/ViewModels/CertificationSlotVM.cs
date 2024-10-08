@@ -7,5 +7,5 @@ public class CertificationSlotVM
 {
     public CertificationSlot CertificationSlot { get; set; }
     [ValidateNever]
-    public IEnumerable<SelectListItem> ProductList { get; set; }
+    public bool ShowDays { get; set; }=false;
 }

@@ -22,36 +22,30 @@ public class Product
     public double Price { get; set; }
     
     public string Status { get; set; } = SD.ProductStatusRegistrated;
-    
-    // ---------------------------------------------------
     public int CategoryId { get; set; }
     
     [ForeignKey(nameof(CategoryId))]
     [ValidateNever]
     public Category Category { get; set; }
 
-    // ---------------------------------------------------
     public int? ProviderId { get; set; }
     
     [ForeignKey(nameof(ProviderId))]
     [ValidateNever]
     public Provider Provider { get; set; }
 
-    // ---------------------------------------------------
     public int? BundleId { get; set; }
     
     [ForeignKey(nameof(BundleId))]
     [ValidateNever]
     public Bundle Bundle { get; set; }
 
-    // ---------------------------------------------------
     public int? CertSlotId { get; set; }
 
     [ForeignKey(nameof(CertSlotId))]
     [ValidateNever]
     public CertificationSlot CertificationSlot { get; set; }
 
-    // ---------------------------------------------------
     
     public string? VoucherKey { get; set; }
 
