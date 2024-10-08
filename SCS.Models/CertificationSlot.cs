@@ -19,6 +19,7 @@ public class CertificationSlot
     public DayOfWeek? DayOfWeek { get; set; }
     public bool ShowDays { get; set; }=false;
     public List<DateOnly>? Dates { get; set; }
+    
     [ValidateNever]
     public IEnumerable<CertificationDay> CertificationDays { get; set; }
 }

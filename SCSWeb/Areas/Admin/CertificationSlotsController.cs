@@ -28,8 +28,8 @@ public class CertificationSlotsController : Controller
         IEnumerable<CertificationSlot> cerSlotList =_unitOfWork.CertificationSlot.GetAll(includeProperties: "CertificationDays");
 
         return View(cerSlotList);
-       
     }
+
     public IActionResult Upsert(int? id)
     {
 
@@ -92,10 +92,10 @@ public class CertificationSlotsController : Controller
 
     public IActionResult Delete(int id)
     {
-       
+
         if (id != null && id > 0)
         {
-            CertificationSlot certificationSlot = _unitOfWork.CertificationSlot.Get(u=>u.Id==id);
+            CertificationSlot certificationSlot = _unitOfWork.CertificationSlot.Get(u => u.Id == id);
             return View(certificationSlot);
         }
         TempData["error"] = "No certificationSlot to delete";
@@ -110,8 +110,6 @@ public class CertificationSlotsController : Controller
         {
             TempData["error"] = "Error with deleting";
         }
-
-       
 
         _unitOfWork.CertificationSlot.Remove(certificationSlot);
         _unitOfWork.Save();

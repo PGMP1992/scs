@@ -10,7 +10,7 @@ namespace SCSWeb.Areas.Customer
 {
     [Area("Customer")]
     [Authorize]
-    
+
     public class BookingController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -25,115 +25,83 @@ namespace SCSWeb.Areas.Customer
             _emailSender = emailSender;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Book()
         {
-            //var userId = HttpContext.User.GetUserId();
+            ViewBag.Message = "";
 
             IEnumerable<CertificationSlot> slots = _unitOfWork.CertificationSlot.GetAll();
+            
             BookingVM bookingVM = new BookingVM();
+            
             bookingVM.Slots = slots;
-
+            
             return View(bookingVM);
         }
 
-        public IActionResult Book()
+        [HttpPost]
+        [ActionName("Book")]
+        public IActionResult BookPOST(string voucherId)
         {
-            //var userId = HttpContext.User.GetUserId();
+            if (!String.IsNullOrEmpty(voucherId))
+            {
+                var orderDetail = _unitOfWork.OrderDetails.Get(v => v.VoucherKey == voucherId);
 
-            //BookingVM = new BookingVM()
-            //{
-            //    BookingList = _unitOfWork.Booking.GetAll(includeProperties: "Product")
-            //};
+                if (orderDetail == null)
+                {
+                    ViewBag.Message = "Voucher not found.";
+                }
+                else
+                {
+                    if (orderDetail.VoucherBooked == true)
+                    {
+                        ViewBag.Message = "This Voucher has already been Booked.";
+                    }
 
-            //BookingVM.OrderHeader.Name = _unitOfWork.AppUser.GetName(userId);
-            //BookingVM.OrderHeader.Email = _unitOfWork.AppUser.GetEmail(userId);
-
-            //foreach (var Booking in BookingVM.BookingList)
-            //{
-            //    Booking.Price = Booking.Product.Price * Booking.ProdCount;
-            //    BookingVM.OrderHeader.OrderTotal += Booking.Price;
-            //}
-            return View(BookingVM);
+                    var voucher = _unitOfWork.OrderDetails.Get(v => v.VoucherKey == BookingVM.VoucherId);
+                    if (voucher != null)
+                    {
+                        voucher.VoucherBooked = true;
+                        _unitOfWork.OrderDetails.Update(voucher);
+                        _unitOfWork.Save();
+                        ViewBag.Message = "Voucher has been Booked.";
+                        return RedirectToAction(nameof(OrderConfirmation), new { id = BookingVM.VoucherId });
+                    }
+                    return View(Book);
+                }
+            }
+            else
+            {
+                ViewBag.Message = "Please enter a valid Voucher Key.";
+                return NotFound();
+            }
+            return NotFound();
         }
 
-        //[HttpPost]
-        //[ActionName("Summary")]
-        //public IActionResult SummaryPOST()
-        //{
-        //    var userId = HttpContext.User.GetUserId();
+        public IActionResult OrderConfirmation(string id)
+        {
+            //string emailHeader =
+            //      $"<p>New Order Number :{orderHeader.Id}</p>"
+            //    + $"<p>Date  : {orderHeader.OrderDate}</P>"
+            //    + $"<p>Status: {orderHeader.OrderStatus}</P>"
+            //    + $"<p>Total : {orderHeader.OrderTotal}</P>"
+            //    + $"<p> ------------------------------------------------------------------------------------------------------------------</p>";
 
-            //BookingVM.BookingList = _unitOfWork.Booking.GetAll(u => u.AppUserId == userId,
-            //    includeProperties: "Product");
+            //string emailDetails = "";
 
-            //BookingVM.OrderHeader.OrderDate = System.DateTime.Now;
-            //BookingVM.OrderHeader.AppUserId = userId;
-            //BookingVM.OrderHeader.Name = _unitOfWork.AppUser.GetName(userId);
-            //BookingVM.OrderHeader.Email = _unitOfWork.AppUser.GetEmail(userId);
-
-            //foreach (var Booking in BookingVM.BookingList)
+            //foreach (var item in orderDetails)
             //{
-            //    Booking.Price = Booking.Product.Price * Booking.ProdCount;
-            //    BookingVM.OrderHeader.OrderTotal += Booking.Price;
+            //    emailDetails +=
+            //        $"<p>Product : {item.Product.Name}</p>"
+            //        + $"<p>Count : {item.Count}</p>"
+            //        + $"<p>Price : {item.Product.Price}</p>"
+            //        + $"<p>Voucher Key : {item.VoucherKey}</p>"
+            //        + $"<p> ------------------------------------------------------------------------------------------------------------------</p>";
             //}
 
-            //BookingVM.OrderHeader.PaymentStatus = SD.PaymentStatusPending;
-            //BookingVM.OrderHeader.OrderStatus = SD.StatusPending;
+            //_emailSender.SendEmailAsync(orderHeader.AppUser.Email, "New Order - SCS AB", emailHeader + emailDetails);
 
-            //_unitOfWork.OrderHeader.Add(BookingVM.OrderHeader);
-            //_unitOfWork.Save(); // ???? 
-
-            //foreach (var Booking in BookingVM.BookingList)
-            //{
-                //var orderDetail = new OrderDetails()
-                //{
-                //    ProductId = Booking.ProductId,
-                //    OrderHeaderId = BookingVM.OrderHeader.Id,
-                //    Price = Booking.Price,
-                //    Count = Booking.ProdCount
-                //};
-                //_unitOfWork.OrderDetails.Add(orderDetail);
-               // _unitOfWork.Save(); // ??? 
-            }
-
-            //_unitOfWork.Save();
-
-        //    return RedirectToAction(nameof(OrderConfirmation), new { id = BookingVM.OrderHeader.Id });
-        //}
-
-        //public IActionResult OrderConfirmation(int id)
-        //{
-        //    //OrderHeader orderHeader = _unitOfWork.OrderHeader.Get(u => u.Id == id, includeProperties: "AppUser");
-            ////OrderDetails orderDetails = _unitOfWork.OrderDetails.Get(u => u.OrderHeaderId == id, includeProperties: "OrderHeader,Product");
-
-            //_emailSender.SendEmailAsync(orderHeader.AppUser.Email, "New Order - SCS AB",
-            //    $"<p>New Order Created - {orderHeader.Id}</p>"
-            //    + $"<p>Date: {orderHeader.OrderDate}</P>"
-            //    + $"<p>Status: {orderHeader.OrderStatus}</P>"
-            //    + $"<p>Total: {orderHeader.OrderTotal}</P>"
-            //    //$"<p> ------------------------------------------</p>" 
-            //    //$"<p> Product : {orderDetails.Product.Name}</P>" 
-            //    //$"<p> Quantity: {orderDetails.Count}</P>" 
-            //    //$"<p> Price   : {orderDetails.Product.Price.ToString("c")}
-            //    );
-
-            //// Remove the Bookings from DB 
-            //List<Booking> Bookings = _unitOfWork.Booking
-            //    .GetAll(u => u.AppUserId == orderHeader.AppUserId).ToList();
-
-            //_unitOfWork.Booking.RemoveRange(Bookings);
-            //_unitOfWork.Save();
-
-        //    return View(id);
-        //}
-
-        //public IActionResult Remove(int BookingId)
-        //{
-        //    //var BookingFromDb = _unitOfWork.Booking.Get(u => u.Id == BookingId, tracked: true);
-        //    //HttpContext.Session.SetInt32(SD.SessionBooking, _unitOfWork.Booking
-        //    //  .GetAll(u => u.AppUserId == BookingFromDb.AppUserId).Count() - 1);
-        //    //_unitOfWork.Booking.Remove(BookingFromDb);
-        //    //_unitOfWork.Save();
-        //    return RedirectToAction(nameof(Index));
-        //}
+            return View(id);
+        }
     }
+}
 
