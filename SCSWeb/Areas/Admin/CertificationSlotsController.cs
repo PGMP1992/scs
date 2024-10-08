@@ -25,7 +25,7 @@ public class CertificationSlotsController : Controller
     public IActionResult Index()
     {
         
-        IEnumerable<CertificationSlot> cerSlotList =_unitOfWork.CertificationSlot.GetAll(includeProperties: "CertificationDays");
+        IEnumerable<CertificationSlot> cerSlotList =(_unitOfWork.CertificationSlot.GetAll(includeProperties: "CertificationDays"));
 
         return View(cerSlotList);
     }
@@ -42,7 +42,10 @@ public class CertificationSlotsController : Controller
         if (id != null && id > 0)
         {
             certSlotVM.CertificationSlot = _unitOfWork.CertificationSlot.Get(u => u.Id == id,includeProperties:"CertificationDays");
-
+            if(certSlotVM.CertificationSlot.CertificationDays.Count()>0)
+            {
+                certSlotVM.CertificationSlot.CertificationDays.OrderBy(u=>u.Date);
+            }
             if (certSlotVM.CertificationSlot.EndDate > certSlotVM.CertificationSlot.StartDate)
             {
                 certSlotVM.CertificationSlot.ShowDays = true;
@@ -54,33 +57,46 @@ public class CertificationSlotsController : Controller
     }
 
     [HttpPost]
-    public IActionResult Upsert(CertificationSlotVM certSlotVM)
+    public async Task<IActionResult> Upsert(CertificationSlotVM certSlotVM)
     {
+        CertificationSlotVM certSlotVMTest = certSlotVM;
+        CertificationSlot certSlotFromDb = _unitOfWork.CertificationSlot.Get(u => u.Id == certSlotVM.CertificationSlot.Id);
       
         if (ModelState.IsValid )
         {
-            if (certSlotVM.CertificationSlot.CertificationDays is not null)
-            { 
-            foreach (var item in certSlotVM.CertificationSlot.CertificationDays)
-            {
-                if(item.IsCertDay)
-                {
-                    certSlotVM.CertificationSlot.Dates.Add(item.Date);
-                }
-            }
-            }
+            
             if (certSlotVM.CertificationSlot.Id == 0)
             {
-                
-                _unitOfWork.CertificationSlot.Add(certSlotVM.CertificationSlot);
+                await _unitOfWork.CertificationSlot.AddAsync(certSlotVM.CertificationSlot);
             }
             else
             {
-                _unitOfWork.CertificationSlot.Update(certSlotVM.CertificationSlot);
-            }
-            _unitOfWork.Save();
 
-          
+               await _unitOfWork.CertificationSlot.UpdateAsync(certSlotVM.CertificationSlot);
+            }
+           
+
+            if (certSlotVM.CertificationSlot.CertificationDays is not null)
+            {
+                foreach (var item in certSlotVM.CertificationSlot.CertificationDays)
+                {
+                    if (item.IsCertDay)
+                    {
+                        certSlotVM.CertificationSlot.Dates.Add(item.Date);
+                    }
+                }
+                _unitOfWork.CertificationSlot.UpdateAsync(certSlotVM.CertificationSlot);
+                
+            }
+            _unitOfWork.SaveAsync();
+
+
+            if(certSlotVM.CertificationSlot.StartDate!=certSlotFromDb.StartDate || certSlotVM.CertificationSlot.EndDate != certSlotFromDb.EndDate)
+            {
+              await  _unitOfWork.CertificationDay.UpdateCertDayListAsync(certSlotVM.CertificationSlot);
+              
+            }
+ 
 
             TempData["success"] = "The certificationSlot was created/updated";
             return RedirectToAction("Index");
@@ -130,10 +146,10 @@ public class CertificationSlotsController : Controller
         CertificationSlot certSlotFromDb = _unitOfWork.CertificationSlot.Get(u => u.Id == certSlotVM.CertificationSlot.Id);
         TimeOnly time=new TimeOnly(00,00,00);
         TimeSpan intervall= certSlotVM.CertificationSlot.EndDate.ToDateTime(time) - certSlotVM.CertificationSlot.StartDate.ToDateTime(time);
-        DateOnly newDate = certSlotVM.CertificationSlot.StartDate;
+        DateOnly newDate = certSlotVM.CertificationSlot.StartDate.AddDays(-1);
         CertificationDay certDay= new CertificationDay();
         List<CertificationDay> days= new List<CertificationDay>();
-        for (int i = 0; i<intervall.Days;i++)
+        for (int i = 0; i<intervall.Days+1;i++)
         {
             newDate=newDate.AddDays(1);
        

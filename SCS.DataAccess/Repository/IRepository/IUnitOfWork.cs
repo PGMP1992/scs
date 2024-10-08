@@ -19,5 +19,9 @@ namespace SCS.Repository.IRepository
         IBookingRepository Booking { get; }
 
         void Save();
+
+        Task SaveAsync();
+        
+       
     }
 }

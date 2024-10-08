@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SCS.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class inidDb : Migration
+    public partial class initDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -165,7 +165,7 @@ namespace SCS.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CertificationDay",
+                name: "CertificationDays",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -176,9 +176,9 @@ namespace SCS.DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CertificationDay", x => x.Id);
+                    table.PrimaryKey("PK_CertificationDays", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CertificationDay_CertificationSlots_CertSlotId",
+                        name: "FK_CertificationDays_CertificationSlots_CertSlotId",
                         column: x => x.CertSlotId,
                         principalTable: "CertificationSlots",
                         principalColumn: "Id",
@@ -346,6 +346,7 @@ namespace SCS.DataAccess.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     VoucherKey = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CertificationSlotId = table.Column<int>(type: "int", nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: false)
@@ -487,7 +488,7 @@ namespace SCS.DataAccess.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "CertificationDay",
+                table: "CertificationDays",
                 columns: new[] { "Id", "CertSlotId", "Date", "IsCertDay" },
                 values: new object[,]
                 {
@@ -590,8 +591,8 @@ namespace SCS.DataAccess.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CertificationDay_CertSlotId",
-                table: "CertificationDay",
+                name: "IX_CertificationDays_CertSlotId",
+                table: "CertificationDays",
                 column: "CertSlotId");
 
             migrationBuilder.CreateIndex(
@@ -660,7 +661,7 @@ namespace SCS.DataAccess.Migrations
                 name: "Carts");
 
             migrationBuilder.DropTable(
-                name: "CertificationDay");
+                name: "CertificationDays");
 
             migrationBuilder.DropTable(
                 name: "OrderDetails");

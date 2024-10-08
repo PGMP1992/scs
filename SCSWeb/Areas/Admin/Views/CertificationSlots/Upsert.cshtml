@@ -11,7 +11,7 @@
     </div>
 
     <div class="card-body p-4">
-        <form method="post" class="row" enctype="multipart/form-data">
+        <form method="post" class="row">
             <input asp-for="@Model.CertificationSlot.Id" hidden />
 
             <div class="row">
@@ -44,6 +44,7 @@
                         @if (Model.CertificationSlot.ShowDays)
                         {
 
+                           //<partial name="_CertDays" model="Model" />
                             <table class="table table-bordered  table-striped table-light" style="width:100%">
                                 <thead>
                                     <tr>
@@ -60,12 +61,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-
-                                   
-
                                     @foreach (var obj in Model.CertificationSlot.CertificationDays)
                                     {
-                                        <input hidden asp-for="@obj" />
                                         <tr>
                                             <td>
                                                 @obj.Date
@@ -74,18 +71,14 @@
                                             <td>
                                                 @obj.Date.DayOfWeek
                                             </td>
-                                            <td>                                               
+                                            <td>
                                                 <input asp-for="@obj.IsCertDay" type="checkbox" class="form-control border-1 form-check-input" />
                                                 <input hidden asp-for="@obj.Id" />
                                                 <input hidden asp-for="@obj.IsCertDay" />
 
                                             </td>
-
-
                                         </tr>
-
                                     }
-                                    
                                 </tbody>
                             </table>
                           
@@ -99,10 +92,7 @@
                                 }
                                 else
                                 {
-                                    
-                                    <input asp-for="@Model.CertificationSlot.CertificationDays" />
-                                    <input asp-for="@Model.CertificationSlot" />
-                                    <button type="submit" class="btn btn-primary form-control rounded">Update</button>
+                                    <button type="submit"  class="btn btn-primary form-control rounded">Update</button>
                                 }
                             </div>
 
@@ -110,7 +100,7 @@
                                 <a asp-area="Admin" asp-controller="CertificationSlots" asp-action="Index" class="btn btn-secondary rounded form-control">Back to List</a>
                             </div>
                             <div class="col-6 col-md-3">
-                                <button type="submit" asp-action="Delete" class="btn btn-danger form-control rounded">Delete</button>
+                                <button type="submit" asp-action="Delete" asp-route-id="@Model.CertificationSlot.Id" class="btn btn-danger form-control rounded">Delete</button>
                             </div>
                            
                         </div>

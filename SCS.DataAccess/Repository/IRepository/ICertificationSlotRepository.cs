@@ -2,8 +2,8 @@
 
 namespace SCS.Repository.IRepository;
 
-public interface ICertificationDayRepository : IRepository<CertificationDay>
+public interface ICertificationSlotRepository : IRepository<CertificationSlot>
 {
-    void Update(CertificationDay certificationDay);
-
+    Task UpdateAsync(CertificationSlot certificationSlot);
+    
 }

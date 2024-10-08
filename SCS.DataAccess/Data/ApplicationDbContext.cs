@@ -19,6 +19,7 @@ namespace SCS.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<CertificationSlot> CertificationSlots { get; set; }
+        public DbSet<CertificationDay> CertificationDays { get; set; }
         public DbSet<OrderHeader> OrderHeaders { get; set; }
         public DbSet<OrderDetails> OrderDetails { get; set; }
         public DbSet<Address> Addresses { get; set; }

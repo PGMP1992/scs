@@ -12,8 +12,8 @@ using SCS.Data;
 namespace SCS.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241008103416_inidDb")]
-    partial class inidDb
+    [Migration("20241008134320_initDb")]
+    partial class initDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -296,6 +296,9 @@ namespace SCS.DataAccess.Migrations
                     b.Property<int>("CertificationSlotId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
@@ -448,7 +451,7 @@ namespace SCS.DataAccess.Migrations
 
                     b.HasIndex("CertSlotId");
 
-                    b.ToTable("CertificationDay");
+                    b.ToTable("CertificationDays");
 
                     b.HasData(
                         new

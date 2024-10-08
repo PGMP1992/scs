@@ -293,6 +293,9 @@ namespace SCS.DataAccess.Migrations
                     b.Property<int>("CertificationSlotId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
@@ -445,7 +448,7 @@ namespace SCS.DataAccess.Migrations
 
                     b.HasIndex("CertSlotId");
 
-                    b.ToTable("CertificationDay");
+                    b.ToTable("CertificationDays");
 
                     b.HasData(
                         new
