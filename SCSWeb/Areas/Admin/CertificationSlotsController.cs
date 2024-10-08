@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using SCS.Models;
-using SCS.Models.ViewModels;
 using SCS.Repository.IRepository;
 using SCS.Utility;
 
 namespace SCS.Areas.Admin;
-
 
 [Area("Admin")]
 [Authorize(Roles = SD.Role_Admin)]
@@ -25,45 +22,44 @@ public class CertificationSlotsController : Controller
 
     public IActionResult Index()
     {
-        
-        IEnumerable<CertificationSlot> cerSlotList =_unitOfWork.CertificationSlot.GetAll();
-
+        IEnumerable<CertificationSlot> cerSlotList = _unitOfWork.CertificationSlot.GetAll();
         return View(cerSlotList);
-       
     }
+
     public IActionResult Upsert(int? id)
     {
         CertificationSlot certSlot = new CertificationSlot();
-        
 
         if (id != null && id > 0)
         {
-            certSlot = _unitOfWork.CertificationSlot.Get(u=>u.Id==id);
+            certSlot = _unitOfWork.CertificationSlot.Get(u => u.Id == id);
         }
-
         return View(certSlot);
     }
 
     [HttpPost]
     public IActionResult Upsert(CertificationSlot certSlot)
     {
+        string message = "";
+
         if (ModelState.IsValid)
         {
             if (certSlot.Id == 0)
             {
                 _unitOfWork.CertificationSlot.Add(certSlot);
+                message = "Certification Slot Created";
             }
             else
             {
                 _unitOfWork.CertificationSlot.Update(certSlot);
+                message = "Certification Slot Updated";
             }
             _unitOfWork.Save();
 
-          
-
-            TempData["success"] = "The certificationSlot was created/updated";
+            TempData["success"] = message;
             return RedirectToAction("Index");
         }
+
         CertificationSlot newCertSlot = new CertificationSlot();
         TempData["error"] = "The certification slot couldnt be updated";
         return View(newCertSlot);
@@ -71,10 +67,10 @@ public class CertificationSlotsController : Controller
 
     public IActionResult Delete(int id)
     {
-       
+
         if (id != null && id > 0)
         {
-            CertificationSlot certificationSlot = _unitOfWork.CertificationSlot.Get(u=>u.Id==id);
+            CertificationSlot certificationSlot = _unitOfWork.CertificationSlot.Get(u => u.Id == id);
             return View(certificationSlot);
         }
         TempData["error"] = "No certificationSlot to delete";
@@ -89,8 +85,6 @@ public class CertificationSlotsController : Controller
         {
             TempData["error"] = "Error with deleting";
         }
-
-       
 
         _unitOfWork.CertificationSlot.Remove(certificationSlot);
         _unitOfWork.Save();
