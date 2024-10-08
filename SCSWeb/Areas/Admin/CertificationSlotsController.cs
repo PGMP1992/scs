@@ -16,12 +16,10 @@ namespace SCS.Areas.Admin;
 public class CertificationSlotsController : Controller
 {
     private readonly IUnitOfWork _unitOfWork;
-    private readonly IWebHostEnvironment _webHostEnvironment;
 
-    public CertificationSlotsController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
+    public CertificationSlotsController(IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
-        _webHostEnvironment = webHostEnvironment;
     }
 
     public IActionResult Index()
@@ -38,7 +36,6 @@ public class CertificationSlotsController : Controller
         CertificationSlotVM certSlotVM = new CertificationSlotVM()
         {
             CertificationSlot=new CertificationSlot(),
-            ShowDays=false
         };
        
 
@@ -46,33 +43,11 @@ public class CertificationSlotsController : Controller
         {
             certSlotVM.CertificationSlot = _unitOfWork.CertificationSlot.Get(u => u.Id == id,includeProperties:"CertificationDays");
 
-            bool isCertDay = false;
-           
-            foreach (var item in certSlotVM.CertificationSlot.CertificationDays)
+            if (certSlotVM.CertificationSlot.EndDate > certSlotVM.CertificationSlot.StartDate)
             {
-                if (certSlotVM.CertificationSlot.Dates is not null)
-                { 
-                    if(certSlotVM.CertificationSlot.Dates.Contains(item.Date))
-                    {
-                        item.IsCertDay = true;
-                    }
-                    else
-                    {
-                        item.IsCertDay= false;
-                    }
-                }
-                else
-                {
-                    item.IsCertDay=false;
-                }
+                certSlotVM.CertificationSlot.ShowDays = true;
             }
-            
 
-            if (certSlotVM.CertificationSlot.EndDate>certSlotVM.CertificationSlot.StartDate)
-            {
-                certSlotVM.ShowDays=true;
-            }
-            
         }
 
         return View(certSlotVM);
@@ -175,7 +150,7 @@ public class CertificationSlotsController : Controller
             days.Add(certDay);
         }
         certSlotVM.CertificationSlot.CertificationDays = days;
-        certSlotVM.ShowDays = true;
+        certSlotVM.CertificationSlot.ShowDays = true;
 
       
        

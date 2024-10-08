@@ -253,7 +253,6 @@ namespace SCS.DataAccess.Migrations
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("State")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -263,7 +262,6 @@ namespace SCS.DataAccess.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Street2")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -292,19 +290,17 @@ namespace SCS.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("AppUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("CertificationSlotId")
                         .HasColumnType("int");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.Property<string>("VoucherKey")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("AppUserId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CertificationSlotId");
 
@@ -580,6 +576,9 @@ namespace SCS.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("ShowDays")
+                        .HasColumnType("bit");
+
                     b.Property<DateOnly>("StartDate")
                         .HasColumnType("date");
 
@@ -594,6 +593,7 @@ namespace SCS.DataAccess.Migrations
                             Dates = "[\"2024-10-19\",\"2024-10-21\"]",
                             EndDate = new DateOnly(2024, 10, 22),
                             Name = "Slot1",
+                            ShowDays = false,
                             StartDate = new DateOnly(2024, 10, 18)
                         },
                         new
@@ -602,6 +602,7 @@ namespace SCS.DataAccess.Migrations
                             Dates = "[\"2024-10-29\",\"2024-11-01\",\"2024-11-03\"]",
                             EndDate = new DateOnly(2024, 11, 6),
                             Name = "Slot2",
+                            ShowDays = false,
                             StartDate = new DateOnly(2024, 10, 28)
                         });
                 });
@@ -625,6 +626,9 @@ namespace SCS.DataAccess.Migrations
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
+
+                    b.Property<bool?>("VoucherBooked")
+                        .HasColumnType("bit");
 
                     b.Property<string>("VoucherKey")
                         .HasColumnType("nvarchar(max)");
@@ -782,7 +786,8 @@ namespace SCS.DataAccess.Migrations
                             Name = "C# Begginner",
                             Price = 200.0,
                             ProviderId = 2,
-                            Status = "Registred"
+                            Status = "Registred",
+                            VoucherKey = "456f8c27-cba3-4cc6-bc04-5dc8dcfbc737"
                         },
                         new
                         {
@@ -792,7 +797,8 @@ namespace SCS.DataAccess.Migrations
                             Name = "C# Begginner",
                             Price = 300.0,
                             ProviderId = 2,
-                            Status = "Registred"
+                            Status = "Registred",
+                            VoucherKey = "86dc6f8d-ddf8-45b4-91a3-72e7fa8e468c"
                         },
                         new
                         {
@@ -802,7 +808,8 @@ namespace SCS.DataAccess.Migrations
                             Name = "C# Intermediate",
                             Price = 200.0,
                             ProviderId = 2,
-                            Status = "Registred"
+                            Status = "Registred",
+                            VoucherKey = "90897eeb-12b4-4759-9812-8909c6a335de"
                         },
                         new
                         {
@@ -812,7 +819,8 @@ namespace SCS.DataAccess.Migrations
                             Name = "C# Intermediate",
                             Price = 300.0,
                             ProviderId = 2,
-                            Status = "Registred"
+                            Status = "Registred",
+                            VoucherKey = "6f146a6e-4f59-4f18-8588-842ef69a6f61"
                         },
                         new
                         {
@@ -822,7 +830,8 @@ namespace SCS.DataAccess.Migrations
                             Name = "C# Advanced",
                             Price = 200.0,
                             ProviderId = 2,
-                            Status = "Registred"
+                            Status = "Registred",
+                            VoucherKey = "4093d50e-d925-4389-ab63-e09b482efeed"
                         },
                         new
                         {
@@ -832,7 +841,8 @@ namespace SCS.DataAccess.Migrations
                             Name = "C# Advanced",
                             Price = 300.0,
                             ProviderId = 2,
-                            Status = "Registred"
+                            Status = "Registred",
+                            VoucherKey = "8997a1db-3aab-4f9b-b5e7-6ee7dd1215dd"
                         },
                         new
                         {
@@ -843,7 +853,8 @@ namespace SCS.DataAccess.Migrations
                             Name = "C# for beginners, Bundle",
                             Price = 300.0,
                             ProviderId = 2,
-                            Status = "Registred"
+                            Status = "Registred",
+                            VoucherKey = "8e1207c0-9633-4f31-8c7c-2b040cec1307"
                         });
                 });
 
@@ -1005,12 +1016,6 @@ namespace SCS.DataAccess.Migrations
 
             modelBuilder.Entity("SCS.Models.Booking", b =>
                 {
-                    b.HasOne("SCS.Models.AppUser", "AppUser")
-                        .WithMany()
-                        .HasForeignKey("AppUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("SCS.Models.CertificationSlot", "CertificationSlot")
                         .WithMany()
                         .HasForeignKey("CertificationSlotId")
@@ -1022,8 +1027,6 @@ namespace SCS.DataAccess.Migrations
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("AppUser");
 
                     b.Navigation("CertificationSlot");
 

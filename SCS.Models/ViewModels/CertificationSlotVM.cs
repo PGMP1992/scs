@@ -6,6 +6,5 @@ namespace SCS.Models.ViewModels;
 public class CertificationSlotVM
 {
     public CertificationSlot CertificationSlot { get; set; }
-    [ValidateNever]
-    public bool ShowDays { get; set; }=false;
+    
 }

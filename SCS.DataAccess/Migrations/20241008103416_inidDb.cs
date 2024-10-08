@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SCS.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class initDb : Migration
+    public partial class inidDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -20,9 +20,9 @@ namespace SCS.DataAccess.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Street1 = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Street2 = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Street2 = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     City = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    State = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    State = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Country = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Postcode = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
                 },
@@ -86,6 +86,7 @@ namespace SCS.DataAccess.Migrations
                     StartDate = table.Column<DateOnly>(type: "date", nullable: false),
                     EndDate = table.Column<DateOnly>(type: "date", nullable: false),
                     DayOfWeek = table.Column<int>(type: "int", nullable: true),
+                    ShowDays = table.Column<bool>(type: "bit", nullable: false),
                     Dates = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -345,19 +346,13 @@ namespace SCS.DataAccess.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    VoucherKey = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CertificationSlotId = table.Column<int>(type: "int", nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Bookings", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Bookings_AspNetUsers_AppUserId",
-                        column: x => x.AppUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Bookings_CertificationSlots_CertificationSlotId",
                         column: x => x.CertificationSlotId,
@@ -429,6 +424,7 @@ namespace SCS.DataAccess.Migrations
                     OrderHeaderId = table.Column<int>(type: "int", nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: false),
                     VoucherKey = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    VoucherBooked = table.Column<bool>(type: "bit", nullable: true),
                     Count = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false)
                 },
@@ -472,11 +468,11 @@ namespace SCS.DataAccess.Migrations
 
             migrationBuilder.InsertData(
                 table: "CertificationSlots",
-                columns: new[] { "Id", "Dates", "DayOfWeek", "EndDate", "Name", "StartDate" },
+                columns: new[] { "Id", "Dates", "DayOfWeek", "EndDate", "Name", "ShowDays", "StartDate" },
                 values: new object[,]
                 {
-                    { 1, "[\"2024-10-18\",\"2024-10-20\"]", null, new DateOnly(2024, 10, 21), "Slot1", new DateOnly(2024, 10, 17) },
-                    { 2, "[\"2024-10-28\",\"2024-10-31\",\"2024-11-02\"]", null, new DateOnly(2024, 11, 5), "Slot2", new DateOnly(2024, 10, 27) }
+                    { 1, "[\"2024-10-19\",\"2024-10-21\"]", null, new DateOnly(2024, 10, 22), "Slot1", false, new DateOnly(2024, 10, 18) },
+                    { 2, "[\"2024-10-29\",\"2024-11-01\",\"2024-11-03\"]", null, new DateOnly(2024, 11, 6), "Slot2", false, new DateOnly(2024, 10, 28) }
                 });
 
             migrationBuilder.InsertData(
@@ -495,21 +491,21 @@ namespace SCS.DataAccess.Migrations
                 columns: new[] { "Id", "CertSlotId", "Date", "IsCertDay" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateOnly(2024, 10, 17), false },
-                    { 2, 1, new DateOnly(2024, 10, 18), true },
-                    { 3, 1, new DateOnly(2024, 10, 19), false },
-                    { 4, 1, new DateOnly(2024, 10, 20), true },
-                    { 5, 1, new DateOnly(2024, 10, 21), false },
-                    { 6, 2, new DateOnly(2024, 10, 27), false },
-                    { 7, 2, new DateOnly(2024, 10, 28), true },
-                    { 8, 2, new DateOnly(2024, 10, 29), false },
-                    { 9, 2, new DateOnly(2024, 10, 30), true },
-                    { 10, 2, new DateOnly(2024, 10, 31), true },
-                    { 11, 2, new DateOnly(2024, 11, 1), false },
-                    { 12, 2, new DateOnly(2024, 11, 2), true },
-                    { 13, 2, new DateOnly(2024, 11, 3), false },
-                    { 14, 2, new DateOnly(2024, 11, 4), false },
-                    { 15, 2, new DateOnly(2024, 11, 5), false }
+                    { 1, 1, new DateOnly(2024, 10, 18), false },
+                    { 2, 1, new DateOnly(2024, 10, 19), true },
+                    { 3, 1, new DateOnly(2024, 10, 20), false },
+                    { 4, 1, new DateOnly(2024, 10, 21), true },
+                    { 5, 1, new DateOnly(2024, 10, 22), false },
+                    { 6, 2, new DateOnly(2024, 10, 28), false },
+                    { 7, 2, new DateOnly(2024, 10, 29), true },
+                    { 8, 2, new DateOnly(2024, 10, 30), false },
+                    { 9, 2, new DateOnly(2024, 10, 31), true },
+                    { 10, 2, new DateOnly(2024, 11, 1), true },
+                    { 11, 2, new DateOnly(2024, 11, 2), false },
+                    { 12, 2, new DateOnly(2024, 11, 3), true },
+                    { 13, 2, new DateOnly(2024, 11, 4), false },
+                    { 14, 2, new DateOnly(2024, 11, 5), false },
+                    { 15, 2, new DateOnly(2024, 11, 6), false }
                 });
 
             migrationBuilder.InsertData(
@@ -520,13 +516,13 @@ namespace SCS.DataAccess.Migrations
                     { 1, null, 1, 1, "Certificate in Sanctions Description....", "Certificate in Sanctions", 7200.0, 1, "Registred", "0f8fad5b-d9cb-469f-a165-70867728950e" },
                     { 2, null, 1, 1, "Certificate in Corporate Governance Description....", "Certificate in Corporate Governance", 8400.0, 1, "Registred", "7c9e6679-7425-40de-944b-e07fc1f90ae7" },
                     { 3, null, 1, 1, "C# Certification Description...", "C# Certificate", 1000.0, 2, "Registred", "9x9e5429-7125-299c-v09fd1390bd3" },
-                    { 4, null, 2, null, "C# Begginner Programming Description...", "C# Begginner", 200.0, 2, "Registred", null },
-                    { 5, null, 3, null, "C# Begginner Programming Description...", "C# Begginner", 300.0, 2, "Registred", null },
-                    { 6, null, 2, null, "C# Intermediate Programming Description...", "C# Intermediate", 200.0, 2, "Registred", null },
-                    { 7, null, 3, null, "C# Intermediate Programming Description...", "C# Intermediate", 300.0, 2, "Registred", null },
-                    { 8, null, 2, null, "C# Advanced Programming Description...", "C# Advanced", 200.0, 2, "Registred", null },
-                    { 9, null, 3, null, "C# Advanced Programming Description...", "C# Advanced", 300.0, 2, "Registred", null },
-                    { 10, 1, 3, null, "C# Advanced Programming Description...", "C# for beginners, Bundle", 300.0, 2, "Registred", null }
+                    { 4, null, 2, null, "C# Begginner Programming Description...", "C# Begginner", 200.0, 2, "Registred", "456f8c27-cba3-4cc6-bc04-5dc8dcfbc737" },
+                    { 5, null, 3, null, "C# Begginner Programming Description...", "C# Begginner", 300.0, 2, "Registred", "86dc6f8d-ddf8-45b4-91a3-72e7fa8e468c" },
+                    { 6, null, 2, null, "C# Intermediate Programming Description...", "C# Intermediate", 200.0, 2, "Registred", "90897eeb-12b4-4759-9812-8909c6a335de" },
+                    { 7, null, 3, null, "C# Intermediate Programming Description...", "C# Intermediate", 300.0, 2, "Registred", "6f146a6e-4f59-4f18-8588-842ef69a6f61" },
+                    { 8, null, 2, null, "C# Advanced Programming Description...", "C# Advanced", 200.0, 2, "Registred", "4093d50e-d925-4389-ab63-e09b482efeed" },
+                    { 9, null, 3, null, "C# Advanced Programming Description...", "C# Advanced", 300.0, 2, "Registred", "8997a1db-3aab-4f9b-b5e7-6ee7dd1215dd" },
+                    { 10, 1, 3, null, "C# Advanced Programming Description...", "C# for beginners, Bundle", 300.0, 2, "Registred", "8e1207c0-9633-4f31-8c7c-2b040cec1307" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -572,11 +568,6 @@ namespace SCS.DataAccess.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Bookings_AppUserId",
-                table: "Bookings",
-                column: "AppUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Bookings_CertificationSlotId",
