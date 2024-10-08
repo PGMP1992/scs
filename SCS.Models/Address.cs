@@ -8,11 +8,11 @@ namespace SCS.Models
 
         [Required]
         [MaxLength(100)]
-        [Display(Name = "Address")]
+        [Display(Name = "Address line 1")]
         public string Street1 { get; set; } = "";
 
         [MaxLength(100)]
-        [Display(Name = "Address")]
+        [Display(Name = "Address line 2")]
         public string? Street2 { get; set; } = "";
 
         [Required]
