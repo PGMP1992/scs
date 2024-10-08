@@ -15,9 +15,8 @@
             <input asp-for="Id" hidden />
             <input asp-for="AddressId" hidden />
             <div class="border p-3 align-content-between">
-                @*<div asp-validation-summary="ModelOnly"></div>*@
                 <div class="form-floating py-2 col-6">
-                    <input asp-for="Name" class="form-control border-1" readonly />
+                    <input asp-for="Name" class="form-control border-1" />
                     <label asp-for="Name" class="ms-2"></label>
                 </div>
                 
@@ -49,6 +48,7 @@
                         <label asp-for="Address.Country" class="ms-2"></label>
                     </div>
                 </div>
+                
                 @* Buttons  --------------- *@
                 <div class="row pt-2">
                     <div class="col-6 col-md-3">
@@ -56,7 +56,7 @@
                     </div>
                     <div class="col-6 col-md-3">
                         <a asp-controller="Home" asp-action="Index" class="btn btn-outline-primary border  form-control">
-                            Home
+                            Cancel
                         </a>
                     </div>
                 </div>
@@ -69,18 +69,4 @@
     @{
     <partial name="_ValidationScriptsPartial"/>
     }
-
-  @*   <script>
-        $(document).ready(function () {
-            $('#AppUser_Role').change(function () {
-                var selection = $('#AppUser_Role Option:Selected').text();
-                if (selection == 'Company') {
-                    $('#ApplicationUser_CompanyId').show();
-                }
-                else {
-                    $('#ApplicationUser_CompanyId').hide();
-                }
-            })
-        })
-    </script> *@
 }

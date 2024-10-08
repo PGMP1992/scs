@@ -12,16 +12,10 @@ namespace SCS.Areas.Customer
 
     public class UsersController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IUnitOfWork _unitOfWork;
 
-        public UsersController(UserManager<IdentityUser> userManager,
-            RoleManager<IdentityRole> roleManager,
-            IUnitOfWork unitOfWork)
+        public UsersController(IUnitOfWork unitOfWork)
         {
-            _userManager = userManager;
-            _roleManager = roleManager;
             _unitOfWork = unitOfWork;
         }
 
@@ -63,12 +57,13 @@ namespace SCS.Areas.Customer
                 // Saves new AddressId to new user
                 appUser.AddressId = address.Id;
             }
+            appUser.Name = user.Name;
 
             _unitOfWork.AppUser.Update(appUser);
             _unitOfWork.Save();
             TempData["success"] = "Profile Updated";
 
-            return RedirectToAction("Profile");
+            return RedirectToAction("Index","Home");
         }
     }
 }
