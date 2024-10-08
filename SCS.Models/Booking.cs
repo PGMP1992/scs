@@ -8,6 +8,8 @@ namespace SCS.Models
     {
         public int Id { get; set; }
 
+        public DateTime Date {  get; set; }
+
         [Required]
         public string VoucherKey { get; set; }
 
