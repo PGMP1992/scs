@@ -96,14 +96,12 @@
                                     <div class="row container">
                                         <div class="col-8">
                                             <h6 class="my-0 text-primary">@item.Product.Name</h6>
-                                            <small class="text-dark">Price    : @(item.Price.ToString("c"))</small><br />
-                                            <small class="text-dark">Quantity : @item.Count</small><br />
-                                            
+                                            <small class="text-dark">Price : @(item.Price.ToString("c"))</small><br />
+                                            <small class="text-dark">Quantity : @item.Count</small>
                                         </div>
                                         <div class="col-4 text-end">
                                             <p class="text-success">@((item.Price * item.Count).ToString("c"))</p>
                                         </div>
-                                        <small class="text-danger">Voucher : @item.VoucherKey</small>
                                     </div>
                                 </li>
                             }

@@ -15,7 +15,7 @@ namespace SCSWeb.Areas.Customer
         private readonly IEmailSender _emailSender;
 
         [BindProperty]
-        public BookingVM bookingVM { get; set; } //Used to pass BookingVM between methods - PM
+        public BookingVM BookingVM { get; set; } //Used to pass BookingVM between methods - PM
 
         public BookingController(IUnitOfWork unitOfWork, IEmailSender emailSender)
         {
@@ -29,7 +29,7 @@ namespace SCSWeb.Areas.Customer
         }
 
         [Authorize]
-        public async Task<IActionResult> Book()
+        public async Task<IActionResult> Index()
         {
             ViewBag.Message = "";
             BookingVM bookingVM = new BookingVM();
@@ -41,12 +41,12 @@ namespace SCSWeb.Areas.Customer
             return View(bookingVM);
         }
 
-        public IActionResult CheckVoucher(string voucherId)
+        public IActionResult CheckVoucher(BookingVM bookingVM)
         {
-            if (!String.IsNullOrEmpty(voucherId))
+            if (!String.IsNullOrEmpty(bookingVM.VoucherId))
             {
                 OrderDetails orderDetail = _unitOfWork.OrderDetails
-                    .Get(p => p.VoucherKey == voucherId);
+                    .Get(p => p.VoucherKey == bookingVM.VoucherId);
 
                 if (orderDetail == null)
                     ViewBag.Message = "This Voucher Key is not valid.";
@@ -56,30 +56,30 @@ namespace SCSWeb.Areas.Customer
                         ViewBag.Message = "This Voucher has already been Used/Booked.";
                     else
                     {
-                        //bookingVM.VoucherId = orderDetail.VoucherKey;
+                        bookingVM.VoucherId = orderDetail.VoucherKey;
                         ViewBag.Message = "Voucher key Validated.";
                     }
                 }
             }
             else
             {
-                ViewBag.Message = "Please enter a Valid Voucher Key.";
+                ViewBag.Message = "";
             }
-            return RedirectToAction(nameof(Book));
+            return View("Index");
         }
 
         [Authorize]
         [HttpPost]
         public IActionResult Book(BookingVM bookingVM)
         {
-            var voucher = _unitOfWork.OrderDetails.Get(v => v.VoucherKey == bookingVM.VoucherId);
+            var voucher = _unitOfWork.OrderDetails.Get(v => v.VoucherKey == BookingVM.VoucherId);
             if (voucher != null)
             {
                 voucher.VoucherBooked = true;
                 _unitOfWork.OrderDetails.Update(voucher);
                 _unitOfWork.Save();
                 ViewBag.Message = "Voucher has been Booked.";
-                return RedirectToAction(nameof(OrderConfirmation), new { id = bookingVM.VoucherId });
+                return RedirectToAction(nameof(OrderConfirmation), new { id = BookingVM.VoucherId });
             }
             return RedirectToAction("OrderConfirmation");
         }

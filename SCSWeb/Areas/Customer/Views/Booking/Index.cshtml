@@ -18,12 +18,12 @@
         </div>
     </div>
 
-    <form asp-area="Customer" asp-controller="Booking" asp-action="Book" class="m-2">
+    <form asp-area="Customer" asp-controller="Booking" asp-action="Index" class="m-2">
         <div class="container bg-white bg-light">
             <div class="row col-12">
                 <div class="mt-2">
                     <label for="search" class="form-check-label"><strong>Voucher Key:</strong></label>
-                    <input id="VoucherId" class="form-control col-8" type="text" name="VoucherId" 
+                    <input asp-for="@Model.VoucherId" class="form-control col-8" type="text" name="search" 
                         placeholder="Enter Voucher Key to validate" aria-label="Voucher Key validation">
                 </div>
             </div>
@@ -32,9 +32,8 @@
                     @* <button type="submit" value="search" class="btn btn-outline-primary col-10">
                         <i class="bi bi-check"></i>
                         Validate
-                    </button> 
-                    <a asp-action="CheckVoucher" asp-route-voucher="@Model.VoucherId" class="btn btn-primary mx-2"> *@
-                        <a asp-action="CheckVoucher" asp-route-voucherId="VoucherId" class="btn btn-primary mx-2">
+                    </button> *@
+                    <a asp-action="CheckVoucher" asp-route-voucher="@Model.VoucherId" class="btn btn-primary mx-2">
                         <i class="bi bi-pencil-square"></i>
                         Validate
                     </a>

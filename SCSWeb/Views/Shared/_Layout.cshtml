@@ -90,32 +90,15 @@
                                 </li>
                             </ul>
                         </li>
-                        
-                        @* Bookings -------------------------------- *@
-                        <li class="nav-item dropdown">
-                            <a class="nav-link text-light dropdown-toggle" data-bs-toggle="dropdown"
-                                href="#" role="button" aria-expanded="false">
-                                Bookings
-                            </a>
 
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a class="dropdown-item" asp-area="Customer" asp-controller="Booking" asp-action="Calendar">
-                                        Certification Calendar
-                                    </a>
-                                </li>
-                                @if (SignInManager.IsSignedIn(User))
-                                {
-                                    <li>
-                                        <a class="dropdown-item" asp-area="Customer" asp-controller="Booking" asp-action="Book">
-                                            Bookings
-                                        </a>
-                                    </li>
-                                }
-                            </ul>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="Customer" asp-controller="Calendar" asp-action="Index">AVAILABLE DATES</a>
                         </li>
-                                                        
-                        @* Orders ----------------------*@
+
+                    </ul>
+
+                    <!-- Login/Register -->
+                    <ul class="navbar-nav">
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <!-- User Profile -->
