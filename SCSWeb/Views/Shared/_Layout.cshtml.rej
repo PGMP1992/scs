@@ -1,0 +1,10 @@
+diff a/SCSWeb/Views/Shared/_Layout.cshtml b/SCSWeb/Views/Shared/_Layout.cshtml	(rejected hunks)
+@@ -40,7 +40,7 @@
+ <body>
+     <header>
+ 
+-        @* Notification bar *@
++       @*  Notification bar 
+ 
+         @if (!SignInManager.IsSignedIn(User))
+         {

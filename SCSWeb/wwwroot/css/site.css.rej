@@ -1,0 +1,7 @@
+diff a/SCSWeb/wwwroot/css/site.css b/SCSWeb/wwwroot/css/site.css	(rejected hunks)
+@@ -1,4 +0,4 @@
+-﻿@media (min-width: 768px) {
++@media (min-width: 768px) {
+     html {
+         font-size: 16px;
+     }
