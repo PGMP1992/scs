@@ -42,15 +42,19 @@ public class CertificationSlotsController : Controller
         if (id != null && id > 0)
         {
             certSlotVM.CertificationSlot = _unitOfWork.CertificationSlot.Get(u => u.Id == id,includeProperties:"CertificationDays");
+            List<CertificationDay> CList=new List<CertificationDay>();
             if(certSlotVM.CertificationSlot.CertificationDays.Count()>0)
             {
                 certSlotVM.CertificationSlot.CertificationDays.OrderBy(u=>u.Date);
+                CList=certSlotVM.CertificationSlot.CertificationDays.ToList();
+
+                
             }
             if (certSlotVM.CertificationSlot.EndDate > certSlotVM.CertificationSlot.StartDate)
             {
                 certSlotVM.CertificationSlot.ShowDays = true;
             }
-
+            certSlotVM.CDayList = CList;
         }
 
         return View(certSlotVM);

@@ -6,5 +6,7 @@ namespace SCS.Models.ViewModels;
 public class CertificationSlotVM
 {
     public CertificationSlot CertificationSlot { get; set; }
+    public List<CertificationDay> CDayList { get; set; }
+    public int NumberOfDays { get; set; }
     
 }

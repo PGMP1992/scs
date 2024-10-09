@@ -13,6 +13,9 @@
     <div class="card-body p-4">
         <form method="post" class="row">
             <input asp-for="@Model.CertificationSlot.Id" hidden />
+            <input asp-for="@Model.CertificationSlot.CertificationDays" hidden />
+            <input asp-for="@Model.CDayList" hidden />
+
 
             <div class="row">
                 <div class="col-10">
