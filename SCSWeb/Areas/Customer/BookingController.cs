@@ -43,7 +43,6 @@ namespace SCSWeb.Areas.Customer
 
         public IActionResult CheckVoucher(string voucherId)
         {
-            bookingVM.VoucherId = voucherId;
             if (!String.IsNullOrEmpty(voucherId))
             {
                 OrderDetails orderDetail = _unitOfWork.OrderDetails
@@ -69,21 +68,21 @@ namespace SCSWeb.Areas.Customer
             return RedirectToAction(nameof(Book));
         }
 
-        //[Authorize]
-        //[HttpPost]
-        //public IActionResult Book(BookingVM bookingVM)
-        //{
-        //    var voucher = _unitOfWork.OrderDetails.Get(v => v.VoucherKey == BookingVM.VoucherId);
-        //    if (voucher != null)
-        //    {
-        //        voucher.VoucherBooked = true;
-        //        _unitOfWork.OrderDetails.Update(voucher);
-        //        _unitOfWork.Save();
-        //        ViewBag.Message = "Voucher has been Booked.";
-        //        return RedirectToAction(nameof(OrderConfirmation), new { id = BookingVM.VoucherId });
-        //    }
-        //    return RedirectToAction("OrderConfirmation");
-        //}
+        [Authorize]
+        [HttpPost]
+        public IActionResult Book(BookingVM bookingVM)
+        {
+            var voucher = _unitOfWork.OrderDetails.Get(v => v.VoucherKey == bookingVM.VoucherId);
+            if (voucher != null)
+            {
+                voucher.VoucherBooked = true;
+                _unitOfWork.OrderDetails.Update(voucher);
+                _unitOfWork.Save();
+                ViewBag.Message = "Voucher has been Booked.";
+                return RedirectToAction(nameof(OrderConfirmation), new { id = bookingVM.VoucherId });
+            }
+            return RedirectToAction("OrderConfirmation");
+        }
 
         [Authorize]
         public IActionResult OrderConfirmation(string id)
