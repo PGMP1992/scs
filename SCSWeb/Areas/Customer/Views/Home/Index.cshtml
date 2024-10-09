@@ -5,81 +5,145 @@
 @{
     ViewData["Title"] = "Home Page";
 }
+
+
+<section class="background-layer">
+    <!-- Background Layer -->
+    <div class="background-image-container" style="height: 20px;"></div>
+
+    <!-- Full-width Carousel Container -->
+    <section class="carousel-layer">
+        <div class="container-fluid px-0 my-4m">
+            <div class="ms-auto" style="width: 100%; max-width: 1350px;">
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel"
+                     style="width: 100%;">
+
+                    <!-- Carousel Images with Custom Aspect Ratio -->
+                    <div class="carousel-inner" style="height: 300px;">
+                        <div class="carousel-item active">
+                            <img src="https://lexicongruppen.se/media/hgxnyms2/ai.jpg?rxy=0.43363919253992117,0.18308289898854863&width=1296&height=480&quality=95&v=1da6a45fe297b30" class="d-block w-100" style="object-fit: cover; height: 100%;" alt="Business English Certificate">
+                            <div class="carousel-caption d-md-block">
+                                <h5 class="text-white">Business English Certificate</h5>
+                                <p class="text-white">Boost your career opportunities with our internationally recognized Business English Certificate.</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://lexicongruppen.se/media/wdndfr1u/it-konsulttjanster.jpg?rxy=0.54003505242864,0.2657176387691837&width=1296&height=480&quality=95&v=1da4d48f24f0560" class="d-block w-100" style="object-fit: cover; height: 100%;" alt="Academic English Certificate">
+                            <div class="carousel-caption d-md-block">
+                                <h5 class="text-white">Academic English Certificate</h5>
+                                <p class="text-white">Prepare for your studies abroad and enhance your academic language skills with our certificate.</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://lexicongruppen.se/media/grdb51hd/yrkeshogskoleutbildning.jpg?width=1296&height=480&quality=95&v=1da3e312ceefb70" class="d-block w-100" style="object-fit: cover; height: 100%;" alt="General English Certificate">
+                            <div class="carousel-caption d-md-block">
+                                <h5 class="text-white">General English Certificate</h5>
+                                <p class="text-white">Gain confidence in everyday English communication and open doors to a world of opportunities.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Carousel Controls -->
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+
+
+<!-- Call to Action -->
 <section>
-    <div class="container mt-5 custom-margin text-center">
-        <!-- Hero Section with Image and Heading -->
-        <div class="row align-items-center mb-5">
-            <div class="col-md-6">
-                <img class="img-fluid" src="https://www.scservices.se/wp-content/uploads/2019/10/community-hero.png" alt="Certification Image">
-            </div>
-            <div class="col-md-6">
-                <h2 class="custom-title">Certifications, Preparation, and Implementation</h2>
-                <p class="lead">Let us take care of the administration of your certifications</p>
-               
-            </div>
-        </div>
-
-        <!-- Section About Certifications -->
-        <div class="mb-5">
-            <h3 style="color: #052742;">Why Certifications Matter</h3>
-            <p>
-                Our business concept is very simple. We help you and your company use certifications to validate the skills you or your staff have.
-                With the right certifications, you can ensure that your team is qualified, up-to-date, and recognized in their field.
-            </p>
-            <p>
-                Everything from the courses you need to take to acquire your skills, to training for the certification and then booking and taking the test.
-            </p>
-        </div>
-
-        <!-- Section on Safety and Quality -->
-        @* <div class="mb-5">
-            <h3 style="color: #052742;">Ensuring Safety and Quality</h3>
-            <p>
-                Certifications provide a safety net for your organization. They help ensure that processes are streamlined, and employees are fully equipped
-                with the skills necessary for their roles. Here’s why they are essential:
-            </p>
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <strong>Validated Expertise:</strong> Certified employees have the proven knowledge and skills necessary for their position.
-                </li>
-                <li class="list-group-item">
-                    <strong>Standardized Quality:</strong> Certifications ensure consistent and high-quality performance across the team.
-                </li>
-                <li class="list-group-item">
-                    <strong>Safety Compliance:</strong> Certified personnel understand industry safety standards and can reduce risk in the workplace.
-                </li>
-                <li class="list-group-item">
-                    <strong>Competitive Advantage:</strong> Certifications make your business stand out to clients and stakeholders.
-                </li>
-            </ul>
-        </div>
- *@
-        <!-- Section on Our Certification Process -->
-   @*      <div class="mb-5">
-            <h3 style="color: #052742;">Our Process</h3>
-            <p>
-                At our company, we provide full support through every stage of your certification journey:
-            </p>
-            <ol class="list-group">
-                <li class="list-group-item">
-                    <strong>Assessment:</strong> We analyze your business needs to determine the right certifications for your team.
-                </li>
-                <li class="list-group-item">
-                    <strong>Training:</strong> We offer resources and courses to prepare your staff for certification.
-                </li>
-                <li class="list-group-item">
-                    <strong>Certification:</strong> We assist in booking and managing the certification exams.
-                </li>
-                <li class="list-group-item">
-                    <strong>Implementation:</strong> Once certified, we help integrate the knowledge into your business operations.
-                </li>
-            </ol>
-        </div>
- *@
-        <!-- Call to Action -->
-        @* <div class="text-center">
-            <p class="lead">Ready to enhance your team’s qualifications? Contact us today!</p>
-            <a href="https://www.scservices.se/contact/" class="btn btn-success">Get Started</a>
-        </div> *@
+    <div class="text-center py-5 bg-light" style="margin-top: 15px;">
+        <h3 class="display-5" style="color: #052742;">Ready to Enhance Your Team’s Qualifications?</h3>
+        <p class="lead">Contact us today to get started!</p>
+        <a href="https://www.scservices.se/contact/" class="btn btn-success btn-lg">Get Started</a>
     </div>
 </section>
+
+
+<!-- Card Grid Section -->
+
+
+<section>
+<div class="container my-3" style="max-width: 1250px; margin: 0 auto;">
+    <div class="row">
+        <!-- First Card -->
+        <div class="col-md-4">
+            <div class="card">
+                <img src="https://www.pearsonclinical.se/media/kp/352x198/woman-walking-in-the-street-with-earphones.jpg" class="card-img-top" alt="Bayley-4 image">
+                <div class="card-body">
+                    <h5 class="card-title">Bayley-4 is launched!</h5>
+                    <p class="card-text">Finally, you can order the new version of Bayley. The new version has updated norms, simplified protocol management, and digital support on Q-global.</p>
+                    <a href="#" class="card-link">Read more</a>
+                </div>
+            </div>
+        </div>
+        <!-- Second Card -->
+        <div class="col-md-4">
+            <div class="card">
+                <img src="https://www.pearsonclinical.se/media/kp/352x198/woman-walking-in-the-street-with-earphones.jpg" class="card-img-top" alt="Digital testing image">
+                <div class="card-body">
+                    <h5 class="card-title">Digital testing</h5>
+                    <p class="card-text">Q-global and Q-interactive are our two digital platforms. The common goal of these platforms is to facilitate the administration and scoring of tests and rating scales.</p>
+                    <a href="#" class="card-link">Read more</a>
+                </div>
+            </div>
+        </div>
+        <!-- Third Card -->
+        <div class="col-md-4">
+            <div class="card">
+                <img src="https://www.pearsonclinical.se/media/Nordics/homepage352.1.jpg" class="card-img-top" alt="Our training image">
+                <div class="card-body">
+                    <h5 class="card-title">Our training programs</h5>
+                    <p class="card-text">We offer training programs for psychologists, speech therapists, and educators who want to deepen their knowledge in our tests or get inspiration on current topics.</p>
+                    <a href="#" class="card-link">Read more</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <!-- Fourth Card -->
+        <div class="col-md-4">
+            <div class="card">
+                <img src="https://www.pearsonclinical.se/media/Nordics/homepage2.jpg" class="card-img-top" alt="Articles and information image">
+                <div class="card-body">
+                    <h5 class="card-title">Articles and information</h5>
+                    <p class="card-text">Here you will find in-depth information about our testing tools, example reports, and case studies.</p>
+                    <a href="#" class="card-link">Read more</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <img src="https://www.pearsonclinical.se/media/kp/352x198/boy-writes-on-whiteboard.jpg" class="card-img-top" alt="Age calculator image">
+                <div class="card-body">
+                    <h5 class="card-title">Age calculator</h5>
+                    <p class="card-text">We have developed a calculator that quickly helps you calculate the patient's test age.</p>
+                    <a href="#" class="card-link">Test here</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <img src="https://www.pearsonclinical.se/media/kp/352x198/man-sitting-in-window-with-laptop.jpg" class="card-img-top" alt="Contact us image">
+                <div class="card-body">
+                    <h5 class="card-title">Contact us</h5>
+                    <p class="card-text">Get in touch with our customer service or our product specialists for help and guidance.</p>
+                    <a href="#" class="card-link">Contact us</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    </section>
