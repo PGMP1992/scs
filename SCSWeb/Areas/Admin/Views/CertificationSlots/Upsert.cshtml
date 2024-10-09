@@ -39,25 +39,21 @@
                             <input hidden asp-for="@Model.CertificationSlot.ShowDays" />
                         </div> *@
 
-                        
-
                         @if (Model.CertificationSlot.ShowDays)
                         {
-
                            //<partial name="_CertDays" model="Model" />
                             <table class="table table-bordered  table-striped table-light" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th class="text-success-emphasis">
-                                            Datum
+                                            Date
                                         </th>
                                         <th class="text-success-emphasis">
-                                            Veckodag
+                                            Week Day
                                         </th>
                                         <th class="text-success-emphasis">
                                             Certification
                                         </th>
-
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -75,15 +71,12 @@
                                                 <input asp-for="@obj.IsCertDay" type="checkbox" class="form-control border-1 form-check-input" />
                                                 <input hidden asp-for="@obj.Id" />
                                                 <input hidden asp-for="@obj.IsCertDay" />
-
                                             </td>
                                         </tr>
                                     }
                                 </tbody>
                             </table>
-                          
                         } 
-
                         <div class="row pt-2">
                             <div class="col-6 col-md-3">
                                 @if (Model.CertificationSlot.Id == 0)
@@ -113,11 +106,7 @@
 
 
 @section Scripts {
-
     @{
         <partial name="_ValidationScriptsPartial" />
-
     }
-
-   
 }
