@@ -42,15 +42,19 @@ public class CertificationSlotsController : Controller
         if (id != null && id > 0)
         {
             certSlotVM.CertificationSlot = _unitOfWork.CertificationSlot.Get(u => u.Id == id,includeProperties:"CertificationDays");
+            List<CertificationDay> CList=new List<CertificationDay>();
+           
             if(certSlotVM.CertificationSlot.CertificationDays.Count()>0)
             {
                 certSlotVM.CertificationSlot.CertificationDays.OrderBy(u=>u.Date);
+                CList=certSlotVM.CertificationSlot.CertificationDays.ToList();
             }
             if (certSlotVM.CertificationSlot.EndDate > certSlotVM.CertificationSlot.StartDate)
             {
                 certSlotVM.CertificationSlot.ShowDays = true;
             }
-
+            certSlotVM.CDayList = CList;
+        
         }
 
         return View(certSlotVM);
@@ -71,13 +75,28 @@ public class CertificationSlotsController : Controller
             }
             else
             {
+                if(certSlotVM.CDayList !=null)
+                {
+                    foreach (var item in certSlotVM.CDayList)
+                    {
+                        
+                        CertificationDay cday = await _unitOfWork.CertificationDay.GetAsync(u => u.Id==item.Id);
+                       
+                        cday.IsCertDay=item.IsCertDay;
+                       await _unitOfWork.CertificationDay.UpdateAsync(cday);
+                      
+                    }
 
-               await _unitOfWork.CertificationSlot.UpdateAsync(certSlotVM.CertificationSlot);
+                }
+
+                await _unitOfWork.SaveAsync();
+                certSlotVM.CertificationSlot.CertificationDays=_unitOfWork.CertificationDay.GetAll(u=>u.CertSlotId==certSlotVM.CertificationSlot.Id);
             }
-           
+
 
             if (certSlotVM.CertificationSlot.CertificationDays is not null)
             {
+                certSlotVM.CertificationSlot.Dates = new List<DateOnly>();
                 foreach (var item in certSlotVM.CertificationSlot.CertificationDays)
                 {
                     if (item.IsCertDay)
@@ -85,10 +104,10 @@ public class CertificationSlotsController : Controller
                         certSlotVM.CertificationSlot.Dates.Add(item.Date);
                     }
                 }
-                _unitOfWork.CertificationSlot.UpdateAsync(certSlotVM.CertificationSlot);
-                
+                await _unitOfWork.CertificationSlot.UpdateAsync(certSlotVM.CertificationSlot);
+
             }
-            _unitOfWork.SaveAsync();
+            await  _unitOfWork.SaveAsync();
 
 
             if(certSlotVM.CertificationSlot.StartDate!=certSlotFromDb.StartDate || certSlotVM.CertificationSlot.EndDate != certSlotFromDb.EndDate)
@@ -172,6 +191,18 @@ public class CertificationSlotsController : Controller
        
         return RedirectToAction(nameof(Upsert),new {id=certSlotVM.CertificationSlot.Id });
 
+    }
+    [HttpPost]
+    public IActionResult UpdateList(List<CertificationDay> CDayList)
+    {
+        if (CDayList != null)
+        {
+            foreach (var item in CDayList)
+            {
+                
+            }
+        }
+        return View();
     }
 
     #region APICALLS
