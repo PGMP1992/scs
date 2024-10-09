@@ -31,9 +31,9 @@
                     <span class="navbar-toggler-icon"></span> 
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-
-                    @* Home ----------------------*@
                     <ul class="navbar-nav flex-grow-1">
+                    
+                        @* Home ----------------------*@
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="Customer" asp-controller="Home" asp-action="Index">
                                 Home
@@ -60,13 +60,33 @@
                             </ul>
                         </li>
                         
+                        @* Bookings -------------------------------- *@
+                        <li class="nav-item dropdown">
+                            <a class="nav-link text-light dropdown-toggle" data-bs-toggle="dropdown"
+                                href="#" role="button" aria-expanded="false">
+                                Bookings
+                            </a>
+
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" asp-area="Customer" asp-controller="Booking" asp-action="Calendar">
+                                        Certification Calendar
+                                    </a>
+                                </li>
+                                @if (SignInManager.IsSignedIn(User))
+                                {
+                                    <li>
+                                        <a class="dropdown-item" asp-area="Customer" asp-controller="Booking" asp-action="Index">
+                                            Bookings
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                                                        
+                            @* Orders ----------------------*@
                         @if (SignInManager.IsSignedIn(User))
                         {
-                            <li>
-                                <a class="nav-link text-light" asp-area="Customer" asp-controller="Booking" asp-action="Book">
-                                    Bookings
-                                </a>
-                            </li>
                             <li>
                                 <a class="nav-link text-light" asp-area="Admin" asp-controller="Order" asp-action="Index">
                                     Orders
@@ -74,7 +94,7 @@
                             </li>
                         }
 
-                        @* Admin ----------------------*@
+                        @* About ----------------------*@
                         @if (User.IsInRole(SD.Role_Admin))
                         {
                             <li class="nav-item dropdown">
@@ -141,9 +161,9 @@
                         
                         @if (SignInManager.IsSignedIn(User))
                         {
-                            @* User Profile/ Dashboard  ---------------------- *@
                             @if (User.IsInRole(SD.Role_Customer))
                             {
+                                @* User Profile/ Dashboard  ---------------------- *@
                                 <li class="nav-item dropdown">
                                     <a class="nav-link text-light dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
                                         <i class="bi bi-person-fill"></i>
