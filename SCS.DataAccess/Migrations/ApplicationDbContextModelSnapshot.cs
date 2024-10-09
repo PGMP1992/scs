@@ -296,9 +296,6 @@ namespace SCS.DataAccess.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
                     b.Property<string>("VoucherKey")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -306,8 +303,6 @@ namespace SCS.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CertificationSlotId");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("Bookings");
                 });
@@ -1026,15 +1021,7 @@ namespace SCS.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SCS.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("CertificationSlot");
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("SCS.Models.Cart", b =>

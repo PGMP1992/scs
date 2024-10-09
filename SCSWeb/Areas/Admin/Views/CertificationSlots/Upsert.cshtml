@@ -13,41 +13,32 @@
     <div class="card-body p-4">
         <form method="post" class="row">
             <input asp-for="@Model.CertificationSlot.Id" hidden />
-            <input asp-for="@Model.CertificationSlot.CertificationDays" hidden />
-            <input asp-for="@Model.CDayList" hidden />
-
+            <input asp-for="@Model.CertificationSlot.ShowDays" hidden />
+           
 
             <div class="row">
                 <div class="col-10">
                     <div class="border p-3">
                         <div class="form-floating py-2 col-12">
                             <input asp-for="@Model.CertificationSlot.Name" type="text" class="form-control border-1" />
-                            <label asp-for="CertificationSlot.Name" class="mt-2 "></label>
-                            <span asp-validation-for="CertificationSlot.Name" class="text-danger"></span>
+                            <label asp-for="@Model.CertificationSlot.Name" class="mt-2 "></label>
+                            <span asp-validation-for="@Model.CertificationSlot.Name" class="text-danger"></span>
                         </div>
                         <div class="form-floating py-2 col-12">
                             <input asp-for="@Model.CertificationSlot.StartDate" type="date" class="form-control border-1" />
-                            <label asp-for="CertificationSlot.StartDate" class="mt-2 "></label>
+                            <label asp-for="@Model.CertificationSlot.StartDate" class="mt-2 "></label>
                             <span asp-validation-for="CertificationSlot.StartDate" class="text-danger"></span>
                         </div>
 
                         <div class="form-floating py-2 col-12">
                             <input asp-for="@Model.CertificationSlot.EndDate" type="date" asp-action ="checkDate" class="form-control border-1" />
-                            <label asp-for="CertificationSlot.EndDate" class="mt-2 "></label>
+                            <label asp-for="@Model.CertificationSlot.EndDate" class="mt-2 "></label>
                             <span asp-validation-for="CertificationSlot.EndDate" class="text-danger"></span>
                         </div>
-
-                      @*   <div class="form-floating py-2 col-12">
-                            <input asp-for="@Model.CertificationSlot.ShowDays" type="checkbox" class="form-control border-1 form-check-input" />
-                            <input hidden asp-for="@Model.CertificationSlot.ShowDays" />
-                        </div> *@
-
-                        
-
+               
                         @if (Model.CertificationSlot.ShowDays)
                         {
 
-                           //<partial name="_CertDays" model="Model" />
                             <table class="table table-bordered  table-striped table-light" style="width:100%">
                                 <thead>
                                     <tr>
@@ -64,28 +55,30 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var obj in Model.CertificationSlot.CertificationDays)
+                                    @for (int i=0;i<Model.CDayList.Count();i++) 
                                     {
+
+                                        <input hidden asp-for="@Model.CDayList[i].Id" />
+                                        
                                         <tr>
                                             <td>
-                                                @obj.Date
-
+                                                @Model.CDayList[i].Date
+                                                
                                             </td>
                                             <td>
-                                                @obj.Date.DayOfWeek
+                                                @Model.CDayList[i].Date.DayOfWeek
+                                               
                                             </td>
-                                            <td>
-                                                <input asp-for="@obj.IsCertDay" type="checkbox" class="form-control border-1 form-check-input" />
-                                                <input hidden asp-for="@obj.Id" />
-                                                <input hidden asp-for="@obj.IsCertDay" />
-
+                                            <td>   
+                                                <input asp-for="@Model.CDayList[i].IsCertDay" type="checkbox" class=" form-check-input" />
                                             </td>
                                         </tr>
-                                    }
+
+                                    } 
                                 </tbody>
                             </table>
-                          
-                        } 
+
+                        }
 
                         <div class="row pt-2">
                             <div class="col-6 col-md-3">
@@ -95,7 +88,7 @@
                                 }
                                 else
                                 {
-                                    <button type="submit"  class="btn btn-primary form-control rounded">Update</button>
+                                      <button type="submit" class="btn btn-primary form-control rounded">Update</button>
                                 }
                             </div>
 
