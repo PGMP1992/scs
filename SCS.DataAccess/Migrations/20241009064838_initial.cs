@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SCS.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class initDb : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -472,8 +472,8 @@ namespace SCS.DataAccess.Migrations
                 columns: new[] { "Id", "Dates", "DayOfWeek", "EndDate", "Name", "ShowDays", "StartDate" },
                 values: new object[,]
                 {
-                    { 1, "[\"2024-10-19\",\"2024-10-21\"]", null, new DateOnly(2024, 10, 22), "Slot1", false, new DateOnly(2024, 10, 18) },
-                    { 2, "[\"2024-10-29\",\"2024-11-01\",\"2024-11-03\"]", null, new DateOnly(2024, 11, 6), "Slot2", false, new DateOnly(2024, 10, 28) }
+                    { 1, "[\"2024-10-20\",\"2024-10-22\"]", null, new DateOnly(2024, 10, 23), "Slot1", false, new DateOnly(2024, 10, 19) },
+                    { 2, "[\"2024-10-30\",\"2024-11-02\",\"2024-11-04\"]", null, new DateOnly(2024, 11, 7), "Slot2", false, new DateOnly(2024, 10, 29) }
                 });
 
             migrationBuilder.InsertData(
@@ -492,21 +492,21 @@ namespace SCS.DataAccess.Migrations
                 columns: new[] { "Id", "CertSlotId", "Date", "IsCertDay" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateOnly(2024, 10, 18), false },
-                    { 2, 1, new DateOnly(2024, 10, 19), true },
-                    { 3, 1, new DateOnly(2024, 10, 20), false },
-                    { 4, 1, new DateOnly(2024, 10, 21), true },
-                    { 5, 1, new DateOnly(2024, 10, 22), false },
-                    { 6, 2, new DateOnly(2024, 10, 28), false },
-                    { 7, 2, new DateOnly(2024, 10, 29), true },
-                    { 8, 2, new DateOnly(2024, 10, 30), false },
-                    { 9, 2, new DateOnly(2024, 10, 31), true },
-                    { 10, 2, new DateOnly(2024, 11, 1), true },
-                    { 11, 2, new DateOnly(2024, 11, 2), false },
-                    { 12, 2, new DateOnly(2024, 11, 3), true },
-                    { 13, 2, new DateOnly(2024, 11, 4), false },
-                    { 14, 2, new DateOnly(2024, 11, 5), false },
-                    { 15, 2, new DateOnly(2024, 11, 6), false }
+                    { 1, 1, new DateOnly(2024, 10, 19), false },
+                    { 2, 1, new DateOnly(2024, 10, 20), true },
+                    { 3, 1, new DateOnly(2024, 10, 21), false },
+                    { 4, 1, new DateOnly(2024, 10, 22), true },
+                    { 5, 1, new DateOnly(2024, 10, 23), false },
+                    { 6, 2, new DateOnly(2024, 10, 29), false },
+                    { 7, 2, new DateOnly(2024, 10, 30), true },
+                    { 8, 2, new DateOnly(2024, 10, 31), false },
+                    { 9, 2, new DateOnly(2024, 11, 1), true },
+                    { 10, 2, new DateOnly(2024, 11, 2), true },
+                    { 11, 2, new DateOnly(2024, 11, 3), false },
+                    { 12, 2, new DateOnly(2024, 11, 4), true },
+                    { 13, 2, new DateOnly(2024, 11, 5), false },
+                    { 14, 2, new DateOnly(2024, 11, 6), false },
+                    { 15, 2, new DateOnly(2024, 11, 7), false }
                 });
 
             migrationBuilder.InsertData(

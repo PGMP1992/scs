@@ -12,8 +12,8 @@ using SCS.Data;
 namespace SCS.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241008134320_initDb")]
-    partial class initDb
+    [Migration("20241009064838_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -458,105 +458,105 @@ namespace SCS.DataAccess.Migrations
                         {
                             Id = 1,
                             CertSlotId = 1,
-                            Date = new DateOnly(2024, 10, 18),
+                            Date = new DateOnly(2024, 10, 19),
                             IsCertDay = false
                         },
                         new
                         {
                             Id = 2,
                             CertSlotId = 1,
-                            Date = new DateOnly(2024, 10, 19),
+                            Date = new DateOnly(2024, 10, 20),
                             IsCertDay = true
                         },
                         new
                         {
                             Id = 3,
                             CertSlotId = 1,
-                            Date = new DateOnly(2024, 10, 20),
+                            Date = new DateOnly(2024, 10, 21),
                             IsCertDay = false
                         },
                         new
                         {
                             Id = 4,
                             CertSlotId = 1,
-                            Date = new DateOnly(2024, 10, 21),
+                            Date = new DateOnly(2024, 10, 22),
                             IsCertDay = true
                         },
                         new
                         {
                             Id = 5,
                             CertSlotId = 1,
-                            Date = new DateOnly(2024, 10, 22),
+                            Date = new DateOnly(2024, 10, 23),
                             IsCertDay = false
                         },
                         new
                         {
                             Id = 6,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 10, 28),
+                            Date = new DateOnly(2024, 10, 29),
                             IsCertDay = false
                         },
                         new
                         {
                             Id = 7,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 10, 29),
+                            Date = new DateOnly(2024, 10, 30),
                             IsCertDay = true
                         },
                         new
                         {
                             Id = 8,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 10, 30),
+                            Date = new DateOnly(2024, 10, 31),
                             IsCertDay = false
                         },
                         new
                         {
                             Id = 9,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 10, 31),
+                            Date = new DateOnly(2024, 11, 1),
                             IsCertDay = true
                         },
                         new
                         {
                             Id = 10,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 11, 1),
+                            Date = new DateOnly(2024, 11, 2),
                             IsCertDay = true
                         },
                         new
                         {
                             Id = 11,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 11, 2),
+                            Date = new DateOnly(2024, 11, 3),
                             IsCertDay = false
                         },
                         new
                         {
                             Id = 12,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 11, 3),
+                            Date = new DateOnly(2024, 11, 4),
                             IsCertDay = true
                         },
                         new
                         {
                             Id = 13,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 11, 4),
+                            Date = new DateOnly(2024, 11, 5),
                             IsCertDay = false
                         },
                         new
                         {
                             Id = 14,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 11, 5),
+                            Date = new DateOnly(2024, 11, 6),
                             IsCertDay = false
                         },
                         new
                         {
                             Id = 15,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 11, 6),
+                            Date = new DateOnly(2024, 11, 7),
                             IsCertDay = false
                         });
                 });
@@ -596,20 +596,20 @@ namespace SCS.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            Dates = "[\"2024-10-19\",\"2024-10-21\"]",
-                            EndDate = new DateOnly(2024, 10, 22),
+                            Dates = "[\"2024-10-20\",\"2024-10-22\"]",
+                            EndDate = new DateOnly(2024, 10, 23),
                             Name = "Slot1",
                             ShowDays = false,
-                            StartDate = new DateOnly(2024, 10, 18)
+                            StartDate = new DateOnly(2024, 10, 19)
                         },
                         new
                         {
                             Id = 2,
-                            Dates = "[\"2024-10-29\",\"2024-11-01\",\"2024-11-03\"]",
-                            EndDate = new DateOnly(2024, 11, 6),
+                            Dates = "[\"2024-10-30\",\"2024-11-02\",\"2024-11-04\"]",
+                            EndDate = new DateOnly(2024, 11, 7),
                             Name = "Slot2",
                             ShowDays = false,
-                            StartDate = new DateOnly(2024, 10, 28)
+                            StartDate = new DateOnly(2024, 10, 29)
                         });
                 });
 
@@ -961,6 +961,7 @@ namespace SCS.DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 

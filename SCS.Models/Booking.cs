@@ -19,12 +19,6 @@ namespace SCS.Models
         [ForeignKey("CertificationSlotId")]
         [ValidateNever]
         public CertificationSlot CertificationSlot { get; set; }
-
-        public int ProductId { get; set; }
-
-        [ForeignKey("ProductId")]
-        [ValidateNever]
-        public Product Product { get; set; }
     }
 
 }
