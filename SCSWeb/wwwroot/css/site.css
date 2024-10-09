@@ -26,9 +26,6 @@ body {
     margin: 0;
 }
 
-
-
-
 .container {
     flex: 1;
     max-width: 1140px;
@@ -50,14 +47,13 @@ body {
 }
 
 
-﻿ /* Top Notification Bar */
 .notification-bar {
     background-color: #dff0ed;
     font-size: 0.9rem;
     color: #333;
 }
 
-/* Middle Branding Bar */
+
 .branding-bar {
     font-size: 0.85rem;
     background-color: #1A2A40;
@@ -65,7 +61,6 @@ body {
     border-bottom: 1px solid #dee2e6;
 }
 
-/* Main Header */
 .main-header {
     background-color: white;
 }
@@ -79,7 +74,7 @@ body {
     color: #0056b3;
 }
 
-/* Bottom Navigation */
+
 .navbar-nav.nav-link {
     color: #333;
     font-weight: 500;
