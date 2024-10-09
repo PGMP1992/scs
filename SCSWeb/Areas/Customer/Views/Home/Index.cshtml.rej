@@ -1,0 +1,9 @@
+diff a/SCSWeb/Areas/Customer/Views/Home/Index.cshtml b/SCSWeb/Areas/Customer/Views/Home/Index.cshtml	(rejected hunks)
+@@ -9,7 +9,6 @@
+ 
+ <section class="background-layer">
+     <!-- Background Layer -->
+-    <div class="background-image-container"></div>
+     <div class="background-image-container" style="height: 20px;"></div>
+ 
+     <!-- Full-width Carousel Container -->
