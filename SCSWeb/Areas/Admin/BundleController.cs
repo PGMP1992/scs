@@ -113,6 +113,8 @@ public class BundleController : Controller
     [HttpPost]
     public IActionResult Upsert(BundleVM bundleVM)
     {
+        string message = "";
+
         if (ModelState.IsValid)
         {
             if (bundleVM.Bundle.Id == 0)
@@ -125,6 +127,7 @@ public class BundleController : Controller
                         Description = "Packages of products witch belongs together"
                     };
                     _unitOfWork.Category.Add(category);
+                    
                 }
 
                 bundleVM.Bundle.ProductId1 = bundleVM.Bundle.Product1.Id;
@@ -132,6 +135,7 @@ public class BundleController : Controller
                 bundleVM.Bundle.ProductId3 = bundleVM.Bundle.Product3.Id;
 
                 _unitOfWork.Bundle.Add(bundleVM.Bundle);
+                message = "Bundle Created";
             }
             else
             {
@@ -140,10 +144,11 @@ public class BundleController : Controller
                 bundleVM.Bundle.ProductId3 = bundleVM.Bundle.Product3.Id;
 
                 _unitOfWork.Bundle.Update(bundleVM.Bundle);
+                message = "Bundle Updated";
             }
 
             _unitOfWork.Save();
-            TempData["success"] = "The bundle was created/updated";
+            TempData["success"] = message;
     
             int providerId = 0;
             
@@ -204,7 +209,6 @@ public class BundleController : Controller
                 _unitOfWork.Product.Add(product);
                 _unitOfWork.Save();
             }
-
             return RedirectToAction("Index");
         }
         else
@@ -214,7 +218,6 @@ public class BundleController : Controller
                 Text = u.Name,
                 Value = u.Id.ToString()
             });
-
             
             bundleVM.ProductList2 = _unitOfWork.Product.GetAll().Select(u => new SelectListItem
             {
@@ -227,7 +230,6 @@ public class BundleController : Controller
                 Text = u.Name,
                 Value = u.Id.ToString()
             });
-            
             return View(bundleVM);
         }
     }
@@ -294,13 +296,14 @@ public class BundleController : Controller
 
             _unitOfWork.Bundle.Remove(bundle);
             _unitOfWork.Save();
-            TempData["success"] = "The bundle was deleted";
+            TempData["success"] = "Bundle was Deleted";
             return RedirectToAction("Index");
         }
         else
         {
-            TempData["error"] = "Error with deleting";
+            TempData["error"] = "Error deleting Bundle";
             return View(bundle);
         }
     }
+
 }
