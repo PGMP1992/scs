@@ -76,7 +76,7 @@
                                 @if (SignInManager.IsSignedIn(User))
                                 {
                                     <li>
-                                        <a class="dropdown-item" asp-area="Customer" asp-controller="Booking" asp-action="Index">
+                                        <a class="dropdown-item" asp-area="Customer" asp-controller="Booking" asp-action="Book">
                                             Bookings
                                         </a>
                                     </li>
@@ -84,7 +84,7 @@
                             </ul>
                         </li>
                                                         
-                            @* Orders ----------------------*@
+                        @* Orders ----------------------*@
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li>
