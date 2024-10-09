@@ -8,7 +8,6 @@ using SCS.Repository.IRepository;
 namespace SCSWeb.Areas.Customer
 {
     [Area("Customer")]
-    [Authorize]
 
     public class BookingController : Controller
     {
@@ -24,58 +23,68 @@ namespace SCSWeb.Areas.Customer
             _emailSender = emailSender;
         }
 
-        public async Task<IActionResult> Book()
+        public async Task<IActionResult> Calendar()
+        {
+            return View();
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Index()
         {
             ViewBag.Message = "";
-
-            IEnumerable<CertificationSlot> slots = _unitOfWork.CertificationSlot.GetAll();
-
             BookingVM bookingVM = new BookingVM();
-
+                        
+            IEnumerable<CertificationSlot> slots = _unitOfWork.CertificationSlot.GetAll();
+            
+            bookingVM.VoucherId = "";
             bookingVM.Slots = slots;
-
             return View(bookingVM);
         }
 
-        [HttpPost]
-        [ActionName("Book")]
-        public IActionResult BookPOST(string voucherId)
+        public IActionResult CheckVoucher(BookingVM bookingVM)
         {
-            if (!String.IsNullOrEmpty(voucherId))
+            if (!String.IsNullOrEmpty(bookingVM.VoucherId))
             {
-                var orderDetail = _unitOfWork.OrderDetails.Get(v => v.VoucherKey == voucherId);
+                OrderDetails orderDetail = _unitOfWork.OrderDetails
+                    .Get(p => p.VoucherKey == bookingVM.VoucherId);
 
                 if (orderDetail == null)
-                {
-                    ViewBag.Message = "Voucher not found.";
-                }
+                    ViewBag.Message = "This Voucher Key is not valid.";
                 else
                 {
                     if (orderDetail.VoucherBooked == true)
+                        ViewBag.Message = "This Voucher has already been Used/Booked.";
+                    else
                     {
-                        ViewBag.Message = "This Voucher has already been Booked.";
+                        bookingVM.VoucherId = orderDetail.VoucherKey;
+                        ViewBag.Message = "Voucher key Validated.";
                     }
-
-                    var voucher = _unitOfWork.OrderDetails.Get(v => v.VoucherKey == BookingVM.VoucherId);
-                    if (voucher != null)
-                    {
-                        voucher.VoucherBooked = true;
-                        _unitOfWork.OrderDetails.Update(voucher);
-                        _unitOfWork.Save();
-                        ViewBag.Message = "Voucher has been Booked.";
-                        return RedirectToAction(nameof(OrderConfirmation), new { id = BookingVM.VoucherId });
-                    }
-                    return View(Book);
                 }
             }
             else
             {
-                ViewBag.Message = "Please enter a valid Voucher Key.";
-                return NotFound();
+                ViewBag.Message = "";
             }
-            return NotFound();
+            return View("Index");
         }
 
+        [Authorize]
+        [HttpPost]
+        public IActionResult Book(BookingVM bookingVM)
+        {
+            var voucher = _unitOfWork.OrderDetails.Get(v => v.VoucherKey == BookingVM.VoucherId);
+            if (voucher != null)
+            {
+                voucher.VoucherBooked = true;
+                _unitOfWork.OrderDetails.Update(voucher);
+                _unitOfWork.Save();
+                ViewBag.Message = "Voucher has been Booked.";
+                return RedirectToAction(nameof(OrderConfirmation), new { id = BookingVM.VoucherId });
+            }
+            return RedirectToAction("OrderConfirmation");
+        }
+
+        [Authorize]
         public IActionResult OrderConfirmation(string id)
         {
             //string emailHeader =

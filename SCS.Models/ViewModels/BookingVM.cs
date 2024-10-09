@@ -4,6 +4,5 @@
     {
         public string VoucherId { get; set; }
         public IEnumerable<CertificationSlot> Slots { get; set; }
-        //public OrderHeader OrderHeader { get; set; }
     }
 }

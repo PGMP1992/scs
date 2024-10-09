@@ -108,18 +108,16 @@ namespace SCS.Data
             );
             
             modelBuilder.Entity<Bundle>().HasData(
-              new Bundle
-              {
-                  Id = 1,
-                  Name = "C# for beginners, Bundle",
-                  ProductId1 = 3,
-                  ProductId2 = 4,
-                  ProductId3 = 5,
-                  Price=8500
-              }
-
-         );
-            
+                new Bundle
+                {
+                    Id = 1,
+                    Name = "C# for beginners, Bundle",
+                    ProductId1 = 3,
+                    ProductId2 = 4,
+                    ProductId3 = 5,
+                    Price=8500
+                }
+            );
 
             modelBuilder.Entity<CertificationSlot>().HasData(
                 new CertificationSlot
@@ -128,7 +126,6 @@ namespace SCS.Data
                     Name= "Slot1",
                     StartDate = DateOnly.FromDateTime(DateTime.Now.AddDays(10)),
                     EndDate=DateOnly.FromDateTime(DateTime.Now.AddDays(14)),
-                   
                     Dates = new List<DateOnly>
                     {
                         DateOnly.FromDateTime(DateTime.Now.AddDays(11)),
@@ -148,135 +145,116 @@ namespace SCS.Data
                         DateOnly.FromDateTime(DateTime.Now.AddDays(24)),
                         DateOnly.FromDateTime(DateTime.Now.AddDays(26))
                     }
-
                 }
             );
+
             modelBuilder.Entity<CertificationDay>().HasData(
 
-                        new CertificationDay
-                        {
-                            Id = 1,
-                            Date = DateOnly.FromDateTime(DateTime.Now.AddDays(10)),
-                            IsCertDay = false,
-                            CertSlotId = 1
-
-                        },
-                         new CertificationDay
-                         {
-                             Id = 2,
-                             Date = DateOnly.FromDateTime(DateTime.Now.AddDays(11)),
-                             IsCertDay = true,
-                             CertSlotId = 1
-
-                         },
-                          new CertificationDay
-                          {
-                              Id = 3,
-                              Date = DateOnly.FromDateTime(DateTime.Now.AddDays(12)),
-                              IsCertDay = false,
-                              CertSlotId = 1
-
-                          },
-                           new CertificationDay
-                           {
-                               Id = 4,
-                               Date = DateOnly.FromDateTime(DateTime.Now.AddDays(13)),
-                               IsCertDay = true,
-                               CertSlotId = 1
-
-                           },
-                            new CertificationDay
-                            {
-                                Id = 5,
-                                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(14)),
-                                IsCertDay = false,
-                                CertSlotId = 1
-
-                            },
-
-                        new CertificationDay
-                        {
-                            Id = 6,
-                            Date = DateOnly.FromDateTime(DateTime.Now.AddDays(20)),
-                            IsCertDay = false,
-                            CertSlotId = 2
-
-
-                        },
-                        new CertificationDay
-                        {
-                            Id = 7,
-                            Date = DateOnly.FromDateTime(DateTime.Now.AddDays(21)),
-                            IsCertDay = true,
-                            CertSlotId = 2
-                        },
-                         new CertificationDay
-                         {
-                             Id = 8,
-                             Date = DateOnly.FromDateTime(DateTime.Now.AddDays(22)),
-                             IsCertDay = false,
-                             CertSlotId = 2
-
-                         },
-                        new CertificationDay
-                        {
-                            Id = 9,
-                            Date = DateOnly.FromDateTime(DateTime.Now.AddDays(23)),
-                            IsCertDay = true,
-                            CertSlotId = 2
-
-                        },
-                        new CertificationDay
-                        {
-                            Id = 10,
-                            Date = DateOnly.FromDateTime(DateTime.Now.AddDays(24)),
-                            IsCertDay = true,
-                            CertSlotId = 2
-
-                        },
-                        new CertificationDay
-                        {
-                            Id = 11,
-                            Date = DateOnly.FromDateTime(DateTime.Now.AddDays(25)),
-                            IsCertDay = false,
-                            CertSlotId = 2
-
-                        },
-                        new CertificationDay
-                        {
-                            Id = 12,
-                            Date = DateOnly.FromDateTime(DateTime.Now.AddDays(26)),
-                            IsCertDay = true,
-                            CertSlotId = 2
-
-                        },
-                        new CertificationDay
-                        {
-                            Id = 13,
-                            Date = DateOnly.FromDateTime(DateTime.Now.AddDays(27)),
-                            IsCertDay = false,
-                            CertSlotId = 2
-
-                        },
-                        new CertificationDay
-                        {
-                            Id = 14,
-                            Date = DateOnly.FromDateTime(DateTime.Now.AddDays(28)),
-                            IsCertDay = false,
-                            CertSlotId = 2
-
-                        },
-                        new CertificationDay
-                        {
-                            Id = 15,
-                            Date = DateOnly.FromDateTime(DateTime.Now.AddDays(29)),
-                            IsCertDay = false,
-                            CertSlotId = 2
-
-                        }
-
-
-
+                new CertificationDay
+                {
+                    Id = 1,
+                    Date = DateOnly.FromDateTime(DateTime.Now.AddDays(10)),
+                    IsCertDay = false,
+                    CertSlotId = 1
+                },
+                new CertificationDay
+                {
+                    Id = 2,
+                    Date = DateOnly.FromDateTime(DateTime.Now.AddDays(11)),
+                    IsCertDay = true,
+                    CertSlotId = 1
+                },
+                new CertificationDay
+                {
+                    Id = 3,
+                    Date = DateOnly.FromDateTime(DateTime.Now.AddDays(12)),
+                    IsCertDay = false,
+                    CertSlotId = 1
+                },
+                new CertificationDay
+                {
+                    Id = 4,
+                    Date = DateOnly.FromDateTime(DateTime.Now.AddDays(13)),
+                    IsCertDay = true,
+                    CertSlotId = 1
+                },
+                new CertificationDay
+                {
+                    Id = 5,
+                    Date = DateOnly.FromDateTime(DateTime.Now.AddDays(14)),
+                    IsCertDay = false,
+                    CertSlotId = 1
+                },
+                new CertificationDay
+                {
+                    Id = 6,
+                    Date = DateOnly.FromDateTime(DateTime.Now.AddDays(20)),
+                    IsCertDay = false,
+                    CertSlotId = 2
+                },
+                new CertificationDay
+                {
+                    Id = 7,
+                    Date = DateOnly.FromDateTime(DateTime.Now.AddDays(21)),
+                    IsCertDay = true,
+                    CertSlotId = 2
+                },
+                new CertificationDay
+                {
+                    Id = 8,
+                    Date = DateOnly.FromDateTime(DateTime.Now.AddDays(22)),
+                    IsCertDay = false,
+                    CertSlotId = 2
+                },
+                new CertificationDay
+                {
+                    Id = 9,
+                    Date = DateOnly.FromDateTime(DateTime.Now.AddDays(23)),
+                    IsCertDay = true,
+                    CertSlotId = 2
+                },
+                new CertificationDay
+                {
+                    Id = 10,
+                    Date = DateOnly.FromDateTime(DateTime.Now.AddDays(24)),
+                    IsCertDay = true,
+                    CertSlotId = 2
+                },
+                new CertificationDay
+                {
+                    Id = 11,
+                    Date = DateOnly.FromDateTime(DateTime.Now.AddDays(25)),
+                    IsCertDay = false,
+                    CertSlotId = 2
+                },
+                new CertificationDay
+                {
+                    Id = 12,
+                    Date = DateOnly.FromDateTime(DateTime.Now.AddDays(26)),
+                    IsCertDay = true,
+                    CertSlotId = 2
+                },
+                new CertificationDay
+                {
+                    Id = 13,
+                    Date = DateOnly.FromDateTime(DateTime.Now.AddDays(27)),
+                    IsCertDay = false,
+                    CertSlotId = 2
+                },
+                new CertificationDay
+                {
+                    Id = 14,
+                    Date = DateOnly.FromDateTime(DateTime.Now.AddDays(28)),
+                    IsCertDay = false,
+                    CertSlotId = 2
+                },
+                new CertificationDay
+                {
+                    Id = 15,
+                    Date = DateOnly.FromDateTime(DateTime.Now.AddDays(29)),
+                    IsCertDay = false,
+                    CertSlotId = 2
+                }
             );
 
             modelBuilder.Entity<Product>().HasData(
