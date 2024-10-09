@@ -1,99 +1,150 @@
-﻿@media (max-width: 768px) {
+﻿
     .carousel-caption h5 {
-        font-size: 18px; /* Smaller font size for mobile devices */
+        font-size: 18px;
     }
 
     .carousel-caption p {
-        font-size: 14px; /* Smaller font size for mobile devices */
+        font-size: 14px;
     }
-}
-.btn:focus,
-.btn:active:focus,
-.btn-link.nav-link:focus,
-.form-control:focus,
-.form-check-input:focus {
-    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+
+    .btn:focus,
+    .btn:active:focus,
+    .btn-link.nav-link:focus,
+    .form-control:focus,
+    .form-check-input:focus {
+        box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    }
+
+    html {
+        position: relative;
+        min-height: 100%;
+        font-size: 14px;
+        font-family: 'Public Sans', sans-serif;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        margin: 0;
+    }
+
+    .container {
+        flex: 1;
+        max-width: 1140px;
+        margin: 0 auto;
+    }
+
+    .bg-primary {
+        background-color: #002c41 !important;
+    }
+
+    .custom-title {
+        color: #052742 !important;
+    }
+
+    .custom-margin {
+        margin-left: 3rem;
+        margin-right: 3rem;
+    }
+
+    .notification-bar {
+        background-color: #dff0ed;
+        font-size: 0.9rem;
+        color: #333;
+    }
+
+    .branding-bar {
+        font-size: 0.85rem;
+        background-color: #1A2A40;
+        color: #555;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .main-header {
+        background-color: white;
+    }
+
+    .header-icons a {
+        color: #333;
+        text-decoration: none;
+    }
+
+    .header-icons a:hover {
+        color: #0056b3;
+    }
+
+    .navbar-nav.nav-link {
+        color: #333;
+        font-weight: 500;
+    }
+
+    .navbar-nav.nav-link:hover {
+        color: #0056b3;
+    }
+
+    .carousel-caption h5 {
+        font-size: 24px;
+    
+    }
+
+    .carousel-caption p {
+        font-size: 16px;
+        line-height: 1.5;
+    }
+.carousel-caption {
+    position: absolute;
+    left: 20%;
+    top: 30%;
+    transform: translateY(-20%);
+    text-align: left;
+    max-width: 30%;
+    max-height: 30%;
+    background-color: rgba(0, 0, 0, 0.1); 
+
+    padding: 10px; 
+
+    border-radius: 3px;
+
 }
 
-html {
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(5, 39, 66, 1); 
+    border-radius: 50%; 
+    width: 50px; 
+    height: 50px;
+    background-size: 50%; 
+    background-position: center;
+    background-repeat: no-repeat;
+    visibility: visible; 
+}
+
+.full-width-section {
+    width: 100vw;
     position: relative;
-    min-height: 100%;
-    font-size: 14px;
-    font-family: 'Public Sans', sans-serif;
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    margin: 0;
-}
-
-.container {
-    flex: 1;
-    max-width: 1140px;
-    margin: 0 auto;
-   
-}
-
-.bg-primary {
-    background-color: #002c41 !important;
-}
-
-.custom-title {
-    color: #052742 !important;
-}
-
-.custom-margin {
-    margin-left: 3rem;
-    margin-right: 3rem;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw; 
+    margin-right: -50vw; 
+    background-color: #f8f9fa; 
 }
 
 
-.notification-bar {
-    background-color: #dff0ed;
-    font-size: 0.9rem;
-    color: #333;
+.custom-button {
+    background-color: #5b3b3b;
+    color: #ffffff; 
+    padding: 5px 20px; 
+    font-size: 1rem; 
+    border: none; 
+    border-radius: 25px; 
+    text-decoration: none; 
+    display: inline-block; 
+    text-align: center;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-
-.branding-bar {
-    font-size: 0.85rem;
-    background-color: #1A2A40;
-    color: #555;
-    border-bottom: 1px solid #dee2e6;
-}
-
-.main-header {
-    background-color: white;
-}
-
-.header-icons a {
-    color: #333;
-    text-decoration: none;
-}
-
-.header-icons a:hover {
-    color: #0056b3;
-}
-
-
-.navbar-nav.nav-link {
-    color: #333;
-    font-weight: 500;
-}
-
-.navbar-nav.nav-link:hover {
-    color: #0056b3;
-}
-
-.carousel-caption h5 {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.carousel-caption p {
-    font-size: 16px;
-    line-height: 1.5;
-}
-
+    .custom-button:hover {
+        background-color: #4a2f2f; 
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    }
