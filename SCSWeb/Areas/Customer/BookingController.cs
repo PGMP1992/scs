@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using SCS.Models;
 using SCS.Models.ViewModels;
 using SCS.Repository.IRepository;
+using SCS.Utility;
 
 namespace SCSWeb.Areas.Customer
 {
@@ -31,58 +33,74 @@ namespace SCSWeb.Areas.Customer
         [Authorize]
         public async Task<IActionResult> Index()
         {
-            ViewBag.Message = "";
-            BookingVM bookingVM = new BookingVM();
-                        
-            IEnumerable<CertificationSlot> slots = _unitOfWork.CertificationSlot.GetAll();
+            BookingVM BookingVM = new BookingVM();
             
-            bookingVM.VoucherId = "";
-            bookingVM.Slots = slots;
-            return View(bookingVM);
-        }
-
-        public IActionResult CheckVoucher(BookingVM bookingVM)
-        {
-            if (!String.IsNullOrEmpty(bookingVM.VoucherId))
-            {
-                OrderDetails orderDetail = _unitOfWork.OrderDetails
-                    .Get(p => p.VoucherKey == bookingVM.VoucherId);
-
-                if (orderDetail == null)
-                    ViewBag.Message = "This Voucher Key is not valid.";
-                else
-                {
-                    if (orderDetail.VoucherBooked == true)
-                        ViewBag.Message = "This Voucher has already been Used/Booked.";
-                    else
-                    {
-                        bookingVM.VoucherId = orderDetail.VoucherKey;
-                        ViewBag.Message = "Voucher key Validated.";
-                    }
-                }
-            }
-            else
-            {
-                ViewBag.Message = "";
-            }
-            return View("Index");
+            return View(BookingVM);
         }
 
         [Authorize]
         [HttpPost]
-        public IActionResult Book(BookingVM bookingVM)
+        public IActionResult Book(string search)
         {
-            var voucher = _unitOfWork.OrderDetails.Get(v => v.VoucherKey == BookingVM.VoucherId);
-            if (voucher != null)
+            if (!String.IsNullOrEmpty(search))
             {
-                voucher.VoucherBooked = true;
-                _unitOfWork.OrderDetails.Update(voucher);
-                _unitOfWork.Save();
-                ViewBag.Message = "Voucher has been Booked.";
-                return RedirectToAction(nameof(OrderConfirmation), new { id = BookingVM.VoucherId });
+                OrderDetails orderDetail = _unitOfWork.OrderDetails
+                    .Get(p => p.VoucherKey == search);
+
+                if (orderDetail == null)
+                {
+                    TempData["error"] = "This Voucher Key is not valid.";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    if (orderDetail.VoucherBooked == true) 
+                    {
+                        TempData["error"] = "This Voucher has already been Used/Booked.";
+                        return RedirectToAction("Index");
+                    }
+                    else // Hasn't been booked yet 
+                    {
+                        BookingVM.VoucherValidated = true;
+                        BookingVM.VoucherId = orderDetail.VoucherKey;
+
+                        HttpContext.Session.SetString(SD.SessionVoucherId, orderDetail.VoucherKey);
+                        
+                        TempData["success"] = "Voucher key Validated.";
+                        return RedirectToAction("BookDate");
+                    }
+                }
+                //return View(BookDate(Booking));
             }
-            return RedirectToAction("OrderConfirmation");
+            else
+            {
+                // Don't get why this is not working... ????
+                //ViewBag.Message = "Please enter a Valid Voucher Key.";
+                TempData["error"] = "Please enter a Valid Voucher Key.";
+                return RedirectToAction("Index");
+            }
         }
+
+        [Authorize]
+        public IActionResult BookDate()
+        {
+            string voucherId = HttpContext.Session.GetString(SD.SessionVoucherId);
+            
+            IEnumerable<CertificationSlot> slots = _unitOfWork.CertificationSlot.GetAll();
+            
+            OrderDetails order = _unitOfWork.OrderDetails.Get(o => o.VoucherKey == voucherId, includeProperties:"Product");
+            
+            BookingVM BookingVM = new BookingVM
+            {
+                VoucherId = voucherId,
+                VoucherValidated = true,
+                OrderDetails = order,
+                Slots = slots
+            };
+
+            return View(BookingVM);
+        }
+
 
         [Authorize]
         public IActionResult OrderConfirmation(string id)
