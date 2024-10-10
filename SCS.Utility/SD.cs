@@ -28,6 +28,7 @@
         // Session
         public const string SessionCart = "SessionCart";
         public const string SessionTempUserId = "SessionTempUserId";
+        public const string SessionVoucherId = "SessionVoucherId";
 
         // Admin User
         public const string AdminEmail = "admin@email.com";

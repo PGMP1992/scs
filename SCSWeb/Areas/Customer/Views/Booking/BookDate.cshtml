@@ -1,0 +1,80 @@
+﻿@* Project: CSC Mock Test
+   Controller: Booking
+   View      : BookDate
+   Author    : Pedro Martinez
+*@
+
+@using SCS.Models.ViewModels
+@model BookingVM
+
+<div class="card border-1 mt-4">
+    <div class="card-header bg-primary bg-gradient text-light ml-0 py-4">
+        <div class="row px-4">
+            <div class="col-6">
+                <h5 class="pt-2 text-white">
+                    Book Date
+                </h5>
+            </div>
+        </div>
+    </div>
+
+    <form asp-area="Customer" asp-controller="Booking" asp-action="BookDate" class="m-2">
+        <div class="container bg-white bg-light">
+            <div class="row col-12">
+                <div class="mt-2">
+                    <label for="@Model.VoucherId" class="label"><strong>Voucher Key:</strong></label>
+                    <input asp-for="@Model.VoucherId" class="form-control col-6" type="text" readonly>
+                </div>
+                <div class="mt-2">
+                    <label for="@Model.OrderDetails.ProductId" class="form-check-label"><strong>Product:</strong></label>
+                    <input asp-for="@Model.OrderDetails.Product.Name" class="form-control col-6" type="text" readonly>
+                </div>
+
+            </div>
+        </div>
+
+        @* Show Cert Slots ---------------------------- *@
+        <table class="table table-borded table-light table-striped ">
+            <thead>
+                <tr>
+                    <th class="text-success-emphasis">
+                        Name
+                    </th>
+                    <th class="text-success-emphasis">
+                        Start Day
+                    </th>
+                    <th class="text-success-emphasis">
+                        End Day
+                    </th>
+                    <th class="text-success-emphasis">
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var obj in Model.Slots)
+                {
+                    <tr>
+                        <td>
+                            @obj.Name
+                        </td>
+                        <td>
+                            @obj.StartDate.ToShortDateString()
+                        </td>
+                        <td>
+                            @obj.EndDate.ToShortDateString()
+                        </td>
+                        <td>
+                            <div class="w-50 btn-group" role="group">
+                                <a asp-controller="Booking" asp-action="BookSlot" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
+                                    <i class="bi bi-pencil-square"></i>
+                                    Book
+                                </a>
+                                
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </form>
+</div>
