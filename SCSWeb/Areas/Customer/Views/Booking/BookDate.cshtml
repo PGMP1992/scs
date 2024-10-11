@@ -38,38 +38,37 @@
             <thead>
                 <tr>
                     <th class="text-success-emphasis">
-                        Name
+                        Slot Name
                     </th>
                     <th class="text-success-emphasis">
-                        Start Day
+                        Slot Period
                     </th>
                     <th class="text-success-emphasis">
-                        End Day
+                        Date
                     </th>
                     <th class="text-success-emphasis">
                     </th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var obj in Model.Slots)
+                @foreach (var obj in Model.CDayList)
                 {
                     <tr>
                         <td>
-                            @obj.Name
+                            @obj.CertificationSlot.Name
                         </td>
                         <td>
-                            @obj.StartDate.ToShortDateString()
+                            @obj.CertificationSlot.StartDate - @obj.CertificationSlot.EndDate
                         </td>
                         <td>
-                            @obj.EndDate.ToShortDateString()
+                            @obj.Date
                         </td>
                         <td>
-                            <div class="w-50 btn-group" role="group">
+                            <div class="w-45 btn-group" role="group">
                                 <a asp-controller="Booking" asp-action="" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
                                     <i class="bi bi-pencil-square"></i>
                                     Book
                                 </a>
-                                
                             </div>
                         </td>
                     </tr>

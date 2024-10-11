@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using SCS.Models;
@@ -25,6 +24,7 @@ namespace SCSWeb.Areas.Customer
             _emailSender = emailSender;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Calendar()
         {
             return View();
@@ -34,7 +34,7 @@ namespace SCSWeb.Areas.Customer
         public async Task<IActionResult> Index()
         {
             BookingVM BookingVM = new BookingVM();
-            
+
             return View(BookingVM);
         }
 
@@ -54,7 +54,7 @@ namespace SCSWeb.Areas.Customer
                 }
                 else
                 {
-                    if (orderDetail.VoucherBooked == true) 
+                    if (orderDetail.VoucherBooked == true)
                     {
                         TempData["error"] = "This Voucher has already been Used/Booked.";
                         return RedirectToAction("Index");
@@ -65,12 +65,11 @@ namespace SCSWeb.Areas.Customer
                         BookingVM.VoucherId = orderDetail.VoucherKey;
 
                         HttpContext.Session.SetString(SD.SessionVoucherId, orderDetail.VoucherKey);
-                        
+
                         TempData["success"] = "Voucher key Validated.";
                         return RedirectToAction("BookDate");
                     }
                 }
-                //return View(BookDate(Booking));
             }
             else
             {
@@ -82,25 +81,31 @@ namespace SCSWeb.Areas.Customer
         }
 
         [Authorize]
-        public IActionResult BookDate()
+        public async Task<IActionResult> BookDate()
         {
             string voucherId = HttpContext.Session.GetString(SD.SessionVoucherId);
-            
+
             IEnumerable<CertificationSlot> slots = _unitOfWork.CertificationSlot.GetAll();
-            
-            OrderDetails order = _unitOfWork.OrderDetails.Get(o => o.VoucherKey == voucherId, includeProperties:"Product");
-            
+
+            OrderDetails order = _unitOfWork.OrderDetails.Get(o => o.VoucherKey == voucherId, includeProperties: "Product");
+            IEnumerable<CertificationDay> cDayList = await _unitOfWork.CertificationDay
+                .GetAllAsync(x => x.IsCertDay == true, includeProperties: "CertificationSlot");
+
             BookingVM BookingVM = new BookingVM
             {
                 VoucherId = voucherId,
                 VoucherValidated = true,
                 OrderDetails = order,
-                Slots = slots
+                Slots = slots,
+                CDayList = cDayList
             };
+
+            // Cleaning session as it was creating too many cookies
+            // Will move that down when confirmation is done. - PM
+            HttpContext.Session.Clear(); 
 
             return View(BookingVM);
         }
-
 
         [Authorize]
         public IActionResult OrderConfirmation(string id)

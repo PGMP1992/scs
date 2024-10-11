@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.Timeouts;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SCS.Data;
 using SCS.Repository.IRepository;
 using System.Linq.Expressions;
@@ -22,7 +21,7 @@ public class Repository<T> : IRepository<T> where T : class
         await dbSet.AddAsync(entity);
     }
 
-    public T Get( Expression<Func<T, bool>> filter,
+    public T Get(Expression<Func<T, bool>> filter,
         string? includeProperties = null,
         bool tracked = false)
     {
@@ -48,7 +47,7 @@ public class Repository<T> : IRepository<T> where T : class
         return query.FirstOrDefault();
     }
 
-    public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter, 
+    public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter,
         string? includeProperties = null)
     {
         IQueryable<T> query = dbSet;
@@ -66,7 +65,7 @@ public class Repository<T> : IRepository<T> where T : class
         }
         return query.ToList();
     }
-    
+
     public bool Any(Expression<Func<T, bool>> filter)
     {
         return dbSet.Any(filter);
@@ -89,6 +88,7 @@ public class Repository<T> : IRepository<T> where T : class
         {
             query = query.Where(filter);
         }
+
         if (!string.IsNullOrEmpty(includeProperties))
         {
             foreach (var includeProp in includeProperties
@@ -126,18 +126,17 @@ public class Repository<T> : IRepository<T> where T : class
 
     public async Task AddAsync(T entity)
     {
-       await dbSet.AddAsync(entity);
+        await dbSet.AddAsync(entity);
     }
 
     public async Task<bool> AnyAsync(Expression<Func<T, bool>> filter)
     {
-    
         return (await dbSet.AnyAsync(filter));
     }
 
     public async Task<bool> RemoveAsync(T entity)
     {
-       dbSet.Remove(entity);
+        dbSet.Remove(entity);
         return (await _db.SaveChangesAsync()) > 0;
     }
 
@@ -145,6 +144,5 @@ public class Repository<T> : IRepository<T> where T : class
     {
         dbSet.RemoveRange(entity);
         return (await _db.SaveChangesAsync()) > 0;
-
     }
 }
