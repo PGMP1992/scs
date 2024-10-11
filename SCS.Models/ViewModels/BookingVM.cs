@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace SCS.Models.ViewModels
 {
@@ -12,5 +13,11 @@ namespace SCS.Models.ViewModels
         public bool VoucherValidated { get; set; }
         
         public IEnumerable<CertificationSlot> Slots { get; set; }
+
+        [ValidateNever]
+        public CertificationSlot CertificationSlot { get; set; }
+
+        [ValidateNever]
+        public IEnumerable<CertificationDay> CDayList { get; set; }
     }
 }
