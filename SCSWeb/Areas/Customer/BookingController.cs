@@ -40,7 +40,7 @@ namespace SCSWeb.Areas.Customer
 
         [Authorize]
         [HttpPost]
-        public IActionResult Book(string search)
+        public IActionResult Validate(string search)
         {
             if (!String.IsNullOrEmpty(search))
             {
