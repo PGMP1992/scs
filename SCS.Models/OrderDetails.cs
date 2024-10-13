@@ -20,7 +20,7 @@ public class OrderDetails
 
     public string? VoucherKey { get; set; }
 
-    public bool? VoucherBooked {  get; set; }
+    public int? BookCount {  get; set; }
     
     [ForeignKey("ProductId")]
     [ValidateNever]
