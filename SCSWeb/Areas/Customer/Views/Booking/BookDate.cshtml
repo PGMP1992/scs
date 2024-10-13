@@ -65,7 +65,7 @@
                         </td>
                         <td>
                             <div class="w-45 btn-group" role="group">
-                                <a asp-controller="Booking" asp-action="" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
+                                <a asp-controller="Booking" asp-action="Book" asp-route-bookingDate="@obj.Date" class="btn btn-primary mx-2">
                                     <i class="bi bi-pencil-square"></i>
                                     Book
                                 </a>
@@ -75,6 +75,11 @@
                 }
             </tbody>
         </table>
+        <div>
+            <asp-calendar="new">
+
+            </asp-calendar>
+        </div>
     </form>
     @* Buttons ---------------- *@
     <div class="row col-12 justify-content-center mb-2">

@@ -5,6 +5,7 @@ using SCS.Models;
 using SCS.Models.ViewModels;
 using SCS.Repository.IRepository;
 using SCS.Utility;
+using System.Globalization;
 
 namespace SCSWeb.Areas.Customer
 {
@@ -27,7 +28,10 @@ namespace SCSWeb.Areas.Customer
         [AllowAnonymous]
         public async Task<IActionResult> Calendar()
         {
-            return View();
+            var calendar = new GregorianCalendar();
+            
+           
+                return View();
         }
 
         [Authorize]
@@ -54,7 +58,7 @@ namespace SCSWeb.Areas.Customer
                 }
                 else
                 {
-                    if (orderDetail.VoucherBooked == true)
+                    if (orderDetail.BookCount == orderDetail.Count)
                     {
                         TempData["error"] = "This Voucher has already been Used/Booked.";
                         return RedirectToAction("Index");
@@ -73,8 +77,7 @@ namespace SCSWeb.Areas.Customer
             }
             else
             {
-                // Don't get why this is not working... ????
-                //ViewBag.Message = "Please enter a Valid Voucher Key.";
+                //ViewBag.Message = "Please enter a Valid Voucher Key."; Don't get why this is not working... ????
                 TempData["error"] = "Please enter a Valid Voucher Key.";
                 return RedirectToAction("Index");
             }
@@ -102,10 +105,31 @@ namespace SCSWeb.Areas.Customer
 
             // Cleaning session as it was creating too many cookies
             // Will move that down when confirmation is done. - PM
-            HttpContext.Session.Clear(); 
 
             return View(BookingVM);
         }
+
+        [Authorize]
+        public async Task<IActionResult> Book(DateTime bookingDate)
+        {
+            string voucherId = HttpContext.Session.GetString(SD.SessionVoucherId);
+
+            OrderDetails order = _unitOfWork.OrderDetails.Get(o => o.VoucherKey == voucherId, includeProperties: "Product");
+            order.BookCount += 1;
+
+            BookingVM BookingVM = new BookingVM
+            {
+                VoucherId = voucherId,
+                VoucherValidated = true,
+                OrderDetails = order,
+            };
+
+            HttpContext.Session.Clear();
+
+            return View(BookingVM);
+        }
+
+
 
         [Authorize]
         public IActionResult OrderConfirmation(string id)

@@ -98,17 +98,18 @@ namespace SCS.Areas.Customer
 			_unitOfWork.Save(); // ???? 
 
             // Order Details -------------------------------------
-
             foreach (var cart in CartVM.CartList)
 			{
-				var orderDetail = new OrderDetails()
+                var orderDetail = new OrderDetails()
 				{
 					ProductId = cart.ProductId,
 					OrderHeaderId = CartVM.OrderHeader.Id,
 					Price = cart.Price,
 					Count = cart.ProdCount,
-					VoucherKey = Guid.NewGuid().ToString(),
-					VoucherBooked = false
+					VoucherKey = Guid.NewGuid().ToString(), // Creates a new Voucher Key for the product 
+                    // Sets to zero - Once a booking is done it updates this property
+					// Depending on the Quantity/Count it books it uses the VoucherKey until BookCount = Count - PM
+                    BookCount = 0 
                 };
 			
 				_unitOfWork.OrderDetails.Add(orderDetail);
