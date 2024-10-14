@@ -29,13 +29,11 @@ namespace SCSWeb.Areas.Customer
         public async Task<IActionResult> Calendar()
         {
             var calendar = new GregorianCalendar();
-            
-           
-                return View();
+            return View(calendar);
         }
 
         [Authorize]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             BookingVM BookingVM = new BookingVM();
 
@@ -84,15 +82,15 @@ namespace SCSWeb.Areas.Customer
         }
 
         [Authorize]
-        public async Task<IActionResult> BookDate()
+        public IActionResult BookDate()
         {
             string voucherId = HttpContext.Session.GetString(SD.SessionVoucherId);
 
             IEnumerable<CertificationSlot> slots = _unitOfWork.CertificationSlot.GetAll();
 
             OrderDetails order = _unitOfWork.OrderDetails.Get(o => o.VoucherKey == voucherId, includeProperties: "Product");
-            IEnumerable<CertificationDay> cDayList = await _unitOfWork.CertificationDay
-                .GetAllAsync(x => x.IsCertDay == true, includeProperties: "CertificationSlot");
+            IEnumerable<CertificationDay> cDayList = _unitOfWork.CertificationDay
+                .GetAll(x => x.IsCertDay == true, includeProperties: "CertificationSlot");
 
             BookingVM BookingVM = new BookingVM
             {
@@ -105,31 +103,65 @@ namespace SCSWeb.Areas.Customer
 
             // Cleaning session as it was creating too many cookies
             // Will move that down when confirmation is done. - PM
-
+            
             return View(BookingVM);
         }
 
-        [Authorize]
-        public async Task<IActionResult> Book(DateTime bookingDate)
-        {
+		public IActionResult Summary(DateOnly bookingDate)
+		{
+            var userId = HttpContext.User.GetUserId();
+
             string voucherId = HttpContext.Session.GetString(SD.SessionVoucherId);
 
-            OrderDetails order = _unitOfWork.OrderDetails.Get(o => o.VoucherKey == voucherId, includeProperties: "Product");
-            order.BookCount += 1;
-
-            BookingVM BookingVM = new BookingVM
+            // Save new Booking 
+            Booking booking = new Booking
             {
-                VoucherId = voucherId,
-                VoucherValidated = true,
-                OrderDetails = order,
+                VoucherKey = voucherId,
+                Date = bookingDate,
+                AppUserId = userId
             };
 
-            HttpContext.Session.Clear();
+            return View(booking); // Add Summary
+		}
 
-            return View(BookingVM);
-        }
+		//[Authorize]
+  //      [HttpPost]
+  //      [ActionName("Summary")]
+  //      public async Task<IActionResult> SummaryPOST(DateTime bookingDate)
+  //      {
+  //          var userId = HttpContext.User.GetUserId();
 
+  //          string voucherId = HttpContext.Session.GetString(SD.SessionVoucherId);
 
+  //          OrderDetails order = _unitOfWork.OrderDetails.Get(o => o.VoucherKey == voucherId, includeProperties: "Product");
+  //          order.BookCount += 1; // Increase BookCount 
+
+  //          // Save new Booking 
+  //          Booking booking = new Booking
+  //          {
+  //              VoucherKey = voucherId,
+  //              Date = bookingDate,
+  //              AppUserId = userId
+  //          };
+
+  //          _unitOfWork.Booking.Add(booking);
+            
+  //          // Update BookCount in OrderDetails 
+  //          _unitOfWork.OrderDetails.Update(order);
+            
+  //          _unitOfWork.Save();
+
+  //          HttpContext.Session.Clear();
+  //          return View(); // Add Summary
+  //      }
+
+  //      public IActionResult Summary()
+  //      {
+  //          var userId = HttpContext.User.GetUserId();
+
+            
+  //          return View();
+  //      }
 
         [Authorize]
         public IActionResult OrderConfirmation(string id)

@@ -107,7 +107,7 @@ namespace SCS.Areas.Customer
 					Price = cart.Price,
 					Count = cart.ProdCount,
 					VoucherKey = Guid.NewGuid().ToString(), // Creates a new Voucher Key for the product 
-                    // Sets to zero - Once a booking is done it updates this property
+                    // Sets BookCount to zero - Once a booking is done it updates this property
 					// Depending on the Quantity/Count it books it uses the VoucherKey until BookCount = Count - PM
                     BookCount = 0 
                 };
@@ -183,18 +183,18 @@ namespace SCS.Areas.Customer
 				+ $"<p>Date  : {orderHeader.OrderDate}</P>"
 				+ $"<p>Status: {orderHeader.OrderStatus}</P>"
 				+ $"<p>Total : {orderHeader.OrderTotal}</P>"
-				+ $"<p> ------------------------------------------------------------------------------------------------------------------</p>";
-				
+				+ $"<p> --------------------------------------------------------------------------------------------------------</p>";
+				// Have to create a <ul> here.... - PM
 			string emailDetails = "";
 
             foreach (var item in orderDetails)
 			{
 				emailDetails += 
 					$"<p>Product : {item.Product.Name}</p>" 
-					+ $"<p>Count : {item.Count}</p>"
+					+ $"<p>Qty : {item.Count}</p>"
                     + $"<p>Price : {item.Product.Price}</p>"
                     + $"<p>Voucher Key : {item.VoucherKey}</p>"
-                    + $"<p> ------------------------------------------------------------------------------------------------------------------</p>";
+                    + $"<p> --------------------------------------------------------------------------------------------------------</p>";
             }
 			
 			_emailSender.SendEmailAsync(orderHeader.AppUser.Email, "New Order - SCS AB", emailHeader + emailDetails);
