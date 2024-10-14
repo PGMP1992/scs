@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SCS.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class initDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -170,9 +170,8 @@ namespace SCS.DataAccess.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Date = table.Column<DateOnly>(type: "date", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     VoucherKey = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AppUserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CertificationSlotId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -419,7 +418,7 @@ namespace SCS.DataAccess.Migrations
                     OrderHeaderId = table.Column<int>(type: "int", nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: false),
                     VoucherKey = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BookCount = table.Column<int>(type: "int", nullable: true),
+                    VoucherBooked = table.Column<bool>(type: "bit", nullable: true),
                     Count = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false)
                 },
@@ -466,13 +465,8 @@ namespace SCS.DataAccess.Migrations
                 columns: new[] { "Id", "Dates", "DayOfWeek", "EndDate", "Name", "ShowDays", "StartDate" },
                 values: new object[,]
                 {
-<<<<<<<< HEAD:SCS.DataAccess/Migrations/20241014150002_initial.cs
-                    { 1, "[\"2024-10-25\",\"2024-10-27\"]", null, new DateOnly(2024, 10, 28), "Slot1", false, new DateOnly(2024, 10, 24) },
-                    { 2, "[\"2024-11-04\",\"2024-11-07\",\"2024-11-09\"]", null, new DateOnly(2024, 11, 12), "Slot2", false, new DateOnly(2024, 11, 3) }
-========
-                    { 1, "[\"2024-10-23\",\"2024-10-25\"]", null, new DateOnly(2024, 10, 26), "Slot1", false, new DateOnly(2024, 10, 22) },
-                    { 2, "[\"2024-11-02\",\"2024-11-05\",\"2024-11-07\"]", null, new DateOnly(2024, 11, 10), "Slot2", false, new DateOnly(2024, 11, 1) }
->>>>>>>> Booking-Summary:SCS.DataAccess/Migrations/20241012151316_initial.cs
+                    { 1, "[\"2024-10-20\",\"2024-10-22\"]", null, new DateOnly(2024, 10, 23), "Slot1", false, new DateOnly(2024, 10, 19) },
+                    { 2, "[\"2024-10-30\",\"2024-11-02\",\"2024-11-04\"]", null, new DateOnly(2024, 11, 7), "Slot2", false, new DateOnly(2024, 10, 29) }
                 });
 
             migrationBuilder.InsertData(
@@ -491,39 +485,21 @@ namespace SCS.DataAccess.Migrations
                 columns: new[] { "Id", "CertSlotId", "Date", "IsCertDay" },
                 values: new object[,]
                 {
-<<<<<<<< HEAD:SCS.DataAccess/Migrations/20241014150002_initial.cs
-                    { 1, 1, new DateOnly(2024, 10, 24), false },
-                    { 2, 1, new DateOnly(2024, 10, 25), true },
-                    { 3, 1, new DateOnly(2024, 10, 26), false },
-                    { 4, 1, new DateOnly(2024, 10, 27), true },
-                    { 5, 1, new DateOnly(2024, 10, 28), false },
-                    { 6, 2, new DateOnly(2024, 11, 3), false },
-                    { 7, 2, new DateOnly(2024, 11, 4), true },
-                    { 8, 2, new DateOnly(2024, 11, 5), false },
-                    { 9, 2, new DateOnly(2024, 11, 6), true },
-                    { 10, 2, new DateOnly(2024, 11, 7), true },
-                    { 11, 2, new DateOnly(2024, 11, 8), false },
-                    { 12, 2, new DateOnly(2024, 11, 9), true },
-                    { 13, 2, new DateOnly(2024, 11, 10), false },
-                    { 14, 2, new DateOnly(2024, 11, 11), false },
-                    { 15, 2, new DateOnly(2024, 11, 12), false }
-========
-                    { 1, 1, new DateOnly(2024, 10, 22), false },
-                    { 2, 1, new DateOnly(2024, 10, 23), true },
-                    { 3, 1, new DateOnly(2024, 10, 24), false },
-                    { 4, 1, new DateOnly(2024, 10, 25), true },
-                    { 5, 1, new DateOnly(2024, 10, 26), false },
-                    { 6, 2, new DateOnly(2024, 11, 1), false },
-                    { 7, 2, new DateOnly(2024, 11, 2), true },
-                    { 8, 2, new DateOnly(2024, 11, 3), false },
-                    { 9, 2, new DateOnly(2024, 11, 4), true },
-                    { 10, 2, new DateOnly(2024, 11, 5), true },
-                    { 11, 2, new DateOnly(2024, 11, 6), false },
-                    { 12, 2, new DateOnly(2024, 11, 7), true },
-                    { 13, 2, new DateOnly(2024, 11, 8), false },
-                    { 14, 2, new DateOnly(2024, 11, 9), false },
-                    { 15, 2, new DateOnly(2024, 11, 10), false }
->>>>>>>> Booking-Summary:SCS.DataAccess/Migrations/20241012151316_initial.cs
+                    { 1, 1, new DateOnly(2024, 10, 19), false },
+                    { 2, 1, new DateOnly(2024, 10, 20), true },
+                    { 3, 1, new DateOnly(2024, 10, 21), false },
+                    { 4, 1, new DateOnly(2024, 10, 22), true },
+                    { 5, 1, new DateOnly(2024, 10, 23), false },
+                    { 6, 2, new DateOnly(2024, 10, 29), false },
+                    { 7, 2, new DateOnly(2024, 10, 30), true },
+                    { 8, 2, new DateOnly(2024, 10, 31), false },
+                    { 9, 2, new DateOnly(2024, 11, 1), true },
+                    { 10, 2, new DateOnly(2024, 11, 2), true },
+                    { 11, 2, new DateOnly(2024, 11, 3), false },
+                    { 12, 2, new DateOnly(2024, 11, 4), true },
+                    { 13, 2, new DateOnly(2024, 11, 5), false },
+                    { 14, 2, new DateOnly(2024, 11, 6), false },
+                    { 15, 2, new DateOnly(2024, 11, 7), false }
                 });
 
             migrationBuilder.InsertData(
