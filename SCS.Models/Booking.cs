@@ -8,10 +8,12 @@ namespace SCS.Models
     {
         public int Id { get; set; }
 
-        public DateTime Date {  get; set; }
+        public DateOnly Date { get; set; }
 
         [Required]
         public string VoucherKey { get; set; }
+
+        public string AppUserId { get; set; }
 
         [Required]
         public int CertificationSlotId { get; set; }
