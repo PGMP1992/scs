@@ -292,10 +292,7 @@ namespace SCS.DataAccess.Migrations
 
                     b.Property<string>("AppUserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CertificationSlotId")
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateOnly>("Date")
                         .HasColumnType("date");
@@ -306,7 +303,7 @@ namespace SCS.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CertificationSlotId");
+                    b.HasIndex("AppUserId");
 
                     b.ToTable("Bookings");
                 });
@@ -1002,13 +999,13 @@ namespace SCS.DataAccess.Migrations
 
             modelBuilder.Entity("SCS.Models.Booking", b =>
                 {
-                    b.HasOne("SCS.Models.CertificationSlot", "CertificationSlot")
+                    b.HasOne("SCS.Models.AppUser", "AppUser")
                         .WithMany()
-                        .HasForeignKey("CertificationSlotId")
+                        .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("CertificationSlot");
+                    b.Navigation("AppUser");
                 });
 
             modelBuilder.Entity("SCS.Models.Cart", b =>

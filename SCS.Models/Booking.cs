@@ -8,19 +8,13 @@ namespace SCS.Models
     {
         public int Id { get; set; }
 
-        public DateOnly Date { get; set; }
-
-        [Required]
-        public string VoucherKey { get; set; }
-
         public string AppUserId { get; set; }
 
-        [Required]
-        public int CertificationSlotId { get; set; }
+        public AppUser AppUser { get; set; }
+        
+        public DateOnly Date { get; set; }
 
-        [ForeignKey("CertificationSlotId")]
-        [ValidateNever]
-        public CertificationSlot CertificationSlot { get; set; }
+        public string VoucherKey { get; set; }
     }
 
 }
