@@ -81,7 +81,9 @@
                                 class="btn btn-primary form-control my-1 rounded mb-1">Update Order Details</button>
                         }
                     </div>
-                    <div class="col-12 col-lg-5 offset-lg-1">
+                    
+                    @* Details -------------- *@
+                    <div class="col-12 col-lg-6 ">
                         <h4 class="d-flex justify-content-between align-items-center mb-3">
                             <span class="text-primary">Order Details: </span>
                         </h4>
@@ -94,13 +96,14 @@
                             {
                                 <li class="list-group-item d-flex justify-content-between p-2">
                                     <div class="row container">
-                                        <div class="col-8">
+                                        <div class="col-9">
                                             <h6 class="my-0 text-primary">@item.Product.Name</h6>
-                                            <small class="text-dark">Price : @(item.Price.ToString("c"))</small><br />
-                                            <small class="text-dark">Quantity : @item.Count</small>
+                                            <small class="text-dark">Price : @item.Product.Price.ToString("c")</small><br />
+                                            <small class="text-dark">Quantity : @item.Count</small><br />
+                                            <small class="text-danger">Voucher Key: @item.VoucherKey</small>
                                         </div>
-                                        <div class="col-4 text-end">
-                                            <p class="text-success">@((item.Price * item.Count).ToString("c"))</p>
+                                        <div class="col-3 text-end">
+                                            <p class="text-success">@((@item.Price).ToString("c"))</p>
                                         </div>
                                     </div>
                                 </li>
