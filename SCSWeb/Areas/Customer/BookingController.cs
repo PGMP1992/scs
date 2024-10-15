@@ -82,15 +82,15 @@ namespace SCSWeb.Areas.Customer
         }
 
         [Authorize]
-        public IActionResult BookDate()
+        public async Task<IActionResult> BookDate()
         {
             string voucherId = HttpContext.Session.GetString(SD.SessionVoucherId);
 
             IEnumerable<CertificationSlot> slots = _unitOfWork.CertificationSlot.GetAll();
 
             OrderDetails order = _unitOfWork.OrderDetails.Get(o => o.VoucherKey == voucherId, includeProperties: "Product");
-            IEnumerable<CertificationDay> cDayList = _unitOfWork.CertificationDay
-                .GetAll(x => x.IsCertDay == true, includeProperties: "CertificationSlot");
+            IEnumerable<CertificationDay> cDayList = await _unitOfWork.CertificationDay
+                .GetAllAsync(x => x.IsCertDay == true, includeProperties: "CertificationSlot");
 
             BookingVM BookingVM = new BookingVM
             {
@@ -107,7 +107,7 @@ namespace SCSWeb.Areas.Customer
             return View(BookingVM);
         }
 
-		public IActionResult Summary(DateOnly bookingDate)
+		public IActionResult Summary(DateOnly bDate)
 		{
             var userId = HttpContext.User.GetUserId();
 
@@ -117,11 +117,11 @@ namespace SCSWeb.Areas.Customer
             Booking booking = new Booking
             {
                 VoucherKey = voucherId,
-                Date = bookingDate,
+                Date = bDate,
                 AppUserId = userId
             };
 
-            return View(booking); // Add Summary
+            return View(); // Add Summary
 		}
 
 		//[Authorize]

@@ -58,16 +58,13 @@
                             <label asp-for="Product.CertSlotId" class="mt-2 ">CertificationSlot</label>
                         </div>
 
-                        @if(Model.Product.CategoryId==1)
+                        @* @if(Model.Product.CategoryId==1)
                         {
-                            
                                 <div class="form-floating py-2 col-12">
                                     <input disabled asp-for="Product.VoucherKey" class="form-control border-1" />
                                     <label asp-for="Product.VoucherKey" class="mt-2 "></label>
                                 </div>
-                            
-                       
-                        }
+                        } *@
                         <div class="form-floating py-2 col-12">
                             <input type="file" name="files" class="form-control border-1" multiple />
                             <label asp-for="Product.ProductImages" class="mt-2 "></label>

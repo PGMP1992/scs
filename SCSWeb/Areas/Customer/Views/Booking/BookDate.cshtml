@@ -7,7 +7,7 @@
 @using SCS.Models.ViewModels
 @model BookingVM
 
-<form method="post">
+@* <form method="post"> *@
 <div class="card border-1 mt-4">
     <div class="card-header bg-primary bg-gradient text-light ml-0 py-4">
         <div class="row px-4">
@@ -67,8 +67,8 @@
                         </td>
                         <td>
                             <div>
-                                <a asp-area="Customer" asp-controller="Booking" asp-action="Summary" 
-                                    asp-route-bookingDate="@obj.Date" class="btn btn-primary mx-3">
+                                <a asp-area="Customer" asp-controller="Booking" asp-action="" 
+                                    asp-route-bDate="@obj.Date" class="btn btn-primary mx-3">
                                     <i class="bi bi-pencil-square"></i>
                                     Book
                                 </a>
@@ -95,4 +95,4 @@
         </div>
     </div>
 </div>
-</form>
+@* </form> *@

@@ -267,8 +267,8 @@ namespace SCS.Data
                      Price = 7200,
                      Status = SD.ProductStatusRegistrated,
                      ProviderId = 1,
-                     CertSlotId=1,
-                     VoucherKey= "0f8fad5b-d9cb-469f-a165-70867728950e"
+                     //CertSlotId=1,
+                     //VoucherKey= "0f8fad5b-d9cb-469f-a165-70867728950e"
                 },
                 new Product
                 {
@@ -279,8 +279,8 @@ namespace SCS.Data
                     Price = 8400,
                     Status = SD.ProductStatusRegistrated,
                     ProviderId = 1,
-                    CertSlotId=1,
-                    VoucherKey = "7c9e6679-7425-40de-944b-e07fc1f90ae7"
+                    //CertSlotId=1,
+                    //VoucherKey = "7c9e6679-7425-40de-944b-e07fc1f90ae7"
                 },
                 new Product
                 {
@@ -291,8 +291,8 @@ namespace SCS.Data
                     Price = 1000,
                     Status = SD.ProductStatusRegistrated,
                     ProviderId = 2,
-                    CertSlotId=1,
-                    VoucherKey = "9x9e5429-7125-299c-v09fd1390bd3"
+                    //CertSlotId=1,
+                    //VoucherKey = "9x9e5429-7125-299c-v09fd1390bd3"
                 },
                 new Product
                 {
@@ -303,7 +303,7 @@ namespace SCS.Data
                    Price = 200,
                    Status = SD.ProductStatusRegistrated,
                    ProviderId = 2,
-                   VoucherKey = "456f8c27-cba3-4cc6-bc04-5dc8dcfbc737"
+                   //VoucherKey = "456f8c27-cba3-4cc6-bc04-5dc8dcfbc737"
                 },
                 new Product
                 {
@@ -314,7 +314,7 @@ namespace SCS.Data
                     Price = 300,
                     Status = SD.ProductStatusRegistrated,
                     ProviderId = 2,
-                    VoucherKey = "86dc6f8d-ddf8-45b4-91a3-72e7fa8e468c"
+                    //VoucherKey = "86dc6f8d-ddf8-45b4-91a3-72e7fa8e468c"
                 },
                 new Product
                 {
@@ -325,7 +325,7 @@ namespace SCS.Data
                     Price = 200,
                     Status = SD.ProductStatusRegistrated,
                     ProviderId = 2,
-                    VoucherKey = "90897eeb-12b4-4759-9812-8909c6a335de"
+                    //VoucherKey = "90897eeb-12b4-4759-9812-8909c6a335de"
                 },
                 new Product
                 {
@@ -336,7 +336,7 @@ namespace SCS.Data
                     Price = 300,
                     Status = SD.ProductStatusRegistrated,
                     ProviderId = 2,
-                    VoucherKey = "6f146a6e-4f59-4f18-8588-842ef69a6f61"
+                    //VoucherKey = "6f146a6e-4f59-4f18-8588-842ef69a6f61"
                 },
                 new Product
                 {
@@ -347,7 +347,7 @@ namespace SCS.Data
                     Price = 200,
                     Status = SD.ProductStatusRegistrated,
                     ProviderId = 2,
-                    VoucherKey = "4093d50e-d925-4389-ab63-e09b482efeed"
+                    //VoucherKey = "4093d50e-d925-4389-ab63-e09b482efeed"
                 },
                 new Product
                 {
@@ -358,7 +358,7 @@ namespace SCS.Data
                     Price = 300,
                     Status = SD.ProductStatusRegistrated,
                     ProviderId = 2,
-                    VoucherKey = "8997a1db-3aab-4f9b-b5e7-6ee7dd1215dd"
+                    //VoucherKey = "8997a1db-3aab-4f9b-b5e7-6ee7dd1215dd"
                 },
                 new Product
                 {
@@ -369,8 +369,8 @@ namespace SCS.Data
                     Price = 300,
                     Status = SD.ProductStatusRegistrated,
                     ProviderId = 2,
-                    BundleId=1,
-                    VoucherKey = "8e1207c0-9633-4f31-8c7c-2b040cec1307"
+                    //BundleId=1,
+                    //VoucherKey = "8e1207c0-9633-4f31-8c7c-2b040cec1307"
                 }
             );
         }
