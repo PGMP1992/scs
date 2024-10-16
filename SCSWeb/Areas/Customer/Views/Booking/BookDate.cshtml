@@ -19,9 +19,12 @@
         </div>
     </div>
 
-    
+    <input asp-for="@Model.BookDate" class="form-control" hidden />
+    @* <input hidden asp-for="@Model.CDayList.Date" class="form-control"> *@
+
        @*  <form asp-area="Customer" asp-controller="Booking" asp-action="BookDate" class="m-2"> *@
         <div class="container bg-white bg-light">
+            
             <div class="row col-6">
                 <div class="mt-2">
                     <label for="@Model.VoucherId" class="label"><strong>Voucher Key:</strong></label>
@@ -56,27 +59,47 @@
                 @foreach (var obj in Model.CDayList)
                 {
                     <tr>
-                        <td>
+                         <td>
                             @obj.CertificationSlot.Name
                         </td>
                         <td>
                             @obj.CertificationSlot.StartDate - @obj.CertificationSlot.EndDate
                         </td>
                         <td>
-                            @obj.Date
-                        </td>
+                        <input asp-for="@obj.Date" class="form-control">
+                    </td>
                         <td>
                             <div>
-                                <a asp-area="Customer" asp-controller="Booking" asp-action="Summary" 
-                                    asp-route-bookingDate="@obj.Date" class="btn btn-primary mx-3">
+                                <a asp-area="Customer" asp-controller="Booking" asp-action="Summary"
+                                    asp-route-bDate="@obj.Date" class="btn btn-primary mx-3">
                                     <i class="bi bi-pencil-square"></i>
                                     Book
                                 </a>
                             </div>
                         </td>
                     </tr>
-                }
-            </tbody>
+                } 
+
+                @* That Comes from Upsert in CertSlost by Karin 
+                   Result is the same as above - PM *@
+                    @* @for (int i = 0; i < Model.CDayList.Count(); i++)
+                    {
+                    <tr>
+                        <td>
+                        <input asp-for="@Model.CDayList[i].Date" class="form-control" disabled>
+                            @* @Model.CDayList[i].Date 
+
+                        </td>
+                        <td>
+                            <a asp-area="Customer" asp-controller="Booking" asp-action="Summary"
+                                asp-route-bDate="@Model.CDayList[i].Date" class="btn btn-primary mx-3">
+                                <i class="bi bi-pencil-square"></i>
+                                Book
+                            </a>
+                        </td>
+                    </tr>
+                }  *@
+        </tbody>
         </table>
         @* <div>
             <asp-calendar="new">

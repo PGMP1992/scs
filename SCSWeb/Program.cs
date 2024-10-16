@@ -7,6 +7,11 @@ using SCS.Repository;
 using SCS.Repository.IRepository;
 using SCS.Utility;
 using Stripe;
+using System.Globalization;
+
+
+CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("se-SE");
+CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("se-SE");
 
 var builder = WebApplication.CreateBuilder(args);
 

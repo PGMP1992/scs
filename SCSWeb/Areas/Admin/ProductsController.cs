@@ -70,10 +70,10 @@ public class ProductsController : Controller
         {
             if (productVM.Product.Id == 0)
             {
-                if (productVM.Product.CategoryId == 1)
-                {
-                    productVM.Product.VoucherKey = Guid.NewGuid().ToString();
-                }
+                //if (productVM.Product.CategoryId == 1)
+                //{
+                //    productVM.Product.VoucherKey = Guid.NewGuid().ToString();
+                //}
                 _unitOfWork.Product.Add(productVM.Product);
                 message = "Product was Created";
             }

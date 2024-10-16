@@ -4,8 +4,8 @@
    Author    : Pedro Martinez
 *@
 
-@* @using SCS.Models *@
-@model Booking 
+@using SCS.Models.ViewModels
+@model BookingVM 
 
 <form method="post">
 	<br />
@@ -33,7 +33,7 @@
 						<div class="col-12 col-lg-6 pb-4">
 							<div class="row">
 								<h4 class="d-flex justify-content-between align-items-center mb-3">
-									<span class="text-info">@Model.CertificationSlot.Name</span>
+									@* <span class="text-info">@Model.CertificationSlot.Name</span> *@
 								</h4>
 							</div>
 			
@@ -42,69 +42,54 @@
 									<label>Date: </label>
 								</div>
 								<div class="col-9">
-									<input asp-for="@Model.Date" class="form-control" />
-									@* <span asp-validation-for="OrderHeader.Name" class="text-danger"></span>   *@
+									<input asp-for="@Model.BookDate" class="form-control" readonly/>
+									@* <span asp-validation-for="OrderHeader.Name" class="text-danger"></span>  ----------------- *@
 								</div>
 							</div>
 							
 							<div class="row my-1">
 								<div class="col-3">
-									<label>Voucher Key</label>
+									<label>Voucher Key:</label>
 								</div>
 								<div class="col-9">
-									<input asp-for="@Model.VoucherKey" class="form-control " />
-									@* <span asp-validation-for="OrderHeader.Email" class="text-danger"></span> *@
+									<input asp-for="@Model.VoucherId" class="form-control" readonly />
 								</div>
 							</div>
 
 							<div class="row my-1">
 								<div class="col-3">
-									<label>User Name</label>
+									<label>Product:</label>
 								</div>
 								<div class="col-9">
-									<input asp-for="@Model.AppUserId" class="form-control " />
-									@* <span asp-validation-for="OrderHeader.Email" class="text-danger"></span> *@
+									<input asp-for="@Model.OrderDetails.Product.Name" class="form-control" readonly />
+								</div>
+							</div>
+
+
+							<div class="row my-1">
+								<div class="col-3">
+									<label>User Name:</label>
+								</div>
+								<div class="col-9">
+									<input asp-for="@Model.AppUser.Name" class="form-control" readonly />
 								</div>
 							</div>
 
 							<div class="row my-1">
 								<div class="col-3">
-									<label>Name: </label>
+									<label>Email:</label>
 								</div>
 								<div class="col-9">
-									<input asp-for="@Model.AppUserId" class="form-control " />
-									@* <span asp-validation-for="OrderHeader.Email" class="text-danger"></span> *@
+									<input asp-for="@Model.AppUser.Email" class="form-control" readonly/>
+									<span asp-validation-for="@Model.AppUser.Email" class="text-danger"></span> 
 								</div>
 							</div>
 							
 						</div>
-
-						@* <div class="col-12 col-lg-5 offset-lg-1">
-							<h4 class="d-flex justify-content-between align-items-center mb-3">
-								<span class="text-info">Order Summary:</span>
-							</h4>
-							<ul class="list-group mb-3">
-
-								@foreach( var details in Model.CartList)
-								{
-									<li class="list-group-item d-flex justify-content-between">
-									<div>
-										<h6 class="my-0">@details.Product.Name</h6>
-										<small class="text-muted">@details.ProdCount</small>
-									</div>
-										<span class="text-muted">@((details.Product.Price * details.ProdCount).ToString("c")) </span>
-									</li>
-								}
-
-								<li class="list-group-item d-flex justify-content-between bg-light">
-									<small class="text-info">Total</small>
-									<strong class="text-info">@Model.OrderHeader.OrderTotal.ToString("c")</strong>
-								</li>
-							</ul>
-						</div>
- *@					</div>
+					</div>
 				</div>
 			</div>
+			
 			<div class="card-footer border-0">
 				<div class="col">
 					@* <div class="col-12 col-md-8 pt-2">
@@ -114,7 +99,7 @@
 						</p>
 					</div> *@
 					<div class="col-md-2 offset-md-5">
-						<button type="submit" value="Place Order" class="btn btn-primary form-control">Place Order</button>
+						<button type="submit" value="Summary" class="btn btn-primary form-control">Confirm Booking</button>
 					</div>
 				</div>
 			</div>

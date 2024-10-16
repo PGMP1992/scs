@@ -45,9 +45,8 @@ public class Product
     [ForeignKey(nameof(CertSlotId))]
     [ValidateNever]
     public CertificationSlot CertificationSlot { get; set; }
-
     
-    public string? VoucherKey { get; set; }
+    //public string? VoucherKey { get; set; } - Does not need that as Order creates VoucherKey
 
     [ValidateNever]
     public List<ProductImage> ProductImages { get; set; }

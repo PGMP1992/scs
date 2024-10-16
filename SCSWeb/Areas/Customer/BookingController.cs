@@ -33,7 +33,7 @@ namespace SCSWeb.Areas.Customer
         }
 
         [Authorize]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             BookingVM BookingVM = new BookingVM();
 
@@ -63,7 +63,6 @@ namespace SCSWeb.Areas.Customer
                     }
                     else // Hasn't been booked yet 
                     {
-                        BookingVM.VoucherValidated = true;
                         BookingVM.VoucherId = orderDetail.VoucherKey;
 
                         HttpContext.Session.SetString(SD.SessionVoucherId, orderDetail.VoucherKey);
@@ -82,113 +81,99 @@ namespace SCSWeb.Areas.Customer
         }
 
         [Authorize]
-        public IActionResult BookDate()
+        public async Task<IActionResult> BookDate()
         {
             string voucherId = HttpContext.Session.GetString(SD.SessionVoucherId);
 
-            IEnumerable<CertificationSlot> slots = _unitOfWork.CertificationSlot.GetAll();
+            IEnumerable<CertificationSlot> slots = await _unitOfWork.CertificationSlot.GetAllAsync();
 
             OrderDetails order = _unitOfWork.OrderDetails.Get(o => o.VoucherKey == voucherId, includeProperties: "Product");
-            IEnumerable<CertificationDay> cDayList = _unitOfWork.CertificationDay
-                .GetAll(x => x.IsCertDay == true, includeProperties: "CertificationSlot");
+
+            List<CertificationDay> cDayList =  (List<CertificationDay>)_unitOfWork.CertificationDay
+                .GetAll(x => x.IsCertDay == true && x.Date >= DateOnly.FromDateTime(DateTime.Now));
+				            //,includeProperties: "CertificationSlot");
 
             BookingVM BookingVM = new BookingVM
             {
                 VoucherId = voucherId,
-                VoucherValidated = true,
                 OrderDetails = order,
                 Slots = slots,
                 CDayList = cDayList
             };
 
-            // Cleaning session as it was creating too many cookies
-            // Will move that down when confirmation is done. - PM
-            
             return View(BookingVM);
         }
 
-		public IActionResult Summary(DateOnly bookingDate)
+		public async Task<IActionResult> Summary(DateOnly bDate)
 		{
             var userId = HttpContext.User.GetUserId();
 
             string voucherId = HttpContext.Session.GetString(SD.SessionVoucherId);
+			OrderDetails order = await _unitOfWork.OrderDetails.GetAsync(o => o.VoucherKey == voucherId, includeProperties: "Product");
+			AppUser user = _unitOfWork.AppUser.Get(x => x.Id == userId);
+            
+            // Save new Booking 
+            BookingVM BookingVM = new BookingVM
+            {
+                VoucherId = voucherId,
+                BookDate = bDate,
+                AppUserId = userId,
+                AppUser = user,
+                OrderDetails = order
+            };
+
+            return View(BookingVM); // Add Summary
+		}
+
+		[Authorize]
+        [HttpPost]
+        [ActionName("Summary")]
+        public async Task<IActionResult> SummaryPOST(BookingVM BookingVM)
+        {
+            var userId = HttpContext.User.GetUserId();
+
+            string voucherId = HttpContext.Session.GetString(SD.SessionVoucherId);
+
+            OrderDetails order = _unitOfWork.OrderDetails.Get(o => o.VoucherKey == voucherId, includeProperties: "Product");
+            
+            order.BookCount += 1; // Increase Booking Count 
 
             // Save new Booking 
             Booking booking = new Booking
             {
-                VoucherKey = voucherId,
-                Date = bookingDate,
-                AppUserId = userId
-            };
+                VoucherKey = BookingVM.VoucherId,
+                Date       = BookingVM.BookDate,
+                AppUserId  = userId
+			};
 
-            return View(booking); // Add Summary
+            _unitOfWork.Booking.Add(booking);
+
+            // Update BookCount in OrderDetails 
+            _unitOfWork.OrderDetails.Update(order);
+
+            _unitOfWork.Save();
+
+            // Sends Email Confirmation 
+            Booking bookEmail = _unitOfWork.Booking.Get(x => x.VoucherKey == voucherId);
+			AppUser AppUser = _unitOfWork.AppUser.Get(x => x.Id == userId);
+
+			string emailHeader =
+				  $"<p>Booking Id  : {bookEmail.Id}</p>"
+				+ $"<p>Date        : {bookEmail.Date}</P>"
+				+ $"<p>Name        : {AppUser.Name}</P>"
+				+ $"<p>Email       : {AppUser.Email}</P>"
+				+ $"<p>-------------------------------------------------</p>< br/>"
+				+ $"<p>Voucher Key : {bookEmail.VoucherKey}</P>"
+				+ $"<p>Product     : {order.Product.Name}</p>";
+			
+            _emailSender.SendEmailAsync(AppUser.Email, "Booking Confirmed - SCS AB", emailHeader);
+
+			HttpContext.Session.Clear();
+
+			TempData["success"] = "Booking Confirmed. Check your Email App for confirmation.";
+
+			return RedirectToAction("Index", "Home");
 		}
-
-		//[Authorize]
-  //      [HttpPost]
-  //      [ActionName("Summary")]
-  //      public async Task<IActionResult> SummaryPOST(DateTime bookingDate)
-  //      {
-  //          var userId = HttpContext.User.GetUserId();
-
-  //          string voucherId = HttpContext.Session.GetString(SD.SessionVoucherId);
-
-  //          OrderDetails order = _unitOfWork.OrderDetails.Get(o => o.VoucherKey == voucherId, includeProperties: "Product");
-  //          order.BookCount += 1; // Increase BookCount 
-
-  //          // Save new Booking 
-  //          Booking booking = new Booking
-  //          {
-  //              VoucherKey = voucherId,
-  //              Date = bookingDate,
-  //              AppUserId = userId
-  //          };
-
-  //          _unitOfWork.Booking.Add(booking);
-            
-  //          // Update BookCount in OrderDetails 
-  //          _unitOfWork.OrderDetails.Update(order);
-            
-  //          _unitOfWork.Save();
-
-  //          HttpContext.Session.Clear();
-  //          return View(); // Add Summary
-  //      }
-
-  //      public IActionResult Summary()
-  //      {
-  //          var userId = HttpContext.User.GetUserId();
-
-            
-  //          return View();
-  //      }
-
-        [Authorize]
-        public IActionResult OrderConfirmation(string id)
-        {
-            //string emailHeader =
-            //      $"<p>New Order Number :{orderHeader.Id}</p>"
-            //    + $"<p>Date  : {orderHeader.OrderDate}</P>"
-            //    + $"<p>Status: {orderHeader.OrderStatus}</P>"
-            //    + $"<p>Total : {orderHeader.OrderTotal}</P>"
-            //    + $"<p> ------------------------------------------------------------------------------------------------------------------</p>";
-
-            //string emailDetails = "";
-
-            //foreach (var item in orderDetails)
-            //{
-            //    emailDetails +=
-            //        $"<p>Product : {item.Product.Name}</p>"
-            //        + $"<p>Count : {item.Count}</p>"
-            //        + $"<p>Price : {item.Product.Price}</p>"
-            //        + $"<p>Voucher Key : {item.VoucherKey}</p>"
-            //        + $"<p> ------------------------------------------------------------------------------------------------------------------</p>";
-            //}
-
-            //_emailSender.SendEmailAsync(orderHeader.AppUser.Email, "New Order - SCS AB", emailHeader + emailDetails);
-
-            return View(id);
-        }
     }
 }
 
