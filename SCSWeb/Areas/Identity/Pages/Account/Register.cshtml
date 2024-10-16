@@ -4,10 +4,13 @@
     ViewData["Title"] = "Register";
 }
 
-<div class="container-fluid vh-100" style="background-image: url('https://www.shutterstock.com/image-photo/riga-latvia-april-04-2020-600nw-1697168977.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
-    <div class="row h-100 justify-content-center align-items-center">
-        <div class="col-lg-4 col-md-6 col-sm-8 col-10">
-            <div class="bg-white bg-opacity-75 p-5 rounded shadow">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
+<div class="container-fluid vh-90" style="background-image: url('https://www.shutterstock.com/image-photo/riga-latvia-april-04-2020-600nw-1697168977.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; padding: 50px 0;">
+    <div class="row h-100 justify-content-center align-items-center" >
+        <div class="col-lg-4 col-md-3 col-sm-8 col-10">
+            <div class="bg-white bg-opacity-75 p-4 shadow" style="margin-top:40px;">
                 <h1 class="text-center mb-4">@ViewData["Title"]</h1>
                 <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
                     <h3 class="text-center mb-4">Create a New Account</h3>
@@ -15,28 +18,26 @@
 
                     <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
 
-                    <div class="form-floating mb-3 position-relative">
+                    <div class="form-floating mb-2 position-relative">
                         <input asp-for="Input.Name" class="form-control ps-5" autocomplete="name" aria-required="true" placeholder="Name" />
                         <label asp-for="Input.Name">Name</label>
-                        <i class="bi bi-person-fill position-absolute start-0 top-50 translate-middle-y ms-3" style="font-size: 1.2rem; color: #6c757d;"></i>
                         <span asp-validation-for="Input.Name" class="text-danger"></span>
                     </div>
 
-                    <div class="form-floating mb-3 position-relative">
+                    <div class="form-floating mb-2 position-relative">
                         <input asp-for="Input.Email" class="form-control ps-5" autocomplete="username" aria-required="true" placeholder="name@example.com" />
                         <label asp-for="Input.Email">Email</label>
-                        <i class="bi bi-envelope-fill position-absolute start-0 top-50 translate-middle-y ms-3" style="font-size: 1.2rem; color: #6c757d;"></i>
                         <span asp-validation-for="Input.Email" class="text-danger"></span>
                     </div>
 
-                    <div class="form-floating mb-3 position-relative">
+                    <div class="form-floating mb-2 position-relative">
                         <input asp-for="Input.Password" class="form-control ps-5" autocomplete="new-password" aria-required="true" placeholder="Password" id="passwordField" type="password" />
                         <label asp-for="Input.Password">Password</label>
                         <i class="bi bi-eye position-absolute end-0 top-50 translate-middle-y me-3" id="togglePassword" style="cursor: pointer;"></i>
                         <span asp-validation-for="Input.Password" class="text-danger"></span>
                     </div>
 
-                    <div class="form-floating mb-3 position-relative">
+                    <div class="form-floating mb-2 position-relative">
                         <input asp-for="Input.ConfirmPassword" class="form-control ps-5" autocomplete="new-password" aria-required="true" placeholder="Confirm Password" />
                         <label asp-for="Input.ConfirmPassword">Confirm Password</label>
                         <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
@@ -46,10 +47,31 @@
                         <i class="bi bi-person-plus-fill"></i> Register
                     </button>
                 </form>
+                <hr />
+                <div class="text-center">
+                    <p>Or log in with:</p>
+                    <div class="d-flex justify-content-around">
+                        <a href="your-google-oauth-url" class="btn btn-danger btn-lg">
+                            <i class="fab fa-google"></i>
+                        </a>
+                        <a href="your-facebook-oauth-url" class="btn btn-primary btn-lg">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="your-linkedin-oauth-url" class="btn btn-info btn-lg">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="your-twitter-oauth-url" class="btn btn-info btn-lg">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
