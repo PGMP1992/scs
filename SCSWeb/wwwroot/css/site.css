@@ -84,6 +84,7 @@ body {
         color: #0056b3;
     }
 
+.carousel-caption h5 {
 
 .carousel-caption {
     position: absolute;
@@ -94,7 +95,18 @@ body {
     max-width: 20%;
 }
 
-
+.carousel-caption {
+    position: absolute;
+    left: 20%;
+    top: 30%;
+    transform: translateY(-20%);
+    text-align: left;
+    max-width: 30%;
+    max-height: 30%;
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 3px;
+}
 
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
