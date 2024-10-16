@@ -1,11 +1,11 @@
 ﻿
 
 .carousel-caption h5 {
-    font-size: 18px;
+    font-size: 28px;
 }
 
 .carousel-caption p {
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .btn:focus,
@@ -83,17 +83,6 @@ body {
     .navbar-nav.nav-link:hover {
         color: #0056b3;
     }
-
-.carousel-caption h5 {
-
-.carousel-caption {
-    position: absolute;
-    left: 20%;
-    top: 50%;
-    transform: translateY(-50%);
-    text-align: center;
-    max-width: 20%;
-}
 
 .carousel-caption {
     position: absolute;
