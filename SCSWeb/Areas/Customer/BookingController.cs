@@ -33,7 +33,7 @@ namespace SCSWeb.Areas.Customer
         }
 
         [Authorize]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             BookingVM BookingVM = new BookingVM();
 
@@ -85,46 +85,43 @@ namespace SCSWeb.Areas.Customer
         {
             string voucherId = HttpContext.Session.GetString(SD.SessionVoucherId);
 
-            IEnumerable<CertificationSlot> slots = _unitOfWork.CertificationSlot.GetAll();
+            IEnumerable<CertificationSlot> slots = await _unitOfWork.CertificationSlot.GetAllAsync();
 
             OrderDetails order = _unitOfWork.OrderDetails.Get(o => o.VoucherKey == voucherId, includeProperties: "Product");
-            IEnumerable<CertificationDay> cDayList = await _unitOfWork.CertificationDay
-                .GetAllAsync(x => x.IsCertDay == true && x.Date > DateOnly.FromDateTime(DateTime.Now)
-                    , includeProperties: "CertificationSlot");
+
+            List<CertificationDay> cDayList =  (List<CertificationDay>)_unitOfWork.CertificationDay
+                .GetAll(x => x.IsCertDay == true && x.Date >= DateOnly.FromDateTime(DateTime.Now));
+				            //,includeProperties: "CertificationSlot");
 
             BookingVM BookingVM = new BookingVM
             {
                 VoucherId = voucherId,
                 OrderDetails = order,
                 Slots = slots,
-                CDayList = cDayList,
+                CDayList = cDayList
             };
 
-            // Cleaning session as it was creating too many cookies
-            // Will move that down when confirmation is done. - PM
-            // HttpContext.Session.Clear()
             return View(BookingVM);
         }
 
-		public IActionResult Summary(DateOnly bDate)
+		public async Task<IActionResult> Summary(DateOnly bDate)
 		{
             var userId = HttpContext.User.GetUserId();
 
             string voucherId = HttpContext.Session.GetString(SD.SessionVoucherId);
-			OrderDetails order = _unitOfWork.OrderDetails.Get(o => o.VoucherKey == voucherId, includeProperties: "Product");
+			OrderDetails order = await _unitOfWork.OrderDetails.GetAsync(o => o.VoucherKey == voucherId, includeProperties: "Product");
 			AppUser user = _unitOfWork.AppUser.Get(x => x.Id == userId);
             
             // Save new Booking 
             BookingVM BookingVM = new BookingVM
             {
                 VoucherId = voucherId,
-                Date = bDate,
+                BookDate = bDate,
                 AppUserId = userId,
                 AppUser = user,
                 OrderDetails = order
             };
 
-            //HttpContext.Session.CommitAsync()
             return View(BookingVM); // Add Summary
 		}
 
@@ -138,13 +135,14 @@ namespace SCSWeb.Areas.Customer
             string voucherId = HttpContext.Session.GetString(SD.SessionVoucherId);
 
             OrderDetails order = _unitOfWork.OrderDetails.Get(o => o.VoucherKey == voucherId, includeProperties: "Product");
+            
             order.BookCount += 1; // Increase Booking Count 
 
             // Save new Booking 
             Booking booking = new Booking
             {
                 VoucherKey = BookingVM.VoucherId,
-                Date       = BookingVM.Date,
+                Date       = BookingVM.BookDate,
                 AppUserId  = userId
 			};
 
@@ -164,50 +162,18 @@ namespace SCSWeb.Areas.Customer
 				+ $"<p>Date        : {bookEmail.Date}</P>"
 				+ $"<p>Name        : {AppUser.Name}</P>"
 				+ $"<p>Email       : {AppUser.Email}</P>"
+				+ $"<p>-------------------------------------------------</p>< br/>"
 				+ $"<p>Voucher Key : {bookEmail.VoucherKey}</P>"
-				+ $"<p>Product     : {order.Product.Name}</P>";
+				+ $"<p>Product     : {order.Product.Name}</p>";
 			
             _emailSender.SendEmailAsync(AppUser.Email, "Booking Confirmed - SCS AB", emailHeader);
 
 			HttpContext.Session.Clear();
 
-			TempData["success"] = "Booking Confirmed";
+			TempData["success"] = "Booking Confirmed. Check your Email App for confirmation.";
 
 			return RedirectToAction("Index", "Home");
 		}
-
-   //     [Authorize]
-   //     public IActionResult Confirmation(int id)
-   //     {
-   //         Booking booking = _unitOfWork.Booking.Get(x => x.Id == id);
-   //         AppUser AppUser = _unitOfWork.AppUser.Get(x => x.Id == booking.AppUserId);
-			//string voucherId = HttpContext.Session.GetString(SD.SessionVoucherId);
-			//OrderDetails order = _unitOfWork.OrderDetails.Get(x => x.VoucherKey == voucherId, includeProperties: "Product");
-
-   //         string emailHeader =
-   //               $"<p>Booking     : {id}</p>"
-   //             + $"<p>Date        : {booking.Date}</P>"
-   //             + $"<p>Name        : {AppUser.Name}</P>"
-   //             + $"<p>Email       : {AppUser.Email}</P>"
-   //             + $"<p>Voucher Key : {booking.VoucherKey}</P>"
-   //             + $"<p>Product     : {order.Product.Name}</P>";
-
-   //         //string emailDetails = "";
-
-   //         //foreach (var item in orderDetails)
-   //         //{
-   //         //    emailDetails +=
-   //         //        $"<p>Product : {item.Product.Name}</p>"
-   //         //        + $"<p>Count : {item.Count}</p>"
-   //         //        + $"<p>Price : {item.Product.Price}</p>"
-   //         //        + $"<p>Voucher Key : {item.VoucherKey}</p>"
-   //         //        + $"<p> ------------------------------------------------------------------------------------------------------------------</p>";
-   //         //}
-
-   //         _emailSender.SendEmailAsync(AppUser.Email, "Booking Confirmed - SCS AB", emailHeader);
-
-   //         return View(id);
-   //     }
     }
 }
 

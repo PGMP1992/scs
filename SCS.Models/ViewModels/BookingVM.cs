@@ -14,7 +14,7 @@ namespace SCS.Models.ViewModels
 
         public OrderDetails OrderDetails { get; set; }
         
-        public DateOnly Date { get; set; }
+        public DateOnly BookDate { get; set; }
 
         public IEnumerable<CertificationSlot> Slots { get; set; }
 
@@ -22,6 +22,9 @@ namespace SCS.Models.ViewModels
         public CertificationSlot CertificationSlot { get; set; }
 
         [ValidateNever]
-        public IEnumerable<CertificationDay> CDayList { get; set; }
+        public List<CertificationDay> CDayList { get; set; }
+        
+        //[ValidateNever]
+        //public IEnumerable<CertificationDay> CDayList { get; set; }
     }
 }
