@@ -13,7 +13,6 @@
     <title>@ViewData["Title"] SCS AB</title>
 
     <!-- Bootstrap CSS -->
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" integrity="sha384-..." crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" integrity="sha384-..." crossorigin="anonymous">
@@ -28,16 +27,13 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 
     <!-- Custom Styles -->
-    
     <link rel="stylesheet" href="~/SCS.styles.css" asp-append-version="true">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css" />
 
     <!-- calendar -->
-
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet" />
-
 
     @* Font *@ 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;800&display=swap">
@@ -50,7 +46,6 @@
 
      @* Datatables *@ 
     <link rel="stylesheet" href="//cdn.datatables.net/2.1.5/css/dataTables.dataTables.min.css" />
-    
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
    
@@ -110,7 +105,7 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link text-light dropdown-toggle" data-bs-toggle="dropdown"
                                 href="#" role="button" aria-expanded="false">
-                                Bookings
+                                Booking
                             </a>
 
                             <ul class="dropdown-menu">
@@ -123,15 +118,24 @@
                                 {
                                     <li>
                                         <a class="dropdown-item" asp-area="Customer" asp-controller="Booking" asp-action="Index">
-                                            Bookings
+                                            Book
                                         </a>
                                     </li>
+
+                                    @if (User.IsInRole(SD.Role_Customer))
+                                    {
+                                        <li>
+                                            <a class="dropdown-item" asp-area="Customer" asp-controller="Booking" asp-action="BookingList">
+                                                Bookings
+                                            </a>
+                                        </li>
+                                    }
                                 }
                             </ul>
                         </li>
                                                         
                         @* Orders ----------------------*@
-                        @if (SignInManager.IsSignedIn(User))
+                        @if (SignInManager.IsSignedIn(User) && User.IsInRole(SD.Role_Customer))
                         {
                             <li>
                                 <a class="nav-link text-light" asp-area="Admin" asp-controller="Order" asp-action="Index">
@@ -140,7 +144,7 @@
                             </li>
                         }
 
-                        @* About ----------------------*@
+                        @* Admin ----------------------*@
                         @if (User.IsInRole(SD.Role_Admin))
                         {
                             <li class="nav-item dropdown">
@@ -148,39 +152,54 @@
                                     href="#" role="button" aria-expanded="false">
                                     Admin
                                 </a>
-                                <ul class="dropdown-menu">
+                                
+                                <ul class="dropdown-menu"> 
+                                    @* Categories --------------------*@
                                     <li>
                                         <a class="dropdown-item" asp-area="Admin" asp-controller="Categories" asp-action="Index">
                                             Categories
                                         </a>
                                     </li>
+                                    @* Providers --------------------*@
                                     <li>
                                         <a class="dropdown-item" asp-area="Admin" asp-controller="Providers" asp-action="Index">
                                             Providers
                                         </a>
                                     </li>
+                                    @* Products --------------------*@
                                     <li>
                                         <a class="dropdown-item" asp-area="Admin" asp-controller="Products" asp-action="Index">
                                             Products
                                         </a>
                                     </li>
+                                    @* Bundles --------------------*@
                                     <li>
                                         <a class="dropdown-item" asp-area="Admin" asp-controller="Bundle" asp-action="Index">
                                             Bundles
                                         </a>
                                     </li>
+                                    @* Cert Slots --------------------*@
                                     <li>
                                         <a class="dropdown-item" asp-area="Admin" asp-controller="CertificationSlots" asp-action="Index">
                                             Certification Slots
                                         </a>
                                     </li>
                                     <li><hr class="dropdown-divider"></li>
+                                    @* Orders --------------------*@
                                     <li>
                                         <a asp-area="Admin" asp-controller="Order" asp-action="Index" class="dropdown-item">
                                             <i class="bi bi-list-ol"></i>
                                             Orders
                                         </a>
                                     </li>
+                                    @* Bookings --------------------*@
+                                    <li>
+                                        <a class="dropdown-item" asp-area="Customer" asp-controller="Booking" asp-action="BookingList">
+                                            <i class="bi bi-card-checklist"></i>
+                                            Bookings
+                                        </a>
+                                    </li>
+                                    @* Users --------------------*@
                                     <li>
                                         <a class="dropdown-item" asp-area="Admin" asp-controller="Users" asp-action="Index">
                                             <i class="bi bi-people-fill"></i>
@@ -190,7 +209,7 @@
                                 </ul>
                             </li>
                         }
-                        +
+                        
               
                         
                         @if (SignInManager.IsSignedIn(User))
@@ -219,6 +238,20 @@
                                 </a>
                             </li>
                         }
+
+                        @* About ---------------------- *@
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="https://www.scservices.se/about-us/">
+                                About
+                            </a>
+                        </li>
+
+                        @* Contact ---------------------- *@
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="https://www.scservices.se/contact/">
+                                Contact
+                            </a>
+                        </li>
                     </ul>
 
                     @* Login/Register/ Languages ---------------------- *@

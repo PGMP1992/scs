@@ -31,7 +31,6 @@ namespace SCS.Areas.Admin
         public IActionResult Index()
         {
             // Show only users that have logged - PM 
-            
             return View();
         }
 
