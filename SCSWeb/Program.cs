@@ -10,7 +10,6 @@ using Stripe;
 using System.Globalization;
 
 
-// Set App Globalization to Swedish - PM
 CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("se-SE");
 CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("se-SE");
 

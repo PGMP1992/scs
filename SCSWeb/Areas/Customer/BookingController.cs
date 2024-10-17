@@ -143,7 +143,7 @@ namespace SCSWeb.Areas.Customer
             {
                 VoucherKey = BookingVM.VoucherId,
                 Date       = BookingVM.BookDate,
-                AppUserId  = userId,
+                AppUserId  = userId
 			};
 
             _unitOfWork.Booking.Add(booking);
@@ -174,32 +174,6 @@ namespace SCSWeb.Areas.Customer
 
 			return RedirectToAction("Index", "Home");
 		}
-
-        [Authorize]
-        public async Task<IActionResult> BookingList()
-        {
-            var userId = HttpContext.User.GetUserId();
-            IEnumerable<Booking> bookings;
-
-            //AppUser AppUser = await _unitOfWork.AppUser.GetAsync(x => x.Id == userId);
-
-            if (User.IsInRole(SD.Role_Admin))
-            {
-               bookings  = await _unitOfWork.Booking.GetAllAsync(includeProperties: "AppUser");
-            }
-            else
-            {
-                bookings = await _unitOfWork.Booking.GetAllAsync(x => x.AppUserId == userId, includeProperties: "AppUser");
-            }
-
-            if (! bookings.Any())
-            {
-                TempData["error"] = "There are no Bookings";
-                return RedirectToAction("Index", "Home");
-            }
-            else
-                return View(bookings);
-        }
     }
 }
 
