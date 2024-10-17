@@ -50,14 +50,13 @@
                             <label asp-for="Product.Price" class="mt-2 "></label>
                             <span asp-validation-for="Product.Price" class="text-danger"></span>
                         </div>
-                        <div class="form-floating py-2 col-12">
-
+@*                         <div class="form-floating py-2 col-12">
                             <select asp-for="Product.CertSlotId" asp-items="@Model.CertSlotList" class="form-select border-1">
                                 <option disabled selected>--Select Certification Slot--</option>
                             </select>
                             <label asp-for="Product.CertSlotId" class="mt-2 ">CertificationSlot</label>
                         </div>
-
+ *@
                         @* @if(Model.Product.CategoryId==1)
                         {
                                 <div class="form-floating py-2 col-12">

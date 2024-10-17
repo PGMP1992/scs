@@ -135,7 +135,7 @@
                         </li>
                                                         
                         @* Orders ----------------------*@
-                        @if (SignInManager.IsSignedIn(User))
+                        @if (SignInManager.IsSignedIn(User) && User.IsInRole(SD.Role_Customer))
                         {
                             <li>
                                 <a class="nav-link text-light" asp-area="Admin" asp-controller="Order" asp-action="Index">
