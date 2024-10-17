@@ -13,7 +13,6 @@
     <title>@ViewData["Title"] SCS AB</title>
 
     <!-- Bootstrap CSS -->
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" integrity="sha384-..." crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" integrity="sha384-..." crossorigin="anonymous">
@@ -28,16 +27,13 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 
     <!-- Custom Styles -->
-    
     <link rel="stylesheet" href="~/SCS.styles.css" asp-append-version="true">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css" />
 
     <!-- calendar -->
-
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet" />
-
 
     @* Font *@ 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;800&display=swap">
@@ -50,7 +46,6 @@
 
      @* Datatables *@ 
     <link rel="stylesheet" href="//cdn.datatables.net/2.1.5/css/dataTables.dataTables.min.css" />
-    
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
    
@@ -169,6 +164,12 @@
                                     <li>
                                         <a class="dropdown-item" asp-area="Admin" asp-controller="Providers" asp-action="Index">
                                             Providers
+                                        </a>
+                                    </li>
+                                    @* Products --------------------*@
+                                    <li>
+                                        <a class="dropdown-item" asp-area="Admin" asp-controller="Products" asp-action="Index">
+                                            Products
                                         </a>
                                     </li>
                                     @* Bundles --------------------*@
