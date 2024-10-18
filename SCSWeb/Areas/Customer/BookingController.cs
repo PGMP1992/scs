@@ -6,6 +6,7 @@ using SCS.Models.ViewModels;
 using SCS.Repository.IRepository;
 using SCS.Utility;
 using System.Globalization;
+using System.Security.Claims;
 
 namespace SCSWeb.Areas.Customer
 {
@@ -28,8 +29,23 @@ namespace SCSWeb.Areas.Customer
         [AllowAnonymous]
         public async Task<IActionResult> Calendar()
         {
-            var calendar = new GregorianCalendar();
-            return View(calendar);
+            var calendarData = new List<CalendarData>();
+            var slots = _unitOfWork.CertificationSlot.GetAll();
+            
+            foreach(var item in slots)
+            {
+                CalendarData temp = new CalendarData
+                {
+                    id = item.Id,
+                    title = item.Name,
+                    start = item.StartDate,
+                    end = item.EndDate
+                };
+                calendarData.Add(temp);
+            }
+            
+            ViewData["Events"] = JSONListHelper.GetEventListJSONString( calendarData);
+            return View();
         }
 
         [Authorize]
