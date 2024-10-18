@@ -41,7 +41,7 @@ namespace SCS.Areas.Customer
                 {
                     return View(searchList);
                 }
-                ViewBag.Message = "There are not products with that Name.";
+                ViewBag.Message = "There are not products within that search.";
             }
             return View(productList);
         }
@@ -62,7 +62,7 @@ namespace SCS.Areas.Customer
                 {
                     return View(searchList);
                 }
-                ViewBag.Message = "There are not products with that Name.";
+                ViewBag.Message = "There are not products within that search.";
             }
             return View(productList);
         }
@@ -290,8 +290,8 @@ namespace SCS.Areas.Customer
                 _unitOfWork.OrderHeader.UpdateStripePaymentID(id, session.Id, session.PaymentIntentId);
                 _unitOfWork.OrderHeader.UpdateStatus(id, SD.StatusApproved, SD.PaymentStatusApproved);
                 _unitOfWork.Save();
+                
                 // Email --------------------------
-
                 _emailSender.SendEmailAsync(orderHeader.AppUser.Email, "New Order - SCS AB",
                     $"<p>New Order Created - {orderHeader.Id}</p>"
                     + $"<p>Date: {orderHeader.OrderDate}</P>"
