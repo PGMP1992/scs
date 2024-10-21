@@ -1,0 +1,35 @@
+name: Build, publish and deploy project to Simply
+
+on: [push]
+
+jobs:
+  build_and_deploy:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1
+
+      - name: Install dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Publish
+        run: dotnet publish SCSWeb.csproj --configuration Release --framework netcoreapp3.1 --output ./publish --runtime win-x86 --self-contained true -p:PublishTrimmed=false -p:PublishSingleFile=false
+
+      - name: Test with .NET
+        run: dotnet test
+        
+      - uses: actions/checkout@v2
+      - name: Deploy to Simply.com
+        uses: rasmusbuchholdt/simply-web-deploy@2.1.0
+        with:
+          website-name: ${{ scservices.se }}
+          server-computer-name: ${{ https://nt33.unoeuro.com }}
+          server-username: ${{ scservices.se }}
+          server-password: ${{ AazE9eD2n4rhckgmyBGH }}
