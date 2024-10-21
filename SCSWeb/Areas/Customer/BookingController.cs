@@ -27,19 +27,20 @@ namespace SCSWeb.Areas.Customer
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> Calendar()
+        public async Task<IActionResult> Calendar(bool Days )
         {
             var calendarData = new List<CalendarData>();
-            var slots = _unitOfWork.CertificationSlot.GetAll();
-            
-            foreach(var item in slots)
+            //var slots = _unitOfWork.CertificationSlot.GetAll();
+            var slots = await _unitOfWork.CertificationDay.GetAllAsync(x => x.IsCertDay == true, includeProperties: "CertificationSlot");
+
+            foreach (var item in slots)
             {
                 CalendarData temp = new CalendarData
                 {
                     id = item.Id,
-                    title = item.Name,
-                    start = item.StartDate,
-                    end = item.EndDate
+                    title = item.CertificationSlot.Name,
+                    start = item.Date,
+                    //end = item.EndDate
                 };
                 calendarData.Add(temp);
             }
