@@ -123,7 +123,7 @@ namespace SCS.Data
                 new CertificationSlot
                 {
                     Id = 1,
-                    Name= "Slot1",
+                    Name= "Sanctions",
                     StartDate = DateOnly.FromDateTime(DateTime.Now.AddDays(10)),
                     EndDate=DateOnly.FromDateTime(DateTime.Now.AddDays(14)),
                     Dates = new List<DateOnly>
@@ -135,7 +135,7 @@ namespace SCS.Data
                 new CertificationSlot
                 {
                     Id = 2,
-                    Name="Slot2",
+                    Name="C# Beginner",
                     StartDate = DateOnly.FromDateTime(DateTime.Now.AddDays(20)),
                     EndDate = DateOnly.FromDateTime(DateTime.Now.AddDays(29)),
                     
