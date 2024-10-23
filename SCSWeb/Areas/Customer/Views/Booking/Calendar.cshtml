@@ -79,9 +79,9 @@
 
     
     </style>
-</head>
+@* </head>
 <body>
-
+ *@
     <div id="calendar"></div>
 
     <!-- FullCalendar JavaScript -->
@@ -96,23 +96,7 @@
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
-                events: [
-                    {
-                        title: 'Event 1',
-                        start: '2024-10-16',
-                        description: 'Description for event 1'
-                    },
-                    {
-                        title: 'Event 2',
-                        start: '2024-10-17',
-                        description: 'Description for event 2'
-                    },
-                    {
-                        title: 'Event 3',
-                        start: '2024-10-18',
-                        description: 'Description for event 3'
-                    }
-                ],
+                events:@Html.Raw(ViewData["Events"]),
                 headerToolbar: {
                     left: 'prev,next today',
                     center: 'title',

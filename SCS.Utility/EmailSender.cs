@@ -18,7 +18,7 @@ namespace SCS.Utility
         {
             //logic to send email
             var client = new SendGridClient(SendGridSecret);
-            var from = new EmailAddress("pedro@dkltd.net", "SCS Test Email");
+            var from = new EmailAddress(SD.EmailAddress, "SCS Test Email");
             var to = new EmailAddress(email);
             var message = MailHelper.CreateSingleEmail(from, to, subject, "", htmlMessage);
             return client.SendEmailAsync(message);
