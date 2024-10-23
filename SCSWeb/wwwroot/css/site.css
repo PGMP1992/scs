@@ -92,7 +92,7 @@ body {
     text-align: left;
     max-width: 30%;
     max-height: 30%;
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.4);
     padding: 10px;
     border-radius: 3px;
 }
@@ -121,10 +121,11 @@ body {
 
 
 .custom-button {
-    background-color: #5b3b3b;
+    background: linear-gradient(to right, #007bff, #4a2c43);
     color: #ffffff;
     padding: 5px 30px;
     font-size: 1rem;
+    font-weight: bold;
     border: none;
     text-decoration: none;
     display: inline-block;
@@ -133,11 +134,12 @@ body {
 }
 
 .custom-button-landing {
-    background-color: #052742;
+    background: linear-gradient(to right, #007bff, #4a2c43);
     color: #ffffff;
     padding: 5px 20px;
     font-size: 1rem;
     border: none;
+    font-weight: bold;
     text-decoration: none;
     display: inline-block;
     text-align: center;
@@ -148,3 +150,11 @@ body {
         background-color: #031d34;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
+
+.carousel-caption-right {
+    left: auto;
+    right: 20%;
+    text-align: center;
+    max-width: 40%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
