@@ -169,15 +169,12 @@ namespace SCS.Areas.Customer
 			{
 				_unitOfWork.OrderHeader.UpdateStripePaymentID(id, session.Id, session.PaymentIntentId);
 				_unitOfWork.OrderHeader.UpdateStatus(id, SD.StatusApproved, SD.PaymentStatusApproved);
-				
-				// Create Certification Voucher
-				// With Product VoucherKey + new Guid  and save to Order Details - PM -------------------------------------------------- 
-				
 				_unitOfWork.Save();
 			}
 
 			HttpContext.Session.Clear();
 
+			// Email -----------------------------------
 			string emailHeader =
 				  $"<p>New Order Number :{orderHeader.Id}</p>"
 				+ $"<p>Date  : {orderHeader.OrderDate}</P>"

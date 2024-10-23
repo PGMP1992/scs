@@ -1,0 +1,134 @@
+﻿@* Project: CSC Mock Test
+   Controller: Booking
+   View      : Calendar
+   Author    : Pedro Martinez and lilyu
+*@
+
+@*  @using SCS.Models.ViewModels 
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Improved Calendar</title>
+ *@    
+    <!-- FullCalendar CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/main.min.css" rel="stylesheet" />
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        
+        #calendar {
+            max-width: 900px;
+            margin: 40px auto;
+        }
+       
+        .fc-event {
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+       
+        .tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.75);
+            color: white;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+       
+        .fc-event:hover {
+            opacity: 0.8;
+            cursor: pointer;
+        }
+       
+        .fc-toolbar {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .fc-toolbar button {
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            margin: 0 5px;
+            border-radius: 3px;
+        }
+
+        .fc-toolbar button:hover {
+            background-color: #0056b3;
+        }
+    
+    </style>
+@* </head>
+<body>
+ *@
+    <div id="calendar"></div>
+
+    <!-- FullCalendar JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/main.min.js"></script>
+
+    <!-- Tooltip Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                // events: [
+                //     {
+                //         title: 'Event 1',
+                //         start: '2024-10-16',
+                //         description: 'Description for event 1'
+                //     },
+                //     {
+                //         title: 'Event 2',
+                //         start: '2024-10-17',
+                //         description: 'Description for event 2'
+                //     },
+                //     {
+                //         title: 'Event 3',
+                //         start: '2024-10-18',
+                //         description: 'Description for event 3'
+                //     }
+                // ],
+                events: @Html.Raw(ViewData["Events"]),
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,listMonth'
+                },
+                eventDidMount: function (info) {
+                    var tooltip = new Tooltip(info.el, {
+                        title: info.event.extendedProps.description,
+                        placement: 'top',
+                        trigger: 'hover',
+                        container: 'body'
+                    });
+                },
+                windowResize: function(view) {
+                   
+                    if (window.innerWidth < 768) {
+                        calendar.changeView('listMonth');
+                    } else {
+                        calendar.changeView('dayGridMonth');
+                    }
+                }
+            });
+            calendar.render();
+        });
+    </script>
+
+@* </body>
+</html>
+ *@
