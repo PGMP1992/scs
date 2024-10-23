@@ -5,8 +5,6 @@ using SCS.Models;
 using SCS.Models.ViewModels;
 using SCS.Repository.IRepository;
 using SCS.Utility;
-using System.Globalization;
-using System.Security.Claims;
 
 namespace SCSWeb.Areas.Customer
 {
@@ -27,7 +25,7 @@ namespace SCSWeb.Areas.Customer
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> Calendar(bool Days )
+        public async Task<IActionResult> Calendar()
         {
             var calendarData = new List<CalendarData>();
             //var slots = _unitOfWork.CertificationSlot.GetAll();
@@ -44,8 +42,8 @@ namespace SCSWeb.Areas.Customer
                 };
                 calendarData.Add(temp);
             }
-            
-            ViewData["Events"] = JSONListHelper.GetEventListJSONString( calendarData);
+
+            ViewData["Events"] = JSONListHelper.GetEventListJSONString(calendarData);
             return View();
         }
 
@@ -106,9 +104,9 @@ namespace SCSWeb.Areas.Customer
 
             OrderDetails order = _unitOfWork.OrderDetails.Get(o => o.VoucherKey == voucherId, includeProperties: "Product");
 
-            List<CertificationDay> cDayList =  (List<CertificationDay>)_unitOfWork.CertificationDay
+            List<CertificationDay> cDayList = (List<CertificationDay>)_unitOfWork.CertificationDay
                 .GetAll(x => x.IsCertDay == true && x.Date >= DateOnly.FromDateTime(DateTime.Now));
-				            //,includeProperties: "CertificationSlot");
+            //,includeProperties: "CertificationSlot");
 
             BookingVM BookingVM = new BookingVM
             {
@@ -121,14 +119,14 @@ namespace SCSWeb.Areas.Customer
             return View(BookingVM);
         }
 
-		public async Task<IActionResult> Summary(DateOnly bDate)
-		{
+        public async Task<IActionResult> Summary(DateOnly bDate)
+        {
             var userId = HttpContext.User.GetUserId();
 
             string voucherId = HttpContext.Session.GetString(SD.SessionVoucherId);
-			OrderDetails order = await _unitOfWork.OrderDetails.GetAsync(o => o.VoucherKey == voucherId, includeProperties: "Product");
-			AppUser user = _unitOfWork.AppUser.Get(x => x.Id == userId);
-            
+            OrderDetails order = await _unitOfWork.OrderDetails.GetAsync(o => o.VoucherKey == voucherId, includeProperties: "Product");
+            AppUser user = _unitOfWork.AppUser.Get(x => x.Id == userId);
+
             // Save new Booking 
             BookingVM BookingVM = new BookingVM
             {
@@ -140,9 +138,9 @@ namespace SCSWeb.Areas.Customer
             };
 
             return View(BookingVM); // Add Summary
-		}
+        }
 
-		[Authorize]
+        [Authorize]
         [HttpPost]
         [ActionName("Summary")]
         public async Task<IActionResult> SummaryPOST(BookingVM BookingVM)
@@ -152,16 +150,16 @@ namespace SCSWeb.Areas.Customer
             string voucherId = HttpContext.Session.GetString(SD.SessionVoucherId);
 
             OrderDetails order = _unitOfWork.OrderDetails.Get(o => o.VoucherKey == voucherId, includeProperties: "Product");
-            
+
             order.BookCount += 1; // Increase Booking Count 
 
             // Save new Booking 
             Booking booking = new Booking
             {
                 VoucherKey = BookingVM.VoucherId,
-                Date       = BookingVM.BookDate,
-                AppUserId  = userId,
-			};
+                Date = BookingVM.BookDate,
+                AppUserId = userId,
+            };
 
             _unitOfWork.Booking.Add(booking);
 
@@ -172,25 +170,25 @@ namespace SCSWeb.Areas.Customer
 
             // Sends Email Confirmation 
             Booking bookEmail = _unitOfWork.Booking.Get(x => x.VoucherKey == voucherId);
-			AppUser AppUser = _unitOfWork.AppUser.Get(x => x.Id == userId);
+            AppUser AppUser = _unitOfWork.AppUser.Get(x => x.Id == userId);
 
-			string emailHeader =
-				  $"<p>Booking Id  : {bookEmail.Id}</p>"
-				+ $"<p>Date        : {bookEmail.Date}</P>"
-				+ $"<p>Name        : {AppUser.Name}</P>"
-				+ $"<p>Email       : {AppUser.Email}</P>"
-				+ $"<p>-------------------------------------------------</p>< br/>"
-				+ $"<p>Voucher Key : {bookEmail.VoucherKey}</P>"
-				+ $"<p>Product     : {order.Product.Name}</p>";
-			
+            string emailHeader =
+                  $"<p>Booking Id  : {bookEmail.Id}</p>"
+                + $"<p>Date        : {bookEmail.Date}</P>"
+                + $"<p>Name        : {AppUser.Name}</P>"
+                + $"<p>Email       : {AppUser.Email}</P>"
+                + $"<p>-------------------------------------------------</p>< br/>"
+                + $"<p>Voucher Key : {bookEmail.VoucherKey}</P>"
+                + $"<p>Product     : {order.Product.Name}</p>";
+
             _emailSender.SendEmailAsync(AppUser.Email, "Booking Confirmed - SCS AB", emailHeader);
 
-			HttpContext.Session.Clear();
+            HttpContext.Session.Clear();
 
-			TempData["success"] = "Booking Confirmed. Check your Email App for confirmation.";
+            TempData["success"] = "Booking Confirmed. Check your Email App for confirmation.";
 
-			return RedirectToAction("Index", "Home");
-		}
+            return RedirectToAction("Index", "Home");
+        }
 
         [Authorize]
         public async Task<IActionResult> BookingList()
@@ -202,14 +200,14 @@ namespace SCSWeb.Areas.Customer
 
             if (User.IsInRole(SD.Role_Admin))
             {
-               bookings  = await _unitOfWork.Booking.GetAllAsync(includeProperties: "AppUser");
+                bookings = await _unitOfWork.Booking.GetAllAsync(includeProperties: "AppUser");
             }
             else
             {
                 bookings = await _unitOfWork.Booking.GetAllAsync(x => x.AppUserId == userId, includeProperties: "AppUser");
             }
 
-            if (! bookings.Any())
+            if (!bookings.Any())
             {
                 TempData["error"] = "There are no Bookings";
                 return RedirectToAction("Index", "Home");
