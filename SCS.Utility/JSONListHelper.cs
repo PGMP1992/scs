@@ -1,6 +1,4 @@
-﻿using SCS.Models;
-
-namespace SCS.Utility
+﻿namespace SCS.Utility
 {
     public static class JSONListHelper
     {
@@ -22,13 +20,12 @@ namespace SCS.Utility
         }
     }
 
-    public class Event
+    public class CalendarData
     {
         public int id { get; set; }
-        public string title { get; set; }    
+        public string title { get; set; } = "";
         public DateOnly start { get; set; }
-        public DateOnly end {  get; set; } 
+        public DateOnly end { get; set; }
     }
-
 }
 
