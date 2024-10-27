@@ -158,3 +158,21 @@ body {
     max-width: 40%;
     background-color: rgba(0, 0, 0, 0.5);
 }
+
+
+
+.blue-line-wrapper {
+    position: relative;
+    padding-left: 20px; 
+}
+
+    .blue-line-wrapper::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 8px;
+        height: 100%;
+        background-color: #0056b3;
+        z-index: 1; /* Ensure it's above other elements */
+    }
