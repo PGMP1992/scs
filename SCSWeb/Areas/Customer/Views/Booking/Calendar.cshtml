@@ -61,10 +61,6 @@
     
     </style>
 
-
-@* <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" value="true">
- <label class="form-check-label" for="flexSwitchCheckDefault">Period/Days</label>*@
-
 <div id="calendar"></div>
 
     <!-- FullCalendar JavaScript -->
@@ -82,7 +78,8 @@
                 headerToolbar: {
                     left: 'prev,next today',
                     center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,listMonth'
+                    // right: 'dayGridMonth,timeGridWeek,listMonth'
+                        right: ''
                 },
                 eventDidMount: function (info) {
                     var tooltip = new Tooltip(info.el, {
