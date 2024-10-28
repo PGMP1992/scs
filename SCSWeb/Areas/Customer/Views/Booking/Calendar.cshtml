@@ -4,81 +4,69 @@
    Author    : Pedro Martinez and lilyu
 *@
 
+@using SCS.Models.ViewModels
+   
+<!-- FullCalendar CSS -->
 
- @using SCS.Models.ViewModels
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Improved Calendar</title>
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/main.min.css" rel="stylesheet" />
     
-    <!-- FullCalendar CSS -->
-
-    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/main.min.css" rel="stylesheet" />
-
-    
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
         
-        #calendar {
-            max-width: 900px;
-            margin: 40px auto;
-        }
+    #calendar {
+        max-width: 900px;
+        margin: 40px auto;
+    }
         
        
-        .fc-event {
-            background-color: #007bff;
-            border: none;
-            color: white;
-            padding: 5px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
+    .fc-event {
+        background-color: #007bff;
+        border: none;
+        color: white;
+        padding: 5px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
 
        
-        .tooltip {
-            position: absolute;
-            background: rgba(0, 0, 0, 0.75);
-            color: white;
-            padding: 10px;
-            border-radius: 4px;
-            font-size: 12px;
-        }
+    .tooltip {
+        position: absolute;
+        background: rgba(0, 0, 0, 0.75);
+        color: white;
+        padding: 10px;
+        border-radius: 4px;
+        font-size: 12px;
+    }
 
        
-        .fc-event:hover {
-            opacity: 0.8;
-            cursor: pointer;
-        }
+    .fc-event:hover {
+        opacity: 0.8;
+        cursor: pointer;
+    }
 
        
-        .fc-toolbar {
-            background-color: #f8f9fa;
-            padding: 10px;
-            border-radius: 5px;
-        }
+    .fc-toolbar {
+        background-color: #f8f9fa;
+        padding: 10px;
+        border-radius: 5px;
+    }
 
-        .fc-toolbar button {
-            background-color: #007bff;
-            border: none;
-            color: white;
-            padding: 5px 10px;
-            margin: 0 5px;
-            border-radius: 3px;
-        }
+    .fc-toolbar button {
+        background-color: #007bff;
+        border: none;
+        color: white;
+        padding: 5px 10px;
+        margin: 0 5px;
+        border-radius: 3px;
+    }
 
-        .fc-toolbar button:hover {
-            background-color: #0056b3;
-        }
-
+    .fc-toolbar button:hover {
+        background-color: #0056b3;
+    }
     
-    </style>
+</style>
 
 <div id="calendar"></div>
 
@@ -125,10 +113,8 @@
 </body>
 </html>
 
-
 @*
 Pedro WIP 
-
 
 <style>
     .popper,
