@@ -79,10 +79,8 @@
 
     
     </style>
-</head>
-<body>
- 
-    <div id="calendar"></div>
+
+<div id="calendar"></div>
 
     <!-- FullCalendar JavaScript -->
 
@@ -100,7 +98,8 @@
                 headerToolbar: {
                     left: 'prev,next today',
                     center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,listMonth'
+                    // right: 'dayGridMonth,timeGridWeek,listMonth'
+                        right: ''
                 },
                 eventDidMount: function (info) {
                     var tooltip = new Tooltip(info.el, {

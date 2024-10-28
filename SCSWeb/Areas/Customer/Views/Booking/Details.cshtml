@@ -1,0 +1,82 @@
+﻿@using SCS.Models.ViewModels
+@model BookingVM
+
+<div class="card shadow border-0 mt-4 ">
+    <div class="card-header bg-primary bg-gradient m-lg-0 py-2 rounded">
+        <div class="row">
+            <div class="col-12 text-left">
+                <h4 class="text-white">Booking Detail</h4>
+            </div>
+        </div>
+    </div>
+
+	@* Details ---------------------- *@
+	<form>
+	<div class="card-body">
+		<div class="container rounded p-2">
+			<div class="row">
+				<div class="col-12 col-lg-6 pb-4">
+					<div class="row">
+						<h4 class="d-flex justify-content-between align-items-center mb-3">
+							@* <span class="text-info">@Model.CertificationSlot.Name</span> *@
+						</h4>
+					</div>
+
+					<div class="row my-1">
+						<div class="col-3">
+							<label>Date: </label>
+						</div>
+						<div class="col-9">
+							<input asp-for="@Model.BookDate" class="form-control" readonly />
+							@* <span asp-validation-for="OrderHeader.Name" class="text-danger"></span>  ----------------- *@
+						</div>
+					</div>
+
+					<div class="row my-1">
+						<div class="col-3">
+							<label>Voucher Key:</label>
+						</div>
+						<div class="col-9">
+							<input asp-for="@Model.VoucherId" class="form-control" readonly />
+						</div>
+					</div>
+
+					<div class="row my-1">
+						<div class="col-3">
+							<label>Product:</label>
+						</div>
+						<div class="col-9">
+							<input asp-for="@Model.OrderDetails.Product.Name" class="form-control" readonly />
+						</div>
+					</div>
+
+
+					<div class="row my-1">
+						<div class="col-3">
+							<label>User Name:</label>
+						</div>
+						<div class="col-9">
+							<input asp-for="@Model.AppUser.Name" class="form-control" readonly />
+						</div>
+					</div>
+
+					<div class="row my-1">
+						<div class="col-3">
+							<label>Email:</label>
+						</div>
+						<div class="col-9">
+							<input asp-for="@Model.AppUser.Email" class="form-control" readonly />
+							<span asp-validation-for="@Model.AppUser.Email" class="text-danger"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-footer border-0">
+				<div class="col">
+					<div class="col-md-2 offset-md-5">
+						<button asp-controller="Booking" asp-action="BookingList" class="btn btn-primary">Back</button>
+					</div>
+				</div>
+			</div>
+	</form>
+</div>

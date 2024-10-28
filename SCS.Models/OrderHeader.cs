@@ -14,11 +14,17 @@ public class OrderHeader
     [ValidateNever]
     public AppUser AppUser { get; set; }
 
+    [DataType(DataType.DateTime)]
     public DateTime OrderDate { get; set; }
+
+    [DataType(DataType.Currency)]
     public double OrderTotal { get; set; }
+    
     public string? OrderStatus { get; set; }
 
     public string? PaymentStatus { get; set; }
+    
+    [DataType(DataType.DateTime)]
     public DateTime PaymentDate { get; set; }
 
     // Needed for Stripe 
@@ -26,6 +32,7 @@ public class OrderHeader
     public string? PaymentIntentId { get; set; }
 
     [Required]
+    [DataType(DataType.Text)]
     public string Name { get; set; }
 
     [Required]

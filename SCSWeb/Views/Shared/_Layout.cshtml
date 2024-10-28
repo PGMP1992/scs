@@ -30,7 +30,6 @@
     <!-- Custom Styles -->
     
     <link rel="stylesheet" href="~/SCS.styles.css" asp-append-version="true">
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css" />
 
@@ -46,14 +45,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true">
     <link rel="stylesheet" href="~/SCS.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/custom-styles.css" asp-append-version="true">
-    <link rel="stylesheet" href="~/css/footer.css" asp-append-version="true">
-   
-
-     @* Datatables *@ 
-    <link rel="stylesheet" href="//cdn.datatables.net/2.1.5/css/dataTables.dataTables.min.css" />
-    
-
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true">
    
 </head>
 
@@ -123,10 +115,17 @@
                                 @if (SignInManager.IsSignedIn(User))
                                 {
                                     <li>
-                                        <a class="dropdown-item" asp-area="Customer" asp-controller="Booking" asp-action="Index">
+                                        <a class="dropdown-item" asp-area="Customer" asp-controller="Booking" asp-action="Voucher">
+                                            Book
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a class="dropdown-item" asp-area="Customer" asp-controller="Booking" asp-action="BookingList">
                                             Bookings
                                         </a>
                                     </li>
+                                    
                                 }
                             </ul>
                         </li>
@@ -176,12 +175,7 @@
                                         </a>
                                     </li>
                                     <li><hr class="dropdown-divider"></li>
-                                    <li>
-                                        <a asp-area="Admin" asp-controller="Order" asp-action="Index" class="dropdown-item">
-                                            <i class="bi bi-list-ol"></i>
-                                            Orders
-                                        </a>
-                                    </li>
+                                    @* Users --------------------*@
                                     <li>
                                         <a class="dropdown-item" asp-area="Admin" asp-controller="Users" asp-action="Index">
                                             <i class="bi bi-people-fill"></i>
@@ -191,27 +185,16 @@
                                 </ul>
                             </li>
                         }
-                        +
-              
                         
+                        @* User Profile/ Dashboard  ---------------------- *@
                         @if (SignInManager.IsSignedIn(User))
                         {
-                            @if (User.IsInRole(SD.Role_Customer))
-                            {
-                                @* User Profile/ Dashboard  ---------------------- *@
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link text-light dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
-                                        <i class="bi bi-person-fill"></i>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a class="dropdown-item" asp-area="Customer" asp-controller="Users" asp-action="Profile">
-                                                Profile
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            }
+                            <li>
+                                <a class="nav-link text-light" asp-area="Customer" asp-controller="Users" asp-action="Profile">
+                                    <i class="bi bi-person-fill"></i>
+                                    Profile
+                                </a>
+                            </li>
 
                             @* Shopping Cart ---------------------- *@
                             <li class="nav-item">
@@ -220,6 +203,20 @@
                                 </a>
                             </li>
                         }
+
+                        @* About ---------------------- *@
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="">
+                                About
+                            </a>
+                        </li>
+
+                        @* Contact ---------------------- *@
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="">
+                                Contact
+                            </a>
+                        </li>
                     </ul>
 
                     @* Login/Register/ Languages ---------------------- *@

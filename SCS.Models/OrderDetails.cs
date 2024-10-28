@@ -18,6 +18,7 @@ public class OrderDetails
     [Required]
     public int ProductId { get; set; }
 
+    [MaxLength(30)]
     public string? VoucherKey { get; set; }
 
     public int? BookCount {  get; set; }
@@ -26,10 +27,11 @@ public class OrderDetails
     [ValidateNever]
     public Product Product { get; set; }
     
-    [Display(Name = "Total")]
+    [Display(Name = "Qty")]
     public int Count { get; set; }
     
     [Display(Name = "Price")]
+    [DataType(DataType.Currency)]
     public double Price { get; set; }
 }
 

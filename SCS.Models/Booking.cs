@@ -11,9 +11,11 @@ namespace SCS.Models
         public string AppUserId { get; set; }
 
         public AppUser AppUser { get; set; }
-        
+
+        [DataType(DataType.Date)]
         public DateOnly Date { get; set; }
 
+        [MaxLength(30)]
         public string VoucherKey { get; set; }
     }
 
