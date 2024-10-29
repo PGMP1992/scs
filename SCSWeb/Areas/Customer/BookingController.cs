@@ -28,7 +28,6 @@ namespace SCSWeb.Areas.Customer
         public async Task<IActionResult> Calendar()
         {
             var calendarData = new List<CalendarData>();
-            //var slots = _unitOfWork.CertificationSlot.GetAll();
             var slots = await _unitOfWork.CertificationDay.GetAllAsync(x => x.IsCertDay == true, includeProperties: "CertificationSlot");
 
             foreach (var item in slots)
@@ -51,7 +50,6 @@ namespace SCSWeb.Areas.Customer
         public async Task<IActionResult> Voucher()
         {
             BookingVM BookingVM = new BookingVM();
-
             return View(BookingVM);
         }
 
@@ -78,19 +76,19 @@ namespace SCSWeb.Areas.Customer
                         TempData["error"] = "This Voucher has already been Used/Booked.";
                         return RedirectToAction("Voucher");
                     }
-                    if (orderHeader.PaymentStatus != SD.PaymentStatusApproved)
+        
+                    else if (orderHeader.PaymentStatus != SD.PaymentStatusApproved)
                     {
-                        TempData["error"] = "Order Payment is not approved.";
+                        TempData["error"] = "Order Payment has not been approved yet.";
                         return RedirectToAction("Voucher");
                     }
 
-                    else // Hasn't been booked yet 
+                    else // Hasn't been booked yet and there are dates available
                     {
                         BookingVM.VoucherId = orderDetail.VoucherKey;
 
                         HttpContext.Session.SetString(SD.SessionVoucherId, orderDetail.VoucherKey);
-
-                        TempData["success"] = "Voucher key Validated.";
+                        //TempData["success"] = "Voucher key Validated.";
                         return RedirectToAction("BookDate");
                     }
                 }
@@ -113,8 +111,15 @@ namespace SCSWeb.Areas.Customer
 
             List<CertificationDay> cDayList = (List<CertificationDay>)_unitOfWork.CertificationDay
                 .GetAll(x => x.IsCertDay == true 
-                    && x.Date >= DateOnly.FromDateTime(DateTime.Now));
-            //,includeProperties: "CertificationSlot");
+                    && x.Date >= DateOnly.FromDateTime(DateTime.Now)
+                    && x.CertSlotId == order.Product.CertSlotId
+                    ,includeProperties: "CertificationSlot");
+
+            if(! cDayList.Any())
+            {
+                TempData["error"] = "There are no Dates available for this Certification";
+                return RedirectToAction("Voucher");
+            }
 
             BookingVM BookingVM = new BookingVM
             {
