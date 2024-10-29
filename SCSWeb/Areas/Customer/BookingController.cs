@@ -28,6 +28,7 @@ namespace SCSWeb.Areas.Customer
         public async Task<IActionResult> Calendar()
         {
             var calendarData = new List<CalendarData>();
+            //var slots = _unitOfWork.CertificationSlot.GetAll();
             var slots = await _unitOfWork.CertificationDay.GetAllAsync(x => x.IsCertDay == true, includeProperties: "CertificationSlot");
 
             foreach (var item in slots)
@@ -47,9 +48,10 @@ namespace SCSWeb.Areas.Customer
         }
 
         [Authorize]
-        public async Task<IActionResult> Voucher()
+        public async Task<IActionResult> Index()
         {
             BookingVM BookingVM = new BookingVM();
+
             return View(BookingVM);
         }
 
@@ -61,42 +63,35 @@ namespace SCSWeb.Areas.Customer
             {
                 OrderDetails orderDetail = _unitOfWork.OrderDetails
                     .Get(p => p.VoucherKey == search);
-                OrderHeader orderHeader = _unitOfWork.OrderHeader
-                    .Get(p => p.Id == orderDetail.OrderHeaderId);
 
                 if (orderDetail == null)
                 {
                     TempData["error"] = "This Voucher Key is not valid.";
-                    return RedirectToAction("Voucher");
+                    return RedirectToAction("Index");
                 }
                 else
                 {
                     if (orderDetail.BookCount == orderDetail.Count)
                     {
                         TempData["error"] = "This Voucher has already been Used/Booked.";
-                        return RedirectToAction("Voucher");
+                        return RedirectToAction("Index");
                     }
-        
-                    else if (orderHeader.PaymentStatus != SD.PaymentStatusApproved)
-                    {
-                        TempData["error"] = "Order Payment has not been approved yet.";
-                        return RedirectToAction("Voucher");
-                    }
-
-                    else // Hasn't been booked yet and there are dates available
+                    else // Hasn't been booked yet 
                     {
                         BookingVM.VoucherId = orderDetail.VoucherKey;
 
                         HttpContext.Session.SetString(SD.SessionVoucherId, orderDetail.VoucherKey);
-                        //TempData["success"] = "Voucher key Validated.";
+
+                        TempData["success"] = "Voucher key Validated.";
                         return RedirectToAction("BookDate");
                     }
                 }
             }
             else
             {
+                //ViewBag.Message = "Please enter a Valid Voucher Key."; Don't get why this is not working... ????
                 TempData["error"] = "Please enter a Valid Voucher Key.";
-                return RedirectToAction("Voucher");
+                return RedirectToAction("Index");
             }
         }
 
@@ -110,16 +105,8 @@ namespace SCSWeb.Areas.Customer
             OrderDetails order = _unitOfWork.OrderDetails.Get(o => o.VoucherKey == voucherId, includeProperties: "Product");
 
             List<CertificationDay> cDayList = (List<CertificationDay>)_unitOfWork.CertificationDay
-                .GetAll(x => x.IsCertDay == true 
-                    && x.Date >= DateOnly.FromDateTime(DateTime.Now)
-                    && x.CertSlotId == order.Product.CertSlotId
-                    ,includeProperties: "CertificationSlot");
-
-            if(! cDayList.Any())
-            {
-                TempData["error"] = "There are no Dates available for this Certification";
-                return RedirectToAction("Voucher");
-            }
+                .GetAll(x => x.IsCertDay == true && x.Date >= DateOnly.FromDateTime(DateTime.Now));
+            //,includeProperties: "CertificationSlot");
 
             BookingVM BookingVM = new BookingVM
             {
@@ -190,7 +177,7 @@ namespace SCSWeb.Areas.Customer
                 + $"<p>Date        : {bookEmail.Date}</P>"
                 + $"<p>Name        : {AppUser.Name}</P>"
                 + $"<p>Email       : {AppUser.Email}</P>"
-                + $"<p>-------------------------------------------------</p>"
+                + $"<p>-------------------------------------------------</p>< br/>"
                 + $"<p>Voucher Key : {bookEmail.VoucherKey}</P>"
                 + $"<p>Product     : {order.Product.Name}</p>";
 
@@ -217,7 +204,7 @@ namespace SCSWeb.Areas.Customer
             }
             else
             {
-                bookings = await _unitOfWork.Booking.GetAllAsync(x => x.AppUserId == userId, includeProperties: "AppUser,");
+                bookings = await _unitOfWork.Booking.GetAllAsync(x => x.AppUserId == userId, includeProperties: "AppUser");
             }
 
             if (!bookings.Any())
@@ -227,27 +214,6 @@ namespace SCSWeb.Areas.Customer
             }
             else
                 return View(bookings);
-        }
-
-        [Authorize]
-        public async Task<IActionResult> Details(int id)
-        {
-            var userId = HttpContext.User.GetUserId();
-            Booking booking = _unitOfWork.Booking.Get(x => x.Id == id); 
-            var voucherKey = booking.VoucherKey;
-            var date = booking.Date;
-            OrderDetails order = await _unitOfWork.OrderDetails.GetAsync(x => x.VoucherKey == voucherKey, includeProperties: "Product");
-            AppUser user = _unitOfWork.AppUser.Get(x => x.Id == booking.AppUserId);
-
-            BookingVM bookingVM = new BookingVM
-            {
-                VoucherId = voucherKey,
-                AppUser = user,
-                OrderDetails = order,
-                BookDate = date
-            };
-                
-            return View(bookingVM);
         }
     }
 }

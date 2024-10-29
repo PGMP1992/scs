@@ -8,26 +8,17 @@ public class OrderHeader
 {
     public int Id { get; set; }
 
-    [MaxLength(450)]
     public string AppUserId { get; set; }
 
     [ForeignKey("AppUserId")]
     [ValidateNever]
     public AppUser AppUser { get; set; }
 
-    [DataType(DataType.DateTime)]
     public DateTime OrderDate { get; set; }
-
-    [DataType(DataType.Currency)]
     public double OrderTotal { get; set; }
-
-    [MaxLength(50)]
     public string? OrderStatus { get; set; }
 
-    [MaxLength(50)]
     public string? PaymentStatus { get; set; }
-    
-    [DataType(DataType.DateTime)]
     public DateTime PaymentDate { get; set; }
 
     // Needed for Stripe 
@@ -35,7 +26,6 @@ public class OrderHeader
     public string? PaymentIntentId { get; set; }
 
     [Required]
-    [DataType(DataType.Text)]
     public string Name { get; set; }
 
     [Required]

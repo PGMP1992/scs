@@ -20,10 +20,8 @@ public class Product
     [DisplayFormat()]
     [DataType(DataType.Currency)]
     public double Price { get; set; }
-
-    //[MaxLength(30)]
-    //public string Status { get; set; } = SD.ProductStatusRegistrated;
     
+    public string Status { get; set; } = SD.ProductStatusRegistrated;
     public int CategoryId { get; set; }
     
     [ForeignKey(nameof(CategoryId))]

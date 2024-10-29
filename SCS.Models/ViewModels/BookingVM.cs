@@ -23,5 +23,8 @@ namespace SCS.Models.ViewModels
 
         [ValidateNever]
         public List<CertificationDay> CDayList { get; set; }
+        
+        //[ValidateNever]
+        //public IEnumerable<CertificationDay> CDayList { get; set; }
     }
 }

@@ -26,11 +26,10 @@ public class OrderDetails
     [ValidateNever]
     public Product Product { get; set; }
     
-    [Display(Name = "Qty")]
+    [Display(Name = "Total")]
     public int Count { get; set; }
     
     [Display(Name = "Price")]
-    [DataType(DataType.Currency)]
     public double Price { get; set; }
 }
 

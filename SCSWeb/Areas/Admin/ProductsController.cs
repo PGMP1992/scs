@@ -216,7 +216,7 @@ public class ProductsController : Controller
         }
         else
         {
-            //product.Status = SD.ProductStatusExpired;
+            product.Status = SD.ProductStatusExpired;
             _unitOfWork.Product.Update(product);
             TempData["success"] = "The product status is changed to expired";
         }

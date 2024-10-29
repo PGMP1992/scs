@@ -8,7 +8,6 @@ public class ProductImage
     public int Id { get; set; }
     
     [Required]
-    [MaxLength(100)]
     public string ImageUrl { get; set; }
     
     public bool StartImage { get; set; } = true;

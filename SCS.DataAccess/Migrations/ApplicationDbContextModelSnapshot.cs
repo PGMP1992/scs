@@ -282,31 +282,6 @@ namespace SCS.DataAccess.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SCS.Models.AppSettings", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Key1")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Key2")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AppSettings");
-                });
-
             modelBuilder.Entity("SCS.Models.Booking", b =>
                 {
                     b.Property<int>("Id")
@@ -410,13 +385,12 @@ namespace SCS.DataAccess.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -477,105 +451,105 @@ namespace SCS.DataAccess.Migrations
                         {
                             Id = 1,
                             CertSlotId = 1,
-                            Date = new DateOnly(2024, 11, 8),
+                            Date = new DateOnly(2024, 10, 31),
                             IsCertDay = false
                         },
                         new
                         {
                             Id = 2,
                             CertSlotId = 1,
-                            Date = new DateOnly(2024, 11, 9),
+                            Date = new DateOnly(2024, 11, 1),
                             IsCertDay = true
                         },
                         new
                         {
                             Id = 3,
                             CertSlotId = 1,
-                            Date = new DateOnly(2024, 11, 10),
+                            Date = new DateOnly(2024, 11, 2),
                             IsCertDay = false
                         },
                         new
                         {
                             Id = 4,
                             CertSlotId = 1,
-                            Date = new DateOnly(2024, 11, 11),
+                            Date = new DateOnly(2024, 11, 3),
                             IsCertDay = true
                         },
                         new
                         {
                             Id = 5,
                             CertSlotId = 1,
-                            Date = new DateOnly(2024, 11, 12),
+                            Date = new DateOnly(2024, 11, 4),
                             IsCertDay = false
                         },
                         new
                         {
                             Id = 6,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 11, 18),
+                            Date = new DateOnly(2024, 11, 10),
                             IsCertDay = false
                         },
                         new
                         {
                             Id = 7,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 11, 19),
+                            Date = new DateOnly(2024, 11, 11),
                             IsCertDay = true
                         },
                         new
                         {
                             Id = 8,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 11, 20),
+                            Date = new DateOnly(2024, 11, 12),
                             IsCertDay = false
                         },
                         new
                         {
                             Id = 9,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 11, 21),
+                            Date = new DateOnly(2024, 11, 13),
                             IsCertDay = true
                         },
                         new
                         {
                             Id = 10,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 11, 22),
+                            Date = new DateOnly(2024, 11, 14),
                             IsCertDay = true
                         },
                         new
                         {
                             Id = 11,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 11, 23),
+                            Date = new DateOnly(2024, 11, 15),
                             IsCertDay = false
                         },
                         new
                         {
                             Id = 12,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 11, 24),
+                            Date = new DateOnly(2024, 11, 16),
                             IsCertDay = true
                         },
                         new
                         {
                             Id = 13,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 11, 25),
+                            Date = new DateOnly(2024, 11, 17),
                             IsCertDay = false
                         },
                         new
                         {
                             Id = 14,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 11, 26),
+                            Date = new DateOnly(2024, 11, 18),
                             IsCertDay = false
                         },
                         new
                         {
                             Id = 15,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 11, 27),
+                            Date = new DateOnly(2024, 11, 19),
                             IsCertDay = false
                         });
                 });
@@ -615,20 +589,20 @@ namespace SCS.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            Dates = "[\"2024-11-09\",\"2024-11-11\"]",
-                            EndDate = new DateOnly(2024, 11, 12),
-                            Name = "Sanctions",
+                            Dates = "[\"2024-11-01\",\"2024-11-03\"]",
+                            EndDate = new DateOnly(2024, 11, 4),
+                            Name = "Slot1",
                             ShowDays = false,
-                            StartDate = new DateOnly(2024, 11, 8)
+                            StartDate = new DateOnly(2024, 10, 31)
                         },
                         new
                         {
                             Id = 2,
-                            Dates = "[\"2024-11-19\",\"2024-11-22\",\"2024-11-24\"]",
-                            EndDate = new DateOnly(2024, 11, 27),
-                            Name = "C# Beginner",
+                            Dates = "[\"2024-11-11\",\"2024-11-14\",\"2024-11-16\"]",
+                            EndDate = new DateOnly(2024, 11, 19),
+                            Name = "Slot2",
                             ShowDays = false,
-                            StartDate = new DateOnly(2024, 11, 18)
+                            StartDate = new DateOnly(2024, 11, 10)
                         });
                 });
 
@@ -677,7 +651,6 @@ namespace SCS.DataAccess.Migrations
 
                     b.Property<string>("AppUserId")
                         .IsRequired()
-                        .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Email")
@@ -692,8 +665,7 @@ namespace SCS.DataAccess.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("OrderStatus")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("OrderTotal")
                         .HasColumnType("float");
@@ -705,8 +677,7 @@ namespace SCS.DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PaymentStatus")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SessionId")
                         .HasColumnType("nvarchar(max)");
@@ -750,6 +721,10 @@ namespace SCS.DataAccess.Migrations
                     b.Property<int?>("ProviderId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BundleId");
@@ -770,7 +745,8 @@ namespace SCS.DataAccess.Migrations
                             Description = "Certificate in Sanctions Description....",
                             Name = "Certificate in Sanctions",
                             Price = 7200.0,
-                            ProviderId = 1
+                            ProviderId = 1,
+                            Status = "Registred"
                         },
                         new
                         {
@@ -779,7 +755,8 @@ namespace SCS.DataAccess.Migrations
                             Description = "Certificate in Corporate Governance Description....",
                             Name = "Certificate in Corporate Governance",
                             Price = 8400.0,
-                            ProviderId = 1
+                            ProviderId = 1,
+                            Status = "Registred"
                         },
                         new
                         {
@@ -788,7 +765,8 @@ namespace SCS.DataAccess.Migrations
                             Description = "C# Certification Description...",
                             Name = "C# Certificate",
                             Price = 1000.0,
-                            ProviderId = 2
+                            ProviderId = 2,
+                            Status = "Registred"
                         },
                         new
                         {
@@ -797,7 +775,8 @@ namespace SCS.DataAccess.Migrations
                             Description = "C# Begginner Programming Description...",
                             Name = "C# Begginner",
                             Price = 200.0,
-                            ProviderId = 2
+                            ProviderId = 2,
+                            Status = "Registred"
                         },
                         new
                         {
@@ -806,7 +785,8 @@ namespace SCS.DataAccess.Migrations
                             Description = "C# Begginner Programming Description...",
                             Name = "C# Begginner",
                             Price = 300.0,
-                            ProviderId = 2
+                            ProviderId = 2,
+                            Status = "Registred"
                         },
                         new
                         {
@@ -815,7 +795,8 @@ namespace SCS.DataAccess.Migrations
                             Description = "C# Intermediate Programming Description...",
                             Name = "C# Intermediate",
                             Price = 200.0,
-                            ProviderId = 2
+                            ProviderId = 2,
+                            Status = "Registred"
                         },
                         new
                         {
@@ -824,7 +805,8 @@ namespace SCS.DataAccess.Migrations
                             Description = "C# Intermediate Programming Description...",
                             Name = "C# Intermediate",
                             Price = 300.0,
-                            ProviderId = 2
+                            ProviderId = 2,
+                            Status = "Registred"
                         },
                         new
                         {
@@ -833,7 +815,8 @@ namespace SCS.DataAccess.Migrations
                             Description = "C# Advanced Programming Description...",
                             Name = "C# Advanced",
                             Price = 200.0,
-                            ProviderId = 2
+                            ProviderId = 2,
+                            Status = "Registred"
                         },
                         new
                         {
@@ -842,7 +825,8 @@ namespace SCS.DataAccess.Migrations
                             Description = "C# Advanced Programming Description...",
                             Name = "C# Advanced",
                             Price = 300.0,
-                            ProviderId = 2
+                            ProviderId = 2,
+                            Status = "Registred"
                         },
                         new
                         {
@@ -851,7 +835,8 @@ namespace SCS.DataAccess.Migrations
                             Description = "C# Advanced Programming Description...",
                             Name = "C# for beginners, Bundle",
                             Price = 300.0,
-                            ProviderId = 2
+                            ProviderId = 2,
+                            Status = "Registred"
                         });
                 });
 
@@ -865,8 +850,7 @@ namespace SCS.DataAccess.Migrations
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
