@@ -15,7 +15,6 @@ namespace SCS.Models
         [DataType(DataType.Date)]
         public DateOnly Date { get; set; }
 
-        [MaxLength(30)]
         public string VoucherKey { get; set; }
     }
 

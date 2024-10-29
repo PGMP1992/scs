@@ -18,7 +18,6 @@ public class OrderDetails
     [Required]
     public int ProductId { get; set; }
 
-    [MaxLength(30)]
     public string? VoucherKey { get; set; }
 
     public int? BookCount {  get; set; }
