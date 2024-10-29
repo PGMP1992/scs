@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SCS.Models;
+using SCS.Models.ViewModels;
 using SCS.Repository.IRepository;
 using SCS.Utility;
+using static System.Collections.Specialized.BitVector32;
 
 namespace SCS.Areas.Admin.Controllers;
 
@@ -21,7 +23,21 @@ public class CategoriesController : Controller
     public IActionResult Index()
     {
         IEnumerable<Category> CategoryList = _unitOfWork.Category.GetAll();
-        return View(CategoryList);
+        List<CategoryVM> categoryVMs = new List<CategoryVM>();
+        foreach (var cat in CategoryList)
+        {
+            bool okToDelete = false;
+            IEnumerable<Product> products = _unitOfWork.Product.GetAll(u => u.CategoryId == cat.Id);
+            if (!products.Any() && cat.Id!=1 && cat.Id!=4)
+            {
+                okToDelete = true;
+            }
+            CategoryVM categoryVM = new CategoryVM();
+            categoryVM.Category = cat;
+            categoryVM.OkToDelete = okToDelete;
+            categoryVMs.Add(categoryVM);
+        }
+        return View(categoryVMs);
     }
 
     public IActionResult Upsert(int? id)
@@ -69,37 +85,35 @@ public class CategoriesController : Controller
     }
 
     [HttpPost]
-    public IActionResult Delete(Category category)
+    public IActionResult Delete(int id)
     {
-        if (category.Id == 0 || category.Id == null)
+       
+        Category category = new Category();
+        
+
+        if (id == 0 || id == null)
         {
             TempData["error"] = "Something went wrong, there is no such category to delete";
-            return View();
+            return RedirectToAction("Index");
         }
-
+        if (id != null && id > 0)
+        {
+            category = _unitOfWork.Category.Get(c => c.Id == id);
+        }
         IEnumerable<Product> products = _unitOfWork.Product.GetAll(u => u.CategoryId == category.Id);
         if (products.Any())
         {
             TempData["error"] = "The category is used and can´t be deleted";
             return View();
         }
+       
 
         _unitOfWork.Category.Remove(category);
         _unitOfWork.Save();
         TempData["success"] = "The category was deleted";
-        
+       
         return RedirectToAction("Index");
+       
     }
-
-    //#region APICALLS
-
-    //[HttpGet]
-    //public async Task<IActionResult> GetAll()
-    //{
-    //    IEnumerable<Category> CategoryList = await _unitOfWork.Category.GetAllAsync();
-    //    return Json(new { data = CategoryList });
-    //}
-
-    //#endregion
 }
 

@@ -12,8 +12,8 @@ using SCS.Data;
 namespace SCS.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241029064904_initial")]
-    partial class initial
+    [Migration("20241029074048_initDb")]
+    partial class initDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
