@@ -32,21 +32,6 @@ namespace SCS.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AppSettings",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Key1 = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Key2 = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AppSettings", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
                 {
@@ -640,9 +625,6 @@ namespace SCS.DataAccess.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "AppSettings");
-
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 

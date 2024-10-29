@@ -12,7 +12,7 @@ using SCS.Data;
 namespace SCS.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241029064904_initial")]
+    [Migration("20241029123307_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -283,31 +283,6 @@ namespace SCS.DataAccess.Migrations
                             Street1 = "Street 1",
                             Street2 = "Street 2"
                         });
-                });
-
-            modelBuilder.Entity("SCS.Models.AppSettings", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Key1")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Key2")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AppSettings");
                 });
 
             modelBuilder.Entity("SCS.Models.Booking", b =>

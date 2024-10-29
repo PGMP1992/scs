@@ -27,8 +27,7 @@ namespace SCS.Data
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Bundle> Bundles { get; set; }
         public DbSet<Booking> Bookings { get; set; }
-        public DbSet<AppSettings> AppSettings { get; set; }
-
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
