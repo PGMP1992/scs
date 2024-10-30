@@ -10,9 +10,12 @@ public class CertificationSlot
     [Required]
     public string Name { get; set; }
 
+
+    [DataType(DataType.Date)]
     [Display(Name = "Start Date (yyyy-mm-dd)")]
     public DateOnly StartDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
-    
+
+    [DataType(DataType.Date)]
     [Display(Name = "End Date (yyyy-mm-dd)")]
     public DateOnly EndDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
 

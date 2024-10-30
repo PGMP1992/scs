@@ -30,6 +30,7 @@ public class OrderDetails
     public int Count { get; set; }
     
     [Display(Name = "Price")]
+    [DataType(DataType.Currency)]
     public double Price { get; set; }
 }
 

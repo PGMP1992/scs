@@ -24,6 +24,7 @@ namespace SCS.Models
         public AppUser AppUser { get; set; }
 
         [NotMapped]
+        [DataType(DataType.Currency)]
         public double Price { get; set; }
     }
 }

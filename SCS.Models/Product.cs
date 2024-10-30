@@ -21,7 +21,8 @@ public class Product
     [DataType(DataType.Currency)]
     public double Price { get; set; }
     
-    public string Status { get; set; } = SD.ProductStatusRegistrated;
+    //public string Status { get; set; } = SD.ProductStatusRegistrated;
+    
     public int CategoryId { get; set; }
     
     [ForeignKey(nameof(CategoryId))]
