@@ -23,7 +23,7 @@
             </div>
         </div>
 
-        <table class="table table-bordered  table-striped table-light"  style="width:100%">
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th class="text-success-emphasis">
@@ -35,13 +35,8 @@
                     <th class="text-success-emphasis">
                         EndDate
                     </th>
-                   
-                    <th class="text-success-emphasis">
-                        @* Buttons *@
-                    </th>
-                    <th class="text-success-emphasis">
-                        @* Buttons *@
-                    </th>
+                    <th></th>
+                    
                 </tr>
             </thead>
             <tbody>
@@ -57,16 +52,13 @@
                         <td>
                             @obj.CertificationSlot.EndDate
                         <td>
-
                             <a asp-controller="CertificationSlots" asp-action="Upsert" asp-route-id="@obj.CertificationSlot.Id" class="btn btn-primary mx-2">
                                     <i class="bi bi-pencil-square"></i> Edit
-                                </a>
-                              
+                            </a>
                         </td>
                         <td>
-                       
-                                    @if (@obj.OkToDelete)
-                                    {
+                            @if (@obj.OkToDelete)
+                            {
                                 <form method="post" asp-action="Delete" asp-route-id="@obj.CertificationSlot.Id" id="deleteform" onsubmit="DeleteSlot()">
                                     <input asp-for="@obj.CertificationSlot.Id" hidden />
                                     <button type="submit" class="btn btn-danger">
@@ -74,8 +66,7 @@
                                         Delete
                                     </button>
                                 </form>
-                                    }
-                      
+                            }
                         </td>
                     </tr>
                 }

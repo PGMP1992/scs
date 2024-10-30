@@ -22,11 +22,11 @@
                     </a>
                 </div>
             </div>
-        <table class= table table-bordered table-striped table-light" style="width:50%">
+        <table class="table table-striped" style="width:50%">
                 <thead>
                     <tr>
-                    <th> Name</th>
-                    <th></th>
+                    <th>Name</th>
+                    <th>Description</th>
                     <th></th>   
                     </tr>
                 </thead>
@@ -40,6 +40,9 @@
                                     @obj.Category.Name
                                 </a>
                             </td>
+                        <td>
+                            @obj.Category.Description
+                        </td>
                         
                             <td>
                                 <a asp-controller="Categories" asp-action="Upsert" asp-route-id="@obj.Category.Id" class="btn btn-primary mx-2">

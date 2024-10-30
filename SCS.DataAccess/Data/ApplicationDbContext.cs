@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SCS.Models;
 using SCS.Utility;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace SCS.Data
 {
@@ -27,8 +26,7 @@ namespace SCS.Data
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Bundle> Bundles { get; set; }
         public DbSet<Booking> Bookings { get; set; }
-        public DbSet<AppSettings> AppSettings { get; set; }
-
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -107,7 +105,7 @@ namespace SCS.Data
                    ContactPhone = "44444444"
                }
             );
-            
+
             modelBuilder.Entity<Bundle>().HasData(
                 new Bundle
                 {
@@ -116,7 +114,7 @@ namespace SCS.Data
                     ProductId1 = 3,
                     ProductId2 = 4,
                     ProductId3 = 5,
-                    Price=8500
+                    Price = 8500
                 }
             );
 
@@ -124,9 +122,9 @@ namespace SCS.Data
                 new CertificationSlot
                 {
                     Id = 1,
-                    Name= "Sanctions",
+                    Name = "Sanctions",
                     StartDate = DateOnly.FromDateTime(DateTime.Now.AddDays(10)),
-                    EndDate=DateOnly.FromDateTime(DateTime.Now.AddDays(14)),
+                    EndDate = DateOnly.FromDateTime(DateTime.Now.AddDays(14)),
                     Dates = new List<DateOnly>
                     {
                         DateOnly.FromDateTime(DateTime.Now.AddDays(11)),
@@ -136,11 +134,11 @@ namespace SCS.Data
                 new CertificationSlot
                 {
                     Id = 2,
-                    Name="C# Beginner",
+                    Name = "C# Beginner",
                     StartDate = DateOnly.FromDateTime(DateTime.Now.AddDays(20)),
                     EndDate = DateOnly.FromDateTime(DateTime.Now.AddDays(29)),
-                    
-                    Dates=new List<DateOnly>
+
+                    Dates = new List<DateOnly>
                     {
                         DateOnly.FromDateTime(DateTime.Now.AddDays(21)),
                         DateOnly.FromDateTime(DateTime.Now.AddDays(24)),
@@ -261,14 +259,14 @@ namespace SCS.Data
             modelBuilder.Entity<Product>().HasData(
                 new Product
                 {
-                     Id = 1,
-                     Name = "Certificate in Sanctions",
-                     CategoryId = 1,
-                     Description = "Certificate in Sanctions Description....",
-                     Price = 7200,
-                     //Status = SD.ProductStatusRegistrated,
-                     ProviderId = 1,
-                     //CertSlotId=1,
+                    Id = 1,
+                    Name = "Certificate in Sanctions",
+                    CategoryId = 1,
+                    Description = "Certificate in Sanctions Description....",
+                    Price = 7200,
+                    //Status = SD.ProductStatusRegistrated,
+                    ProviderId = 1,
+                    //CertSlotId=1,
                 },
                 new Product
                 {
@@ -295,12 +293,12 @@ namespace SCS.Data
                 new Product
                 {
                     Id = 4,
-                   Name = "C# Begginner",
-                   CategoryId = 2,
-                   Description = "C# Begginner Programming Description...",
-                   Price = 200,
-                   Status = SD.ProductStatusActive,
-                   ProviderId = 2,
+                    Name = "C# Begginner",
+                    CategoryId = 2,
+                    Description = "C# Begginner Programming Description...",
+                    Price = 200,
+                    Status = SD.ProductStatusActive,
+                    ProviderId = 2,
                 },
                 new Product
                 {
@@ -361,7 +359,7 @@ namespace SCS.Data
                     Price = 300,
                     Status = SD.ProductStatusActive,
                     ProviderId = 2,
-                    BundleId=1,
+                    BundleId = 1,
                 }
             );
         }
