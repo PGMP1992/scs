@@ -47,9 +47,9 @@
                     <th class="text-success-emphasis">
                         Certification Slot
                     </th>
-                    <th class="text-success-emphasis">
+                    @* <th class="text-success-emphasis">
                        Status
-                    </th>
+                    </th> *@
                    
                 </tr>
             </thead>
@@ -70,7 +70,7 @@
                             @obj.Provider.Name
                         </td>
                         <td>
-                            @obj.Price
+                            @obj.Price.ToString("C")
                         </td>
                         <td>
                             @if(obj.CertSlotId>0)
@@ -79,9 +79,9 @@
                             }
                            
                         </td>
-                        <td>
+                        @* <td>
                             @obj.Status
-                        </td>
+                        </td> *@
                         <td>
                             <div class="w-100 btn-group" role="group">
                                 <a asp-controller="Products" asp-action="Upsert" asp-route-id="@obj.Id" class="btn btn-primary mx-1">

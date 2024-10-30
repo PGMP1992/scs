@@ -214,12 +214,12 @@ public class ProductsController : Controller
             _unitOfWork.Product.Remove(product);
             TempData["success"] = "The product was deleted";
         }
-        else
-        {
-            product.Status = SD.ProductStatusExpired;
-            _unitOfWork.Product.Update(product);
-            TempData["success"] = "The product status is changed to expired";
-        }
+        //else
+        //{
+        //    product.Status = SD.ProductStatusExpired;
+        //    _unitOfWork.Product.Update(product);
+        //    TempData["success"] = "The product status is changed to expired";
+        //}
         _unitOfWork.Save();
 
         return RedirectToAction("Index");

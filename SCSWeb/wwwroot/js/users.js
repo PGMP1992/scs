@@ -10,7 +10,6 @@ function loadDataTable() {
         "columns": [
             { "data": "name", "width": "15%" },
             { "data": "email", "width": "15%" },
-            { "data": "phoneNumber", "width": "15%" },
             { "data": "role", "width": "15%" },
             {
                 data: { id: "id", lockoutEnd: "lockoutEnd" },
