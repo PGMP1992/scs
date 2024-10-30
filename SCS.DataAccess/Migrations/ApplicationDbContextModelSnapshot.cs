@@ -750,6 +750,10 @@ namespace SCS.DataAccess.Migrations
                     b.Property<int?>("ProviderId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BundleId");
@@ -770,7 +774,8 @@ namespace SCS.DataAccess.Migrations
                             Description = "Certificate in Sanctions Description....",
                             Name = "Certificate in Sanctions",
                             Price = 7200.0,
-                            ProviderId = 1
+                            ProviderId = 1,
+                            Status = "Active"
                         },
                         new
                         {
@@ -779,7 +784,8 @@ namespace SCS.DataAccess.Migrations
                             Description = "Certificate in Corporate Governance Description....",
                             Name = "Certificate in Corporate Governance",
                             Price = 8400.0,
-                            ProviderId = 1
+                            ProviderId = 1,
+                            Status = "Active"
                         },
                         new
                         {
@@ -788,7 +794,8 @@ namespace SCS.DataAccess.Migrations
                             Description = "C# Certification Description...",
                             Name = "C# Certificate",
                             Price = 1000.0,
-                            ProviderId = 2
+                            ProviderId = 2,
+                            Status = "Active"
                         },
                         new
                         {
@@ -797,7 +804,8 @@ namespace SCS.DataAccess.Migrations
                             Description = "C# Begginner Programming Description...",
                             Name = "C# Begginner",
                             Price = 200.0,
-                            ProviderId = 2
+                            ProviderId = 2,
+                            Status = "Active"
                         },
                         new
                         {
@@ -806,7 +814,8 @@ namespace SCS.DataAccess.Migrations
                             Description = "C# Begginner Programming Description...",
                             Name = "C# Begginner",
                             Price = 300.0,
-                            ProviderId = 2
+                            ProviderId = 2,
+                            Status = "Active"
                         },
                         new
                         {
@@ -815,7 +824,8 @@ namespace SCS.DataAccess.Migrations
                             Description = "C# Intermediate Programming Description...",
                             Name = "C# Intermediate",
                             Price = 200.0,
-                            ProviderId = 2
+                            ProviderId = 2,
+                            Status = "Active"
                         },
                         new
                         {
@@ -824,7 +834,8 @@ namespace SCS.DataAccess.Migrations
                             Description = "C# Intermediate Programming Description...",
                             Name = "C# Intermediate",
                             Price = 300.0,
-                            ProviderId = 2
+                            ProviderId = 2,
+                            Status = "Active"
                         },
                         new
                         {
@@ -833,7 +844,8 @@ namespace SCS.DataAccess.Migrations
                             Description = "C# Advanced Programming Description...",
                             Name = "C# Advanced",
                             Price = 200.0,
-                            ProviderId = 2
+                            ProviderId = 2,
+                            Status = "Active"
                         },
                         new
                         {
@@ -842,16 +854,19 @@ namespace SCS.DataAccess.Migrations
                             Description = "C# Advanced Programming Description...",
                             Name = "C# Advanced",
                             Price = 300.0,
-                            ProviderId = 2
+                            ProviderId = 2,
+                            Status = "Active"
                         },
                         new
                         {
                             Id = 10,
+                            BundleId = 1,
                             CategoryId = 3,
                             Description = "C# Advanced Programming Description...",
                             Name = "C# for beginners, Bundle",
                             Price = 300.0,
-                            ProviderId = 2
+                            ProviderId = 2,
+                            Status = "Active"
                         });
                 });
 

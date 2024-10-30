@@ -5,6 +5,7 @@ using SCS.Models;
 using SCS.Models.ViewModels;
 using SCS.Repository.IRepository;
 using SCS.Utility;
+using System.Reflection.Metadata;
 
 namespace SCS.Areas.Admin;
 
@@ -25,9 +26,11 @@ public class BundleController : Controller
     public IActionResult Index()
     {
         IEnumerable<Bundle> bundleList = _unitOfWork.Bundle.GetAll();
-
+        List<BundleVM> bundleVMs = new List<BundleVM>();
+        
         foreach (var item in bundleList)
         {
+            bool okToDelete = false;
             if (item.ProductId1 > 0 && _unitOfWork.Product.Any(u => u.Id == item.ProductId1))
             {
                 item.Product1 = _unitOfWork.Product.Get(u => u.Id == item.ProductId1, includeProperties: "Category");
@@ -57,9 +60,25 @@ public class BundleController : Controller
                 item.Product3 = new Product();
                 item.Product3.Category = new Category();
             }
+            if (_unitOfWork.Product.Any(u => u.BundleId == item.Id))
+            {
+                Product product = _unitOfWork.Product.Get(u => u.BundleId == item.Id);
+                if (!(_unitOfWork.OrderDetails.Any(u => u.ProductId == product.Id)))
+                {
+                  okToDelete = true;
+                }
+            }
+            else
+            {
+                okToDelete=true;
+            }
+            BundleVM bundleVM = new BundleVM();
+            bundleVM.Bundle = item;
+            bundleVM.OkToDelete = okToDelete;
+            bundleVMs.Add(bundleVM);
         }
 
-        return View(bundleList);
+        return View(bundleVMs);
     }
 
     public IActionResult Upsert(int? id)
@@ -237,7 +256,7 @@ public class BundleController : Controller
     public IActionResult Delete(int id)
     {
 
-        if (id != null && id > 0)
+        if (id > 0)
         {
             Bundle bundle = _unitOfWork.Bundle.Get(u => u.Id == id);
 
@@ -247,8 +266,6 @@ public class BundleController : Controller
             bundle.Product3 = _unitOfWork.Product.Get(u => u.Id == bundle.ProductId3);
 
             return View(bundle);
-
-
 
         }
         else

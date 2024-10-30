@@ -91,7 +91,7 @@
                             <div>
                                 @if (@obj.OkToDelete)
                                 {
-                                    <form method="post" asp-action="Delete" asp-route-id="@obj.Product.Id" id="deleteform" onsubmit="test(event)">
+                                    <form method="post" asp-action="Delete" asp-route-id="@obj.Product.Id" id="deleteform" onsubmit="DeleteProduct()">
                                         <input asp-for="@obj.Product.Id" hidden />
                                         <button type="submit" class="btn btn-danger">
                                             <i class="bi bi-trash-fill"></i>
@@ -114,7 +114,7 @@
 
     <partial name="_ValidationScriptsPartial" />
     <script>
-        function test(e) {
+        function DeleteProduct(e) {
             e.preventDefault();
             Swal.fire({
                 title: "Are you sure?",

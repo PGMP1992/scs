@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.DotNet.Scaffolding.Shared;
 using SCS.Models;
 using SCS.Models.ViewModels;
 using SCS.Repository.IRepository;
 using SCS.Utility;
-using Stripe;
 
 namespace SCS.Areas.Admin;
 
@@ -24,9 +24,23 @@ public class CertificationSlotsController : Controller
 
     public IActionResult Index()
     {
-        IEnumerable<CertificationSlot> cerSlotList =(_unitOfWork.CertificationSlot.GetAll(includeProperties: "CertificationDays"));
+        IEnumerable<CertificationSlot> certSlotList =(_unitOfWork.CertificationSlot.GetAll(includeProperties: "CertificationDays"));
+        List<CertificationSlotVM> certSlotVMs = new List<CertificationSlotVM>();
+        foreach (var cert in certSlotList)
+        {
+            bool okToDelete = false;
+            IEnumerable<Product> products = _unitOfWork.Product.GetAll(u => u.CertSlotId == cert.Id);
+            if (!products.Any())
+            {
+                okToDelete = true;
+            }
+            CertificationSlotVM certSlotVM = new CertificationSlotVM();
+            certSlotVM.CertificationSlot = cert;
+            certSlotVM.OkToDelete = okToDelete;
+            certSlotVMs.Add(certSlotVM);
+        }
+        return View(certSlotVMs);
 
-        return View(cerSlotList);
     }
 
     public IActionResult Upsert(int? id)
@@ -136,8 +150,14 @@ public class CertificationSlotsController : Controller
         if (certificationSlot == null)
         {
             TempData["error"] = "Error with deleting";
+            return RedirectToAction("Index");
         }
-
+        IEnumerable<Product> products = _unitOfWork.Product.GetAll(u => u.CertSlotId == id);
+        if (products.Any())
+        {
+            TempData["error"] = "The certificationslot is used and can´t be deleted";
+            return View();
+        }
         _unitOfWork.CertificationSlot.Remove(certificationSlot);
         _unitOfWork.Save();
         TempData["success"] = "The certificationSlot was deleted";
@@ -198,17 +218,4 @@ public class CertificationSlotsController : Controller
         return View();
     }
 
-    #region APICALLS
-
-    [HttpGet]
-    public IActionResult GetAll()
-    {
-        IEnumerable<CertificationSlot> CertificationSlotList = _unitOfWork.CertificationSlot.GetAll();
-        foreach (var item in CertificationSlotList)
-        {
-        }
-        return Json(new { data = CertificationSlotList });
-    }
-
-    #endregion
 }

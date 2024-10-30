@@ -57,16 +57,23 @@
                             </select>
                             <label asp-for="Product.CertSlotId" class="mt-2 ">CertificationSlot</label>
                         </div>
-                        <div class="form-floating py-2 col-12">
-                            <input type="radio" asp-for="Product.Status" class="form-control border-1 " />
-                            <label asp-for="Product.Status" class="mt-2 "></label>
+                       
+                        <div class="form-floating py-2 col-12 " >
+                            <div class="form-control border-1" >
+                                <label asp-for="Product.Status">Status: &nbsp; </label>
+                         
+                            <input type="radio" asp-for="Product.Status" value="active"/>Active &nbsp;
+                            <input type="radio" asp-for="Product.Status" value="expired" />Expired
+
+                            </div>
                             <span asp-validation-for="Product.Status" class="text-danger"></span>
                         </div>
-                      
+                          
                         <div class="form-floating py-2 col-12">
                             <input type="file" name="files" class="form-control border-1" multiple />
                             <label asp-for="Product.ProductImages" class="mt-2 "></label>
                         </div>
+                       
                                                 
                         <div class="row pt-2">
                             <div class="col-6 col-md-3">

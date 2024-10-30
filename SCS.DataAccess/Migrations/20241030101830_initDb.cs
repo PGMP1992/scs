@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SCS.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class intial : Migration
+    public partial class initDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -209,6 +209,7 @@ namespace SCS.DataAccess.Migrations
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     ProviderId = table.Column<int>(type: "int", nullable: true),
                     BundleId = table.Column<int>(type: "int", nullable: true),
@@ -517,19 +518,19 @@ namespace SCS.DataAccess.Migrations
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "Id", "BundleId", "CategoryId", "CertSlotId", "Description", "Name", "Price", "ProviderId" },
+                columns: new[] { "Id", "BundleId", "CategoryId", "CertSlotId", "Description", "Name", "Price", "ProviderId", "Status" },
                 values: new object[,]
                 {
-                    { 1, null, 1, null, "Certificate in Sanctions Description....", "Certificate in Sanctions", 7200.0, 1 },
-                    { 2, null, 1, null, "Certificate in Corporate Governance Description....", "Certificate in Corporate Governance", 8400.0, 1 },
-                    { 3, null, 1, null, "C# Certification Description...", "C# Certificate", 1000.0, 2 },
-                    { 4, null, 2, null, "C# Begginner Programming Description...", "C# Begginner", 200.0, 2 },
-                    { 5, null, 3, null, "C# Begginner Programming Description...", "C# Begginner", 300.0, 2 },
-                    { 6, null, 2, null, "C# Intermediate Programming Description...", "C# Intermediate", 200.0, 2 },
-                    { 7, null, 3, null, "C# Intermediate Programming Description...", "C# Intermediate", 300.0, 2 },
-                    { 8, null, 2, null, "C# Advanced Programming Description...", "C# Advanced", 200.0, 2 },
-                    { 9, null, 3, null, "C# Advanced Programming Description...", "C# Advanced", 300.0, 2 },
-                    { 10, null, 3, null, "C# Advanced Programming Description...", "C# for beginners, Bundle", 300.0, 2 }
+                    { 1, null, 1, null, "Certificate in Sanctions Description....", "Certificate in Sanctions", 7200.0, 1, "Active" },
+                    { 2, null, 1, null, "Certificate in Corporate Governance Description....", "Certificate in Corporate Governance", 8400.0, 1, "Active" },
+                    { 3, null, 1, null, "C# Certification Description...", "C# Certificate", 1000.0, 2, "Active" },
+                    { 4, null, 2, null, "C# Begginner Programming Description...", "C# Begginner", 200.0, 2, "Active" },
+                    { 5, null, 3, null, "C# Begginner Programming Description...", "C# Begginner", 300.0, 2, "Active" },
+                    { 6, null, 2, null, "C# Intermediate Programming Description...", "C# Intermediate", 200.0, 2, "Active" },
+                    { 7, null, 3, null, "C# Intermediate Programming Description...", "C# Intermediate", 300.0, 2, "Active" },
+                    { 8, null, 2, null, "C# Advanced Programming Description...", "C# Advanced", 200.0, 2, "Active" },
+                    { 9, null, 3, null, "C# Advanced Programming Description...", "C# Advanced", 300.0, 2, "Active" },
+                    { 10, 1, 3, null, "C# Advanced Programming Description...", "C# for beginners, Bundle", 300.0, 2, "Active" }
                 });
 
             migrationBuilder.CreateIndex(
