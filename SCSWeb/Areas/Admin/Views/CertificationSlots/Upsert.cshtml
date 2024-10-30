@@ -36,7 +36,7 @@
                             <span asp-validation-for="CertificationSlot.EndDate" class="text-danger"></span>
                         </div>
                
-                        @if (Model.CertificationSlot.ShowDays)
+                        @if (Model.CertificationSlot.ShowDays && Model.CertificationSlot.EndDate>Model.CertificationSlot.StartDate)
                         {
 
                             <table class="table table-bordered  table-striped table-light" style="width:100%">
