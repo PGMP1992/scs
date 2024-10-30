@@ -26,7 +26,26 @@ public class ProductsController : Controller
     public IActionResult Index()
     {
         IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Provider,Category,CertificationSlot");
-        return View(productList);
+        List<ProductVM> productVMs = new List<ProductVM>();
+        foreach (var prod in productList)
+        {
+            bool okToDelete = false;
+            if (!_unitOfWork.Bundle.Any(u => u.ProductId1 ==prod.Id)
+            && !_unitOfWork.Bundle.Any(u => u.ProductId2 == prod.Id)
+            && !_unitOfWork.Bundle.Any(u => u.ProductId3 == prod.Id)
+            && !_unitOfWork.OrderDetails.Any(u => u.ProductId == prod.Id))
+            {
+                okToDelete = true;
+            }
+
+           
+            
+            ProductVM productVM = new ProductVM();
+            productVM.Product = prod;
+            productVM.OkToDelete = okToDelete;
+            productVMs.Add(productVM);
+        }
+        return View(productVMs);
     }
 
     public IActionResult Upsert(int? id)
@@ -214,25 +233,16 @@ public class ProductsController : Controller
             _unitOfWork.Product.Remove(product);
             TempData["success"] = "The product was deleted";
         }
-        else
+        else 
         {
-            product.Status = SD.ProductStatusExpired;
-            _unitOfWork.Product.Update(product);
-            TempData["success"] = "The product status is changed to expired";
+            TempData["error"] = "The product is a part of a order and cant be deleted.";
+            return View(product);
         }
+       
         _unitOfWork.Save();
 
         return RedirectToAction("Index");
     }
 
-    #region APICALLS
 
-    [HttpGet]
-    public async Task<IActionResult> GetAll()
-    {
-        IEnumerable<Product> ProductList = _unitOfWork.Product.GetAll(includeProperties: "Provider,Category");
-        return Json(new { data = ProductList });
-    }
-
-    #endregion
 }

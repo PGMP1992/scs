@@ -57,14 +57,12 @@
                             </select>
                             <label asp-for="Product.CertSlotId" class="mt-2 ">CertificationSlot</label>
                         </div>
-
-                        @* @if(Model.Product.CategoryId==1)
-                        {
-                                <div class="form-floating py-2 col-12">
-                                    <input disabled asp-for="Product.VoucherKey" class="form-control border-1" />
-                                    <label asp-for="Product.VoucherKey" class="mt-2 "></label>
-                                </div>
-                        } *@
+                        <div class="form-floating py-2 col-12">
+                            <input type="radio" asp-for="Product.Status" class="form-control border-1 " />
+                            <label asp-for="Product.Status" class="mt-2 "></label>
+                            <span asp-validation-for="Product.Status" class="text-danger"></span>
+                        </div>
+                      
                         <div class="form-floating py-2 col-12">
                             <input type="file" name="files" class="form-control border-1" multiple />
                             <label asp-for="Product.ProductImages" class="mt-2 "></label>
@@ -87,10 +85,7 @@
                                 <a asp-area="Admin"  asp-controller="Products" asp-action="Index" class="btn btn-primary rounded form-control">Back to List</a>
 
                             </div>
-                            <div class="col-6 col-md-3">
-                                <button type="submit" asp-action="Delete" asp-route-Id="@Model.Product.Id" class="btn btn-danger form-control rounded">Delete</button>
-
-                            </div>
+                          
                         </div>
 
                     </div>

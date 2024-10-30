@@ -10,4 +10,6 @@ public class CertificationSlotVM
     
     [ValidateNever]
     public List<CertificationDay> CDayList { get; set; }
+    [ValidateNever]
+    public bool OkToDelete { get; set; }
 }

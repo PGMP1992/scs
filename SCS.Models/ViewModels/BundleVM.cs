@@ -12,4 +12,7 @@ public class BundleVM
     public IEnumerable<SelectListItem> ProductList2 { get; set; }
     [ValidateNever]
     public IEnumerable<SelectListItem> ProductList3 { get; set; }
+
+    [ValidateNever]
+    public bool OkToDelete { get; set; }
 }
