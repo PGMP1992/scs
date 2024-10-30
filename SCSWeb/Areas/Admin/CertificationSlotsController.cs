@@ -76,7 +76,11 @@ public class CertificationSlotsController : Controller
     {
         CertificationSlotVM certSlotVMTest = certSlotVM;
         CertificationSlot certSlotFromDb = _unitOfWork.CertificationSlot.Get(u => u.Id == certSlotVM.CertificationSlot.Id);
-      
+        if (certSlotVM.CertificationSlot.EndDate <= certSlotVM.CertificationSlot.StartDate)
+        {
+            TempData["error"] = "The End Date has to be larger than the Start Date";
+            return RedirectToAction(nameof(Upsert), new { id = certSlotVM.CertificationSlot.Id });
+        }
         if (ModelState.IsValid )
         {
             if (certSlotVM.CertificationSlot.Id == 0)

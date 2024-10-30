@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using SCS.Models.Validations;
 using System.ComponentModel.DataAnnotations;
 
 namespace SCS.Models;
@@ -17,6 +18,7 @@ public class CertificationSlot
 
     [DataType(DataType.Date)]
     [Display(Name = "End Date (yyyy-mm-dd)")]
+    [EndDateHasToBeLaterThenStartDate]
     public DateOnly EndDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
 
     public DayOfWeek? DayOfWeek { get; set; }
@@ -24,5 +26,5 @@ public class CertificationSlot
     public List<DateOnly>? Dates { get; set; }
     
     [ValidateNever]
-    public IEnumerable<CertificationDay> CertificationDays { get; set; }
+    public IEnumerable<CertificationDay>? CertificationDays { get; set; }
 }

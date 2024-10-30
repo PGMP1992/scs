@@ -58,23 +58,23 @@
                             @obj.CertificationSlot.EndDate
                         <td>
 
-                            <a asp-controller="CertificationSlots" asp-action="Upsert" asp-route-id="@obj.CertificationSlot.Id" class="btn btn-primary mx-2">
+                            <a asp-controller="CertificationSlots" asp-action="Upsert" asp-route-id="@obj.CertificationSlot.Id" class="btn btn-primary form-control">
                                     <i class="bi bi-pencil-square"></i> Edit
                                 </a>
                               
                         </td>
                         <td>
                        
-                                    @if (@obj.OkToDelete)
-                                    {
+                            @if (@obj.OkToDelete)
+                            {
                                 <form method="post" asp-action="Delete" asp-route-id="@obj.CertificationSlot.Id" id="deleteform" onsubmit="DeleteSlot()">
                                     <input asp-for="@obj.CertificationSlot.Id" hidden />
-                                    <button type="submit" class="btn btn-danger">
+                                    <button type="submit" class="btn btn-danger form-control">
                                         <i class="bi bi-trash-fill"></i>
                                         Delete
                                     </button>
                                 </form>
-                                    }
+                            }
                       
                         </td>
                     </tr>
