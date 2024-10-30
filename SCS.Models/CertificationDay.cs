@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SCS.Models;
@@ -6,7 +7,8 @@ namespace SCS.Models;
 public class CertificationDay
 {
     public int Id { get; set; }
-    
+
+    [DataType(DataType.Date)]
     public DateOnly Date { get; set; }
     
     public bool IsCertDay { get; set; }

@@ -266,7 +266,7 @@ namespace SCS.Data
                      CategoryId = 1,
                      Description = "Certificate in Sanctions Description....",
                      Price = 7200,
-                     Status = SD.ProductStatusRegistrated,
+                     //Status = SD.ProductStatusRegistrated,
                      ProviderId = 1,
                      //CertSlotId=1,
                 },

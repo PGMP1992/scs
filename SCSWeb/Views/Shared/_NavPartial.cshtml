@@ -1,0 +1,168 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Http
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@inject IHttpContextAccessor HttpContextAccessor
+
+<nav class="navbar navbar-expand-lg" style="background-color: #052742;" data-bs-theme="light">
+    <div class="container">
+        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
+                aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+            <ul class="navbar-nav flex-grow-1">
+
+                @* Home ----------------------*@
+                <li class="nav-item">
+                    <a class="nav-link text-light" asp-area="Customer" asp-controller="Home" asp-action="Index">
+                        Home
+                    </a>
+                </li>
+
+                @* Customer.Products ----------------------*@
+                <li class="nav-item dropdown">
+                    <a class="nav-link text-light dropdown-toggle" data-bs-toggle="dropdown"
+                       href="#" role="button" aria-expanded="false">
+                        Products
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" asp-area="Customer" asp-controller="Product" asp-action="Index">
+                                Products
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" asp-area="Customer" asp-controller="Product" asp-action="IndexList">
+                                Product List
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                @* Bookings -------------------------------- *@
+                <li class="nav-item dropdown">
+                    <a class="nav-link text-light dropdown-toggle" data-bs-toggle="dropdown"
+                       href="#" role="button" aria-expanded="false">
+                        Bookings
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" asp-area="Customer" asp-controller="Booking" asp-action="Calendar">
+                                Certification Calendar
+                            </a>
+                        </li>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li>
+                                <a class="dropdown-item" asp-area="Customer" asp-controller="Booking" asp-action="Voucher">
+                                    Book
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" asp-area="Customer" asp-controller="Booking" asp-action="BookingList">
+                                    Bookings
+                                </a>
+                            </li>
+
+                        }
+                    </ul>
+                </li>
+
+                @* Orders ----------------------*@
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <li>
+                        <a class="nav-link text-light" asp-area="Admin" asp-controller="Order" asp-action="Index">
+                            Orders
+                        </a>
+                    </li>
+                }
+
+                @* About ----------------------*@
+                @if (User.IsInRole(SD.Role_Admin))
+                {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link text-light dropdown-toggle" data-bs-toggle="dropdown"
+                           href="#" role="button" aria-expanded="false">
+                            Admin
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" asp-area="Admin" asp-controller="Categories" asp-action="Index">
+                                    Categories
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" asp-area="Admin" asp-controller="Providers" asp-action="Index">
+                                    Providers
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" asp-area="Admin" asp-controller="Products" asp-action="Index">
+                                    Products
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" asp-area="Admin" asp-controller="Bundle" asp-action="Index">
+                                    Bundles
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" asp-area="Admin" asp-controller="CertificationSlots" asp-action="Index">
+                                    Certification Slots
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            @* Users --------------------*@
+                            <li>
+                                <a class="dropdown-item" asp-area="Admin" asp-controller="Users" asp-action="Index">
+                                    <i class="bi bi-people-fill"></i>
+                                    Users
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                }
+
+                @* User Profile/ Dashboard  ---------------------- *@
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <li>
+                        <a class="nav-link text-light" asp-area="Customer" asp-controller="Users" asp-action="Profile">
+                            <i class="bi bi-person-fill"></i>
+                            Profile
+                        </a>
+                    </li>
+
+                    @* Shopping Cart ---------------------- *@
+                    <li class="nav-item">
+                        <a class="nav-link text-light" asp-area="Customer" asp-controller="Cart" asp-action="Index">
+                            @await Component.InvokeAsync("Cart")
+                        </a>
+                    </li>
+                }
+
+                @* About ---------------------- *@
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="">
+                        About
+                    </a>
+                </li>
+
+                @* Contact ---------------------- *@
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="">
+                        Contact
+                    </a>
+                </li>
+            </ul>
+
+            @* Login/Register/ Languages ---------------------- *@
+            <partial name="_LoginPartial" />
+        </div>
+    </div>
+</nav>
