@@ -91,12 +91,12 @@ public class CategoriesController : Controller
         Category category = new Category();
         
 
-        if (id == 0 || id == null)
+        if (id == 0 )
         {
             TempData["error"] = "Something went wrong, there is no such category to delete";
             return RedirectToAction("Index");
         }
-        if (id != null && id > 0)
+        if (id > 0)
         {
             category = _unitOfWork.Category.Get(c => c.Id == id);
         }

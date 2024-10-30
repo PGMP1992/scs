@@ -1,4 +1,4 @@
-﻿@model List<Provider>
+﻿@model List<ProviderVM>
 
 <div class="card shadow border-0 mt-4 rounded-2 ">
 
@@ -38,37 +38,47 @@
                     <th class="text-success-emphasis">
                         
                     </th>
+                    <th>if a provider is used in a product you cant delete it</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var obj in Model.OrderBy(u => u.Name))
+                @foreach (var obj in Model.OrderBy(u => u.Provider.Name))
                 {
                     <tr>
                         <td>
-                            <a asp-controller="Providers" asp-action="Upsert" asp-route-id="@obj.Id" class="text-black
+                            <a asp-controller="Providers" asp-action="Upsert" asp-route-id="@obj.Provider.Id" class="text-black
     ">
-                                @obj.Name
+                                @obj.Provider.Name
                             </a>
                         </td>
 
                         <td>
-                            @obj.ContactName
+                            @obj.Provider.ContactName
                         </td>
                          <td>
-                            @obj.ContactEmail
+                            @obj.Provider.ContactEmail
                         </td>
                         <td>
-                            @obj.ContactPhone
+                            @obj.Provider.ContactPhone
                         </td>
                         <td>
-                            <div class="w-75 btn-group" role="group">
-                                <a asp-controller="Providers" asp-action="Upsert" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
+                            <div>
+                                <a asp-controller="Providers" asp-action="Upsert" asp-route-id="@obj.Provider.Id" class="btn btn-primary mx-2">
                                     <i class="bi bi-pencil-square"></i> Edit
                                 </a>
-                                <a asp-controller="Providers" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-danger mx-2">
-                                    <i class="bi bi-trash-fill"></i> Delete
-                                </a>
                             </div>
+                        </td>
+                         <td>
+                            @if (@obj.OkToDelete)
+                            {
+                                <form method="post" asp-action="Delete" asp-route-id="@obj.Provider.Id" id="deleteform" onsubmit="test(event)">
+                                    <input asp-for="@obj.Provider.Id" hidden />
+                                    <button type="submit" class="btn btn-danger">
+                                        <i class="bi bi-trash-fill"></i>
+                                        Delete
+                                    </button>
+                                </form>
+                            }
                         </td>
                     </tr>
                 }
@@ -77,7 +87,27 @@
     </div>
 
 </div>
-@* @section Scripts {
-    <script src="~/js/provider.js"></script>
 
-} *@
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        function test(e) {
+            e.preventDefault();
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const deleteform = document.getElementById('deleteform');
+                    deleteform.submit();
+                }
+            })
+        }
+    </script>
+}

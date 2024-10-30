@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SCS.Models;
+using SCS.Models.ViewModels;
 using SCS.Repository.IRepository;
 using SCS.Utility;
 
@@ -21,7 +22,21 @@ public class ProvidersController : Controller
     public IActionResult Index()
     {
         IEnumerable<Provider> ProviderList = _unitOfWork.Provider.GetAll();
-        return View(ProviderList);
+        List<ProviderVM> providerVMs = new List<ProviderVM>();
+        foreach (var cat in ProviderList)
+        {
+            bool okToDelete = false;
+            IEnumerable<Product> products = _unitOfWork.Product.GetAll(u => u.ProviderId == cat.Id);
+            if (!products.Any())
+            {
+                okToDelete = true;
+            }
+            ProviderVM providerVM = new ProviderVM();
+            providerVM.Provider = cat;
+            providerVM.OkToDelete = okToDelete;
+            providerVMs.Add(providerVM);
+        }
+        return View(providerVMs);
     }
 
     public ActionResult Upsert(int? id)
@@ -66,31 +81,37 @@ public class ProvidersController : Controller
     }
 
     [HttpPost]
-    public IActionResult Delete(Provider provider)
+    public IActionResult Delete(int id)
     {
-        if (provider.Id == 0 || provider.Id == null)
+
+        Provider provider = new Provider();
+
+
+        if (id == 0)
         {
             TempData["error"] = "Something went wrong, there is no such provider to delete";
+            return RedirectToAction("Index");
+        }
+        if (id > 0)
+        {
+            provider = _unitOfWork.Provider.Get(c => c.Id == id);
+        }
+        IEnumerable<Product> products = _unitOfWork.Product.GetAll(u => u.ProviderId == provider.Id);
+        if (products.Any())
+        {
+            TempData["error"] = "The provider is used and can´t be deleted";
             return View();
         }
 
+
         _unitOfWork.Provider.Remove(provider);
         _unitOfWork.Save();
+        TempData["success"] = "The provider was deleted";
 
         return RedirectToAction("Index");
-        TempData["success"] = "The provider was deleted";
+
     }
 
 
-    #region APICALLS
-
-    [HttpGet]
-    public IActionResult GetAll()
-    {
-        IEnumerable<Provider> ProviderList = _unitOfWork.Provider.GetAll();
-        return Json(new { data = ProviderList });
-    }
-
-    #endregion
 }
 
