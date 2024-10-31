@@ -18,8 +18,7 @@
             max-width: 900px;
             margin: 40px auto;
         }
-        
-       
+               
         .fc-event {
             background-color: #007bff;
             border: none;
@@ -28,7 +27,6 @@
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
-
        
         .tooltip {
             position: absolute;
@@ -38,13 +36,11 @@
             border-radius: 4px;
             font-size: 12px;
         }
-
        
         .fc-event:hover {
             opacity: 0.8;
             cursor: pointer;
         }
-
        
         .fc-toolbar {
             background-color: #f8f9fa;
@@ -85,7 +81,8 @@
                 headerToolbar: {
                     left: 'prev,next today',
                     center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,listMonth'
+                    // right: 'dayGridMonth,timeGridWeek,listMonth'
+                right: 'dayGridMonth'
                 },
                 eventDidMount: function (info) {
                     var tooltip = new Tooltip(info.el, {
