@@ -5,13 +5,13 @@
 *@
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
-@model IEnumerable<SCS.Models.Product>
+@model IEnumerable<Product>
 
 @{
     ViewData["Title"] = "Product List";
 }
 
-<form asp-controller="Search" asp-action="IndexList" class="m-2">
+<form asp-area="Customer" asp-controller="Product" asp-action="IndexList" class="m-2">
     <div class="container bg-light m-2 mt-4">
         <div class="row col-12">
             <div class="mt-2">

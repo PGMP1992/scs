@@ -35,7 +35,7 @@ namespace SCS.Areas.Customer
             if (!String.IsNullOrEmpty(search))
             {
                 IEnumerable<Product> searchList = _unitOfWork.Product
-                    .GetAll(p => p.Name.Contains(search), includeProperties: "ProductImages,Provider,Category");
+                    .GetAll(p => p.Description.Contains(search), includeProperties: "ProductImages,Provider,Category");
 
                 if (searchList.Count() > 0)
                 {
@@ -56,7 +56,7 @@ namespace SCS.Areas.Customer
             if (!String.IsNullOrEmpty(search))
             {
                 IEnumerable<Product> searchList = _unitOfWork.Product
-                    .GetAll(p => p.Name.Contains(search), includeProperties: "ProductImages,Provider,Category");
+                    .GetAll(p => p.Description.Contains(search), includeProperties: "ProductImages,Provider,Category");
 
                 if (searchList.Count() > 0)
                 {
