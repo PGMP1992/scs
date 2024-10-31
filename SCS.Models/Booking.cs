@@ -17,6 +17,10 @@ namespace SCS.Models
         public DateOnly Date { get; set; }
 
         public string VoucherKey { get; set; }
+
+        //public Product Product { get; set; }
+        //[ForeignKey(nameof(Product))]
+        //public int ProductId { get; set; }
     }
 
 }

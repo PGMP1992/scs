@@ -17,9 +17,7 @@
             <table class="table table-striped ">
                 <thead>
                     <tr>
-                        <th class="text-success-emphasis">
-                            Id
-                        </th>
+                       
                         <th class="text-success-emphasis">
                             Date
                         </th>
@@ -37,9 +35,7 @@
                     @foreach (var obj in Model.OrderBy(u => u.AppUser.Name))
                     {
                         <tr>
-                            <td>
-                                @obj.Id
-                            </td>
+                       
                             <td>
                                 @obj.Date
                             </td>

@@ -5,9 +5,6 @@
 *@
 
  @using SCS.Models.ViewModels
-    
-    <!-- FullCalendar CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/main.min.css" rel="stylesheet" /> 
    
     <style>
         body {
@@ -60,17 +57,10 @@
         .fc-toolbar button:hover {
             background-color: #0056b3;
         }
-
     
     </style>
  
     <div id="calendar"></div>
-
-    <!-- FullCalendar JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/main.min.js"></script>
-    
-    <!-- Tooltip Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -82,7 +72,7 @@
                     left: 'prev,next today',
                     center: 'title',
                     // right: 'dayGridMonth,timeGridWeek,listMonth'
-                right: 'dayGridMonth'
+                right: ''
                 },
                 eventDidMount: function (info) {
                     var tooltip = new Tooltip(info.el, {

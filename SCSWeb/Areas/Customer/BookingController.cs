@@ -79,7 +79,7 @@ namespace SCSWeb.Areas.Customer
 
                     else if (orderHeader.PaymentStatus != SD.PaymentStatusApproved)
                     {
-                        TempData["error"] = "Order Payment has not been approved yet.";
+                        TempData["error"] = "Order Payment for this Voucher has not been approved yet.";
                         return RedirectToAction("Voucher");
                     }
 

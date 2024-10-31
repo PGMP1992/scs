@@ -39,74 +39,51 @@
         </div>
     
         @* Show Cert Slots ---------------------------- *@
-        <table class="table table-striped mt-4">
-            <thead>
-                <tr>
-                    <th class="text-success-emphasis">
-                        Slot Name
-                    </th>
-                    <th class="text-success-emphasis">
-                        Slot Period
-                    </th>
-                    <th class="text-success-emphasis">
-                        Date
-                    </th>
-                    <th class="text-success-emphasis">
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var obj in Model.CDayList)
-                {
+        <div class="col-12 mt-4 p-2">
+            <table class="table table-striped">
+                <thead>
                     <tr>
-                         <td>
-                            @obj.CertificationSlot.Name
-                        </td>
-                        <td>
-                            @obj.CertificationSlot.StartDate - @obj.CertificationSlot.EndDate
-                        </td>
-                        <td>
-                            @obj.Date
-                        </td>
-                        <td>
-                            <div>
+                        @* Leave this for now but delete when testing is finished *@
+                        <th class="text-success-emphasis">
+                            Slot Name
+                        </th> 
+                        <th class="text-success-emphasis">
+                            Slot Period
+                        </th>
+                        <th class="text-success-emphasis">
+                            Date
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var obj in Model.CDayList)
+                    {
+                        <tr>
+                            @* Leave this for now but delete when testing is finished *@
+                             <td>
+                                @obj.CertificationSlot.Name
+                            </td>
+                            <td>
+                                @obj.CertificationSlot.StartDate - @obj.CertificationSlot.EndDate
+                            </td>
+                            <td>
+                                @obj.Date
+                            </td>
+                            <td>
                                 <a asp-area="Customer" asp-controller="Booking" asp-action="Summary"
                                     asp-route-bDate="@obj.Date" class="btn btn-primary mx-3">
                                     <i class="bi bi-pencil-square"></i>
                                     Book
                                 </a>
-                            </div>
-                        </td>
-                    </tr>
-                } 
-
-                @* That Comes from Upsert in CertSlost by Karin 
-                   Result is the same as above - PM *@
-                    @* @for (int i = 0; i < Model.CDayList.Count(); i++)
-                    {
-                    <tr>
-                        <td>
-                        <input asp-for="@Model.CDayList[i].Date" class="form-control" disabled>
-                            @* @Model.CDayList[i].Date 
-
-                        </td>
-                        <td>
-                            <a asp-area="Customer" asp-controller="Booking" asp-action="Summary"
-                                asp-route-bDate="@Model.CDayList[i].Date" class="btn btn-primary mx-3">
-                                <i class="bi bi-pencil-square"></i>
-                                Book
-                            </a>
-                        </td>
-                    </tr>
-                }  *@
-        </tbody>
-        </table>
-        @* <div>
-            <asp-calendar="new">
-
-            </asp-calendar>
-        </div> *@
-   
+                            </td>
+                        </tr>
+                    } 
+                
+                </tbody>
+            </table>
+        </div>
+        
 
     @* Buttons ---------------- *@
     <div class="row col-12 justify-content-center mb-2">

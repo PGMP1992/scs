@@ -12,7 +12,7 @@
 }
 
 <form asp-controller="Search" asp-action="IndexList" class="m-2">
-    <div class="container bg-light">
+    <div class="container bg-light m-2 mt-4">
         <div class="row col-12">
             <div class="mt-2">
                 <label for="search" name="search" class="form-check-label"><strong>Product:</strong></label>
@@ -21,7 +21,7 @@
         </div>
         <div class="row mb-2 mt-2">
             <div class="col-2">
-                <button type="submit" value="search" class="btn btn-outline-primary col-10">
+                <button type="submit" value="search" class="btn btn-outline-primary col-10 mb-2">
                     Search
                 </button>
             </div>
@@ -32,7 +32,8 @@
     </div>
 </form>
 
-<table class="table table-borded table-light table-striped">
+<div class="m-4">
+<table class="table table-striped p-4">
     <thead>
         <tr>
             <th>
@@ -49,42 +50,44 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                <a asp-area="Customer" asp-controller="Product" asp-action="Details" asp-route-productId="@item.Id">
-                   @Html.DisplayFor(modelItem => item.Name)
-                </a>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
+        @foreach (var item in Model) 
+        {
+            <tr>
+                <td>
+                    <a asp-area="Customer" asp-controller="Product" asp-action="Details" asp-route-productId="@item.Id">
+                       @Html.DisplayFor(modelItem => item.Name)
+                    </a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
                     <a asp-area="Customer" asp-controller="Product" asp-action="Details" asp-route-productId="@item.Id"
-                    class="btn btn-primary form-control">
-                    Details
-                </a>
-            </td>
-            <td>
-                @if (SignInManager.IsSignedIn(User))
-                {
-                    <a asp-area="Customer" asp-controller="Product" asp-action="AddToCart" asp-route-productId="@item.Id"
-                        class="btn btn-dark form-control">
-                        <i class="bi bi-cart"></i>
+                        class="btn btn-primary form-control">
+                        Details
                     </a>
-                }
-                else
-                {
-                    <a asp-area="Customer" asp-controller="Product" asp-action="Buy" asp-route-productId="@item.Id"
-                        class="btn btn-dark form-control">
-                        Buy
-                    </a>
-                }
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                </td>
+                <td>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <a asp-area="Customer" asp-controller="Product" asp-action="AddToCart" asp-route-productId="@item.Id"
+                            class="btn btn-dark form-control">
+                            <i class="bi bi-cart"></i>
+                        </a>
+                    }
+                    else
+                    {
+                        <a asp-area="Customer" asp-controller="Product" asp-action="Buy" asp-route-productId="@item.Id"
+                            class="btn btn-dark form-control">
+                            Buy
+                        </a>
+                    }
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -8,7 +8,7 @@
         <div class="card-header bg-primary bg-gradient m-lg-0 py-2 rounded">
             <div class="row">
                 <div class="col-12 d-none d-md-block col-md-6 py-3 text-white">
-                    <i class="bi bi-cart-fill"></i> &nbsp; Order Summary
+                    <h3><i class="bi bi-cart-fill"></i> &nbsp; Order Summary</h3>
                 </div>
                 <div class="col-12 col-md-2 offset-md-4 py-3 text-right">
                     <a asp-action="Index" class="btn btn-outline-light rounded form-control btn-sm">Back to Orders</a>
@@ -31,7 +31,7 @@
                                 @if (User.IsInRole(SD.Role_Admin) || User.IsInRole(SD.Role_Employee))
                                 {
                                     <input asp-for="@Model.OrderHeader.Name" type="text" class="form-control" />
-                                    <span asp-validation="@Model.OrderHeader.Name" type="text" class="form-control alert-danger" />
+                                    <span asp-validation="@Model.OrderHeader.Name" type="text" class="alert-danger" />
                                 }
                                 else
                                 {
