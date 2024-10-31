@@ -12,7 +12,7 @@ using SCS.Data;
 namespace SCS.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241030101830_initDb")]
+    [Migration("20241030150936_initDb")]
     partial class initDb
     {
         /// <inheritdoc />

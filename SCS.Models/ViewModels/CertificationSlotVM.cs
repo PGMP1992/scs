@@ -4,8 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace SCS.Models.ViewModels;
 
 public class CertificationSlotVM
-{
-    [ValidateNever]
+{ 
     public CertificationSlot CertificationSlot { get; set; }
     
     [ValidateNever]
