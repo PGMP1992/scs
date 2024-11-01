@@ -32,21 +32,6 @@ namespace SCS.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AppSettings",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Key1 = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Key2 = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AppSettings", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
                 {
@@ -479,8 +464,8 @@ namespace SCS.DataAccess.Migrations
                 columns: new[] { "Id", "Dates", "DayOfWeek", "EndDate", "Name", "ShowDays", "StartDate" },
                 values: new object[,]
                 {
-                    { 1, "[\"2024-11-10\",\"2024-11-12\"]", null, new DateOnly(2024, 11, 13), "Sanctions", false, new DateOnly(2024, 11, 9) },
-                    { 2, "[\"2024-11-20\",\"2024-11-23\",\"2024-11-25\"]", null, new DateOnly(2024, 11, 28), "C# Beginner", false, new DateOnly(2024, 11, 19) }
+                    { 1, "[\"2024-11-12\",\"2024-11-14\"]", null, new DateOnly(2024, 11, 15), "Sanctions", false, new DateOnly(2024, 11, 11) },
+                    { 2, "[\"2024-11-22\",\"2024-11-25\",\"2024-11-27\"]", null, new DateOnly(2024, 11, 30), "C# Beginner", false, new DateOnly(2024, 11, 21) }
                 });
 
             migrationBuilder.InsertData(
@@ -499,21 +484,21 @@ namespace SCS.DataAccess.Migrations
                 columns: new[] { "Id", "CertSlotId", "Date", "IsCertDay" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateOnly(2024, 11, 9), false },
-                    { 2, 1, new DateOnly(2024, 11, 10), true },
-                    { 3, 1, new DateOnly(2024, 11, 11), false },
-                    { 4, 1, new DateOnly(2024, 11, 12), true },
-                    { 5, 1, new DateOnly(2024, 11, 13), false },
-                    { 6, 2, new DateOnly(2024, 11, 19), false },
-                    { 7, 2, new DateOnly(2024, 11, 20), true },
-                    { 8, 2, new DateOnly(2024, 11, 21), false },
-                    { 9, 2, new DateOnly(2024, 11, 22), true },
-                    { 10, 2, new DateOnly(2024, 11, 23), true },
-                    { 11, 2, new DateOnly(2024, 11, 24), false },
-                    { 12, 2, new DateOnly(2024, 11, 25), true },
-                    { 13, 2, new DateOnly(2024, 11, 26), false },
-                    { 14, 2, new DateOnly(2024, 11, 27), false },
-                    { 15, 2, new DateOnly(2024, 11, 28), false }
+                    { 1, 1, new DateOnly(2024, 11, 11), false },
+                    { 2, 1, new DateOnly(2024, 11, 12), true },
+                    { 3, 1, new DateOnly(2024, 11, 13), false },
+                    { 4, 1, new DateOnly(2024, 11, 14), true },
+                    { 5, 1, new DateOnly(2024, 11, 15), false },
+                    { 6, 2, new DateOnly(2024, 11, 21), false },
+                    { 7, 2, new DateOnly(2024, 11, 22), true },
+                    { 8, 2, new DateOnly(2024, 11, 23), false },
+                    { 9, 2, new DateOnly(2024, 11, 24), true },
+                    { 10, 2, new DateOnly(2024, 11, 25), true },
+                    { 11, 2, new DateOnly(2024, 11, 26), false },
+                    { 12, 2, new DateOnly(2024, 11, 27), true },
+                    { 13, 2, new DateOnly(2024, 11, 28), false },
+                    { 14, 2, new DateOnly(2024, 11, 29), false },
+                    { 15, 2, new DateOnly(2024, 11, 30), false }
                 });
 
             migrationBuilder.InsertData(
@@ -641,9 +626,6 @@ namespace SCS.DataAccess.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "AppSettings");
-
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
