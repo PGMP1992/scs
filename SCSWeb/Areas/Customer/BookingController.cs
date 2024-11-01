@@ -57,14 +57,20 @@ namespace SCSWeb.Areas.Customer
         [HttpPost]
         public IActionResult Validate(string search)
         {
+            OrderHeader orderHeader = new OrderHeader();
+            
             if (!String.IsNullOrEmpty(search))
             {
                 OrderDetails orderDetail = _unitOfWork.OrderDetails
                     .Get(p => p.VoucherKey == search);
-                OrderHeader orderHeader = _unitOfWork.OrderHeader
-                    .Get(p => p.Id == orderDetail.OrderHeaderId);
 
-                if (orderDetail == null)
+                if (orderDetail != null)
+                {
+                    orderHeader = _unitOfWork.OrderHeader
+                        .Get(p => p.Id == orderDetail.OrderHeaderId);
+                }
+
+                if (orderDetail == null )
                 {
                     TempData["error"] = "This Voucher Key is not valid.";
                     return RedirectToAction("Voucher");
@@ -114,6 +120,12 @@ namespace SCSWeb.Areas.Customer
                     && x.Date >= DateOnly.FromDateTime(DateTime.Now)
                     && x.CertSlotId == order.Product.CertSlotId
                     , includeProperties: "CertificationSlot");
+
+            if(order.Product.CategoryId != 1)
+            {
+                TempData["error"] = "This Voucher Key does not belong to a Certification. It belongs to Product: " + order.Product.Name;
+                return RedirectToAction("Voucher");
+            }
 
             if (!cDayList.Any())
             {

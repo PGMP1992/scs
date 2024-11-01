@@ -293,7 +293,7 @@ namespace SCS.Data
                 new Product
                 {
                     Id = 4,
-                    Name = "C# Begginner",
+                    Name = "C# Beginner",
                     CategoryId = 2,
                     Description = "C# Begginner Programming Description...",
                     Price = 200,
@@ -303,7 +303,7 @@ namespace SCS.Data
                 new Product
                 {
                     Id = 5,
-                    Name = "C# Begginner",
+                    Name = "C# Beginner",
                     CategoryId = 3,
                     Description = "C# Begginner Programming Description...",
                     Price = 300,
