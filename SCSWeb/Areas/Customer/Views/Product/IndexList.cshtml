@@ -11,12 +11,12 @@
     ViewData["Title"] = "Product List";
 }
 
-<form asp-controller="Search" asp-action="IndexList" class="m-2">
+<form asp-area="Customer" asp-controller="Product" asp-action="IndexList" class="m-2">
     <div class="container bg-light m-2 mt-4">
         <div class="row col-12">
             <div class="mt-2">
                 <label for="search" name="search" class="form-check-label"><strong>Product:</strong></label>
-                <input class="col-8" type="text" name="search" placeholder="eg. Javascript, Google, etc">
+                <input class="col-8" type="text" name="search" placeholder="Search in Products Description">
             </div>
         </div>
         <div class="row mb-2 mt-2">

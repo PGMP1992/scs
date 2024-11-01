@@ -176,3 +176,9 @@ body {
         background-color: #0056b3;
         z-index: 1; /* Ensure it's above other elements */
     }
+
+/*@media only screen and (max-width: 768px) {*/
+    /* For mobile phones: */
+    /*[class*="col-"] {
+        width: 100%;
+    }*/
