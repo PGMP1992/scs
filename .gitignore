@@ -368,3 +368,5 @@ secrets.json
 
 # Ignore appsettings.json files (but not appsettings.Development.json for development use)
 appsettings.json
+/SCSWeb/appsettings.Production.json
+/SCSWeb/appsettings.Development.json
