@@ -55,6 +55,7 @@
                         <div class="text-center">Price: <span>@string.Format("{0:C}", product.Price)</span></div>
                     </a>
                 </div>
+                
                 @* Buttons ---------------------------------- *@
                 <div class="card-footer border">
                     <div class="row">
@@ -64,22 +65,23 @@
                                 Details
                             </a>
                         </div>
+                
                         <div class="col">
-                            @if (SignInManager.IsSignedIn(User))
-                            {
-                                @* Add to Cart button with icon *@
+                        @*     @if (SignInManager.IsSignedIn(User))
+                            @* {   *@
+                            @* Add to Cart button with icon  *@
                                 <a asp-area="Customer" asp-controller="Product" asp-action="AddToCart" asp-route-productId="@product.Id" class="btn btn-dark form-control">
                                     <i class="bi bi-cart"></i>
                                 </a>
-                            }
+                            @* }
                             else
                             {
-                                @* Buy button with icon *@
+                                @* Buy button with icon 
                                 <a asp-area="Customer" asp-controller="Product" asp-action="Buy" asp-route-productId="@product.Id" class="btn btn-dark form-control">
                                     <i class="bi bi-bag"></i> 
                                     Buy
                                 </a>
-                            }
+                            } *@
                         </div>
                     </div>
                 </div>

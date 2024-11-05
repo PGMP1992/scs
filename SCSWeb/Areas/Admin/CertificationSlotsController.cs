@@ -27,6 +27,7 @@ public class CertificationSlotsController : Controller
     {
         IEnumerable<CertificationSlot> certSlotList =(_unitOfWork.CertificationSlot.GetAll(includeProperties: "CertificationDays"));
         List<CertificationSlotVM> certSlotVMs = new List<CertificationSlotVM>();
+       
         foreach (var cert in certSlotList)
         {
             bool okToDelete = false;
@@ -41,7 +42,6 @@ public class CertificationSlotsController : Controller
             certSlotVMs.Add(certSlotVM);
         }
         return View(certSlotVMs);
-
     }
 
     public IActionResult Upsert(int? id)
@@ -81,12 +81,14 @@ public class CertificationSlotsController : Controller
     {
         CertificationSlotVM certSlotVMTest = certSlotVM;
         CertificationSlot certSlotFromDb = _unitOfWork.CertificationSlot.Get(u => u.Id == certSlotVM.CertificationSlot.Id);
+        
         if (certSlotVM.CertificationSlot.EndDate <= certSlotVM.CertificationSlot.StartDate)
         {
             TempData["error"] = "The End Date has to be later than the Start Date";
             return View(certSlotVM);
            // return RedirectToAction(nameof(Upsert), new { id = certSlotVM.CertificationSlot.Id });
         }
+        
         if (ModelState.IsValid )
         {
             if (certSlotVM.CertificationSlot.Id == 0)

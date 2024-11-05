@@ -8,9 +8,9 @@ namespace SCS.Models
     {
         public int Id { get; set; }
 
-        public string AppUserId { get; set; }
-
         [MaxLength(450)]
+        public string AppUserId { get; set; }
+        
         public AppUser AppUser { get; set; }
 
         [DataType(DataType.Date)]

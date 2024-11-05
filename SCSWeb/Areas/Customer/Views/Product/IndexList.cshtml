@@ -71,20 +71,20 @@
                     </a>
                 </td>
                 <td>
-                    @if (SignInManager.IsSignedIn(User))
-                    {
+                    @* @if (SignInManager.IsSignedIn(User))
+                    { *@
                         <a asp-area="Customer" asp-controller="Product" asp-action="AddToCart" asp-route-productId="@item.Id"
                             class="btn btn-dark form-control">
                             <i class="bi bi-cart"></i>
                         </a>
-                    }
+                    @* }
                     else
                     {
                         <a asp-area="Customer" asp-controller="Product" asp-action="Buy" asp-route-productId="@item.Id"
                             class="btn btn-dark form-control">
                             Buy
                         </a>
-                    }
+                    } *@
                 </td>
             </tr>
             }

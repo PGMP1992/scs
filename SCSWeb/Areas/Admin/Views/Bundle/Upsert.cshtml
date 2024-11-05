@@ -1,12 +1,14 @@
 ﻿@model BundleVM
 <div class="card shadow border-0 mt-4 ">
-    <div class="card-header bg-primary bg-gradient m-lg-0 py-2 rounded">
+
+    <div class="card-header bg-primary bg-gradient m-lg-0 py-3 rounded">
         <div class="row">
             <div class="col-12 text-center">
                 <h2 class="text-white">@(Model.Bundle.Id != 0 ? "Edit bundle" : "New bundle")</h2>
             </div>
         </div>
     </div>
+    
     <div class="card-body p-4">
         <form method="post" class="row">
             <div class="border p-3">

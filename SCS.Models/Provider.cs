@@ -9,19 +9,22 @@ namespace SCS.Models
 
 		[Required]
 		[MaxLength(50)]
+		[DataType(DataType.Text)]
 		public string Name { get; set; }
 
 		[MaxLength(50)]
-		[Display(Name = "Contact Name")]
+        [DataType(DataType.Text)]
+        [Display(Name = "Contact Name")]
 		public string? ContactName { get; set; }
 
 		[MaxLength(50)]
 		[EmailAddress]
-		[Display(Name = "Contact Email")]
+		[Display(Name = "Email")]
 		public string? ContactEmail { get; set; }
 
 		[MaxLength(20)]
-		[Display(Name = "Contact Phone")]
+        [DataType(DataType.PhoneNumber)]
+        [Display(Name = "Phone")]
 		public string? ContactPhone { get; set; }
 	}
 }

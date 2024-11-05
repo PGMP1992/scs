@@ -136,6 +136,15 @@ public class BundleController : Controller
 
         if (ModelState.IsValid)
         {
+            if ( bundleVM.Bundle.Product1.Id == bundleVM.Bundle.Product2.Id ||
+                 bundleVM.Bundle.Product1.Id == bundleVM.Bundle.Product3.Id ||
+                 bundleVM.Bundle.Product2.Id == bundleVM.Bundle.Product3.Id)
+            {
+                TempData["error"] = "Products in Bundle must be different";
+                return RedirectToAction("Upsert");
+            }
+                            
+
             if (bundleVM.Bundle.Id == 0)
             {
                 if (!_unitOfWork.Category.Any(u => u.Name == "Bundles"))

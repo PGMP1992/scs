@@ -11,6 +11,7 @@ public class Product
 
     [Required]
     [MaxLength(100)]
+    [DataType(DataType.Text)]
     public string Name { get; set; } = "";
 
     [Required]
@@ -22,6 +23,7 @@ public class Product
     public double Price { get; set; }
     
     public string Status { get; set; } = SD.ProductStatusActive;
+    
     public int CategoryId { get; set; }
     
     [ForeignKey(nameof(CategoryId))]
@@ -46,8 +48,6 @@ public class Product
     [ValidateNever]
     public CertificationSlot CertificationSlot { get; set; }
     
-    //public string? VoucherKey { get; set; } - Does not need that as Order creates VoucherKey
-
     [ValidateNever]
     public List<ProductImage> ProductImages { get; set; }
 }
