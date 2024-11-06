@@ -36,7 +36,8 @@
                             <span asp-validation-for="CertificationSlot.EndDate" class="text-danger"></span>
                         </div>
                
-                        @if (Model.CertificationSlot.ShowDays && Model.CertificationSlot.EndDate>Model.CertificationSlot.StartDate)
+                        @if (Model.CertificationSlot.ShowDays 
+                            && Model.CertificationSlot.EndDate > Model.CertificationSlot.StartDate)
                         {
 
                             <table class="table table-bordered  table-striped table-light" style="width:100%">
@@ -54,9 +55,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @for (int i=0;i<Model.CDayList.Count();i++) 
+                                    @for (int i=0;  i < Model.CDayList.Count(); i++) 
                                     {
-
                                         <input hidden asp-for="@Model.CDayList[i].Id" />
                                         
                                         <tr>
@@ -72,11 +72,9 @@
                                                 <input asp-for="@Model.CDayList[i].IsCertDay" type="checkbox" class=" form-check-input" />
                                             </td>
                                         </tr>
-
                                     } 
                                 </tbody>
                             </table>
-
                         }
 
                         <div class="row pt-2">

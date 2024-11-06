@@ -117,13 +117,11 @@ public class BundleController : Controller
             if (bundleVM.Bundle.ProductId1 > 0)
             {
                 bundleVM.Bundle.Product2 = _unitOfWork.Product.Get(u => u.Id == bundleVM.Bundle.ProductId2, includeProperties: "Category");
-
             }
             
             if (bundleVM.Bundle.ProductId1 > 0)
             {
                 bundleVM.Bundle.Product3 = _unitOfWork.Product.Get(u => u.Id == bundleVM.Bundle.ProductId3, includeProperties: "Category");
-
             }
         }
         return View(bundleVM);
@@ -136,13 +134,13 @@ public class BundleController : Controller
 
         if (ModelState.IsValid)
         {
-            if ( bundleVM.Bundle.Product1.Id == bundleVM.Bundle.Product2.Id ||
-                 bundleVM.Bundle.Product1.Id == bundleVM.Bundle.Product3.Id ||
-                 bundleVM.Bundle.Product2.Id == bundleVM.Bundle.Product3.Id)
-            {
-                TempData["error"] = "Products in Bundle must be different";
-                return RedirectToAction("Upsert");
-            }
+            //if ( bundleVM.Bundle.Product1.Id == bundleVM.Bundle.Product2.Id ||
+            //     bundleVM.Bundle.Product1.Id == bundleVM.Bundle.Product3.Id ||
+            //     bundleVM.Bundle.Product2.Id == bundleVM.Bundle.Product3.Id)
+            //{
+            //    TempData["error"] = "Products in Bundle must be different";
+            //    return RedirectToAction("Upsert");
+            //}
                             
 
             if (bundleVM.Bundle.Id == 0)

@@ -1,13 +1,15 @@
 ﻿@model ProductVM
 
 <div class="card shadow border-0 mt-4 mb-4">
-    <div class="card-header bg-primary bg-gradient m-lg-0 py-2 rounded">
+
+    <div class="card-header bg-primary bg-gradient m-lg-0 py-4 rounded">
         <div class="row">
             <div class="col-12 text-center">
                 <h2 class="text-white">@(Model.Product.Id != 0 ? "Edit" : "New") Product</h2>
             </div>
         </div>
     </div>
+    
     <div class="card-body p-4">
         <form method="post" class="row" enctype="multipart/form-data">
             <input asp-for="@Model.Product.Id" hidden/>
@@ -26,17 +28,17 @@
 
                         <div class="form-floating py-2 col-12">
                             <textarea  asp-for="Product.Description" class="form-control border-1 " style="height:150px"></textarea>
-
                             <span asp-validation-for="Product.Description" class="text-danger"></span>
                         </div>
+
                         <div class="form-floating py-2 col-12">
-                           
                             <select asp-for="Product.CategoryId" asp-items="@Model.CategoryList" class="form-select border-1">
                                 <option disabled selected>--Select Category--</option>
                             </select>
                             <label asp-for="Product.CategoryId" class="mt-2 ">Category</label>
                             <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
                         </div>
+
                         <div class="form-floating py-2 col-12">
                             <select asp-for="Product.ProviderId" asp-items="@Model.ProviderList" class="form-select border-1">
                                 <option disabled selected>--Select Provider--</option>
@@ -50,6 +52,7 @@
                             <label asp-for="Product.Price" class="mt-2 "></label>
                             <span asp-validation-for="Product.Price" class="text-danger"></span>
                         </div>
+
                         <div class="form-floating py-2 col-12">
 
                             <select asp-for="Product.CertSlotId" asp-items="@Model.CertSlotList" class="form-select border-1">
@@ -61,10 +64,8 @@
                         <div class="form-floating py-2 col-12 " >
                             <div class="form-control border-1" >
                                 <label asp-for="Product.Status">Status: &nbsp; </label>
-                         
-                            <input type="radio" asp-for="Product.Status" value="active"/>Active &nbsp;
-                            <input type="radio" asp-for="Product.Status" value="expired" />Expired
-
+                                <input type="radio" asp-for="Product.Status" value="active"/>Active &nbsp;
+                                <input type="radio" asp-for="Product.Status" value="expired" />Expired
                             </div>
                             <span asp-validation-for="Product.Status" class="text-danger"></span>
                         </div>
@@ -97,6 +98,7 @@
 
                     </div>
                 </div>
+
                 <div class="col-2">
                     @if (Model.Product.ProductImages != null)
                         @foreach (var image in Model.Product.ProductImages)
@@ -108,13 +110,10 @@
                                     <i class="bi bi-trash-fill"></i>Delete
                                 </a>
                             </div>
-
                         }
-
                 </div>
+
             </div>
-
-
         </form>
     </div>
 </div>
@@ -131,6 +130,5 @@
     </script>
     @{
         <partial name="_ValidationScriptsPartial" />
-
     }
 }

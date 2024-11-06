@@ -37,8 +37,6 @@ public class ProductsController : Controller
             {
                 okToDelete = true;
             }
-
-           
             
             ProductVM productVM = new ProductVM();
             productVM.Product = prod;
@@ -243,6 +241,5 @@ public class ProductsController : Controller
 
         return RedirectToAction("Index");
     }
-
 
 }

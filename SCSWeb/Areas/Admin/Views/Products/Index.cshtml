@@ -12,7 +12,6 @@
         <div class="row">
             <div class="col-12 text-center">
                 <h2 class="text-white py-2">Products</h2>
-
             </div>
         </div>
     </div>
@@ -69,14 +68,13 @@
                             @obj.Product.Provider.Name
                         </td>
                         <td>
-                            @obj.Product.Price
+                            @obj.Product.Price.ToString("C")
                         </td>
                         <td>
                             @if (obj.Product.CertSlotId > 0)
                             {
                                 @obj.Product.CertificationSlot.Name
                             }
-                           
                         </td>
                      
                         <td>
