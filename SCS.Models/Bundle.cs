@@ -18,23 +18,21 @@ public class Bundle
     [Range(1, 100000)]
     public double Price { get; set; }
 
-    [Required]
-    //[NoProductRepeat(ErrorMessage = "Wrong")]
+    //[NoProductRepeat(ErrorMessage = "Products")]
     public int? ProductId1 { get; set; }
-    
+
     [ValidateNever]
     [NotMapped]
     public Product Product1 { get; set; }
 
-    [Required]
-    //[NoProductRepeat(ErrorMessage = "Wrong")]
+    //[NoProductRepeat(ErrorMessage = "Products")]
     public int? ProductId2 { get; set; }
 
     [ValidateNever]
     [NotMapped]
     public Product Product2 { get; set; }
 
-    //[NoProductRepeat(ErrorMessage = "Wrong")]
+    [NoProductRepeat]
     public int? ProductId3 { get; set; }
 
     [ValidateNever]

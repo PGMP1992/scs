@@ -109,18 +109,11 @@ public class BundleController : Controller
         if (id != null && id > 0)
         {
             bundleVM.Bundle = _unitOfWork.Bundle.Get(u => u.Id == id);
+            
             if (bundleVM.Bundle.ProductId1 > 0)
             {
                 bundleVM.Bundle.Product1 = _unitOfWork.Product.Get(u => u.Id == bundleVM.Bundle.ProductId1, includeProperties: "Category");
-            }
-            
-            if (bundleVM.Bundle.ProductId1 > 0)
-            {
                 bundleVM.Bundle.Product2 = _unitOfWork.Product.Get(u => u.Id == bundleVM.Bundle.ProductId2, includeProperties: "Category");
-            }
-            
-            if (bundleVM.Bundle.ProductId1 > 0)
-            {
                 bundleVM.Bundle.Product3 = _unitOfWork.Product.Get(u => u.Id == bundleVM.Bundle.ProductId3, includeProperties: "Category");
             }
         }
@@ -134,41 +127,29 @@ public class BundleController : Controller
 
         if (ModelState.IsValid)
         {
-            //if ( bundleVM.Bundle.Product1.Id == bundleVM.Bundle.Product2.Id ||
-            //     bundleVM.Bundle.Product1.Id == bundleVM.Bundle.Product3.Id ||
-            //     bundleVM.Bundle.Product2.Id == bundleVM.Bundle.Product3.Id)
-            //{
-            //    TempData["error"] = "Products in Bundle must be different";
-            //    return RedirectToAction("Upsert");
-            //}
-                            
+            bundleVM.Bundle.ProductId1 = bundleVM.Bundle.Product1.Id;
+            bundleVM.Bundle.ProductId2 = bundleVM.Bundle.Product2.Id;
+            bundleVM.Bundle.ProductId3 = bundleVM.Bundle.Product3.Id;
 
             if (bundleVM.Bundle.Id == 0)
             {
-                if (!_unitOfWork.Category.Any(u => u.Name == "Bundles"))
-                {
-                    Category category = new Category()
-                    {
-                        Name = "Bundles",
-                        Description = "Packages of products witch belongs together"
-                    };
-                    _unitOfWork.Category.Add(category);
+                // Why this ???? ------------------------------------------
+                //if (!_unitOfWork.Category.Any(u => u.Name == "Bundles"))
+                //{
+                //    Category category = new Category()
+                //    {
+                //        Name = "Bundles",
+                //        Description = "Packages of products witch belongs together"
+                //    };
+                //    _unitOfWork.Category.Add(category);
                     
-                }
-
-                bundleVM.Bundle.ProductId1 = bundleVM.Bundle.Product1.Id;
-                bundleVM.Bundle.ProductId2 = bundleVM.Bundle.Product2.Id;
-                bundleVM.Bundle.ProductId3 = bundleVM.Bundle.Product3.Id;
+                //}
 
                 _unitOfWork.Bundle.Add(bundleVM.Bundle);
                 message = "Bundle Created";
             }
             else
             {
-                bundleVM.Bundle.ProductId1 = bundleVM.Bundle.Product1.Id;
-                bundleVM.Bundle.ProductId2 = bundleVM.Bundle.Product2.Id;
-                bundleVM.Bundle.ProductId3 = bundleVM.Bundle.Product3.Id;
-
                 _unitOfWork.Bundle.Update(bundleVM.Bundle);
                 message = "Bundle Updated";
             }
@@ -176,84 +157,86 @@ public class BundleController : Controller
             _unitOfWork.Save();
             TempData["success"] = message;
     
-            int providerId = 0;
-            
-            if (bundleVM.Bundle.ProductId1 > 0)
-            {
-                Product product = _unitOfWork.Product.Get(u => u.Id == bundleVM.Bundle.ProductId1);
-                providerId = _unitOfWork.Provider.Get(u => u.Id == product.ProviderId).Id;
-            }
-            
-            if (bundleVM.Bundle.ProductId2 > 0 && providerId == 0)
-            {
-                Product product = _unitOfWork.Product.Get(u => u.Id == bundleVM.Bundle.ProductId2);
-                providerId = _unitOfWork.Provider.Get(u => u.Id == product.ProviderId).Id;
-            }
-            
-            if (bundleVM.Bundle.ProductId3 > 0 && providerId == 0)
-            {
-                Product product = _unitOfWork.Product.Get(u => u.Id == bundleVM.Bundle.ProductId3);
-                providerId = _unitOfWork.Provider.Get(u => u.Id == product.ProviderId).Id;
-            }
-            
-            if (!(_unitOfWork.Product.Any(u => u.BundleId == bundleVM.Bundle.Id)))
-            {
-                string description = "Contains: ";
-                
-                if (bundleVM.Bundle.ProductId1 > 0)
-                {
-                    Product product1 = _unitOfWork.Product.Get(u => u.Id == bundleVM.Bundle.ProductId1, includeProperties: "Category");
-                    description = description + product1.Category.Name + " " + product1.Name;
-                }
-                
-                if (bundleVM.Bundle.ProductId2 > 0)
-                {
-                    Product product2 = _unitOfWork.Product.Get(u => u.Id == bundleVM.Bundle.ProductId2, includeProperties: "Category");
-                    description = description + ",\n      " + product2.Category.Name + " " + product2.Name;
-                }
-                
-                if (bundleVM.Bundle.ProductId3 > 0)
-                {
-                    Product product3 = _unitOfWork.Product.Get(u => u.Id == bundleVM.Bundle.ProductId3, includeProperties: "Category");
-                    description = description + ",\n       " + product3.Category.Name + " " + product3.Name;
-                }
-                
-                Product product = new Product()
-                {
-                    Name = bundleVM.Bundle.Name,
-                    Price = bundleVM.Bundle.Price,
-                    CategoryId = _unitOfWork.Category.Get(u => u.Name == "Bundles").Id,
-                    Description = description,
-                    BundleId = bundleVM.Bundle.Id
-                };
-                
-                if (providerId > 0 && _unitOfWork.Provider.Any(u => u.Id == providerId))
-                {
-                    product.ProviderId = providerId;
-                }
+            // Why all this ????? ------------------------------------------------------------------- 
 
-                _unitOfWork.Product.Add(product);
-                _unitOfWork.Save();
-            }
+            //int providerId = 0;
+            
+            //if (bundleVM.Bundle.ProductId1 > 0)
+            //{
+            //    Product product = _unitOfWork.Product.Get(u => u.Id == bundleVM.Bundle.ProductId1);
+            //    providerId = _unitOfWork.Provider.Get(u => u.Id == product.ProviderId).Id;
+            //}
+            
+            //if (bundleVM.Bundle.ProductId2 > 0 && providerId == 0)
+            //{
+            //    Product product = _unitOfWork.Product.Get(u => u.Id == bundleVM.Bundle.ProductId2);
+            //    providerId = _unitOfWork.Provider.Get(u => u.Id == product.ProviderId).Id;
+            //}
+            
+            //if (bundleVM.Bundle.ProductId3 > 0 && providerId == 0)
+            //{
+            //    Product product = _unitOfWork.Product.Get(u => u.Id == bundleVM.Bundle.ProductId3);
+            //    providerId = _unitOfWork.Provider.Get(u => u.Id == product.ProviderId).Id;
+            //}
+            
+            //if (!(_unitOfWork.Product.Any(u => u.BundleId == bundleVM.Bundle.Id)))
+            //{
+            //    string description = "Contains: ";
+                
+            //    if (bundleVM.Bundle.ProductId1 > 0)
+            //    {
+            //        Product product1 = _unitOfWork.Product.Get(u => u.Id == bundleVM.Bundle.ProductId1, includeProperties: "Category");
+            //        description = description + product1.Category.Name + " " + product1.Name;
+            //    }
+                
+            //    if (bundleVM.Bundle.ProductId2 > 0)
+            //    {
+            //        Product product2 = _unitOfWork.Product.Get(u => u.Id == bundleVM.Bundle.ProductId2, includeProperties: "Category");
+            //        description = description + ",\n      " + product2.Category.Name + " " + product2.Name;
+            //    }
+                
+            //    if (bundleVM.Bundle.ProductId3 > 0)
+            //    {
+            //        Product product3 = _unitOfWork.Product.Get(u => u.Id == bundleVM.Bundle.ProductId3, includeProperties: "Category");
+            //        description = description + ",\n       " + product3.Category.Name + " " + product3.Name;
+            //    }
+                
+            //    Product product = new Product()
+            //    {
+            //        Name = bundleVM.Bundle.Name,
+            //        Price = bundleVM.Bundle.Price,
+            //        CategoryId = _unitOfWork.Category.Get(u => u.Name == "Bundles").Id,
+            //        Description = description,
+            //        BundleId = bundleVM.Bundle.Id
+            //    };
+                
+            //    if (providerId > 0 && _unitOfWork.Provider.Any(u => u.Id == providerId))
+            //    {
+            //        product.ProviderId = providerId;
+            //    }
+
+            //    _unitOfWork.Product.Add(product);
+            //    _unitOfWork.Save();
+            //}
             return RedirectToAction("Index");
         }
-        else
+        else // Refresh Selectes - PM
         {
-            bundleVM.ProductList1 = _unitOfWork.Product.GetAll().Select(u => new SelectListItem
+            bundleVM.ProductList1 = _unitOfWork.Product.GetAll(includeProperties: "Category").Select(u => new SelectListItem
             {
-                Text = u.Name,
+                Text = u.Name + ", Category: " + u.Category.Name,
                 Value = u.Id.ToString()
             });
-            
+
             bundleVM.ProductList2 = _unitOfWork.Product.GetAll().Select(u => new SelectListItem
             {
-                Text = u.Name,
+                Text = u.Name + ", Category: " + u.Category.Name,
                 Value = u.Id.ToString()
             });
-            
+
             bundleVM.ProductList3 = _unitOfWork.Product.GetAll().Select(u => new SelectListItem
             {
-                Text = u.Name,
+                Text = u.Name + ", Category: " + u.Category.Name,
                 Value = u.Id.ToString()
             });
             return View(bundleVM);
@@ -273,11 +256,9 @@ public class BundleController : Controller
             bundle.Product3 = _unitOfWork.Product.Get(u => u.Id == bundle.ProductId3);
 
             return View(bundle);
-
         }
         else
         {
-
             TempData["error"] = "No bundle to delete";
             return RedirectToAction(nameof(Index));
         }

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SCS.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class initDb : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -51,10 +51,10 @@ namespace SCS.DataAccess.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false),
-                    ProductId1 = table.Column<int>(type: "int", nullable: true),
-                    ProductId2 = table.Column<int>(type: "int", nullable: true),
+                    ProductId1 = table.Column<int>(type: "int", nullable: false),
+                    ProductId2 = table.Column<int>(type: "int", nullable: false),
                     ProductId3 = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -82,7 +82,7 @@ namespace SCS.DataAccess.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     StartDate = table.Column<DateOnly>(type: "date", nullable: false),
                     EndDate = table.Column<DateOnly>(type: "date", nullable: false),
                     DayOfWeek = table.Column<int>(type: "int", nullable: true),
@@ -317,7 +317,7 @@ namespace SCS.DataAccess.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    AppUserId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
                     Date = table.Column<DateOnly>(type: "date", nullable: false),
                     VoucherKey = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -464,8 +464,8 @@ namespace SCS.DataAccess.Migrations
                 columns: new[] { "Id", "Dates", "DayOfWeek", "EndDate", "Name", "ShowDays", "StartDate" },
                 values: new object[,]
                 {
-                    { 1, "[\"2024-11-12\",\"2024-11-14\"]", null, new DateOnly(2024, 11, 15), "Sanctions", false, new DateOnly(2024, 11, 11) },
-                    { 2, "[\"2024-11-22\",\"2024-11-25\",\"2024-11-27\"]", null, new DateOnly(2024, 11, 30), "C# Beginner", false, new DateOnly(2024, 11, 21) }
+                    { 1, "[\"2024-11-17\",\"2024-11-19\"]", null, new DateOnly(2024, 11, 20), "Sanctions", false, new DateOnly(2024, 11, 16) },
+                    { 2, "[\"2024-11-27\",\"2024-11-30\",\"2024-12-02\"]", null, new DateOnly(2024, 12, 5), "C# Beginner", false, new DateOnly(2024, 11, 26) }
                 });
 
             migrationBuilder.InsertData(
@@ -484,21 +484,21 @@ namespace SCS.DataAccess.Migrations
                 columns: new[] { "Id", "CertSlotId", "Date", "IsCertDay" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateOnly(2024, 11, 11), false },
-                    { 2, 1, new DateOnly(2024, 11, 12), true },
-                    { 3, 1, new DateOnly(2024, 11, 13), false },
-                    { 4, 1, new DateOnly(2024, 11, 14), true },
-                    { 5, 1, new DateOnly(2024, 11, 15), false },
-                    { 6, 2, new DateOnly(2024, 11, 21), false },
-                    { 7, 2, new DateOnly(2024, 11, 22), true },
-                    { 8, 2, new DateOnly(2024, 11, 23), false },
-                    { 9, 2, new DateOnly(2024, 11, 24), true },
-                    { 10, 2, new DateOnly(2024, 11, 25), true },
-                    { 11, 2, new DateOnly(2024, 11, 26), false },
-                    { 12, 2, new DateOnly(2024, 11, 27), true },
-                    { 13, 2, new DateOnly(2024, 11, 28), false },
-                    { 14, 2, new DateOnly(2024, 11, 29), false },
-                    { 15, 2, new DateOnly(2024, 11, 30), false }
+                    { 1, 1, new DateOnly(2024, 11, 16), false },
+                    { 2, 1, new DateOnly(2024, 11, 17), true },
+                    { 3, 1, new DateOnly(2024, 11, 18), false },
+                    { 4, 1, new DateOnly(2024, 11, 19), true },
+                    { 5, 1, new DateOnly(2024, 11, 20), false },
+                    { 6, 2, new DateOnly(2024, 11, 26), false },
+                    { 7, 2, new DateOnly(2024, 11, 27), true },
+                    { 8, 2, new DateOnly(2024, 11, 28), false },
+                    { 9, 2, new DateOnly(2024, 11, 29), true },
+                    { 10, 2, new DateOnly(2024, 11, 30), true },
+                    { 11, 2, new DateOnly(2024, 12, 1), false },
+                    { 12, 2, new DateOnly(2024, 12, 2), true },
+                    { 13, 2, new DateOnly(2024, 12, 3), false },
+                    { 14, 2, new DateOnly(2024, 12, 4), false },
+                    { 15, 2, new DateOnly(2024, 12, 5), false }
                 });
 
             migrationBuilder.InsertData(
@@ -509,8 +509,8 @@ namespace SCS.DataAccess.Migrations
                     { 1, null, 1, null, "Certificate in Sanctions Description....", "Certificate in Sanctions", 7200.0, 1, "Active" },
                     { 2, null, 1, null, "Certificate in Corporate Governance Description....", "Certificate in Corporate Governance", 8400.0, 1, "Active" },
                     { 3, null, 1, null, "C# Certification Description...", "C# Certificate", 1000.0, 2, "Active" },
-                    { 4, null, 2, null, "C# Begginner Programming Description...", "C# Begginner", 200.0, 2, "Active" },
-                    { 5, null, 3, null, "C# Begginner Programming Description...", "C# Begginner", 300.0, 2, "Active" },
+                    { 4, null, 2, null, "C# Begginner Programming Description...", "C# Beginner", 200.0, 2, "Active" },
+                    { 5, null, 3, null, "C# Begginner Programming Description...", "C# Beginner", 300.0, 2, "Active" },
                     { 6, null, 2, null, "C# Intermediate Programming Description...", "C# Intermediate", 200.0, 2, "Active" },
                     { 7, null, 3, null, "C# Intermediate Programming Description...", "C# Intermediate", 300.0, 2, "Active" },
                     { 8, null, 2, null, "C# Advanced Programming Description...", "C# Advanced", 200.0, 2, "Active" },
