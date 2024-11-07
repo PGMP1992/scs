@@ -9,17 +9,20 @@
 @inject SignInManager<IdentityUser> SignInManager
 @model IEnumerable<Product>
 
-<form asp-area="Customer" asp-controller="Product" asp-action="Index" class="m-2">
-    <div class="container bg-light">
+
+<form asp-area="Customer" asp-controller="Product" asp-action="Index" class="border border-1 bg-light mb-2">
+    <div class="container">
         <div class="row col-12">
             <div class="m-2">
                 <label for="search" class="form-check-label"><strong>Product:</strong></label>
                 <input id="search" class="form-control col-8" type="text" name="search" placeholder="Search in Products Description" aria-label="Product Search">
-            </div>
+@*                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+ *@            </div>
         </div>
-        <div class="row mb-2">
-            <div class="col-2 m-2">
-                <button type="submit" value="search" class="btn btn-outline-primary col-10">
+        <div class="row">
+            <div class="col-4 m-2">
+                <button type="submit" value="search" class="btn btn-outline-primary col-6">
                     Search
                 </button>
             </div>
