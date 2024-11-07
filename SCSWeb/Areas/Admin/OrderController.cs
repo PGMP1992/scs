@@ -68,7 +68,7 @@ public class OrderController : Controller
     {
         OrderHeader orderHeaderFromDb = _unitOfWork.OrderHeader.Get(u => u.Id == OrderVM.OrderHeader.Id);
         orderHeaderFromDb.Name = OrderVM.OrderHeader.Name;
-        orderHeaderFromDb.AppUser.Address = OrderVM.OrderHeader.AppUser.Address;
+        //orderHeaderFromDb.AppUser.Address = OrderVM.OrderHeader.AppUser.Address;
 
         _unitOfWork.OrderHeader.Update(orderHeaderFromDb);
         _unitOfWork.Save();

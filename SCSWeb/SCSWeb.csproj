@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Areas\Customer\Views\Product\BuyOrderConfirmation.cshtml" />
+    <Content Remove="Areas\Customer\Views\Product\BuySummary.cshtml" />
+    <Content Remove="Areas\Customer\Views\Product\IndexList.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\images\agrc_logo.png" />
     <None Include="wwwroot\images\scs_logo.png" />
   </ItemGroup>
@@ -34,6 +40,10 @@
     <ProjectReference Include="..\SCS.DataAccess\SCS.DataAccess.csproj" />
     <ProjectReference Include="..\SCS.Models\SCS.Models.csproj" />
     <ProjectReference Include="..\SCS.Utility\SCS.Utility.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
 
 </Project>
