@@ -9,24 +9,18 @@
 @inject SignInManager<IdentityUser> SignInManager
 @model IEnumerable<Product>
 
-
-<form asp-area="Customer" asp-controller="Product" asp-action="Index" class="border border-1 bg-light mb-2">
-    <div class="container">
+<form asp-area="Customer" asp-controller="Product" asp-action="Index" class="bg-primary bg-gradient text-light ml-0 py-2 mb-2">
+    <div class="container m-2">
         <div class="row col-12">
-            <div class="m-2">
-                <label for="search" class="form-check-label"><strong>Product:</strong></label>
-                <input id="search" class="form-control col-8" type="text" name="search" placeholder="Search in Products Description" aria-label="Product Search">
-@*                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
- *@            </div>
+            <input id="search" class="form-control ms-2" type="text" name="search" placeholder="Search in Products Description" aria-label="Product Search">
         </div>
-        <div class="row">
-            <div class="col-4 m-2">
-                <button type="submit" value="search" class="btn btn-outline-primary col-6">
+        <div class="row mt-2">
+            <div class="col-4">
+                <button type="submit" value="search" class="btn btn-primary col-6">
                     Search
                 </button>
             </div>
-            <div class="col">
+            <div class="col-8 mt-2">
                 <span class="text-danger">@ViewBag.Message </span>
             </div>
         </div>
