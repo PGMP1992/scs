@@ -32,11 +32,6 @@
 
         // Admin User
         public const string AdminEmail = "admin@email.com";
-        public const string TempEmail = "temp@email.com";
         public const string Password = "Admin123*";
-
-        // Email
-        public const string EmailAddress = "pedro@dkltd.net"; // My Private Email Address to be replaced. 
-
     }
 }

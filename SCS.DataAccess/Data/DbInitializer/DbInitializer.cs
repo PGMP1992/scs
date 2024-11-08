@@ -50,19 +50,20 @@ public class DbInitializer : IDbInitializer
         // Create Admin User
         _userManager.CreateAsync(new AppUser()
         {
-            Name = "Admin",
+            Name = "Scandinavian Certification Services AB",
             UserName = SD.AdminEmail,
             Email = SD.AdminEmail,
+            PhoneNumber= "+46 (0) 12345678",
             Address = new Address
             {
-                Street1 = "Admin Street 1",
-                Street2 = "Admin Street 2",
-                City = "Admin City",
-                State = "Admin State",
-                Postcode = "Admin postocode",
-                Country = "Admin Country"
+                Street1 = "Hagastigen 5",
+                Street2 = "",
+                City = "Landskrona",
+                State = "Skane",
+                Postcode = "261 35",
+                Country = "Sweden"
             },
-        }, SD.Password).GetAwaiter().GetResult();
+        }, "Admin123*").GetAwaiter().GetResult();
 
         AppUser user = _db.AppUsers.FirstOrDefault(u => u.Email == SD.AdminEmail);
         _userManager.AddToRoleAsync(user, SD.Role_Admin).GetAwaiter().GetResult();

@@ -1,0 +1,50 @@
+﻿@model AppUser
+
+<div class="container">
+    <div>
+        <h2 class="mb-3">About Us</h2>
+        
+    </div>
+    <div class="row">
+        <div class="col">
+            <img src="~/images/map.jpg" style="width:100%">
+        </div>
+
+        <div class="col">
+            <div class="row g-0 justify-content-between mb-3">
+                <h5>@Model.Name</h5p>
+            </div>
+            <div class="row g-0 justify-content-between mb-3">
+                <h6>Org. 559389-0592</h6>
+            </div>
+
+            <div class="row g-0 justify-content-between mb-3">
+
+                <p class="text-secondary">
+                    <i class="bi bi-geo-alt-fill"></i>
+                    @Model.Address.Street1<br />
+                    @if(! String.IsNullOrEmpty(Model.Address.Street2))
+                    {
+                        @Model.Address.Street2<br />    
+                    }
+                    @Model.Address.City<br />
+                    @Model.Address.State<br />
+                    @Model.Address.Country<br />
+                    @Model.Address.Postcode</p>
+            </div>
+
+            <div class="col-3">
+                <a href="mailto:@Model.Email">
+                    <i class="bi bi-envelope-fill"></i>
+                    @Model.Email</p>
+                </a>
+            </div>
+            
+            <div class="row g-0 justify-content-between mb-3">
+                <p><i class="bi bi-telephone-forward"></i>
+                    @Model.PhoneNumber</p>
+            </div>
+                            
+        </div>
+    </div>
+</div>

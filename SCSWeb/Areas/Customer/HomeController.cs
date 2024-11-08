@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SCS.Models;
 using SCS.Repository.IRepository;
+using SCS.Utility;
 using System.Diagnostics;
 
 namespace SCS.Areas.Customer;
@@ -11,6 +12,7 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly IUnitOfWork _unitOfWork;
+    
     public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork)
     {
         _logger = logger;
@@ -25,6 +27,17 @@ public class HomeController : Controller
     public IActionResult Privacy()
     {
         return View();
+    }
+
+    public IActionResult Contact()
+    {
+        return View();
+    }
+    
+    public IActionResult About()
+    {
+        var admin = _unitOfWork.AppUser.Get(x => x.Email ==SD.AdminEmail, includeProperties: "Address");
+        return View(admin);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
