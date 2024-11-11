@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using SCS.Models;
 using SCS.Models.ViewModels;
@@ -18,7 +17,7 @@ namespace SCS.Areas.Customer
         public CartVM CartVM { get; set; }
 
         public ProductController(IUnitOfWork unitOfWork)
-                                 //, IEmailSender emailSender)
+        //, IEmailSender emailSender)
         {
             _unitOfWork = unitOfWork;
             //_emailSender = emailSender;

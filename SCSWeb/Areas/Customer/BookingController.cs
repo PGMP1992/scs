@@ -144,6 +144,7 @@ namespace SCSWeb.Areas.Customer
             return View(BookingVM);
         }
 
+        [Authorize]
         public async Task<IActionResult> Summary(DateOnly bDate)
         {
             var userId = HttpContext.User.GetUserId();

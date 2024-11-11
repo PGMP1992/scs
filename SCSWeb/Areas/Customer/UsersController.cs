@@ -58,6 +58,8 @@ namespace SCS.Areas.Customer
                 appUser.AddressId = address.Id;
             }
             appUser.Name = user.Name;
+            appUser.PhoneNumber = user.PhoneNumber;
+            appUser.Email = user.Email;
 
             _unitOfWork.AppUser.Update(appUser);
             _unitOfWork.Save();
