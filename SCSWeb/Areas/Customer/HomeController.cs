@@ -46,7 +46,9 @@ public class HomeController : Controller
     [HttpPost]
     public IActionResult PostContact()
     {
-        _emailSender.ReceiveEmailAsync(ContactVM.From, "Contact - SCS AB", ContactVM.Subject);
+        var admin = _unitOfWork.AppUser.Get(x => x.Email == SD.AdminEmail, includeProperties: "Address");
+
+        _emailSender.SendEmailAsync(admin.Email, "Contact - SCS AB", ContactVM.Subject);
         return View(Index);
     }
 

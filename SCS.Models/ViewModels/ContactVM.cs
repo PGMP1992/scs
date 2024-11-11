@@ -11,7 +11,7 @@ namespace SCS.Models.ViewModels
 
         [Required]
         [DataType(DataType.EmailAddress)]
-        public string From { get; set; }
+        public string Email { get; set; }
 
         [Required]
         [DataType(DataType.MultilineText)]
