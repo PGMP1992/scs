@@ -23,31 +23,11 @@
                 </li>
 
                 @* Customer.Products ----------------------*@
-                @* <li class="nav-item dropdown">
-                    <a class="nav-link text-light dropdown-toggle" data-bs-toggle="dropdown"
-                       href="#" role="button" aria-expanded="false">
-                        Products
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a class="dropdown-item" asp-area="Customer" asp-controller="Product" asp-action="Index">
-                                Products
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" asp-area="Customer" asp-controller="Product" asp-action="IndexList">
-                                Product List
-                            </a>
-                        </li>
-                    </ul>
-                </li> *@
-
                 <li class="nav-item">
                     <a class="nav-link text-light" asp-area="Customer" asp-controller="Product" asp-action="Index">
                         Products
                     </a>
                 </li>
-
 
                 @* Bookings -------------------------------- *@
                 <li class="nav-item dropdown">
@@ -137,9 +117,9 @@
                     </li>
                 }
 
-                @* User Profile/ Dashboard  ---------------------- *@
                 @if (SignInManager.IsSignedIn(User))
                 {
+                    @* User Profile/ Dashboard  ---------------------- *@
                     <li>
                         <a class="nav-link text-light" asp-area="Customer" asp-controller="Users" asp-action="Profile">
                             <i class="bi bi-person-fill"></i>
@@ -163,11 +143,11 @@
                 </li>
 
                 @* Contact ---------------------- *@
-                @* <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link text-light" asp-area="Customer" asp-controller="Home" asp-action="Contact">
                         Contact
                     </a>
-                </li> *@
+                </li>
             </ul>
 
             @* Login/Register/ Languages ---------------------- *@

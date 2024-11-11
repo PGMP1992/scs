@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using SCS.Models;
+using SCS.Models.ViewModels;
 using SCS.Repository.IRepository;
 using SCS.Utility;
 using System.Diagnostics;
@@ -7,16 +9,22 @@ using System.Diagnostics;
 namespace SCS.Areas.Customer;
 
 [Area("Customer")]
-
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IEmailSender _emailSender;
     
-    public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork)
+    [BindProperty]
+    public ContactVM ContactVM { get; set; } //Used to pass ContactVM between methods - PM
+
+    public HomeController(ILogger<HomeController> logger, 
+        IUnitOfWork unitOfWork, 
+        IEmailSender emailSender)
     {
         _logger = logger;
         _unitOfWork = unitOfWork;
+        _emailSender = emailSender;
     }
 
     public IActionResult Index()
@@ -29,14 +37,22 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult Contact()
+    public IActionResult Contact(ContactVM ContactVM)
     {
-        return View();
+        ContactVM = new ContactVM();
+        return View(ContactVM);
     }
-    
+
+    [HttpPost]
+    public IActionResult PostContact()
+    {
+        _emailSender.ReceiveEmailAsync(ContactVM.From, "Contact - SCS AB", ContactVM.Subject);
+        return View(Index);
+    }
+
     public IActionResult About()
     {
-        var admin = _unitOfWork.AppUser.Get(x => x.Email ==SD.AdminEmail, includeProperties: "Address");
+        var admin = _unitOfWork.AppUser.Get(x => x.Email == SD.AdminEmail, includeProperties: "Address");
         return View(admin);
     }
 
