@@ -33,5 +33,6 @@
         // Admin User
         public const string AdminEmail = "admin@email.com";
         public const string Password = "Admin123*";
+        public const string SendGridEmail = "pedro@dkltd.net";
     }
 }

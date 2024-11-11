@@ -4,6 +4,7 @@ using SCS.Models;
 using SCS.Models.ViewModels;
 using SCS.Repository.IRepository;
 using SCS.Utility;
+using Stripe.Climate;
 using System.Diagnostics;
 
 namespace SCS.Areas.Customer;
@@ -37,25 +38,30 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult Contact(ContactVM ContactVM)
+    public IActionResult About()
+    {
+        var admin = _unitOfWork.AppUser.Get(x => x.Email == SD.AdminEmail, includeProperties: "Address");
+        return View(admin);
+    }
+
+    public IActionResult Contact()
     {
         ContactVM = new ContactVM();
         return View(ContactVM);
     }
 
     [HttpPost]
-    public IActionResult PostContact()
+    public IActionResult Contact(ContactVM ContactVM)
     {
-        var admin = _unitOfWork.AppUser.Get(x => x.Email == SD.AdminEmail, includeProperties: "Address");
+        ContactVM.Subject =
+                    $"<p>Name    : {ContactVM.Name}</p>"  
+                  + $"<p>Email   : {ContactVM.Email}</p>"  
+                  + $"<p>Subject : {ContactVM.Subject}</p>";
 
-        _emailSender.SendEmailAsync(admin.Email, "Contact - SCS AB", ContactVM.Subject);
-        return View(Index);
-    }
+        _emailSender.SendEmailAsync(SD.SendGridEmail, "Contact - SCS AB", ContactVM.Subject);
+        TempData["success"] = "Your Request and Contact Details have been sent. Thank you!";
 
-    public IActionResult About()
-    {
-        var admin = _unitOfWork.AppUser.Get(x => x.Email == SD.AdminEmail, includeProperties: "Address");
-        return View(admin);
+        return RedirectToAction("Index");
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

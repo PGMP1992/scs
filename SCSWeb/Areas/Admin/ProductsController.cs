@@ -31,9 +31,9 @@ public class ProductsController : Controller
         {
             bool okToDelete = false;
             if (!_unitOfWork.Bundle.Any(u => u.ProductId1 ==prod.Id)
-            && !_unitOfWork.Bundle.Any(u => u.ProductId2 == prod.Id)
-            && !_unitOfWork.Bundle.Any(u => u.ProductId3 == prod.Id)
-            && !_unitOfWork.OrderDetails.Any(u => u.ProductId == prod.Id))
+                && !_unitOfWork.Bundle.Any(u => u.ProductId2 == prod.Id)
+                && !_unitOfWork.Bundle.Any(u => u.ProductId3 == prod.Id)
+                && !_unitOfWork.OrderDetails.Any(u => u.ProductId == prod.Id))
             {
                 okToDelete = true;
             }
@@ -87,10 +87,6 @@ public class ProductsController : Controller
         {
             if (productVM.Product.Id == 0)
             {
-                //if (productVM.Product.CategoryId == 1)
-                //{
-                //    productVM.Product.VoucherKey = Guid.NewGuid().ToString();
-                //}
                 _unitOfWork.Product.Add(productVM.Product);
                 message = "Product was Created";
             }
