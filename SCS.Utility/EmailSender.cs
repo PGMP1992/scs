@@ -23,6 +23,7 @@ namespace SCS.Utility
             var from = new EmailAddress(SD.SendGridEmail, "SCS Email");
             var to = new EmailAddress(email);
             var message = MailHelper.CreateSingleEmail(from, to, subject, "", htmlMessage);
+            
             return client.SendEmailAsync(message);
         }
     }

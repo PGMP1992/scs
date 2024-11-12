@@ -53,12 +53,12 @@ public class HomeController : Controller
     [HttpPost]
     public IActionResult Contact(ContactVM ContactVM)
     {
-        ContactVM.Subject =
+        ContactVM.Message =
                     $"<p>Name    : {ContactVM.Name}</p>"  
                   + $"<p>Email   : {ContactVM.Email}</p>"  
-                  + $"<p>Subject : {ContactVM.Subject}</p>";
+                  + $"<p>Message : {ContactVM.Message}</p>";
 
-        _emailSender.SendEmailAsync(SD.SendGridEmail, "Contact - SCS AB", ContactVM.Subject);
+        _emailSender.SendEmailAsync(SD.SendGridEmail, "Contact - SCS AB", ContactVM.Message);
         TempData["success"] = "Your Request and Contact Details have been sent. Thank you!";
 
         return RedirectToAction("Index");

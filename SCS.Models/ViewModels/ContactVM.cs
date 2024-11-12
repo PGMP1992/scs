@@ -14,6 +14,6 @@ namespace SCS.Models.ViewModels
 
         [DataType(DataType.MultilineText)]
         [MaxLength(250)]
-        public string Subject { get; set; }
+        public string Message { get; set; } = string.Empty;
     }
 }
