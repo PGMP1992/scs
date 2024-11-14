@@ -22,9 +22,9 @@ namespace SCSWeb.Areas.Admin
         // GET: Dashboard
         public async Task<ActionResult> Index()
         {
-            IEnumerable<AppUser> users = await _unitOfWork.AppUser.GetAllAsync();
+            IEnumerable<AppUser> users = await _unitOfWork.AppUser.GetAllAsync(includeProperties: "Address");
             IEnumerable<Product> products = await _unitOfWork.Product.GetAllAsync(includeProperties: "Category");
-            IEnumerable<OrderDetails> orders = await _unitOfWork.OrderDetails.GetAllAsync();
+            IEnumerable<OrderHeader> orders = await _unitOfWork.OrderHeader.GetAllAsync();
             IEnumerable<Booking> bookings = await _unitOfWork.Booking.GetAllAsync();
 
             DashboardVM dashboardVM = new DashboardVM()

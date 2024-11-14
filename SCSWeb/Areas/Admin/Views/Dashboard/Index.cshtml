@@ -7,8 +7,50 @@ Action: Index
 @model DashboardVM
 
 <h1>Dashboard</h1>
-<h2>Customers: @Model.Users</h2>
-<h2>Orders:  @Model.Orders</h2>
-<h2>Products: @Model.Products</h2>
-<h2>Bookings :@Model.Bookings</h2>
+<h4>Customers: @Model.Users.Count()</h4>
+<div class="border border-1 p-2">
+    @foreach (var user in @Model.Users)
+    {
+        <h6>@user.Name</h6>
+        <h4>@user.Role</h4>
+        @* <div div class="p">Email: @user.Email</div > *@
+    
+        @if(user.Address != null) 
+        {
+            <p>Location: @user.Address.City,  @user.Address.Country</p >
+        }
+        <hr />
+    }
+</div>
 
+<h4>Orders: @Model.Orders.Count()</h4>
+<div class="border border-1 p-2">
+    @foreach (var order in @Model.Orders)
+    {
+        <h6>Order: @order.Id, @order.OrderStatus</h6>
+        <p>Date: @order.OrderDate.ToShortDateString()</p>
+        <p>Customer: @order.Name</p>
+        <hr />
+    }
+</div>
+
+<h2>Products: @Model.Products.Count()</h2>
+@* <div class="border border-1 p-2">
+
+    <h6>@prod.Name</h6>
+        <p>@prod.Category.Name</p>
+        <p>@prod.Price.ToString("C")</p>
+        <hr />
+    
+</div>
+ *@
+@* <h2>Bookings :@Model.Bookings</h2>
+<div class="border border-1 p-2">
+    @foreach (var order in @Model.Orders)
+    {
+        <h6>@order.OrderHeaderId, @order.Product.Name</h6>
+        <p>@order.Price.ToString("C")</p>
+        <hr />
+    }
+</div>
+ *@
