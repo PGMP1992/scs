@@ -10,43 +10,43 @@ Action: Index
 <h4>Customers by Country: @Model.Users.Count()</h4>
 
 <div class="border border-1 p-2">
-    @foreach (var user in @Model.Users)
+    @* @foreach (var user in @Model.Users)
     {
         @if(user.Address != null) 
         {
            <p>@user.Address.Country - @user.Address.Country.Count()</p >
         }
-    }
+    } *@
 </div>
 
 <h4>Orders By Status: @Model.Orders.Count()</h4>
 <div class="border border-1 p-2">
-    @foreach (var order in @Model.Orders)
+    @* @foreach (var order in @Model.Orders)
     {
         <h6>Order: @order.Id, @order.OrderStatus</h6>
         <p>Date: @order.OrderDate.ToShortDateString()</p>
         <p>Customer: @order.Name</p>
         <hr />
-    }
+    } *@
 </div>
 
-<h2>Products By Category: @Model.Products.Count()</h2>
-@* <div class="border border-1 p-2">
+<h4>Products By Category: @Model.Products.Count()</h4>
+ <div class="border border-1 p-2">
 
-    <h6>@prod.Name</h6>
+@*     <h6>@prod.Name</h6>
         <p>@prod.Category.Name</p>
         <p>@prod.Price.ToString("C")</p>
         <hr />
-    
+ *@    
 </div>
- *@
-@* <h2>Bookings :@Model.Bookings</h2>
+ 
+<h4>Bookings :@Model.Bookings.Count()</h4>
 <div class="border border-1 p-2">
-    @foreach (var order in @Model.Orders)
+    @* @foreach (var order in @Model.Orders)
     {
         <h6>@order.OrderHeaderId, @order.Product.Name</h6>
         <p>@order.Price.ToString("C")</p>
         <hr />
-    }
+    } *@
 </div>
- *@
+ 
