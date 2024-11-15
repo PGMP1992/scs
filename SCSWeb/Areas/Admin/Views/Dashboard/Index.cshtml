@@ -8,66 +8,63 @@ Action: Index
 
 <h2>Dashboard</h2>
 
-<div class="border border-1 p-2 mb-2 col-6">
+<div class="border border-1 p-2 mb-2">
     <div class="h5 bg-info text-light p-2">Customers by Country</div>
 
     @foreach (var user in @Model.Users)
     {
-        <div class="row col-12">
-            <div class="col-6 ms-2">
+        <div class="row m-2">
+            <div class="col-6">
                 <strong>@user.Key</strong>
             </div>
-            <div class="col-2">
+            <div class="col-6">
                 @user.Count()
             </div>
         </div>
-        <hr />
     }
 </div>
 
-<div class="border border-1 p-2 mb-2 col-6">
+<div class="border border-1 p-2 mb-2">
     <div class="h5 bg-info text-light p-2">Orders By Status</div>
 
     @foreach (var order in @Model.Orders)
     {
-        <div class="row col-12">
-            <div class="col-6 ms-2">
+        <div class="row m-2">
+            <div class="col-6">
                 <strong>@order.Key</strong>
             </div>
-            <div class="col-2">
+            <div class="col-6">
                 @order.Count()
             </div>
         </div>
-        <hr />
     }
 </div>
 
-<div class="border border-1 p-2 mb-2 col-6">
+<div class="border border-1 p-2 mb-2">
     <div class="h5 bg-info text-light p-2">Products By Category</div>
     
     @foreach (var prod in @Model.Products)
     {
-        <div class="row col-12">
-            <div class="col-6 ms-2">
+        <div class="row m-2">
+            <div class="col-6">
                 <strong>@prod.Key.Name</strong>
             </div>
-            <div class="col-2">
+            <div class="col-6">
                 @prod.Count()
             </div>
         </div>
-        <hr />
     }
 </div>
 
-<div class="border border-1 p-2 mb-2 col-6">
-    <div class="h5 bg-info text-light p-2">Bookings by User</div>
+<div class="border border-1 p-2 mb-2">
+    <div class="h5 bg-info text-light p-2">Bookings by Customer</div>
     @foreach (var book in @Model.Bookings)
     {
-        <div class="row col-12">
-            <div class="col-6 ms-2">
+        <div class="row m-2">
+            <div class="col-6">
                 <strong>@book.Key</strong>
             </div>
-            <div class="col-2">
+            <div class="col-6">
                 @book.Count()
             </div>
         </div>
