@@ -26,17 +26,21 @@ Action: Index
 
 <div class="border border-1 p-2 mb-2">
     <div class="h5 bg-info text-light p-2">Orders By Status</div>
-
-    @foreach (var order in @Model.Orders)
+    @if (Model.Orders.Count() > 0)
     {
-        <div class="row m-2">
-            <div class="col-6">
-                <strong>@order.Key</strong>
+        @foreach (var order in @Model.Orders)
+        {
+            <div class="row m-2">
+                <div class="col-6">
+                    <strong>@order.Key</strong>
+                </div>
+                <div class="col-6">
+                    @order.Count()
+                </div>
             </div>
-            <div class="col-6">
-                @order.Count()
-            </div>
-        </div>
+        }
+    } else {
+        <p class="m-2"><strong>There are no Orders recorded.</strong></p>
     }
 </div>
 
@@ -56,19 +60,24 @@ Action: Index
     }
 </div>
 
+
 <div class="border border-1 p-2 mb-2">
     <div class="h5 bg-info text-light p-2">Bookings by Customer</div>
-    @foreach (var book in @Model.Bookings)
+    @if (Model.Bookings.Count() > 0)
     {
-        <div class="row m-2">
-            <div class="col-6">
-                <strong>@book.Key</strong>
+        @foreach (var book in @Model.Bookings)
+        {
+            <div class="row m-2">
+                <div class="col-6">
+                    <strong>@book.Key</strong>
+                </div>
+                <div class="col-6">
+                    @book.Count()
+                </div>
             </div>
-            <div class="col-6">
-                @book.Count()
-            </div>
-        </div>
-        <hr />
+            <hr />
+        }
+    } else {
+        <p class="m-2"><strong>There are no Bookings recorded.</strong></p>
     }
 </div>
- 
