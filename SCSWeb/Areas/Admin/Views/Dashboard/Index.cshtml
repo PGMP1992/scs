@@ -6,47 +6,39 @@ Action: Index
 @using SCS.Models.ViewModels
 @model DashboardVM
 
-<h1>Dashboard</h1>
-<h4>Customers by Country: @Model.Users.Count()</h4>
+<h2>Dashboard</h2>
 
-<div class="border border-1 p-2">
-    @* @foreach (var user in @Model.Users)
+<div class="border border-1 p-2 mb-2 col-6">
+    <div class="h5 bg-info text-light p-2">Customers by Country</div>
+
+    @foreach (var user in @Model.Users)
     {
-        @if(user.Address != null) 
-        {
-           <p>@user.Address.Country - @user.Address.Country.Count()</p >
-        }
-    } *@
+        <p class="m-2"><strong>@user.Key</strong> - @user.Count()</p>
+    }
 </div>
 
-<h4>Orders By Status: @Model.Orders.Count()</h4>
-<div class="border border-1 p-2">
-    @* @foreach (var order in @Model.Orders)
+<div class="border border-1 p-2 mb-2 col-6">
+    <div class="h5 bg-info text-light p-2">Orders By Status</div>
+
+    @foreach (var order in @Model.Orders)
     {
-        <h6>Order: @order.Id, @order.OrderStatus</h6>
-        <p>Date: @order.OrderDate.ToShortDateString()</p>
-        <p>Customer: @order.Name</p>
-        <hr />
-    } *@
+        <p class="m-2"><strong>@order.Key </strong>- @order.Count()</p>
+    }
 </div>
 
-<h4>Products By Category: @Model.Products.Count()</h4>
- <div class="border border-1 p-2">
-
-@*     <h6>@prod.Name</h6>
-        <p>@prod.Category.Name</p>
-        <p>@prod.Price.ToString("C")</p>
-        <hr />
- *@    
-</div>
- 
-<h4>Bookings :@Model.Bookings.Count()</h4>
-<div class="border border-1 p-2">
-    @* @foreach (var order in @Model.Orders)
+<div class="border border-1 p-2 mb-2 col-6">
+    <div class="h5 bg-info text-light p-2">Products By Category</div>
+    @foreach (var prod in @Model.Products)
     {
-        <h6>@order.OrderHeaderId, @order.Product.Name</h6>
-        <p>@order.Price.ToString("C")</p>
-        <hr />
-    } *@
+        <p class="m-2"><strong>@prod.Key.Name</strong> - @prod.Count()</p>
+    }
+</div>
+
+<div class="border border-1 p-2 mb-2 col-6">
+    <div class="h5 bg-info text-light p-2">Bookings by User</div>
+    @foreach (var book in @Model.Bookings)
+    {
+        <p class="m-2"><strong>@book.Key</strong> - @book.Count()</p>
+    }
 </div>
  
