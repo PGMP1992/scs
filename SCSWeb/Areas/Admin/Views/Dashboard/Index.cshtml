@@ -7,23 +7,19 @@ Action: Index
 @model DashboardVM
 
 <h1>Dashboard</h1>
-<h4>Customers: @Model.Users.Count()</h4>
+<h4>Customers by Country: @Model.Users.Count()</h4>
+
 <div class="border border-1 p-2">
     @foreach (var user in @Model.Users)
     {
-        <h6>@user.Name</h6>
-        <h4>@user.Role</h4>
-        @* <div div class="p">Email: @user.Email</div > *@
-    
         @if(user.Address != null) 
         {
-            <p>Location: @user.Address.City,  @user.Address.Country</p >
+           <p>@user.Address.Country - @user.Address.Country.Count()</p >
         }
-        <hr />
     }
 </div>
 
-<h4>Orders: @Model.Orders.Count()</h4>
+<h4>Orders By Status: @Model.Orders.Count()</h4>
 <div class="border border-1 p-2">
     @foreach (var order in @Model.Orders)
     {
@@ -34,7 +30,7 @@ Action: Index
     }
 </div>
 
-<h2>Products: @Model.Products.Count()</h2>
+<h2>Products By Category: @Model.Products.Count()</h2>
 @* <div class="border border-1 p-2">
 
     <h6>@prod.Name</h6>
