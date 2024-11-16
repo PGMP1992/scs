@@ -4,9 +4,9 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <!--<UserSecretsId>aspnet-SCS-4306e8a1-54e8-4b7b-b1fc-a8e7f1ed2dc9</UserSecretsId>-->
-	  <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
-	  <ServerGarbageCollection>false</ServerGarbageCollection>
+    <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
+	<ServerGarbageCollection>false</ServerGarbageCollection>
+	<UserSecretsId>8a9b2f5b-8343-4b4f-aa87-2267fa130430</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -46,6 +46,11 @@
 
   <ItemGroup>
     <Folder Include="Properties\PublishProfiles\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="appsettings.Development.json" />
+    <None Include="appsettings.Production.json" />
   </ItemGroup>
 
 </Project>
