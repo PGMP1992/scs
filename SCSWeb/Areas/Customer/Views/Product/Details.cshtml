@@ -24,7 +24,7 @@
                                         .Select((image, index) => new { Image = image, Index = index }))
                                     {
                                         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="@imageWithIndex.Index"
-                                                class="@(imageWithIndex.Index==0?"active":"")" aria-current="true" aria-label="Slide 1" ></button>
+                                                class="@(imageWithIndex.Index==0?"active":"")" aria-current="true" aria-label="Slide 1"></button>
                                     }
                                 </div>
                                 <div class="carousel-inner">
@@ -32,7 +32,7 @@
                                         .Select((image, index) => new { Image = image, Index = index }))
                                     {
                                         <div class="@(imageWithIndex.Index==0?"carousel-item active":"carousel-item")">
-                                            <img src="@imageWithIndex.Image.ImageUrl" class="d-block w-100" alt="..."/>
+                                            <img src="@imageWithIndex.Image.ImageUrl" class="d-block w-100" alt="...">
                                         </div>
                                     }
                                 </div>
