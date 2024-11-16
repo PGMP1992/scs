@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using SCS.Data;
 using SCS.Data.DbInitializer;
 using SCS.Repository;
@@ -8,6 +10,7 @@ using SCS.Repository.IRepository;
 using SCS.Utility;
 using Stripe;
 using System.Globalization;
+using System.Text;
 
 
 CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("se-SE");
@@ -16,6 +19,15 @@ CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("se-SE");
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
+//  Added for JWT
+//builder.Services.AddControllersWithViews( opt =>
+//    {
+//        var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+//        opt.Filters.Add(new AuthorizeFilter(policy));
+//    } 
+//);
+//  Added for JWT
+
 // Add services to the container.
 builder.Services.AddDbContext<ApplicationDbContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -36,7 +48,9 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 // Session
 builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession(options => {
+
+builder.Services.AddSession(options =>
+{
     options.IdleTimeout = TimeSpan.FromMinutes(100);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
@@ -55,6 +69,25 @@ builder.Services.AddRazorPages(); // Added to use Identity pages for Login/ regi
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IEmailSender, EmailSender>(); // Implemented for Register.cshtml.cs
 
+// JWT Bearer Session Added - PM
+builder.Services.AddScoped<TokenService>();
+
+//var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("TokenKey").Get<string>()));
+var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["TokenKey"]));
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(opt =>
+    {
+        opt.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = key,
+            ValidateIssuer = false,
+            ValidateAudience = false
+        };
+    });
+// JWT Bearer Session Added - PM
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -69,8 +102,10 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
 app.UseRouting();
+
 app.UseAuthentication();
 app.UseAuthorization();
+
 app.UseSession();
 SeedDatabase();
 app.MapRazorPages(); // Added for Routing the Identity Pages - PM
