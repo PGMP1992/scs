@@ -67,7 +67,6 @@ public class DbInitializer : IDbInitializer
 
         AppUser user = _db.AppUsers.FirstOrDefault(u => u.Email == SD.AdminEmail);
         _userManager.AddToRoleAsync(user, SD.Role_Admin).GetAwaiter().GetResult();
-        
         return;
     }
 }

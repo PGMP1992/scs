@@ -4,7 +4,6 @@ using SCS.Models;
 using SCS.Models.ViewModels;
 using SCS.Repository.IRepository;
 using SCS.Utility;
-using Stripe.Climate;
 using System.Diagnostics;
 
 namespace SCS.Areas.Customer;
@@ -15,12 +14,12 @@ public class HomeController : Controller
     private readonly ILogger<HomeController> _logger;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IEmailSender _emailSender;
-    
+
     [BindProperty]
     public ContactVM ContactVM { get; set; } //Used to pass ContactVM between methods - PM
 
-    public HomeController(ILogger<HomeController> logger, 
-        IUnitOfWork unitOfWork, 
+    public HomeController(ILogger<HomeController> logger,
+        IUnitOfWork unitOfWork,
         IEmailSender emailSender)
     {
         _logger = logger;
@@ -54,8 +53,8 @@ public class HomeController : Controller
     public IActionResult Contact(ContactVM ContactVM)
     {
         ContactVM.Message =
-                    $"<p>Name    : {ContactVM.Name}</p>"  
-                  + $"<p>Email   : {ContactVM.Email}</p>"  
+                    $"<p>Name    : {ContactVM.Name}</p>"
+                  + $"<p>Email   : {ContactVM.Email}</p>"
                   + $"<p>Message : {ContactVM.Message}</p>";
 
         _emailSender.SendEmailAsync(SD.SendGridEmail, "Contact - SCS AB", ContactVM.Message);
