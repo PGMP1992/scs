@@ -4,7 +4,6 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-SCS-4306e8a1-54e8-4b7b-b1fc-a8e7f1ed2dc9</UserSecretsId>
 	  <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
 	  <ServerGarbageCollection>false</ServerGarbageCollection>
   </PropertyGroup>

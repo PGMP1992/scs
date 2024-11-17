@@ -85,7 +85,14 @@ void SeedDatabase()
 {
     using (var scope = app.Services.CreateScope())
     {
-        var DbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
-        DbInitializer.Initialize();
+        try
+        {
+            var DbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+            DbInitializer.Initialize();
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
     }
 }
