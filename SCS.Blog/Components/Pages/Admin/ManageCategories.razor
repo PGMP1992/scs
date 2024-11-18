@@ -73,7 +73,7 @@
 
 
 @code {
-    private bool _isLoading { get; set; }=true;
+    private bool _isLoading;
     private string? _loadingText;
     private BlogCategory? _operatingBlogCategory;
     private IQueryable<BlogCategory> _blogCategories = Enumerable.Empty<BlogCategory>().AsQueryable();
@@ -83,7 +83,6 @@
         if(firstRender)
         {
             await LoadBlogCategoriesAsync();
-            _isLoading = false;
             StateHasChanged();
 
         }
@@ -104,7 +103,7 @@
         blogCategory.ShowOnNavbar = !blogCategory.ShowOnNavbar;
         await BlogCategoryService.SaveBlogCategoryAsync(blogCategory);
         _isLoading = false;
-        navigationManager.Refresh();
+        navigationManager.NavigateTo("admin/manage-categories",true);
 
     }
 
@@ -117,12 +116,13 @@
     {
         if(_operatingBlogCategory is not null)
         {
-            _loadingText = "Saving...";
+            _loadingText = "Saving";
             _isLoading = true;
             await BlogCategoryService.SaveBlogCategoryAsync(_operatingBlogCategory);
             _operatingBlogCategory = null;
             await LoadBlogCategoriesAsync();
             _isLoading = false;
+            navigationManager.NavigateTo("admin/manage-categories", true);
 
         }
     }
