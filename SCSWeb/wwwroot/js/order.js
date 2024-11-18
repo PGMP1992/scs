@@ -41,8 +41,8 @@ function loadDataTable(status) {
 
        "columns": [
             { data: 'id', "width": "5%" },
-            { data: 'name', "width": "25%" },
-            { data: 'email', "width": "20%" },
+            { data: 'name', "width": "15%" },
+            { data: 'email', "width": "15%" },
             { data: 'orderStatus', "width": "10%" },
             { data: 'orderTotal', "width": "10%" },
             {
