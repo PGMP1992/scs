@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace SCS.Models
 {
@@ -9,18 +7,14 @@ namespace SCS.Models
         public int Id { get; set; }
 
         [MaxLength(450)]
-        public string AppUserId { get; set; }
-        
-        public AppUser AppUser { get; set; }
+        public string AppUserId { get; set; } = string.Empty;
+
+        public AppUser AppUser { get; set; }  
 
         [DataType(DataType.Date)]
         public DateOnly Date { get; set; }
 
-        public string VoucherKey { get; set; }
-
-        //public Product Product { get; set; }
-        //[ForeignKey(nameof(Product))]
-        //public int ProductId { get; set; }
+        public string VoucherKey { get; set; } = string.Empty;
     }
 
 }

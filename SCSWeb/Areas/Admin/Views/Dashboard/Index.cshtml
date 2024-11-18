@@ -22,7 +22,9 @@ Action: Index
             </div>
         </div>
     }
+    <span class="p-2 text-danger">Does not include Users with no updated Profile address</span>
 </div>
+
 
 <div class="border border-1 p-2 mb-2">
     <div class="h5 bg-info text-light p-2">Orders By Status</div>
@@ -40,7 +42,7 @@ Action: Index
             </div>
         }
     } else {
-        <p class="m-2"><strong>There are no Orders recorded.</strong></p>
+        <span class="p-2 text-danger">There are no Orders recorded.</span>
     }
 </div>
 
@@ -78,6 +80,6 @@ Action: Index
             <hr />
         }
     } else {
-        <p class="m-2"><strong>There are no Bookings recorded.</strong></p>
+        <span class="p-2 text-danger">There are no Bookings recorded.</span>
     }
 </div>
