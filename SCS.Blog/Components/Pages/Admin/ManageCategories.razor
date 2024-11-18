@@ -1,0 +1,129 @@
+﻿@page "/admin/manage-categories"
+
+@using Microsoft.AspNetCore.Components.QuickGrid
+
+@inject IBlogCategoryService BlogCategoryService
+@inject NavigationManager navigationManager
+
+<PageTitle>@Utils.GetPageTitle("Manage BlogCategories")</PageTitle>
+
+<AdminHeader Title="Manage BlogCategories">
+    <ActionButtons>
+        <button type="button" class="btn btn-primary btn-sm" @onclick="()=>_operatingBlogCategory=new()">+ Add new BlogCategory</button>
+    </ActionButtons>
+</AdminHeader>
+@if(_isLoading)
+{
+    <Loader LoaderText="@_loadingText"/>
+}
+
+@if(_operatingBlogCategory is not null)
+{
+    <div class="row">
+        <div class="col-sm-6"></div>
+        <div class="col-sm-6">
+        <EditForm Model="_operatingBlogCategory" OnValidSubmit="SaveBlogCategoryAsync">
+            <DataAnnotationsValidator />
+            <div class="shadow p-3" style="display: grid; grid-template-columns: auto 150px; grid-column-gap: 15px">
+                <div>
+                    <label class="col-form-label">BlogCategory Name</label>
+                    <InputText @bind-Value="_operatingBlogCategory.Name" class="form-control form-control-sm" placeholder="BlogCategory Name"></InputText>
+                    <ValidationMessage For="()=>_operatingBlogCategory.Name" />
+                    <label class="form-labe mt-2">
+                        <InputCheckbox @bind-Value="_operatingBlogCategory.ShowOnNavbar" />
+                        Show on Navbar
+                    </label>"
+                </div>
+                <div class="d-flex flex-column">
+                    <button type="submit" class="btn btn-group-sm btn-success mb-2">Save</button>
+                    <button type="submit" class="btn btn-group-sm btn-danger" @onclick="()=>_operatingBlogCategory=null">Cancel</button>
+
+                </div>
+            </div>
+        </EditForm>
+    </div>
+    </div>
+
+}
+
+
+
+<QuickGrid Items="@_blogCategories" class="table table-bordered table-striped table-hover">
+    <PropertyColumn Property="@(c=>c.Id)"/>
+    <PropertyColumn Property="@(c=>c.Name)" />
+    <PropertyColumn Property="@(c=>c.Slug)" />
+    <TemplateColumn Title="Show on Navbar">
+        @if(context.ShowOnNavbar)
+        {
+            <label class="text.success">
+                <input type="checkbox" @onchange="@(()=>HandleShowOnNavbarChanged(context))" checked /> Yes
+            </label>
+        }
+        else
+        {
+            <label class="text-danger">
+                <input type="checkbox" @onchange="@(()=>HandleShowOnNavbarChanged(context))" /> No
+            </label>
+        }
+    </TemplateColumn>
+    <TemplateColumn>
+        <button type="button" class="btn btn-sm btn-primary" @onclick="(()=>HandleEditBlogCategory(context))">Edit</button>
+    </TemplateColumn>
+</QuickGrid>
+
+
+@code {
+    private bool _isLoading { get; set; }=true;
+    private string? _loadingText;
+    private BlogCategory? _operatingBlogCategory;
+    private IQueryable<BlogCategory> _blogCategories = Enumerable.Empty<BlogCategory>().AsQueryable();
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if(firstRender)
+        {
+            await LoadBlogCategoriesAsync();
+            _isLoading = false;
+            StateHasChanged();
+
+        }
+    }
+
+    private async Task LoadBlogCategoriesAsync()
+    {
+        _loadingText = "Fetching blogcategories";
+        _isLoading = true;
+        _blogCategories = (await BlogCategoryService.GetBlogCategoriesAsync()).AsQueryable();
+        _isLoading = false;
+    }
+
+    private async Task HandleShowOnNavbarChanged(BlogCategory blogCategory)
+    {
+        _loadingText = "Saving changes";
+        _isLoading= true;
+        blogCategory.ShowOnNavbar = !blogCategory.ShowOnNavbar;
+        await BlogCategoryService.SaveBlogCategoryAsync(blogCategory);
+        _isLoading = false;
+        navigationManager.Refresh();
+
+    }
+
+    private void HandleEditBlogCategory(BlogCategory blogCategory)
+    {
+        _operatingBlogCategory = blogCategory.Clone();
+    }
+
+    private async Task SaveBlogCategoryAsync()
+    {
+        if(_operatingBlogCategory is not null)
+        {
+            _loadingText = "Saving...";
+            _isLoading = true;
+            await BlogCategoryService.SaveBlogCategoryAsync(_operatingBlogCategory);
+            _operatingBlogCategory = null;
+            await LoadBlogCategoriesAsync();
+            _isLoading = false;
+
+        }
+    }
+}

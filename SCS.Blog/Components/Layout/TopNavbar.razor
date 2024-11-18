@@ -1,0 +1,82 @@
+﻿@inject IBlogCategoryService BlogCategoryService
+
+
+<nav class="topnav navbar navbar-expand-lg navbar-light bg-white fixed-top">
+	<div class="container">
+		<a class="navbar-brand" href="/"><strong>Blog SCS</strong></a>
+		<button class="navbar-toggler collapsed" type="button"  aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation"
+				onclick="toggleMenu(event)">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="navbar-collapse collapse" id="topmenu" style="">
+			<ul class="navbar-nav mr-auto d-flex align-items-center">
+				<li class="nav-item">
+					<a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+				</li>
+				@foreach (var cat in _blogCategories)
+				{
+					<li class="nav-item">
+						<a class="nav-link" href="@cat.Slug-posts" title="@cat.Name Posts">@cat.Name</a>
+					</li>
+				}
+		
+		 </ul>
+			<ul class="navbar-nav ml-auto d-flex align-items-center">
+				
+				<AuthorizeView>
+					<Authorized>
+						<li class="nav-item ">
+							<a class="nav-link" href="admin/dashboard">Welcome @context.User.GetUserName()</a>
+						</li>
+						<li class="nav-item highlight">
+								<LogoutForm ButtonClasses="nav-link"/>
+						</li>
+						
+					</Authorized>
+					<NotAuthorized>
+						<li class="nav-item highlight">
+							<a class="nav-link" href="account/login">Log In</a>
+						</li>
+					</NotAuthorized>
+				</AuthorizeView>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+@code{
+	private BlogCategory[] _blogCategories = [];
+	private const int MaxBlogCategoriesToShowOnNavbar = 5;
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if(firstRender)
+		{
+			var blogCategories = await BlogCategoryService.GetBlogCategoriesAsync();
+			_blogCategories = blogCategories.Where(c => c.ShowOnNavbar).Take(MaxBlogCategoriesToShowOnNavbar).ToArray();
+
+			if (_blogCategories.Length < MaxBlogCategoriesToShowOnNavbar)
+			{
+				_blogCategories = [.. _blogCategories, .. blogCategories.Where(c => !c.ShowOnNavbar)
+				.Take(MaxBlogCategoriesToShowOnNavbar - _blogCategories.Length)];
+				//categories.Where(c => !c.ShowOnNavbar).Take(MaxCategoriesToShowOnNavbar - _categories.Length);
+			}
+			StateHasChanged();
+		}
+	}
+	//  }
+	// protected override async Task OnInitializedAsync()
+	// {
+		
+	// 		var blogCategories = await BlogCategoryService.GetBlogCategoriesAsync();
+	// 		_blogCategories = blogCategories.Where(c => c.ShowOnNavbar).Take(MaxBlogCategoriesToShowOnNavbar).ToArray();
+
+	// 		if (_blogCategories.Length < MaxBlogCategoriesToShowOnNavbar)
+	// 		{
+	// 			_blogCategories = [.. _blogCategories, .. blogCategories.Where(c => !c.ShowOnNavbar)
+	// 		.Take(MaxBlogCategoriesToShowOnNavbar - _blogCategories.Length)];
+	// 			//categories.Where(c => !c.ShowOnNavbar).Take(MaxCategoriesToShowOnNavbar - _categories.Length);
+	// 		}
+	
+
+	// }
+}

@@ -1,0 +1,152 @@
+﻿@page "/admin/manage-blogposts"
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using SCS.Blog.Models
+@using SCS.Blog.Services
+
+@inject NavigationManager navigationManager
+@inject IBlogPostAdminService BlogPostAdminService
+@inject AuthenticationStateProvider AuthStateProvider
+
+<PageTitle>@Utils.GetPageTitle("Manage BlogPosts")</PageTitle>
+
+
+@if (_isLoading)
+{
+    <Loader LoaderText="@_loadingText" />
+}
+<AdminHeader Title="Manage Blog Posts">
+    <ActionButtons>
+        <a href="admin/manage-blogposts/new" class="btn btn-primary btn-sm" data-enhance-nav="false">+ Add new Blog Post</a>
+    </ActionButtons>
+</AdminHeader>
+
+<QuickGrid ItemsProvider="_blogPostsProvider" Pagination="_paginationState" Class="table table-striped table-bordered table-hover">
+    <PropertyColumn Property="@(b=>b.Id)"/>
+    <TemplateColumn>
+        <div class="py-2" style="display:grid; grid-template-columns: 60px auto; grid-column-gap:10px;">
+            <img src="@context.Image" style="height: 60px; width:60px;object-fit: cover" />
+            <div>
+                <label class="mb-0 d-block">@context.Title</label>
+                @if(context.IsPublished)
+                {
+                    <a href="posts/@context.Slug"  target="_blank">@context.Slug</a>
+                }
+                else
+                {
+                    <label>@context.Slug</label>
+                }
+            </div>
+        </div>
+    </TemplateColumn>
+    <PropertyColumn Property="@(b=>b.BlogCategory.Name)" Title="BlogCategory" />
+
+    <TemplateColumn Title="Is Featured">
+        @if (context.IsFeatured)
+        {
+            <label class="text.success">
+                <input type="checkbox" @onchange="@(()=>HandleIsFeaturedChanged(context))" checked /> Yes
+            </label>
+        }
+        else
+        {
+            <label class="text-danger">
+                <input type="checkbox" @onchange="@(()=>HandleIsFeaturedChanged(context))" /> No
+            </label>
+        }
+    </TemplateColumn>
+    <TemplateColumn Title="Is Published">
+        @if (context.IsPublished)
+        {
+            <label class="text.success">
+                <input type="checkbox" @onchange="@(()=>HandleIsPublishedChanged(context))" checked /> Yes
+            </label>
+        }
+        else
+        {
+            <label class="text-danger">
+                <input type="checkbox" @onchange="@(()=>HandleIsPublishedChanged(context))" /> No
+            </label>
+        }
+    </TemplateColumn>
+    <TemplateColumn>
+        <a href="admin/manage-blogposts/edit/@context.Id" type="button" class="btn btn-sm btn-primary" data-enhance-nav="false">Edit</a>
+    </TemplateColumn>
+</QuickGrid>
+<Paginator State="_paginationState"/>
+
+<style type="text/css">
+    .table > tbody > tr >td{
+        vertical-align: middle;
+    }
+</style>
+
+@code {
+    private bool _isLoading;
+    private string? _loadingText;
+    private BlogPost? _operatingBlogPost;
+
+
+    private const int PageSize = 10;
+
+    private PaginationState _paginationState = new PaginationState
+        {
+            ItemsPerPage = PageSize
+        };
+
+    private GridItemsProvider<BlogPost> _blogPostsProvider;
+
+    // protected  override void OnInitialized()
+    // {
+    //     _blogPostsProvider = async request =>
+    //     {
+    //         _isLoading = true;
+    //         _loadingText = "Fetching blog posts...";
+    //         PagedResult<BlogPost> pagedBlogs = await BlogPostAdminService.GetBlogPostsAsync(request.StartIndex, request.Count ?? PageSize);
+    //         _isLoading = false;
+    //         return GridItemsProviderResult.From(pagedBlogs.Records, pagedBlogs.TotalCount);
+    //     };
+    // }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if(firstRender)
+        {
+            _blogPostsProvider = async request =>
+            {
+                _isLoading = true;
+                _loadingText = "Fetching blog posts";
+                StateHasChanged();
+
+                PagedResult<BlogPost> pagedBlogs = await BlogPostAdminService.GetBlogPostsAsync(request.StartIndex, request.Count ?? PageSize);
+                _isLoading = false;
+                StateHasChanged();
+                return GridItemsProviderResult.From(pagedBlogs.Records, pagedBlogs.TotalCount);
+            };
+            StateHasChanged();
+        }
+    }
+
+
+    private async Task HandleIsFeaturedChanged(BlogPost blogPost)
+    {
+        blogPost.IsFeatured = !blogPost.IsFeatured;
+        await SaveChangesAsync(blogPost);
+    }
+    private async Task HandleIsPublishedChanged(BlogPost blogPost)
+    {
+       
+       blogPost.IsPublished = !blogPost.IsPublished;
+       await  SaveChangesAsync(blogPost);
+    }
+    private async Task SaveChangesAsync(BlogPost blogPost)
+    {
+        var authState = await AuthStateProvider.GetAuthenticationStateAsync();
+        var userId = authState.User.GetUserId();
+
+        _loadingText = "Saving changes";
+        await BlogPostAdminService.SaveBlogPostAsync(blogPost, userId);
+        _isLoading = false;
+     //  navigationManager.Refresh();
+    }
+
+  
+}
