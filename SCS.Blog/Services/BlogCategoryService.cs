@@ -4,6 +4,7 @@ using SCS.Data;
 using SCS.Models;
 
 namespace SCS.Blog.Services;
+
 public class BlogCategoryService : IBlogCategoryService
 {
     private readonly IDbContextFactory<ApplicationDbContext> _contextFactory;
