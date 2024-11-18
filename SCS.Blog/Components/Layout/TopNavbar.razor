@@ -1,4 +1,5 @@
-﻿@inject IBlogCategoryService BlogCategoryService
+﻿@using Microsoft.AspNetCore.Identity
+@inject IBlogCategoryService BlogCategoryService
 
 
 <nav class="topnav navbar navbar-expand-lg navbar-light bg-white fixed-top">
@@ -22,16 +23,20 @@
 		
 		 </ul>
 			<ul class="navbar-nav ml-auto d-flex align-items-center">
-				
+				<AuthorizeView Roles="admin">
+					<li class="nav-item ">
+						<a class="nav-link" href="admin/dashboard">Admin</a>
+					</li>
+				</AuthorizeView>
 				<AuthorizeView>
 					<Authorized>
-						<li class="nav-item ">
-							<a class="nav-link" href="admin/dashboard">Admin</a>
-						</li>
+						
 						<li class="nav-item highlight">
 								<LogoutForm ButtonClasses="nav-link"/>
 						</li>
-						
+					
+							
+
 					</Authorized>
 					<NotAuthorized>
 						<li class="nav-item highlight">
@@ -39,14 +44,17 @@
 						</li>
 					</NotAuthorized>
 				</AuthorizeView>
+				
 			</ul>
 		</div>
 	</div>
 </nav>
 
 @code{
+
 	private BlogCategory[] _blogCategories = [];
 	private const int MaxBlogCategoriesToShowOnNavbar = 5;
+	
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
 		if(firstRender)
@@ -57,10 +65,10 @@
 			if (_blogCategories.Length < MaxBlogCategoriesToShowOnNavbar)
 			{
 				_blogCategories = [.. _blogCategories, .. blogCategories.Where(c => !c.ShowOnNavbar)
-				.Take(MaxBlogCategoriesToShowOnNavbar - _blogCategories.Length)];
+			.Take(MaxBlogCategoriesToShowOnNavbar - _blogCategories.Length)];
 				//categories.Where(c => !c.ShowOnNavbar).Take(MaxCategoriesToShowOnNavbar - _categories.Length);
 			}
-			StateHasChanged();
+		StateHasChanged();
 		}
 	}
 	//  }

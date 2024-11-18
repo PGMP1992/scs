@@ -1,5 +1,6 @@
 ﻿@page "/admin/dashboard"
 @using SCS.Blog.Components.Shared
+@attribute [Authorize(Roles = "admin")]
 
 <PageTitle>@Utils.GetPageTitle("Dashboard")</PageTitle>
 
