@@ -23,7 +23,7 @@ namespace SCSWeb.Areas.Admin
         // GET: Dashboard
         public async Task<ActionResult> Index()
         {
-            IEnumerable<AppUser> users = await _unitOfWork.AppUser.GetAllAsync(x => x.AddressId != null, includeProperties: "Address");
+            IEnumerable<AppUser> users = await _unitOfWork.AppUser.GetAllAsync(x => x.AddressId != null && x.Email != SD.AdminEmail, includeProperties: "Address");
             var usersByCountry = users.GroupBy(x => x.Address.Country);
                 
             IEnumerable<Product> products = await _unitOfWork.Product.GetAllAsync(includeProperties: "Category");
