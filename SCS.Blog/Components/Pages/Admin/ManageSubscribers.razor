@@ -1,0 +1,51 @@
+﻿@page "/admin/manage-subscribers"
+@inject IBlogSubscriberService BlogSubscriberService
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using SCS.Blog.Services
+
+<PageTitle>@Utils.GetPageTitle("Manage Subscribers")</PageTitle>
+
+<AdminHeader Title= "Manage Subscribers"/>
+
+@* @(_isLoading)
+{
+    <Loader LoaderText="Fetching subscribers"></Loader>
+}
+ *@
+<QuickGrid ItemsProvider="_blogSubscribersProvider" Pagination="_paginationState" Class="table table-striped table-bordered">
+    <PropertyColumn Property="c=>c.Name"/>
+    <PropertyColumn Property="c=>c.Email" />
+    <PropertyColumn Property="c=>c.SubscribedOn" Format="yyyy-MM-dd hh:mm:ss" Title="Subscribed On"/>
+
+
+</QuickGrid>
+<Paginator State="_paginationState"/>
+
+@code {
+    private bool _isLoading;
+
+    private GridItemsProvider<BlogSubscriber>? _blogSubscribersProvider;
+    private const int PageSize = 5;
+    private PaginationState _paginationState = new()
+    {
+        ItemsPerPage = PageSize
+    };
+
+    protected override void  OnAfterRender(bool firstRender)
+    {
+        if(firstRender)
+        {
+        _blogSubscribersProvider = async request =>
+        {
+            _isLoading = true;
+            StateHasChanged();
+            var result = await BlogSubscriberService.GetBlogSubscribersAsync(request.StartIndex, request.Count ?? PageSize);
+            _isLoading = false;
+            StateHasChanged();
+            return GridItemsProviderResult.From(result.Records, result.TotalCount);
+        };
+            StateHasChanged();
+
+        }      
+    }
+}

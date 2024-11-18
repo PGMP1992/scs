@@ -1,0 +1,110 @@
+﻿@page "/{blogCategorySlug}-posts"
+@inject IBlogPostService BlogPostService
+@inject IBlogCategoryService BlogCategoryService
+@inject NavigationManager navigationManager
+
+<PageTitle>@Utils.GetPageTitle(@_blogCategory?.Name+ " Posts")</PageTitle>
+
+<div class="container mt-5 mb-5">
+	<div class="row">
+		<div class="col-md-8">
+			@if(HasPosts)
+			{
+				
+			
+			<h5 class="font-weight-bold spanborder"><span>Featured in @_blogCategory?.Name</span></h5>
+		
+				<div class="card border-0 mb-5 box-shadow">
+					<div style="background-image: url(@_featured.Image); height: 350px; background-size: cover; background-repeat: no-repeat;">
+					</div>
+					<div class="card-body px-0 pb-0 d-flex flex-column align-items-start">
+						<h2 class="h2 font-weight-bold">
+							<a class="text-dark" href="posts/@_featured.Slug">@_featured.Title</a>
+						</h2>
+						<p class="card-text">
+							@_featured.Introduction
+						</p>
+						<div>
+							<small class="d-block">@_featured.User.Name</small>
+							<small class="text-muted">@_featured.PublishedAt.ToDisplay()</small>
+						</div>
+					</div>
+				</div>
+
+		
+			<h5 class="font-weight-bold spanborder"><span>Latest</span></h5>
+			<BlogPostsList Posts="_recent"/>
+			<hr/>
+
+			<div>
+					<a href="@BlogCategorySlug-posts/all" class="btn btn-sm btn-outline-primary float-right" style="margin-bottom: 1rem;">
+						All @_blogCategory?.Name Posts </a>
+			</div>
+			<hr style="clear: right"/>
+
+			}
+			else
+			{
+				<h5 class="font-weight-bold spanborder"><span>@_blogCategory?.Name Posts</span></h5>
+
+				<div class="card border-0 m-5 box-shadow">
+					<p class="h1 p-5 text-center">There are no blog posts yet in @_blogCategory?.Name</p>
+				</div>
+			}
+		</div>
+		@if(HasPosts)
+		{
+			<div class="col-md-4 pl-4">
+				<div class="sticky-top">
+					<h5 class="font-weight-bold spanborder"><span>Popular in @_blogCategory.Name</span></h5>
+					<PopularBlogPostsList Posts="_popular" />
+				</div>
+			</div>
+
+		}
+	</div>
+</div>
+
+<div class="container pt-4 pb-4">
+	<BlogSubscribeBox/>
+</div>
+@code {
+	[Parameter]
+	public string BlogCategorySlug { get; set; } = "scs";
+
+
+	private BlogPost? _featured;
+	private BlogPost[] _popular = [];
+	private BlogPost[] _recent = [];
+
+	private bool HasPosts => _featured is not null; //Posts in this category
+
+	private BlogCategory? _blogCategory = new BlogCategory();
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if(firstRender)
+		{
+			BlogCategory? blogCategory = await BlogCategoryService.GetBlogCategoryBySlugAsync(BlogCategorySlug);
+			if (blogCategory is null)
+			{
+				navigationManager.NavigateTo("/", replace: true);
+				//return;
+			}
+
+			_blogCategory = blogCategory;
+			var posts = await Task.WhenAll(
+					BlogPostService.GetFeaturedBlogPostsAsync(1, _blogCategory.Id),
+					BlogPostService.GetPopularBlogPostsAsync(4, _blogCategory.Id),
+					BlogPostService.GetRecentBlogPostsAsync(5, _blogCategory.Id)
+				);
+			_featured = posts[0].FirstOrDefault();
+			_popular = posts[1];
+			_recent = posts[2];
+			StateHasChanged();
+
+		}
+		
+
+		
+	}
+}

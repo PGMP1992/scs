@@ -1,0 +1,23 @@
+﻿
+<ol class="list-featured">
+	@foreach (var blog in Posts)
+	{
+		<li>
+			<span>
+				<h6 class="font-weight-bold">
+					<a href="posts/@blog.Slug" class="text-dark">@blog.Title</a>
+				</h6>
+				<p class="text-muted">
+					@blog.User.Name in  <a href="@blog.BlogCategory.Slug-posts" titel="@blog.BlogCategory.Name Posts">@blog.BlogCategory.Name</a>
+				</p>
+			</span>
+		</li>
+
+	}
+</ol>
+
+@code {
+	[Parameter, EditorRequired]
+	public BlogPost[] Posts { get; set; }
+	
+}

@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCSWeb", "SCSWeb\SCSWeb.csp
 		{0A3EDACE-AFAD-4FBE-B27A-F05E0E1F983F} = {0A3EDACE-AFAD-4FBE-B27A-F05E0E1F983F}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCS.Blog", "SCS.Blog\SCS.Blog.csproj", "{B6D90A79-7A80-45E3-ABEC-D97B61B2E0A5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{A6EB4A81-0E27-420B-8295-AE3C57D72B92}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6EB4A81-0E27-420B-8295-AE3C57D72B92}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6EB4A81-0E27-420B-8295-AE3C57D72B92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6D90A79-7A80-45E3-ABEC-D97B61B2E0A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6D90A79-7A80-45E3-ABEC-D97B61B2E0A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6D90A79-7A80-45E3-ABEC-D97B61B2E0A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6D90A79-7A80-45E3-ABEC-D97B61B2E0A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

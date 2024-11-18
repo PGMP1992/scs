@@ -1,0 +1,26 @@
+﻿
+@foreach (var blog in Posts)
+{
+	<div class="mb-3 d-flex justify-content-between">
+		<div class="pr-3">
+			<h2 class="mb-1 h4 font-weight-bold">
+				<a class="text-dark" href="posts/@blog.Slug">@blog.Title</a>
+			</h2>
+			<p>
+				@blog.Introduction
+			</p>
+			<div class="card-text text-muted small">
+				@blog.User.Name in <a href="@blog.BlogCategory.Slug-posts" titel="@blog.BlogCategory.Name Posts">@blog.BlogCategory.Name</a>
+			</div>
+			<small class="text-muted">@blog.PublishedAt.ToDisplay()</small>
+		</div>
+		<img height="120" src="@blog.Image">
+	</div>
+
+}
+
+
+@code {
+	[Parameter, EditorRequired]
+	public BlogPost[] Posts { get; set; }
+}
