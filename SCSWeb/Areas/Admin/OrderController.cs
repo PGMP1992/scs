@@ -128,6 +128,7 @@ public class OrderController : Controller
                 orderHeaderList = orderHeaderList.Where(u => u.OrderStatus == SD.StatusApproved);
                 break;
         }
+        
         return Json(new { data = orderHeaderList });
     }
 

@@ -111,17 +111,17 @@ namespace SCS.Areas.Admin
         [HttpGet]
         public IActionResult GetAll()
         {
-
-            List<AppUser> objUserList = _unitOfWork.AppUser.GetAll(u => u.NormalizedEmail != null).ToList();
-            //List<AppUser> objUserList = _unitOfWork.AppUser.GetAll().ToList(); - Original showing all users - PM
+            // Used for excluding Temp Users - excluded now from app 
+            //List<AppUser> objUserList = _unitOfWork.AppUser.GetAll(u => u.NormalizedEmail != null, includeProperties : "Address").ToList();
+            List<AppUser> objUserList = _unitOfWork.AppUser.GetAll(x => x.Email != SD.AdminEmail, includeProperties: "Address").ToList(); 
             // Using AspNetUserRoles and AspNetRoles tables
             // - excluding the AspNet from the table name for all Identity tables works  
 
-            foreach (var user in objUserList)
-            {
-                // Don't show temp/ not logged  users 
-                user.Role = _userManager.GetRolesAsync(user).GetAwaiter().GetResult().FirstOrDefault();
-            }
+            //foreach (var user in objUserList)
+            //{
+            //    // Don't show temp/ not logged  users 
+            //    user.Role = _userManager.GetRolesAsync(user).GetAwaiter().GetResult().FirstOrDefault();
+            //}
             return Json(new { data = objUserList });
         }
 
