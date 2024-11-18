@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
 	<AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
 	<ServerGarbageCollection>false</ServerGarbageCollection>
+	<UserSecretsId>94e3fa11-f678-4c9f-9912-43941c8cc09d</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
