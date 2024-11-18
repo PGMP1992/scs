@@ -17,7 +17,7 @@ namespace SCS.DataAccess.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.10")
+                .HasAnnotation("ProductVersion", "8.0.11")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -282,6 +282,225 @@ namespace SCS.DataAccess.Migrations
                         });
                 });
 
+            modelBuilder.Entity("SCS.Models.BlogCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool>("ShowOnNavbar")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasMaxLength(75)
+                        .HasColumnType("nvarchar(75)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BlogCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Lexicon",
+                            ShowOnNavbar = true,
+                            Slug = "lexicon"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "SCS",
+                            ShowOnNavbar = true,
+                            Slug = "scs"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "C#",
+                            ShowOnNavbar = false,
+                            Slug = "c-sharp"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "ASP.NET Core#",
+                            ShowOnNavbar = true,
+                            Slug = "asp-net-core"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Blazor",
+                            ShowOnNavbar = true,
+                            Slug = "blazor"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "SQL Server",
+                            ShowOnNavbar = false,
+                            Slug = "sql-server"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Entity Framework Core",
+                            ShowOnNavbar = false,
+                            Slug = "ef-core"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Angular",
+                            ShowOnNavbar = false,
+                            Slug = "angular"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "React",
+                            ShowOnNavbar = false,
+                            Slug = "react"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "Vue",
+                            ShowOnNavbar = false,
+                            Slug = "vue"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Name = "JavaScript",
+                            ShowOnNavbar = false,
+                            Slug = "javascript"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Name = "HTML",
+                            ShowOnNavbar = false,
+                            Slug = "html"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Name = "CSS",
+                            ShowOnNavbar = false,
+                            Slug = "css"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Name = "Bootstrap",
+                            ShowOnNavbar = false,
+                            Slug = "bootstrap"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Name = "MVC",
+                            ShowOnNavbar = true,
+                            Slug = "mvc"
+                        });
+                });
+
+            modelBuilder.Entity("SCS.Models.BlogPost", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BlogCategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Image")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Introduction")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<bool>("IsFeatured")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsPublished")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("PublishedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Slug")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("ViewCount")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BlogCategoryId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("BlogPosts");
+                });
+
+            modelBuilder.Entity("SCS.Models.BlogSubscriber", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<DateTime>("SubscribedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BlogSubscribers");
+                });
+
             modelBuilder.Entity("SCS.Models.Booking", b =>
                 {
                     b.Property<int>("Id")
@@ -454,105 +673,105 @@ namespace SCS.DataAccess.Migrations
                         {
                             Id = 1,
                             CertSlotId = 1,
-                            Date = new DateOnly(2024, 11, 27),
+                            Date = new DateOnly(2024, 11, 28),
                             IsCertDay = false
                         },
                         new
                         {
                             Id = 2,
                             CertSlotId = 1,
-                            Date = new DateOnly(2024, 11, 28),
+                            Date = new DateOnly(2024, 11, 29),
                             IsCertDay = true
                         },
                         new
                         {
                             Id = 3,
                             CertSlotId = 1,
-                            Date = new DateOnly(2024, 11, 29),
+                            Date = new DateOnly(2024, 11, 30),
                             IsCertDay = false
                         },
                         new
                         {
                             Id = 4,
                             CertSlotId = 1,
-                            Date = new DateOnly(2024, 11, 30),
+                            Date = new DateOnly(2024, 12, 1),
                             IsCertDay = true
                         },
                         new
                         {
                             Id = 5,
                             CertSlotId = 1,
-                            Date = new DateOnly(2024, 12, 1),
+                            Date = new DateOnly(2024, 12, 2),
                             IsCertDay = false
                         },
                         new
                         {
                             Id = 6,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 12, 7),
+                            Date = new DateOnly(2024, 12, 8),
                             IsCertDay = false
                         },
                         new
                         {
                             Id = 7,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 12, 8),
+                            Date = new DateOnly(2024, 12, 9),
                             IsCertDay = true
                         },
                         new
                         {
                             Id = 8,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 12, 9),
+                            Date = new DateOnly(2024, 12, 10),
                             IsCertDay = false
                         },
                         new
                         {
                             Id = 9,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 12, 10),
+                            Date = new DateOnly(2024, 12, 11),
                             IsCertDay = true
                         },
                         new
                         {
                             Id = 10,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 12, 11),
+                            Date = new DateOnly(2024, 12, 12),
                             IsCertDay = true
                         },
                         new
                         {
                             Id = 11,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 12, 12),
+                            Date = new DateOnly(2024, 12, 13),
                             IsCertDay = false
                         },
                         new
                         {
                             Id = 12,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 12, 13),
+                            Date = new DateOnly(2024, 12, 14),
                             IsCertDay = true
                         },
                         new
                         {
                             Id = 13,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 12, 14),
+                            Date = new DateOnly(2024, 12, 15),
                             IsCertDay = false
                         },
                         new
                         {
                             Id = 14,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 12, 15),
+                            Date = new DateOnly(2024, 12, 16),
                             IsCertDay = false
                         },
                         new
                         {
                             Id = 15,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 12, 16),
+                            Date = new DateOnly(2024, 12, 17),
                             IsCertDay = false
                         });
                 });
@@ -593,20 +812,20 @@ namespace SCS.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            Dates = "[\"2024-11-28\",\"2024-11-30\"]",
-                            EndDate = new DateOnly(2024, 12, 1),
+                            Dates = "[\"2024-11-29\",\"2024-12-01\"]",
+                            EndDate = new DateOnly(2024, 12, 2),
                             Name = "Sanctions",
                             ShowDays = false,
-                            StartDate = new DateOnly(2024, 11, 27)
+                            StartDate = new DateOnly(2024, 11, 28)
                         },
                         new
                         {
                             Id = 2,
-                            Dates = "[\"2024-12-08\",\"2024-12-11\",\"2024-12-13\"]",
-                            EndDate = new DateOnly(2024, 12, 16),
+                            Dates = "[\"2024-12-09\",\"2024-12-12\",\"2024-12-14\"]",
+                            EndDate = new DateOnly(2024, 12, 17),
                             Name = "C# Beginner",
                             ShowDays = false,
-                            StartDate = new DateOnly(2024, 12, 7)
+                            StartDate = new DateOnly(2024, 12, 8)
                         });
                 });
 
@@ -1004,6 +1223,25 @@ namespace SCS.DataAccess.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("SCS.Models.BlogPost", b =>
+                {
+                    b.HasOne("SCS.Models.BlogCategory", "BlogCategory")
+                        .WithMany()
+                        .HasForeignKey("BlogCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SCS.Models.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BlogCategory");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("SCS.Models.Booking", b =>

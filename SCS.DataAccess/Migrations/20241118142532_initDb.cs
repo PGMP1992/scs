@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SCS.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class initDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -46,6 +46,36 @@ namespace SCS.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BlogCategories",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Slug = table.Column<string>(type: "nvarchar(75)", maxLength: 75, nullable: false),
+                    ShowOnNavbar = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BlogCategories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BlogSubscribers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Email = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
+                    SubscribedOn = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BlogSubscribers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Bundles",
                 columns: table => new
                 {
@@ -53,8 +83,8 @@ namespace SCS.DataAccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false),
-                    ProductId1 = table.Column<int>(type: "int", nullable: false),
-                    ProductId2 = table.Column<int>(type: "int", nullable: false),
+                    ProductId1 = table.Column<int>(type: "int", nullable: true),
+                    ProductId2 = table.Column<int>(type: "int", nullable: true),
                     ProductId3 = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -312,6 +342,42 @@ namespace SCS.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BlogPosts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Slug = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
+                    Image = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Introduction = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BlogCategoryId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    IsPublished = table.Column<bool>(type: "bit", nullable: false),
+                    ViewCount = table.Column<int>(type: "int", nullable: false),
+                    IsFeatured = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PublishedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BlogPosts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BlogPosts_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BlogPosts_BlogCategories_BlogCategoryId",
+                        column: x => x.BlogCategoryId,
+                        principalTable: "BlogCategories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Bookings",
                 columns: table => new
                 {
@@ -444,6 +510,28 @@ namespace SCS.DataAccess.Migrations
                 values: new object[] { 1, "City Admin", "Country Admin", "111111", "State Admin", "Street 1", "Street 2" });
 
             migrationBuilder.InsertData(
+                table: "BlogCategories",
+                columns: new[] { "Id", "Name", "ShowOnNavbar", "Slug" },
+                values: new object[,]
+                {
+                    { 1, "Lexicon", true, "lexicon" },
+                    { 2, "SCS", true, "scs" },
+                    { 3, "C#", false, "c-sharp" },
+                    { 4, "ASP.NET Core#", true, "asp-net-core" },
+                    { 5, "Blazor", true, "blazor" },
+                    { 6, "SQL Server", false, "sql-server" },
+                    { 7, "Entity Framework Core", false, "ef-core" },
+                    { 8, "Angular", false, "angular" },
+                    { 9, "React", false, "react" },
+                    { 10, "Vue", false, "vue" },
+                    { 11, "JavaScript", false, "javascript" },
+                    { 12, "HTML", false, "html" },
+                    { 13, "CSS", false, "css" },
+                    { 14, "Bootstrap", false, "bootstrap" },
+                    { 15, "MVC", true, "mvc" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Bundles",
                 columns: new[] { "Id", "Name", "Price", "ProductId1", "ProductId2", "ProductId3" },
                 values: new object[] { 1, "C# for beginners, Bundle", 8500.0, 3, 4, 5 });
@@ -464,8 +552,8 @@ namespace SCS.DataAccess.Migrations
                 columns: new[] { "Id", "Dates", "DayOfWeek", "EndDate", "Name", "ShowDays", "StartDate" },
                 values: new object[,]
                 {
-                    { 1, "[\"2024-11-17\",\"2024-11-19\"]", null, new DateOnly(2024, 11, 20), "Sanctions", false, new DateOnly(2024, 11, 16) },
-                    { 2, "[\"2024-11-27\",\"2024-11-30\",\"2024-12-02\"]", null, new DateOnly(2024, 12, 5), "C# Beginner", false, new DateOnly(2024, 11, 26) }
+                    { 1, "[\"2024-11-29\",\"2024-12-01\"]", null, new DateOnly(2024, 12, 2), "Sanctions", false, new DateOnly(2024, 11, 28) },
+                    { 2, "[\"2024-12-09\",\"2024-12-12\",\"2024-12-14\"]", null, new DateOnly(2024, 12, 17), "C# Beginner", false, new DateOnly(2024, 12, 8) }
                 });
 
             migrationBuilder.InsertData(
@@ -484,21 +572,21 @@ namespace SCS.DataAccess.Migrations
                 columns: new[] { "Id", "CertSlotId", "Date", "IsCertDay" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateOnly(2024, 11, 16), false },
-                    { 2, 1, new DateOnly(2024, 11, 17), true },
-                    { 3, 1, new DateOnly(2024, 11, 18), false },
-                    { 4, 1, new DateOnly(2024, 11, 19), true },
-                    { 5, 1, new DateOnly(2024, 11, 20), false },
-                    { 6, 2, new DateOnly(2024, 11, 26), false },
-                    { 7, 2, new DateOnly(2024, 11, 27), true },
-                    { 8, 2, new DateOnly(2024, 11, 28), false },
-                    { 9, 2, new DateOnly(2024, 11, 29), true },
-                    { 10, 2, new DateOnly(2024, 11, 30), true },
-                    { 11, 2, new DateOnly(2024, 12, 1), false },
-                    { 12, 2, new DateOnly(2024, 12, 2), true },
-                    { 13, 2, new DateOnly(2024, 12, 3), false },
-                    { 14, 2, new DateOnly(2024, 12, 4), false },
-                    { 15, 2, new DateOnly(2024, 12, 5), false }
+                    { 1, 1, new DateOnly(2024, 11, 28), false },
+                    { 2, 1, new DateOnly(2024, 11, 29), true },
+                    { 3, 1, new DateOnly(2024, 11, 30), false },
+                    { 4, 1, new DateOnly(2024, 12, 1), true },
+                    { 5, 1, new DateOnly(2024, 12, 2), false },
+                    { 6, 2, new DateOnly(2024, 12, 8), false },
+                    { 7, 2, new DateOnly(2024, 12, 9), true },
+                    { 8, 2, new DateOnly(2024, 12, 10), false },
+                    { 9, 2, new DateOnly(2024, 12, 11), true },
+                    { 10, 2, new DateOnly(2024, 12, 12), true },
+                    { 11, 2, new DateOnly(2024, 12, 13), false },
+                    { 12, 2, new DateOnly(2024, 12, 14), true },
+                    { 13, 2, new DateOnly(2024, 12, 15), false },
+                    { 14, 2, new DateOnly(2024, 12, 16), false },
+                    { 15, 2, new DateOnly(2024, 12, 17), false }
                 });
 
             migrationBuilder.InsertData(
@@ -561,6 +649,16 @@ namespace SCS.DataAccess.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BlogPosts_BlogCategoryId",
+                table: "BlogPosts",
+                column: "BlogCategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BlogPosts_UserId",
+                table: "BlogPosts",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Bookings_AppUserId",
@@ -642,6 +740,12 @@ namespace SCS.DataAccess.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "BlogPosts");
+
+            migrationBuilder.DropTable(
+                name: "BlogSubscribers");
+
+            migrationBuilder.DropTable(
                 name: "Bookings");
 
             migrationBuilder.DropTable(
@@ -658,6 +762,9 @@ namespace SCS.DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "BlogCategories");
 
             migrationBuilder.DropTable(
                 name: "OrderHeaders");
