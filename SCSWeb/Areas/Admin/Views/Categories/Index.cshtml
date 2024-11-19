@@ -13,22 +13,23 @@
         </div>
         <div class="card-body p-4 mb-3">
             <div class="row pb-3">
-                <div class="col-6">
-                </div>
-                <div class="col-6 text-end">
+                @* <div class="col-6"></div> @* Dead Collum *@ 
+                <div class="col-12 text-end">
                     <a asp-controller="Categories" asp-action="Upsert" class="btn btn-primary rounded">
                         <i class="bi bi-plus-circle"></i>
                         New Category
                     </a>
                 </div>
             </div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th></th>   
-                </tr>
-            </thead>
+
+        <div class="table-responsive">
+            <table class="table table-sm-3">
+                <thead class="table-success">
+                    <tr>
+                        <th>Name</th>
+                        <th></th>   
+                    </tr>
+                </thead>
             <tbody>
                    
                 @foreach (var obj in Model.OrderBy(u => u.Category.Name))
