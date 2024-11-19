@@ -34,19 +34,6 @@ namespace SCS.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Address>().HasData(
-                new Address()
-                {
-                    Id = 1,
-                    Street1 = "Street 1",
-                    Street2 = "Street 2",
-                    City = "City Admin",
-                    State = "State Admin",
-                    Country = "Country Admin",
-                    Postcode = "111111"
-                }
-            );
-
             modelBuilder.Entity<Category>().HasData(
                 new Category
                 {
@@ -267,9 +254,9 @@ namespace SCS.Data
                     CategoryId = 1,
                     Description = "Certificate in Sanctions Description....",
                     Price = 7200,
-                    //Status = SD.ProductStatusRegistrated,
+                    Status = SD.ProductStatusActive,
                     ProviderId = 1,
-                    //CertSlotId=1,
+                    CertSlotId=1,
                 },
                 new Product
                 {
@@ -280,7 +267,6 @@ namespace SCS.Data
                     Price = 8400,
                     Status = SD.ProductStatusActive,
                     ProviderId = 1,
-                    //CertSlotId=1,
                 },
                 new Product
                 {
@@ -291,7 +277,7 @@ namespace SCS.Data
                     Price = 1000,
                     Status = SD.ProductStatusActive,
                     ProviderId = 2,
-                    //CertSlotId=1,
+                    BundleId = 1,
                 },
                 new Product
                 {
@@ -302,6 +288,7 @@ namespace SCS.Data
                     Price = 200,
                     Status = SD.ProductStatusActive,
                     ProviderId = 2,
+                    BundleId = 1,
                 },
                 new Product
                 {
@@ -312,52 +299,13 @@ namespace SCS.Data
                     Price = 300,
                     Status = SD.ProductStatusActive,
                     ProviderId = 2,
-                },
-                new Product
-                {
-                    Id = 6,
-                    Name = "C# Intermediate",
-                    CategoryId = 2,
-                    Description = "C# Intermediate Programming Description...",
-                    Price = 200,
-                    Status = SD.ProductStatusActive,
-                    ProviderId = 2,
-                },
-                new Product
-                {
-                    Id = 7,
-                    Name = "C# Intermediate",
-                    CategoryId = 3,
-                    Description = "C# Intermediate Programming Description...",
-                    Price = 300,
-                    Status = SD.ProductStatusActive,
-                    ProviderId = 2,
-                },
-                new Product
-                {
-                    Id = 8,
-                    Name = "C# Advanced",
-                    CategoryId = 2,
-                    Description = "C# Advanced Programming Description...",
-                    Price = 200,
-                    Status = SD.ProductStatusActive,
-                    ProviderId = 2,
-                },
-                new Product
-                {
-                    Id = 9,
-                    Name = "C# Advanced",
-                    CategoryId = 3,
-                    Description = "C# Advanced Programming Description...",
-                    Price = 300,
-                    Status = SD.ProductStatusActive,
-                    ProviderId = 2,
+                    BundleId = 1,
                 },
                 new Product
                 {
                     Id = 10,
                     Name = "C# for beginners, Bundle",
-                    CategoryId = 3,
+                    CategoryId = 4,
                     Description = "C# Advanced Programming Description...",
                     Price = 300,
                     Status = SD.ProductStatusActive,

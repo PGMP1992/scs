@@ -8,7 +8,7 @@ namespace SCS.Utility
 {
     public class EmailSender : IEmailSender
     {
-        public string SendGridSecret { get; set; } 
+        public string SendGridSecret { get; set; } = "";
 
         public EmailSender(IConfiguration _config)
         {
