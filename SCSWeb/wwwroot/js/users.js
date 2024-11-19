@@ -25,7 +25,7 @@ function loadDataTable() {
                                 <i class="bi bi-lock-fill"></i>
                                 UnLock
                             </a> 
-                            <a href="/admin/users/Edit?userId=${data.id}" class="btn btn-primary text-white" style="cursor:pointer; width:150px;">
+                            <a href="/admin/users/Edit?userId=${data.id}" class="btn btn-primary text-white" style="cursor:pointer; width:100px;">
                                 <i class="bi bi-pencil-square"></i>
                                 Edit
                             </a>
@@ -39,7 +39,7 @@ function loadDataTable() {
                                 <i class="bi bi-unlock-fill"></i>
                                 Lock
                             </a>
-                            <a href="/admin/users/Edit?userId=${data.id}" class="btn btn-primary text-white" style="cursor:pointer; width:150px;">
+                            <a href="/admin/users/Edit?userId=${data.id}" class="btn btn-primary text-white" style="cursor:pointer; width:100px;">
                                 <i class="bi bi-pencil-square"></i> 
                                 Edit
                             </a>

@@ -1,7 +1,6 @@
 ﻿@model List<ProviderVM>
 
 <div class="card shadow border-0 mt-4 rounded-2 ">
-
     <div class=" card-header bg-primary bg-gradient ml-0 py-3 rounded">
         <div class="row">
             <div class="col-12 text-center">
@@ -20,26 +19,14 @@
                 </a>
             </div>
         </div>
-        <table id="tblData" class="table table-borded table-light table-striped ">
+        <table id="tblData" class="table">
             <thead>
                 <tr>
-                    <th class="text-success-emphasis">
-                        Name
-                    </th>
-                    <th class="text-success-emphasis">
-                        Contact Name
-                    </th>
-                    <th class="text-success-emphasis">
-                        Contact Email
-                    </th>
-                    <th class="text-success-emphasis">
-                        Contact Phone
-                    </th>
-                    <th class="text-success-emphasis">
-                        
-                    </th>
+                    <th>Name</th>
+                    <th>Contact Name</th>
+                    <th>Contact Email</th>
+                    <th>Contact Phone</th>
                     <th></th>
-                </tr>
             </thead>
             <tbody>
                 @foreach (var obj in Model.OrderBy(u => u.Provider.Name))
@@ -62,23 +49,22 @@
                             @obj.Provider.ContactPhone
                         </td>
                         <td>
-                            <div>
-                                <a asp-controller="Providers" asp-action="Upsert" asp-route-id="@obj.Provider.Id" class="btn btn-primary form-control">
+                            <div class="w-60 btn-group" role="group">
+                                <a asp-controller="Providers" asp-action="Upsert" asp-route-id="@obj.Provider.Id" class="btn btn-primary mx-1">
                                     <i class="bi bi-pencil-square"></i> Edit
                                 </a>
+                            
+                                @if (@obj.OkToDelete)
+                                {
+                                    <form method="post" asp-action="Delete" asp-route-id="@obj.Provider.Id" id="deleteform" onsubmit="deleteProvider()">
+                                        <input asp-for="@obj.Provider.Id" hidden />
+                                        <button type="submit" class="btn btn-danger mx-1">
+                                            <i class="bi bi-trash-fill"></i>
+                                            Delete
+                                        </button>
+                                    </form>
+                                }
                             </div>
-                        </td>
-                         <td>
-                            @if (@obj.OkToDelete)
-                            {
-                                <form method="post" asp-action="Delete" asp-route-id="@obj.Provider.Id" id="deleteform" onsubmit="deleteProvider()">
-                                    <input asp-for="@obj.Provider.Id" hidden />
-                                    <button type="submit" class="btn btn-danger form-control">
-                                        <i class="bi bi-trash-fill"></i>
-                                        Delete
-                                    </button>
-                                </form>
-                            }
                         </td>
                     </tr>
                 }

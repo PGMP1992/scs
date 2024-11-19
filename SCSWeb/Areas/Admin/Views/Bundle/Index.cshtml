@@ -1,6 +1,6 @@
 ﻿@model List<BundleVM>
 
-<div class="card shadow border-0 mt-4 mb-4">
+<div class="card border-1 mt-4">
 
     <div class=" card-header bg-primary bg-gradient ml-0 py-3  rounded">
         <div class="row">
@@ -23,80 +23,58 @@
             </div>
         </div>
 
-        <table  class="table table-striped" style="width:100%">
+        <table  class="table">
             <thead>
                 <tr>
-                    <th class="text-success-emphasis">
-                        Name
-                    </th>
-                    <th class="text-success-emphasis">
-                        Product 1
-                    </th>
-                    <th class="text-success-emphasis">
-                        Product 2
-                    </th>
-                    <th class="text-success-emphasis">
-                        Product 3
-                    </th>
-                    <th class="text-success-emphasis">
-                        Price
-                    </th>
-                    <th class="text-success-emphasis">
-
-                    </th>
-                    <th class="text-success-emphasis">
-
-                    </th>
+                    <th>Name</th>
+                    <th>Product 1</th>
+                    <th>Product 2</th>
+                    <th>Product 3</th>
+                    <th>Price</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var obj in Model.OrderBy(u => u.Bundle.Name))
                 {
                     <tr>
+                        <td>@obj.Bundle.Name</td>
                         <td>
-                            @obj.Bundle.Name 
-                        </td>
-
-                        <td>
-                            Category: @obj.Bundle.Product1.Category.Name <br />
-                            Name: @obj.Bundle.Product1.Name
-                            
+                            @obj.Bundle.Product1.Name <br />
+                            <div class="text-secondary">@obj.Bundle.Product1.Category.Name</div>
                         </td>
                         <td>
-                            Category: @obj.Bundle.Product2.Category.Name <br />
-                            Name: @obj.Bundle.Product1.Name
+                            @obj.Bundle.Product2.Name <br />
+                            <div class="text-secondary">@obj.Bundle.Product2.Category.Name</div>
                         </td>
                         <td>
-                            Category: @obj.Bundle.Product3.Category.Name <br />
-                            Name: @obj.Bundle.Product1.Name
+                            @obj.Bundle.Product3.Name <br />
+                            <div class="text-secondary">@obj.Bundle.Product3.Category.Name</div>
                         </td>
                         <td>
                             @obj.Bundle.Price.ToString("C")
                         </td>
-                       
                         <td>
-                            <div>
-                                <a asp-controller="Bundle" asp-action="Upsert" asp-route-id="@obj.Bundle.Id" class="btn btn-primary form-control">
-                                    <i class="bi bi-pencil-square"></i> Edit
+                            <div class="w-60 btn-group" role="group">
+                                <a asp-controller="Bundle" asp-action="Upsert" asp-route-id="@obj.Bundle.Id" class="btn btn-primary mx-1">
+                                    <i class="bi bi-pencil-square"></i>
+                                    Edit
                                 </a> 
+                                @if (@obj.OkToDelete)
+                                {
+                                    <form method="post" asp-action="Delete" asp-route-id="@obj.Bundle.Id" id="deleteform" onsubmit="deleteBundle()">
+                                        <input asp-for="@obj.Bundle.Id" hidden />
+                                        <button type="submit" class="btn btn-danger mx-1">
+                                            <i class="bi bi-trash-fill"></i>
+                                            Delete
+                                        </button>
+                                    </form>
+                                }
                             </div>
-                        </td>
-                        <td>
-                            @if (@obj.OkToDelete)
-                            {
-                                <form method="post" asp-action="Delete" asp-route-id="@obj.Bundle.Id" id="deleteform" onsubmit="deleteBundle()">
-                                    <input asp-for="@obj.Bundle.Id" hidden />
-                                    <button type="submit" class="btn btn-danger form-control">
-                                        <i class="bi bi-trash-fill"></i>
-                                        Delete
-                                    </button>
-                                </form>
-                            }
                         </td>
                     </tr>
                 }
             </tbody>
-
         </table>
     </div>
 </div>

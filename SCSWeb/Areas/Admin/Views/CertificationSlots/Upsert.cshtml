@@ -14,11 +14,10 @@
         <form method="post" class="row">
             <input asp-for="@Model.CertificationSlot.Id" hidden />
             <input asp-for="@Model.CertificationSlot.ShowDays" hidden />
-           
 
             <div class="row">
-                <div class="col-10">
-                    <div class="border p-3">
+                <div class="col-12">
+                    <div class="border border-0 p-3">
                         <div class="form-floating py-2 col-12">
                             <input asp-for="@Model.CertificationSlot.Name" type="text" class="form-control border-1" />
                             <label asp-for="@Model.CertificationSlot.Name" class="mt-2 "></label>
@@ -40,7 +39,7 @@
                             && Model.CertificationSlot.EndDate > Model.CertificationSlot.StartDate)
                         {
 
-                            <table class="table table-bordered  table-striped table-light" style="width:100%">
+                            <table class="table table-light">
                                 <thead>
                                     <tr>
                                         <th class="text-success-emphasis">
@@ -58,16 +57,9 @@
                                     @for (int i=0;  i < Model.CDayList.Count(); i++) 
                                     {
                                         <input hidden asp-for="@Model.CDayList[i].Id" />
-                                        
                                         <tr>
-                                            <td>
-                                                @Model.CDayList[i].Date
-                                                
-                                            </td>
-                                            <td>
-                                                @Model.CDayList[i].Date.DayOfWeek
-                                               
-                                            </td>
+                                            <td>@Model.CDayList[i].Date</td>
+                                            <td>@Model.CDayList[i].Date.DayOfWeek</td>
                                             <td>   
                                                 <input asp-for="@Model.CDayList[i].IsCertDay" type="checkbox" class=" form-check-input" />
                                             </td>
@@ -77,22 +69,17 @@
                             </table>
                         }
 
-                        <div class="row pt-2">
-                            <div class="col-6 col-md-3">
-                                @if (Model.CertificationSlot.Id == 0)
-                                {
-                                    <button type="submit" asp-action="ShowDays"  class="btn btn-primary form-control rounded">Save</button>
-                                }
-                                else
-                                {
-                                      <button type="submit" class="btn btn-primary form-control rounded">Update</button>
-                                }
-                            </div>
+                        <div class="w-50 btn-group" role="group">
+                            @if (Model.CertificationSlot.Id == 0)
+                            {
+                                <button type="submit" asp-action="ShowDays"  class="btn btn mx-1">Save</button>
+                            }
+                            else
+                            {
+                                <button type="submit" class="btn btn-primary mx-1">Update</button>
+                            }
 
-                            <div class="col-6 col-md-3">
-                                <a asp-area="Admin" asp-controller="CertificationSlots" asp-action="Index" class="btn btn-secondary rounded form-control">Back to List</a>
-                            </div>
-                         
+                            <a asp-area="Admin" asp-controller="CertificationSlots" asp-action="Index" class="btn btn-secondary mx-1">Back to List</a>
                         </div>
                     </div>
                 </div>
