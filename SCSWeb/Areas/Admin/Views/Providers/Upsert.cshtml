@@ -32,17 +32,17 @@
                     <label asp-for="ContactPhone" class="mt-2 "></label>
                     <span asp-validation-for="ContactPhone" class="text-danger"></span>
                 </div>
-                <div class="w-50 btn-group" role="group">
+                <div class="btn-group" role="group">
                     @if (Model.Id == 0)
                     {
-                        <button type="submit" class="btn btn-primary mx-1">Save</button>
+                        <button type="submit" class="btn btn-primary mx-1" style="width:100px;">Save</button>
                     }
                     else
                     {
-                        <button type="submit" class="btn btn-primary mx-1">Update</button>
+                        <button type="submit" class="btn btn-primary mx-1" style="width:100px;">Update</button>
                     }
                     
-                    <a asp-area="Admin" asp-controller="Providers" asp-action="Index" class="btn btn-secondary mx-1">Back to List</a>
+                    <a asp-area="Admin" asp-controller="Providers" asp-action="Index" class="btn btn-outline-primary mx-1" style="width:100px;">Back to List</a>
                 </div>
             </div>
         </form>

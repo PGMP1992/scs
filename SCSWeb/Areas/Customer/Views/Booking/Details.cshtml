@@ -18,13 +18,12 @@ View: Details
 
 	@* Details ---------------------- *@
 	<form>
-		<div class="card-body">
-			<div class="container rounded p-2">
+		<div class="card-body p-2">
+			<div class="container rounded">
 				<div class="row">
 					<div class="col-12 col-lg-6 pb-4">
 						<div class="row">
 							<h4 class="d-flex justify-content-between align-items-center mb-3">
-								@* <span class="text-info">@Model.CertificationSlot.Name</span> *@
 							</h4>
 						</div>
 
@@ -34,7 +33,6 @@ View: Details
 							</div>
 							<div class="col-9">
 								<input asp-for="@Model.BookDate" class="form-control" readonly />
-								@* <span asp-validation-for="OrderHeader.Name" class="text-danger"></span>  ----------------- *@
 							</div>
 						</div>
 
@@ -71,12 +69,11 @@ View: Details
 							</div>
 							<div class="col-9">
 								<input asp-for="@Model.AppUser.Email" class="form-control" readonly />
-								<span asp-validation-for="@Model.AppUser.Email" class="text-danger"></span>
 							</div>
 						</div>
 					</div>
 				</div>
-				<button asp-controller="Booking" asp-action="BookingList" class="btn btn-primary">Back to List</button>
+				<button asp-controller="Booking" asp-action="BookingList" class="btn btn-outline-primary" style="width:100px;">Back to List</button>
 			</div>
 		</div>
 	</form>

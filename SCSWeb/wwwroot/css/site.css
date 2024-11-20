@@ -37,7 +37,9 @@ body {
 }
 
 .bg-primary {
-    background-color: #002c41 !important;
+    /*background-color: #002c41 !important;- Original */
+    background-color: #052742 !important; /*- Change the same as Nav bar*/
+    /*background-color: rgba(255, 255, 255, 0.2);*/
 }
 
 .custom-title {

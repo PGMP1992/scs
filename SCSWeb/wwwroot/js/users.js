@@ -11,7 +11,7 @@ function loadDataTable() {
             { "data": "name", "width": "15%" },
             { "data": "email", "width": "15%" },
             { "data": "address.country", "width": "15%" },
-            /*{ "data": "role", "width": "15%" },*/
+            { "data": "role", "width": "15%" },
             {
                 data: { id: "id", lockoutEnd: "lockoutEnd" },
                 "render": function (data) {
@@ -27,7 +27,6 @@ function loadDataTable() {
                             </a> 
                             <a href="/admin/users/Edit?userId=${data.id}" class="btn btn-primary text-white" style="cursor:pointer; width:100px;">
                                 <i class="bi bi-pencil-square"></i>
-                                Edit
                             </a>
                         </div>
                     `
@@ -41,7 +40,6 @@ function loadDataTable() {
                             </a>
                             <a href="/admin/users/Edit?userId=${data.id}" class="btn btn-primary text-white" style="cursor:pointer; width:100px;">
                                 <i class="bi bi-pencil-square"></i> 
-                                Edit
                             </a>
                         </div>
                     `

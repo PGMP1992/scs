@@ -17,7 +17,7 @@
             <div class="row">
                 <div class="col-10">
 
-                    <div class="form-floating py-2 col-12">
+                    <div class="form-floating py-2">
                         <input asp-for="Product.Name" class="form-control border-1 " />
                         <label asp-for="Product.Name" class="mt-2 "></label>
                         <span asp-validation-for="Product.Name" class="text-danger"></span>
@@ -25,12 +25,12 @@
 
                     <label asp-for="Product.Description" class="text-muted">Description</label>
 
-                    <div class="form-floating py-2 col-12">
+                    <div class="form-floating py-2">
                         <textarea  asp-for="Product.Description" class="form-control border-1 " style="height:150px"></textarea>
                         <span asp-validation-for="Product.Description" class="text-danger"></span>
                     </div>
 
-                    <div class="form-floating py-2 col-12">
+                    <div class="form-floating py-2">
                         <select asp-for="Product.CategoryId" asp-items="@Model.CategoryList" class="form-select border-1">
                             <option disabled selected>--Select Category--</option>
                         </select>
@@ -38,7 +38,7 @@
                         <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
                     </div>
 
-                    <div class="form-floating py-2 col-12">
+                    <div class="form-floating py-2">
                         <select asp-for="Product.ProviderId" asp-items="@Model.ProviderList" class="form-select border-1">
                             <option disabled selected>--Select Provider--</option>
                         </select>
@@ -46,13 +46,13 @@
                         <span asp-validation-for="Product.ProviderId" class="text-danger"></span>
                     </div>
                       
-                    <div class="form-floating py-2 col-12">
+                    <div class="form-floating py-2">
                         <input asp-for="Product.Price" class="form-control border-1" />
                         <label asp-for="Product.Price" class="mt-2 "></label>
                         <span asp-validation-for="Product.Price" class="text-danger"></span>
                     </div>
 
-                    <div class="form-floating py-2 col-12">
+                    <div class="form-floating py-2">
 
                         <select asp-for="Product.CertSlotId" asp-items="@Model.CertSlotList" class="form-select border-1">
                             <option disabled selected>--Select Certification Slot--</option>
@@ -60,7 +60,7 @@
                         <label asp-for="Product.CertSlotId" class="mt-2 ">CertificationSlot</label>
                     </div>
                        
-                    <div class="form-floating py-2 col-12 " >
+                    <div class="form-floating py-2" >
                         <div class="form-control border-1" >
                             <label asp-for="Product.Status">Status: &nbsp; </label>
                             <input type="radio" asp-for="Product.Status" value="active"/>Active &nbsp;
@@ -69,30 +69,22 @@
                         <span asp-validation-for="Product.Status" class="text-danger"></span>
                     </div>
                           
-                    <div class="form-floating py-2 col-12">
+                    <div class="form-floating py-2">
                         <input type="file" name="files" class="form-control border-1" multiple />
                         <label asp-for="Product.ProductImages" class="mt-2 "></label>
                     </div>
                        
-                                                
-                    <div class="row pt-2">
-                        <div class="col-6 col-md-3">
-                            @if (Model.Product.Id == 0)
-                            {
-                                <button type="submit" class="btn btn-primary form-control rounded">Save</button>
-                            }
-                            else
-                            {
-                                <button type="submit" class="btn btn-primary form-control rounded">Update</button>
-                            }
-                        </div>
-
-                        <div class="col-6 col-md-3">
-                            <a asp-area="Admin"  asp-controller="Products" asp-action="Index" class="btn btn-secondary rounded form-control">Back to List</a>
-                        </div>
-                          
+                    <div class="btn-group mt-2" role="group">
+                        @if (Model.Product.Id == 0)
+                        {
+                            <button type="submit" class="btn btn-primary mx-1" style="width:100px">Save</button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn btn-primary mx-1" style="width:100px">Update</button>
+                        }
+                        <a asp-area="Admin" asp-controller="Products" asp-action="Index" class="btn btn-outline-primary mx-1" style="width:100px">Back to List</a>
                     </div>
-                    
                 </div>
 
                 <div class="col-2">
@@ -102,8 +94,9 @@
                             <div class="border p-1 m-2 text.center ">
                                 <img src="@image.ImageUrl" width="100%"
                                      style="border-radius:5px; border:1px solid #bbb9b9" />
-                                <a asp-action="DeleteImage" class="btn btn-danger rounded m-1" asp-route-imageId="@image.Id">
-                                    <i class="bi bi-trash-fill"></i>Delete
+                                <a asp-action="DeleteImage" class="btn btn-danger m-1" style="width:100px" asp-route-imageId="@image.Id">
+                                    <i class="bi bi-trash-fill"></i>
+                                    Delete
                                 </a>
                             </div>
                         }

@@ -268,18 +268,6 @@ namespace SCS.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Addresses");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            City = "City Admin",
-                            Country = "Country Admin",
-                            Postcode = "111111",
-                            State = "State Admin",
-                            Street1 = "Street 1",
-                            Street2 = "Street 2"
-                        });
                 });
 
             modelBuilder.Entity("SCS.Models.BlogCategory", b =>
@@ -326,14 +314,14 @@ namespace SCS.DataAccess.Migrations
                         {
                             Id = 3,
                             Name = "C#",
-                            ShowOnNavbar = false,
+                            ShowOnNavbar = true,
                             Slug = "c-sharp"
                         },
                         new
                         {
                             Id = 4,
                             Name = "ASP.NET Core#",
-                            ShowOnNavbar = true,
+                            ShowOnNavbar = false,
                             Slug = "asp-net-core"
                         },
                         new
@@ -410,8 +398,15 @@ namespace SCS.DataAccess.Migrations
                         {
                             Id = 15,
                             Name = "MVC",
-                            ShowOnNavbar = true,
+                            ShowOnNavbar = false,
                             Slug = "mvc"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Name = "Blommor",
+                            ShowOnNavbar = true,
+                            Slug = "blommor"
                         });
                 });
 
@@ -460,7 +455,6 @@ namespace SCS.DataAccess.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("ViewCount")
@@ -473,6 +467,83 @@ namespace SCS.DataAccess.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("BlogPosts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BlogCategoryId = 2,
+                            Content = "<p> besök den https:\\scservices.se</p>",
+                            CreatedAt = new DateTime(2024, 11, 16, 15, 16, 7, 190, DateTimeKind.Local).AddTicks(6795),
+                            Image = "images/posts/lwbsypfb.rxe.png",
+                            Introduction = "scservices har fått en ny mensida",
+                            IsFeatured = true,
+                            IsPublished = true,
+                            PublishedAt = new DateTime(2024, 11, 16, 15, 16, 7, 190, DateTimeKind.Local).AddTicks(6795),
+                            Slug = "ny-hemsida",
+                            Title = "Ny hemsida",
+                            ViewCount = 2
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BlogCategoryId = 1,
+                            Content = "<p> Du hittar oss på Södergatan 24 mellan Stortorget och Gustav Adolfs Torg. Cirka 10 minuter gångväg från Centralstationen. Ingång mellan Stadium och Indiska.</p><p>Varmt välkommen att kontakta oss för mer information&nbsp;om våra erbjudanden och bokning.</p>",
+                            CreatedAt = new DateTime(2024, 11, 15, 15, 16, 7, 190, DateTimeKind.Local).AddTicks(6801),
+                            Image = "images/posts/e41eigqw.de2.png",
+                            Introduction = "Här finns vi",
+                            IsFeatured = true,
+                            IsPublished = true,
+                            PublishedAt = new DateTime(2024, 11, 15, 15, 16, 7, 190, DateTimeKind.Local).AddTicks(6801),
+                            Slug = "ny-hemsida",
+                            Title = "Lexicon i Malmö",
+                            ViewCount = 4
+                        },
+                        new
+                        {
+                            Id = 3,
+                            BlogCategoryId = 16,
+                            Content = "<p> <span style=\"color: rgb(71, 71, 71);\">Floribundarosor, en grupp rosor med mycket komplext ursprung. Grunden till gruppen utgörs av korsningar mellan polyantarosor och rosor i andra grupper. Gruppen inkluderar även produktnamn som miniflorarosor, castlerosor och palacerosor. Motsvarar beteckningarna Floribunda och Climbing Floribunda i Modern Roses 11.&nbsp;</span><a href=\"https://sv.wikipedia.org/wiki/Floribundarosor\" target=\"_blank\" style=\"color: var(--JKqx2);\">Wikipedia</a></p>",
+                            CreatedAt = new DateTime(2024, 11, 18, 15, 16, 7, 190, DateTimeKind.Local).AddTicks(6803),
+                            Image = "images/posts/u1q4qomy.loi.png",
+                            Introduction = "Rikblommande rosor - floribunda",
+                            IsFeatured = true,
+                            IsPublished = true,
+                            PublishedAt = new DateTime(2024, 11, 18, 15, 16, 7, 190, DateTimeKind.Local).AddTicks(6804),
+                            Slug = "rosor",
+                            Title = "Rosor",
+                            ViewCount = 5
+                        },
+                        new
+                        {
+                            Id = 4,
+                            BlogCategoryId = 16,
+                            Content = "<p><strong style=\"color: rgb(95, 99, 104);\">Lavendel</strong><span style=\"color: rgb(77, 81, 86);\">, Lavandula angustifolia, är en av de mest älskade trädgårdsväxterna. Alla bör unna sig&nbsp;</span><strong style=\"color: rgb(95, 99, 104);\">lavendel</strong><span style=\"color: rgb(77, 81, 86);\">, den trivs både i rabatten och sommarkrukan</span></p><p><br></p><p><a href=\"https://www.blomsterlandet.se/kundklubb/\" target=\"_blank\" style=\"color: rgb(222, 238, 241);\">Kundklubb</a><a href=\"https://www.blomsterlandet.se/hitta-din-butik/\" target=\"_blank\" style=\"color: rgb(222, 238, 241);\">Våra butiker</a></p><p><img src=\"https://www.blomsterlandet.se/contentassets/309cef56f7d444a0abc60d61ec24da04/lavendelhack.jpg\"></p><p>Lavendel räknas som halvbuske, eftersom den blir förvedad, och är därför inte härdig i hela landet. Ju längre norrut man bor desto viktigare är det att välja ett soligt, varmt och framförallt väldränerat läge. Lavendel älskar torr jord, gärna sandblandad, sol och värme. Även om lavendel under gynnsamma former kan klara sig i zon 5 är det att rekommendera att i zon 3 och norrut plantera lavendeln i en upphöjd rabatt – eller i krukor som du vinterförvarar ljust och frostfritt.</p><p><br></p><p>Lavendel räknas också som medicinalväxt och har lugnande och kramplösande egenskaper. Lavendelblommor ger utsökt smak i olika sorters kakor, både i småkakor, skorpor och sockerkakor.</p><p>Främst är det doften vi tycker så mycket om, denna somriga doft som i fantasin tar oss med på resor till Provence och Toscana.</p>",
+                            CreatedAt = new DateTime(2024, 11, 12, 15, 16, 7, 190, DateTimeKind.Local).AddTicks(6806),
+                            Image = "images/posts/yujd3vy3.mmp.png",
+                            Introduction = "Lavendel, Lavandula angustifolia, är en av de mest älskade trädgårdsväxterna. Alla bör unna sig lavendel, den trivs både i rabatten och sommarkrukan",
+                            IsFeatured = true,
+                            IsPublished = true,
+                            PublishedAt = new DateTime(2024, 11, 12, 15, 16, 7, 190, DateTimeKind.Local).AddTicks(6806),
+                            Slug = "lavendel",
+                            Title = "Lavendel",
+                            ViewCount = 3
+                        },
+                        new
+                        {
+                            Id = 5,
+                            BlogCategoryId = 3,
+                            Content = "<p> https://www.w3schools.com/cs/index.php</p><h2>What is C#?</h2><p>C# is pronounced \"C-Sharp\".</p><p>It is an object-oriented programming language created by Microsoft that runs on the .NET Framework.</p><p>C# has roots from the C family, and the language is close to other popular languages like&nbsp;<a href=\"https://www.w3schools.com/cpp/default.asp\" target=\"_blank\" style=\"color: inherit;\">C++</a>&nbsp;and&nbsp;<a href=\"https://www.w3schools.com/java/default.asp\" target=\"_blank\" style=\"color: inherit;\">Java</a>.</p><p>The first version was released in year 2002. The latest version,&nbsp;<strong>C# 12</strong>, was released in November 2023.</p><p>C# is used for:</p><ul><li>Mobile applications</li><li>Desktop applications</li><li>Web applications</li><li>Web services</li><li>Web sites</li><li>Games</li><li>VR</li><li>Database applications</li><li>And much, much more!</li></ul><h2>Why Use C#?</h2><ul><li>It is one of the most popular programming languages in the world</li><li>It is easy to learn and simple to use</li><li>It has huge community support</li><li>C# is an object-oriented language which gives a clear structure to programs and allows code to be reused, lowering development costs</li><li>As C# is close to&nbsp;<a href=\"https://www.w3schools.com/c/index.php\" target=\"_blank\" style=\"color: inherit;\">C</a>,&nbsp;<a href=\"https://www.w3schools.com/cpp/default.asp\" target=\"_blank\" style=\"color: inherit;\">C++</a>&nbsp;and&nbsp;<a href=\"https://www.w3schools.com/java/default.asp\" target=\"_blank\" style=\"color: inherit;\">Java</a>, it makes it easy for programmers to switch to C# or vice versa</li></ul><h2>Get Started</h2><p>This tutorial will teach you the basics of C#.</p><p>It is not necessary to have any prior programming experience.</p>",
+                            CreatedAt = new DateTime(2024, 11, 11, 15, 16, 7, 190, DateTimeKind.Local).AddTicks(6808),
+                            Image = "images/posts/kcukikkw.lb3.png",
+                            Introduction = "C# (C-Sharp) is a programming language developed by Microsoft that runs on the .NET",
+                            IsFeatured = true,
+                            IsPublished = true,
+                            PublishedAt = new DateTime(2024, 11, 11, 15, 16, 7, 190, DateTimeKind.Local).AddTicks(6809),
+                            Slug = "guide",
+                            Title = "Guide",
+                            ViewCount = 1
+                        });
                 });
 
             modelBuilder.Entity("SCS.Models.BlogSubscriber", b =>
@@ -673,105 +744,105 @@ namespace SCS.DataAccess.Migrations
                         {
                             Id = 1,
                             CertSlotId = 1,
-                            Date = new DateOnly(2024, 11, 28),
+                            Date = new DateOnly(2024, 11, 29),
                             IsCertDay = false
                         },
                         new
                         {
                             Id = 2,
                             CertSlotId = 1,
-                            Date = new DateOnly(2024, 11, 29),
+                            Date = new DateOnly(2024, 11, 30),
                             IsCertDay = true
                         },
                         new
                         {
                             Id = 3,
                             CertSlotId = 1,
-                            Date = new DateOnly(2024, 11, 30),
+                            Date = new DateOnly(2024, 12, 1),
                             IsCertDay = false
                         },
                         new
                         {
                             Id = 4,
                             CertSlotId = 1,
-                            Date = new DateOnly(2024, 12, 1),
+                            Date = new DateOnly(2024, 12, 2),
                             IsCertDay = true
                         },
                         new
                         {
                             Id = 5,
                             CertSlotId = 1,
-                            Date = new DateOnly(2024, 12, 2),
+                            Date = new DateOnly(2024, 12, 3),
                             IsCertDay = false
                         },
                         new
                         {
                             Id = 6,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 12, 8),
+                            Date = new DateOnly(2024, 12, 9),
                             IsCertDay = false
                         },
                         new
                         {
                             Id = 7,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 12, 9),
+                            Date = new DateOnly(2024, 12, 10),
                             IsCertDay = true
                         },
                         new
                         {
                             Id = 8,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 12, 10),
+                            Date = new DateOnly(2024, 12, 11),
                             IsCertDay = false
                         },
                         new
                         {
                             Id = 9,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 12, 11),
+                            Date = new DateOnly(2024, 12, 12),
                             IsCertDay = true
                         },
                         new
                         {
                             Id = 10,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 12, 12),
+                            Date = new DateOnly(2024, 12, 13),
                             IsCertDay = true
                         },
                         new
                         {
                             Id = 11,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 12, 13),
+                            Date = new DateOnly(2024, 12, 14),
                             IsCertDay = false
                         },
                         new
                         {
                             Id = 12,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 12, 14),
+                            Date = new DateOnly(2024, 12, 15),
                             IsCertDay = true
                         },
                         new
                         {
                             Id = 13,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 12, 15),
+                            Date = new DateOnly(2024, 12, 16),
                             IsCertDay = false
                         },
                         new
                         {
                             Id = 14,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 12, 16),
+                            Date = new DateOnly(2024, 12, 17),
                             IsCertDay = false
                         },
                         new
                         {
                             Id = 15,
                             CertSlotId = 2,
-                            Date = new DateOnly(2024, 12, 17),
+                            Date = new DateOnly(2024, 12, 18),
                             IsCertDay = false
                         });
                 });
@@ -812,20 +883,20 @@ namespace SCS.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            Dates = "[\"2024-11-29\",\"2024-12-01\"]",
-                            EndDate = new DateOnly(2024, 12, 2),
+                            Dates = "[\"2024-11-30\",\"2024-12-02\"]",
+                            EndDate = new DateOnly(2024, 12, 3),
                             Name = "Sanctions",
                             ShowDays = false,
-                            StartDate = new DateOnly(2024, 11, 28)
+                            StartDate = new DateOnly(2024, 11, 29)
                         },
                         new
                         {
                             Id = 2,
-                            Dates = "[\"2024-12-09\",\"2024-12-12\",\"2024-12-14\"]",
-                            EndDate = new DateOnly(2024, 12, 17),
+                            Dates = "[\"2024-12-10\",\"2024-12-13\",\"2024-12-15\"]",
+                            EndDate = new DateOnly(2024, 12, 18),
                             Name = "C# Beginner",
                             ShowDays = false,
-                            StartDate = new DateOnly(2024, 12, 8)
+                            StartDate = new DateOnly(2024, 12, 9)
                         });
                 });
 
@@ -968,6 +1039,7 @@ namespace SCS.DataAccess.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
+                            CertSlotId = 1,
                             Description = "Certificate in Sanctions Description....",
                             Name = "Certificate in Sanctions",
                             Price = 7200.0,
@@ -987,6 +1059,7 @@ namespace SCS.DataAccess.Migrations
                         new
                         {
                             Id = 3,
+                            BundleId = 1,
                             CategoryId = 1,
                             Description = "C# Certification Description...",
                             Name = "C# Certificate",
@@ -997,6 +1070,7 @@ namespace SCS.DataAccess.Migrations
                         new
                         {
                             Id = 4,
+                            BundleId = 1,
                             CategoryId = 2,
                             Description = "C# Begginner Programming Description...",
                             Name = "C# Beginner",
@@ -1007,6 +1081,7 @@ namespace SCS.DataAccess.Migrations
                         new
                         {
                             Id = 5,
+                            BundleId = 1,
                             CategoryId = 3,
                             Description = "C# Begginner Programming Description...",
                             Name = "C# Beginner",
@@ -1016,49 +1091,9 @@ namespace SCS.DataAccess.Migrations
                         },
                         new
                         {
-                            Id = 6,
-                            CategoryId = 2,
-                            Description = "C# Intermediate Programming Description...",
-                            Name = "C# Intermediate",
-                            Price = 200.0,
-                            ProviderId = 2,
-                            Status = "Active"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CategoryId = 3,
-                            Description = "C# Intermediate Programming Description...",
-                            Name = "C# Intermediate",
-                            Price = 300.0,
-                            ProviderId = 2,
-                            Status = "Active"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            CategoryId = 2,
-                            Description = "C# Advanced Programming Description...",
-                            Name = "C# Advanced",
-                            Price = 200.0,
-                            ProviderId = 2,
-                            Status = "Active"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            CategoryId = 3,
-                            Description = "C# Advanced Programming Description...",
-                            Name = "C# Advanced",
-                            Price = 300.0,
-                            ProviderId = 2,
-                            Status = "Active"
-                        },
-                        new
-                        {
                             Id = 10,
                             BundleId = 1,
-                            CategoryId = 3,
+                            CategoryId = 4,
                             Description = "C# Advanced Programming Description...",
                             Name = "C# for beginners, Bundle",
                             Price = 300.0,
@@ -1235,9 +1270,7 @@ namespace SCS.DataAccess.Migrations
 
                     b.HasOne("SCS.Models.AppUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("BlogCategory");
 

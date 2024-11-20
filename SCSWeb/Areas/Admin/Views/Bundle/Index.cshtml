@@ -2,7 +2,7 @@
 
 <div class="card border-1 mt-4">
 
-    <div class=" card-header bg-primary bg-gradient ml-0 py-3  rounded">
+    <div class=" card-header bg-primary bg-gradient ml-0 py-3 rounded">
         <div class="row">
             <div class="col-12 text-center">
                 <h2 class="text-white py-2">Bundles</h2>
@@ -16,9 +16,9 @@
             <div class="col-6">
             </div>
             <div class="col-6 text-end">
-                <a asp-controller="Bundle" asp-action="Upsert" class="btn btn-primary rounded">
+                <a asp-controller="Bundle" asp-action="Upsert" class="btn btn-primary" style="width:100px;">
                     <i class="bi bi-plus-circle"></i>
-                    New Bundle
+                    New
                 </a>
             </div>
         </div>
@@ -56,18 +56,16 @@
                             @obj.Bundle.Price.ToString("C")
                         </td>
                         <td>
-                            <div class="w-60 btn-group" role="group">
-                                <a asp-controller="Bundle" asp-action="Upsert" asp-route-id="@obj.Bundle.Id" class="btn btn-primary mx-1">
+                            <div class="btn-group" role="group">
+                                    <a asp-controller="Bundle" asp-action="Upsert" asp-route-id="@obj.Bundle.Id" class="btn btn-primary mx-1" style="width:100px;">
                                     <i class="bi bi-pencil-square"></i>
-                                    Edit
                                 </a> 
                                 @if (@obj.OkToDelete)
                                 {
                                     <form method="post" asp-action="Delete" asp-route-id="@obj.Bundle.Id" id="deleteform" onsubmit="deleteBundle()">
                                         <input asp-for="@obj.Bundle.Id" hidden />
-                                        <button type="submit" class="btn btn-danger mx-1">
+                                            <button type="submit" class="btn btn-danger mx-1" style="width:100px;">
                                             <i class="bi bi-trash-fill"></i>
-                                            Delete
                                         </button>
                                     </form>
                                 }
