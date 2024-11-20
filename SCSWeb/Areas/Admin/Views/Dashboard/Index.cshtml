@@ -14,7 +14,11 @@ Action: Index
             <h5>Customers By Country</h5>
         </div>
         <div class="col-md-2 offset-md-4">
-            <a class="btn btn-outline-light" asp-controller="Users" asp-action="Index">Go to Users</a>
+            <a class="btn btn-outline-light" style="width:100px" 
+                asp-controller="Users" asp-action="Index">
+                <i class="bi bi-box-arrow-in-right"></i>
+                Users
+            </a>
         </div>
     </div>
 
@@ -38,7 +42,11 @@ Action: Index
             <h5>Order by Status</h5>
         </div>
         <div class="col-md-2 offset-md-4">
-            <a class="btn btn-outline-light" asp-controller="Order" asp-action="Index">Go to Orders</a>
+            <a class="btn btn-outline-light" style="width:100px" 
+                asp-controller="Order" asp-action="Index">
+                <i class="bi bi-box-arrow-in-right"></i>
+                Orders
+            </a>
         </div>
     </div>
 
@@ -66,7 +74,11 @@ Action: Index
             <h5>Product by Category</h5>
         </div>
         <div class="col-md-2 offset-md-4">
-            <a class="btn btn-outline-light" asp-controller="Products" asp-action="Index">Go to Products</a>
+            <a class="btn btn-outline-light" style="width:100px" 
+                asp-controller="Products" asp-action="Index">
+                <i class="bi bi-box-arrow-in-right"></i>
+                Products
+            </a>
         </div>
     </div>
     
@@ -83,14 +95,16 @@ Action: Index
     }
 </div>
 
-
 <div class="border border-1 p-2 mt-2">
     <div class="row bg-info text-light p-2 m-2">
         <div class="col-md-6">
             <h5>Bookings</h5>
         </div>
         <div class="col-md-2 offset-md-4">
-            <a class="btn btn-outline-light" asp-area="Customer" asp-controller="Booking" asp-action="BookingList">Go to Bookings</a>
+            <a class="btn btn-outline-light" style="width:100px" 
+                asp-area="Customer" asp-controller="Booking" asp-action="BookingList">
+                <i class="bi bi-box-arrow-in-right"></i>
+                Bookings</a>
         </div>
     </div>
     @if (Model.Bookings.Count() > 0)
