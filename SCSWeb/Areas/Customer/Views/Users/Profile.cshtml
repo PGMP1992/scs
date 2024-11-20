@@ -1,4 +1,8 @@
-﻿@model AppUser
+﻿@* 
+    Controller : Customer.Users
+    View :  Edit 
+*@
+@model AppUser
 
 <div class="card shadow border-0 mt-4 rounded-2 ">
 
@@ -15,7 +19,7 @@
             <input asp-for="Id" hidden />
             <input asp-for="AddressId" hidden />
             <div class="border p-3 align-content-between">
-                <div class="form-floating py-2 col-6">
+                <div class="form-floating py-2">
                     <input asp-for="Name" class="form-control border-1" />
                     <label asp-for="Name" class="ms-2"></label>
                 </div>
@@ -23,7 +27,7 @@
                     <input asp-for="Email" class="form-control border-1" />
                     <label asp-for="Email" class="ms-2"></label>
                 </div> *@
-                <div class="form-floating py-2 col-6">
+                <div class="form-floating py-2">
                     <input asp-for="PhoneNumber" class="form-control border-1" />
                     <label asp-for="PhoneNumber" class="ms-2">Phone Number</label>
                 </div>
@@ -31,42 +35,38 @@
                 @* Address  ----------------- *@
                 <div class="container border bg-light ">
                     <div class="text-black">Address</div>
-                    <div class="form-floating py-2 col-6">
+                    <div class="form-floating py-2">
                         <input asp-for="Address.Street1" class="form-control border-1" />
                         <label asp-for="Address.Street1" class="ms-2"></label>
                     </div>
-                    <div class="form-floating py-2 col-6">
+                    <div class="form-floating py-2">
                         <input asp-for="Address.Street2" class="form-control border-1" />
                         <label asp-for="Address.Street2" class="ms-2"></label>
                     </div>
-                    <div class="form-floating py-2 col-6">
+                    <div class="form-floating py-2">
                         <input asp-for="Address.City" class="form-control border-1" />
                         <label asp-for="Address.City" class="ms-2"></label>
                     </div>
-                    <div class="form-floating py-2 col-6">
+                    <div class="form-floating py-2">
                         <input asp-for="Address.State" class="form-control border-1" />
                         <label asp-for="Address.State" class="ms-2"></label>
                     </div>
-                    <div class="form-floating py-2 col-6">
+                    <div class="form-floating py-2">
                         <input asp-for="Address.Postcode" class="form-control border-1" />
                         <label asp-for="Address.Postcode" class="ms-2"></label>
                     </div>
-                    <div class="form-floating py-2 col-6">
+                    <div class="form-floating py-2">
                         <input asp-for="Address.Country" class="form-control border-1" />
                         <label asp-for="Address.Country" class="ms-2"></label>
                     </div>
                 </div>
                 
                 @* Buttons  --------------- *@
-                <div class="row pt-2">
-                    <div class="col-6 col-md-3">
-                        <button type="submit" class="btn btn-primary form-control">Update</button>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <a asp-controller="Home" asp-action="Index" class="btn btn-outline-primary border  form-control">
-                            Cancel
-                        </a>
-                    </div>
+                <div class="btn-group mt-2" role="group">
+                    <button type="submit" class="btn btn-primary mx-1" style="width: 100px">Update</button>
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-outline-primary mx-1" style="width: 100px">
+                        Cancel
+                    </a>
                 </div>
             </div>
         </form>

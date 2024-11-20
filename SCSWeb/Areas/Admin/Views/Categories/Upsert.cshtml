@@ -23,19 +23,19 @@
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
 
-                <div class="w-50 btn-group" role="group">
-                        @* Insert Mode - PM *@
-                        @if (Model.Id == 0)
-                        {
-                            <button type="submit" class="btn btn-primary mx-1">Save</button>
-                        }
-                        else
-                        {
-                            <button type="submit" class="btn btn-primary mx-1">Update</button>
-                        }
-                        <a asp-area="Admin" asp-controller="Categories" asp-action="Index" class="btn btn-secondary mx-1">
-                            Back to List
-                        </a>
+                <div class="btn-group" role="group">
+                    @* Insert Mode - PM *@
+                    @if (Model.Id == 0)
+                    {
+                        <button type="submit" class="btn btn-primary mx-1" style="width:100px">Save</button>
+                    }
+                    else
+                    {
+                        <button type="submit" class="btn btn-primary mx-1" style="width:100px">Update</button>
+                    }
+                    <a asp-area="Admin" asp-controller="Categories" asp-action="Index" class="btn btn-outline-primary mx-1" style="width:100px">
+                        Back to List
+                    </a>
                 </div>
             </div>
         </form>

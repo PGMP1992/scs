@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SCS.Models;
 using SCS.Repository.IRepository;
@@ -65,7 +64,7 @@ namespace SCS.Areas.Customer
             _unitOfWork.Save();
             TempData["success"] = "Profile Updated";
 
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SCS.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class initDb : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -353,7 +353,7 @@ namespace SCS.DataAccess.Migrations
                     Introduction = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     BlogCategoryId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     IsPublished = table.Column<bool>(type: "bit", nullable: false),
                     ViewCount = table.Column<int>(type: "int", nullable: false),
                     IsFeatured = table.Column<bool>(type: "bit", nullable: false),
@@ -367,8 +367,7 @@ namespace SCS.DataAccess.Migrations
                         name: "FK_BlogPosts_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_BlogPosts_BlogCategories_BlogCategoryId",
                         column: x => x.BlogCategoryId,
@@ -505,19 +504,14 @@ namespace SCS.DataAccess.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Addresses",
-                columns: new[] { "Id", "City", "Country", "Postcode", "State", "Street1", "Street2" },
-                values: new object[] { 1, "City Admin", "Country Admin", "111111", "State Admin", "Street 1", "Street 2" });
-
-            migrationBuilder.InsertData(
                 table: "BlogCategories",
                 columns: new[] { "Id", "Name", "ShowOnNavbar", "Slug" },
                 values: new object[,]
                 {
                     { 1, "Lexicon", true, "lexicon" },
                     { 2, "SCS", true, "scs" },
-                    { 3, "C#", false, "c-sharp" },
-                    { 4, "ASP.NET Core#", true, "asp-net-core" },
+                    { 3, "C#", true, "c-sharp" },
+                    { 4, "ASP.NET Core#", false, "asp-net-core" },
                     { 5, "Blazor", true, "blazor" },
                     { 6, "SQL Server", false, "sql-server" },
                     { 7, "Entity Framework Core", false, "ef-core" },
@@ -528,7 +522,8 @@ namespace SCS.DataAccess.Migrations
                     { 12, "HTML", false, "html" },
                     { 13, "CSS", false, "css" },
                     { 14, "Bootstrap", false, "bootstrap" },
-                    { 15, "MVC", true, "mvc" }
+                    { 15, "MVC", false, "mvc" },
+                    { 16, "Blommor", true, "blommor" }
                 });
 
             migrationBuilder.InsertData(
@@ -552,8 +547,8 @@ namespace SCS.DataAccess.Migrations
                 columns: new[] { "Id", "Dates", "DayOfWeek", "EndDate", "Name", "ShowDays", "StartDate" },
                 values: new object[,]
                 {
-                    { 1, "[\"2024-11-29\",\"2024-12-01\"]", null, new DateOnly(2024, 12, 2), "Sanctions", false, new DateOnly(2024, 11, 28) },
-                    { 2, "[\"2024-12-09\",\"2024-12-12\",\"2024-12-14\"]", null, new DateOnly(2024, 12, 17), "C# Beginner", false, new DateOnly(2024, 12, 8) }
+                    { 1, "[\"2024-11-30\",\"2024-12-02\"]", null, new DateOnly(2024, 12, 3), "Sanctions", false, new DateOnly(2024, 11, 29) },
+                    { 2, "[\"2024-12-10\",\"2024-12-13\",\"2024-12-15\"]", null, new DateOnly(2024, 12, 18), "C# Beginner", false, new DateOnly(2024, 12, 9) }
                 });
 
             migrationBuilder.InsertData(
@@ -568,25 +563,37 @@ namespace SCS.DataAccess.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "BlogPosts",
+                columns: new[] { "Id", "BlogCategoryId", "Content", "CreatedAt", "Image", "Introduction", "IsFeatured", "IsPublished", "PublishedAt", "Slug", "Title", "UserId", "ViewCount" },
+                values: new object[,]
+                {
+                    { 1, 2, "<p> besök den https:\\scservices.se</p>", new DateTime(2024, 11, 16, 15, 16, 7, 190, DateTimeKind.Local).AddTicks(6795), "images/posts/lwbsypfb.rxe.png", "scservices har fått en ny mensida", true, true, new DateTime(2024, 11, 16, 15, 16, 7, 190, DateTimeKind.Local).AddTicks(6795), "ny-hemsida", "Ny hemsida", null, 2 },
+                    { 2, 1, "<p> Du hittar oss på Södergatan 24 mellan Stortorget och Gustav Adolfs Torg. Cirka 10 minuter gångväg från Centralstationen. Ingång mellan Stadium och Indiska.</p><p>Varmt välkommen att kontakta oss för mer information&nbsp;om våra erbjudanden och bokning.</p>", new DateTime(2024, 11, 15, 15, 16, 7, 190, DateTimeKind.Local).AddTicks(6801), "images/posts/e41eigqw.de2.png", "Här finns vi", true, true, new DateTime(2024, 11, 15, 15, 16, 7, 190, DateTimeKind.Local).AddTicks(6801), "ny-hemsida", "Lexicon i Malmö", null, 4 },
+                    { 3, 16, "<p> <span style=\"color: rgb(71, 71, 71);\">Floribundarosor, en grupp rosor med mycket komplext ursprung. Grunden till gruppen utgörs av korsningar mellan polyantarosor och rosor i andra grupper. Gruppen inkluderar även produktnamn som miniflorarosor, castlerosor och palacerosor. Motsvarar beteckningarna Floribunda och Climbing Floribunda i Modern Roses 11.&nbsp;</span><a href=\"https://sv.wikipedia.org/wiki/Floribundarosor\" target=\"_blank\" style=\"color: var(--JKqx2);\">Wikipedia</a></p>", new DateTime(2024, 11, 18, 15, 16, 7, 190, DateTimeKind.Local).AddTicks(6803), "images/posts/u1q4qomy.loi.png", "Rikblommande rosor - floribunda", true, true, new DateTime(2024, 11, 18, 15, 16, 7, 190, DateTimeKind.Local).AddTicks(6804), "rosor", "Rosor", null, 5 },
+                    { 4, 16, "<p><strong style=\"color: rgb(95, 99, 104);\">Lavendel</strong><span style=\"color: rgb(77, 81, 86);\">, Lavandula angustifolia, är en av de mest älskade trädgårdsväxterna. Alla bör unna sig&nbsp;</span><strong style=\"color: rgb(95, 99, 104);\">lavendel</strong><span style=\"color: rgb(77, 81, 86);\">, den trivs både i rabatten och sommarkrukan</span></p><p><br></p><p><a href=\"https://www.blomsterlandet.se/kundklubb/\" target=\"_blank\" style=\"color: rgb(222, 238, 241);\">Kundklubb</a><a href=\"https://www.blomsterlandet.se/hitta-din-butik/\" target=\"_blank\" style=\"color: rgb(222, 238, 241);\">Våra butiker</a></p><p><img src=\"https://www.blomsterlandet.se/contentassets/309cef56f7d444a0abc60d61ec24da04/lavendelhack.jpg\"></p><p>Lavendel räknas som halvbuske, eftersom den blir förvedad, och är därför inte härdig i hela landet. Ju längre norrut man bor desto viktigare är det att välja ett soligt, varmt och framförallt väldränerat läge. Lavendel älskar torr jord, gärna sandblandad, sol och värme. Även om lavendel under gynnsamma former kan klara sig i zon 5 är det att rekommendera att i zon 3 och norrut plantera lavendeln i en upphöjd rabatt – eller i krukor som du vinterförvarar ljust och frostfritt.</p><p><br></p><p>Lavendel räknas också som medicinalväxt och har lugnande och kramplösande egenskaper. Lavendelblommor ger utsökt smak i olika sorters kakor, både i småkakor, skorpor och sockerkakor.</p><p>Främst är det doften vi tycker så mycket om, denna somriga doft som i fantasin tar oss med på resor till Provence och Toscana.</p>", new DateTime(2024, 11, 12, 15, 16, 7, 190, DateTimeKind.Local).AddTicks(6806), "images/posts/yujd3vy3.mmp.png", "Lavendel, Lavandula angustifolia, är en av de mest älskade trädgårdsväxterna. Alla bör unna sig lavendel, den trivs både i rabatten och sommarkrukan", true, true, new DateTime(2024, 11, 12, 15, 16, 7, 190, DateTimeKind.Local).AddTicks(6806), "lavendel", "Lavendel", null, 3 },
+                    { 5, 3, "<p> https://www.w3schools.com/cs/index.php</p><h2>What is C#?</h2><p>C# is pronounced \"C-Sharp\".</p><p>It is an object-oriented programming language created by Microsoft that runs on the .NET Framework.</p><p>C# has roots from the C family, and the language is close to other popular languages like&nbsp;<a href=\"https://www.w3schools.com/cpp/default.asp\" target=\"_blank\" style=\"color: inherit;\">C++</a>&nbsp;and&nbsp;<a href=\"https://www.w3schools.com/java/default.asp\" target=\"_blank\" style=\"color: inherit;\">Java</a>.</p><p>The first version was released in year 2002. The latest version,&nbsp;<strong>C# 12</strong>, was released in November 2023.</p><p>C# is used for:</p><ul><li>Mobile applications</li><li>Desktop applications</li><li>Web applications</li><li>Web services</li><li>Web sites</li><li>Games</li><li>VR</li><li>Database applications</li><li>And much, much more!</li></ul><h2>Why Use C#?</h2><ul><li>It is one of the most popular programming languages in the world</li><li>It is easy to learn and simple to use</li><li>It has huge community support</li><li>C# is an object-oriented language which gives a clear structure to programs and allows code to be reused, lowering development costs</li><li>As C# is close to&nbsp;<a href=\"https://www.w3schools.com/c/index.php\" target=\"_blank\" style=\"color: inherit;\">C</a>,&nbsp;<a href=\"https://www.w3schools.com/cpp/default.asp\" target=\"_blank\" style=\"color: inherit;\">C++</a>&nbsp;and&nbsp;<a href=\"https://www.w3schools.com/java/default.asp\" target=\"_blank\" style=\"color: inherit;\">Java</a>, it makes it easy for programmers to switch to C# or vice versa</li></ul><h2>Get Started</h2><p>This tutorial will teach you the basics of C#.</p><p>It is not necessary to have any prior programming experience.</p>", new DateTime(2024, 11, 11, 15, 16, 7, 190, DateTimeKind.Local).AddTicks(6808), "images/posts/kcukikkw.lb3.png", "C# (C-Sharp) is a programming language developed by Microsoft that runs on the .NET", true, true, new DateTime(2024, 11, 11, 15, 16, 7, 190, DateTimeKind.Local).AddTicks(6809), "guide", "Guide", null, 1 }
+                });
+
+            migrationBuilder.InsertData(
                 table: "CertificationDays",
                 columns: new[] { "Id", "CertSlotId", "Date", "IsCertDay" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateOnly(2024, 11, 28), false },
-                    { 2, 1, new DateOnly(2024, 11, 29), true },
-                    { 3, 1, new DateOnly(2024, 11, 30), false },
-                    { 4, 1, new DateOnly(2024, 12, 1), true },
-                    { 5, 1, new DateOnly(2024, 12, 2), false },
-                    { 6, 2, new DateOnly(2024, 12, 8), false },
-                    { 7, 2, new DateOnly(2024, 12, 9), true },
-                    { 8, 2, new DateOnly(2024, 12, 10), false },
-                    { 9, 2, new DateOnly(2024, 12, 11), true },
-                    { 10, 2, new DateOnly(2024, 12, 12), true },
-                    { 11, 2, new DateOnly(2024, 12, 13), false },
-                    { 12, 2, new DateOnly(2024, 12, 14), true },
-                    { 13, 2, new DateOnly(2024, 12, 15), false },
-                    { 14, 2, new DateOnly(2024, 12, 16), false },
-                    { 15, 2, new DateOnly(2024, 12, 17), false }
+                    { 1, 1, new DateOnly(2024, 11, 29), false },
+                    { 2, 1, new DateOnly(2024, 11, 30), true },
+                    { 3, 1, new DateOnly(2024, 12, 1), false },
+                    { 4, 1, new DateOnly(2024, 12, 2), true },
+                    { 5, 1, new DateOnly(2024, 12, 3), false },
+                    { 6, 2, new DateOnly(2024, 12, 9), false },
+                    { 7, 2, new DateOnly(2024, 12, 10), true },
+                    { 8, 2, new DateOnly(2024, 12, 11), false },
+                    { 9, 2, new DateOnly(2024, 12, 12), true },
+                    { 10, 2, new DateOnly(2024, 12, 13), true },
+                    { 11, 2, new DateOnly(2024, 12, 14), false },
+                    { 12, 2, new DateOnly(2024, 12, 15), true },
+                    { 13, 2, new DateOnly(2024, 12, 16), false },
+                    { 14, 2, new DateOnly(2024, 12, 17), false },
+                    { 15, 2, new DateOnly(2024, 12, 18), false }
                 });
 
             migrationBuilder.InsertData(
@@ -594,16 +601,12 @@ namespace SCS.DataAccess.Migrations
                 columns: new[] { "Id", "BundleId", "CategoryId", "CertSlotId", "Description", "Name", "Price", "ProviderId", "Status" },
                 values: new object[,]
                 {
-                    { 1, null, 1, null, "Certificate in Sanctions Description....", "Certificate in Sanctions", 7200.0, 1, "Active" },
+                    { 1, null, 1, 1, "Certificate in Sanctions Description....", "Certificate in Sanctions", 7200.0, 1, "Active" },
                     { 2, null, 1, null, "Certificate in Corporate Governance Description....", "Certificate in Corporate Governance", 8400.0, 1, "Active" },
-                    { 3, null, 1, null, "C# Certification Description...", "C# Certificate", 1000.0, 2, "Active" },
-                    { 4, null, 2, null, "C# Begginner Programming Description...", "C# Beginner", 200.0, 2, "Active" },
-                    { 5, null, 3, null, "C# Begginner Programming Description...", "C# Beginner", 300.0, 2, "Active" },
-                    { 6, null, 2, null, "C# Intermediate Programming Description...", "C# Intermediate", 200.0, 2, "Active" },
-                    { 7, null, 3, null, "C# Intermediate Programming Description...", "C# Intermediate", 300.0, 2, "Active" },
-                    { 8, null, 2, null, "C# Advanced Programming Description...", "C# Advanced", 200.0, 2, "Active" },
-                    { 9, null, 3, null, "C# Advanced Programming Description...", "C# Advanced", 300.0, 2, "Active" },
-                    { 10, 1, 3, null, "C# Advanced Programming Description...", "C# for beginners, Bundle", 300.0, 2, "Active" }
+                    { 3, 1, 1, null, "C# Certification Description...", "C# Certificate", 1000.0, 2, "Active" },
+                    { 4, 1, 2, null, "C# Begginner Programming Description...", "C# Beginner", 200.0, 2, "Active" },
+                    { 5, 1, 3, null, "C# Begginner Programming Description...", "C# Beginner", 300.0, 2, "Active" },
+                    { 10, 1, 4, null, "C# Advanced Programming Description...", "C# for beginners, Bundle", 300.0, 2, "Active" }
                 });
 
             migrationBuilder.CreateIndex(

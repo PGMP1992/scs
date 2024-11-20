@@ -1,4 +1,8 @@
-﻿@model UserVM
+﻿@* 
+    Controller : Admin.Users
+    View :  Edit 
+*@
+@model UserVM
 
 <div class="card shadow border-0 mt-4 rounded-2 ">
 
@@ -17,46 +21,46 @@
             
             <div class="border-0 p-2 align-content-between">
                 @*<div asp-validation-summary="ModelOnly"></div>*@
-                <div class="form-floating py-2 col-6">
+                <div class="form-floating py-2">
                     <input asp-for="AppUser.Name" readonly class="form-control border-1" />
                     <label asp-for="AppUser.Name" class="ms-2"></label>
                 </div>
-                <div class="form-floating py-2 col-6">
+                <div class="form-floating py-2">
                     <select asp-for="AppUser.Role" asp-items="@Model.RoleList" class="form-select"></select>
                     <label class="ms-2">Role</label>
                 </div>
                 @* Address  ----------------- *@
                 <div class="container border bg-light ">
                     <div class="text-black">Address</div>
-                    <div class="form-floating py-2 col-6">
+                    <div class="form-floating py-2">
                         <input asp-for="AppUser.Address.Street1" class="form-control border-1" />
                         <label asp-for="AppUser.Address.Street1" class="ms-2"></label>
                     </div>
-                    <div class="form-floating py-2 col-6">
+                    <div class="form-floating py-2">
                         <input asp-for="AppUser.Address.Street2" class="form-control border-1" />
                         <label asp-for="AppUser.Address.Street2" class="ms-2"></label>
                     </div>
-                    <div class="form-floating py-2 col-6">
+                    <div class="form-floating py-2">
                         <input asp-for="AppUser.Address.City" class="form-control border-1" />
                         <label asp-for="AppUser.Address.City" class="ms-2"></label>
                     </div>
-                    <div class="form-floating py-2 col-6">
+                    <div class="form-floating py-2">
                         <input asp-for="AppUser.Address.State" class="form-control border-1" />
                         <label asp-for="AppUser.Address.State" class="ms-2"></label>
                     </div>
-                    <div class="form-floating py-2 col-6">
+                    <div class="form-floating py-2">
                         <input asp-for="AppUser.Address.Postcode" class="form-control border-1" />
                         <label asp-for="AppUser.Address.Postcode" class="ms-2"></label>
                     </div>
-                    <div class="form-floating py-2 col-6">
+                    <div class="form-floating py-2">
                         <input asp-for="AppUser.Address.Country" class="form-control border-1" />
                         <label asp-for="AppUser.Address.Country" class="ms-2"></label>
                     </div>
                 </div>
                 @* Buttons  --------------- *@
-                <div class="w-50 btn-group mt-3" role="group">
-                    <button type="submit" class="btn btn-primary mx-1 ">Update</button>
-                    <a  asp-action="Index" class="btn btn-secondary mx-1 ">
+                <div class="btn-group mt-2" role="group">
+                    <button type="submit" class="btn btn-primary mx-1" style="width: 100px;">Update</button>
+                    <a asp-action="Index" class="btn btn-outline-primary mx-1" style="width: 100px;">
                         Back to List
                     </a>
                 </div>
