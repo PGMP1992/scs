@@ -24,6 +24,7 @@
                 <div class="form-floating py-2">
                     <input asp-for="AppUser.Name" readonly class="form-control border-1" />
                     <label asp-for="AppUser.Name" class="ms-2"></label>
+                    <span asp-validation-for ="AppUser.Name" class="text-danger" />
                 </div>
                 <div class="form-floating py-2">
                     <select asp-for="AppUser.Role" asp-items="@Model.RoleList" class="form-select"></select>
@@ -35,28 +36,35 @@
                     <div class="form-floating py-2">
                         <input asp-for="AppUser.Address.Street1" class="form-control border-1" />
                         <label asp-for="AppUser.Address.Street1" class="ms-2"></label>
+                        <span asp-validation-for="AppUser.Address.Street1" class="text-danger" />
                     </div>
                     <div class="form-floating py-2">
                         <input asp-for="AppUser.Address.Street2" class="form-control border-1" />
                         <label asp-for="AppUser.Address.Street2" class="ms-2"></label>
+                        <span asp-validation-for="AppUser.Address.Street2" class="text-danger" />
                     </div>
                     <div class="form-floating py-2">
                         <input asp-for="AppUser.Address.City" class="form-control border-1" />
                         <label asp-for="AppUser.Address.City" class="ms-2"></label>
+                        <span asp-validation-for="AppUser.Address.City" class="text-danger" />
                     </div>
                     <div class="form-floating py-2">
                         <input asp-for="AppUser.Address.State" class="form-control border-1" />
                         <label asp-for="AppUser.Address.State" class="ms-2"></label>
+                        <span asp-validation-for="AppUser.Address.State" class="text-danger" />
                     </div>
                     <div class="form-floating py-2">
                         <input asp-for="AppUser.Address.Postcode" class="form-control border-1" />
                         <label asp-for="AppUser.Address.Postcode" class="ms-2"></label>
+                        <span asp-validation-for="AppUser.Address.Postcode" class="text-danger" />
                     </div>
                     <div class="form-floating py-2">
                         <input asp-for="AppUser.Address.Country" class="form-control border-1" />
                         <label asp-for="AppUser.Address.Country" class="ms-2"></label>
+                        <span asp-validation-for="AppUser.Address.Country" class="text-danger" />
                     </div>
                 </div>
+                
                 @* Buttons  --------------- *@
                 <div class="btn-group mt-2" role="group">
                     <button type="submit" class="btn btn-primary mx-1" style="width: 100px;">Update</button>

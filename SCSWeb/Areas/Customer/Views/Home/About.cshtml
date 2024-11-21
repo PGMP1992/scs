@@ -3,23 +3,33 @@
 <div class="container">
     <div>
         <h2 class="mb-3">About Us</h2>
-        
     </div>
+    
     <div class="row">
         <div class="col-md-6">
             <img src="~/images/about.jpg" class="img-fluid rounded-start">
         </div>
-
         <div class="col-md-6">
-            <div class="row g-0 justify-content-between mb-3">
+            <p class="text-secondary">
+                What do we do? <br /> <br />
+                We help companies and organizations find, choose and acquire the right certifications on the market. <br />
+                <br />
+                It is not easy for someone who is not familiar to find and choose, 
+                and it is not easy to acquire in a sustainable way with an invoice and a contact person who can help get started.<br />
+                <br />
+                We are in control and we procure what is needed and invoice in SEK to simplify the process as much as possible. <br />
+                <br />
+                We also offer advice and clarification both for individuals and organizations and companies.
+            </p>
+        
+            <div class="row g-0 justify-content-between mt-4">
                 <h5>@Model.Name</h5>
             </div>
-            <div class="row g-0 justify-content-between mb-3">
+            <div class="row g-0 justify-content-between mb-3 text-secondary">
                 <h6>Org. 559389-0592</h6>
             </div>
 
-            <div class="row g-0 justify-content-between mb-3">
-
+            <div class="row g-0 justify-content-between mb-2">
                 <p class="text-secondary">
                     <i class="bi bi-geo-alt-fill"></i>
                     @Model.Address.Street1<br />
@@ -28,20 +38,25 @@
                         @Model.Address.Street2<br />    
                     }
                     @Model.Address.City<br />
-                    @Model.Address.State<br />
+                    @if (!String.IsNullOrEmpty(Model.Address.State))
+                    {
+                        @Model.Address.State<br />
+                    }
                     @Model.Address.Country<br />
-                    @Model.Address.Postcode</p>
+                    @Model.Address.Postcode
+                </p>
             </div>
 
-            <div class="col-3">
+            <div class="row g-0 justify-content-between text-secondary mb-2">
                 <a href="mailto:@Model.Email">
                     <i class="bi bi-envelope-fill"></i>
-                    @Model.Email</p>
+                    @Model.Email
                 </a>
             </div>
             
-            <div class="row g-0 justify-content-between mb-3">
-                <p><i class="bi bi-telephone-forward"></i>
+            <div class="row g-0 justify-content-between text-secondary">
+                <p>
+                    <i class="bi bi-telephone-forward"></i>
                     @Model.PhoneNumber</p>
             </div>
                             

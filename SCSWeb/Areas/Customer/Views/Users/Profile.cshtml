@@ -18,18 +18,20 @@
         <form method="post" class="row">
             <input asp-for="Id" hidden />
             <input asp-for="AddressId" hidden />
-            <div class="border p-3 align-content-between">
+            <div class="border border-0 align-content-between">
                 <div class="form-floating py-2">
                     <input asp-for="Name" class="form-control border-1" />
                     <label asp-for="Name" class="ms-2"></label>
+                    <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
-                @* <div class="form-floating py-2 col-6">
-                    <input asp-for="Email" class="form-control border-1" />
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="Email" class="form-control border-1" readonly/>
                     <label asp-for="Email" class="ms-2"></label>
-                </div> *@
+                </div>
                 <div class="form-floating py-2">
                     <input asp-for="PhoneNumber" class="form-control border-1" />
                     <label asp-for="PhoneNumber" class="ms-2">Phone Number</label>
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                 </div>
                 
                 @* Address  ----------------- *@
@@ -38,6 +40,7 @@
                     <div class="form-floating py-2">
                         <input asp-for="Address.Street1" class="form-control border-1" />
                         <label asp-for="Address.Street1" class="ms-2"></label>
+                        <span asp-validation-for="Address.Street1" class="text-danger"></span>
                     </div>
                     <div class="form-floating py-2">
                         <input asp-for="Address.Street2" class="form-control border-1" />
@@ -46,24 +49,28 @@
                     <div class="form-floating py-2">
                         <input asp-for="Address.City" class="form-control border-1" />
                         <label asp-for="Address.City" class="ms-2"></label>
+                        <span asp-validation-for="Address.City" class="text-danger"></span>
                     </div>
                     <div class="form-floating py-2">
                         <input asp-for="Address.State" class="form-control border-1" />
                         <label asp-for="Address.State" class="ms-2"></label>
+                        <span asp-validation-for="Address.State" class="text-danger"></span>
                     </div>
                     <div class="form-floating py-2">
                         <input asp-for="Address.Postcode" class="form-control border-1" />
                         <label asp-for="Address.Postcode" class="ms-2"></label>
+                        <span asp-validation-for="Address.Postcode" class="text-danger"></span>
                     </div>
                     <div class="form-floating py-2">
                         <input asp-for="Address.Country" class="form-control border-1" />
                         <label asp-for="Address.Country" class="ms-2"></label>
+                        <span asp-validation-for="Address.Country" class="text-danger"></span>
                     </div>
                 </div>
                 
                 @* Buttons  --------------- *@
                 <div class="btn-group mt-2" role="group">
-                    <button type="submit" class="btn btn-primary mx-1" style="width: 100px">Update</button>
+                    <button type="submit" class="btn btn-primary mx-1 form-control" style="width: 100px">Update</button>
                     <a asp-controller="Home" asp-action="Index" class="btn btn-outline-primary mx-1" style="width: 100px">
                         Cancel
                     </a>
