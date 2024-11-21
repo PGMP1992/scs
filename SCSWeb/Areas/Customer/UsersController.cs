@@ -21,7 +21,6 @@ namespace SCS.Areas.Customer
         public IActionResult Profile()
         {
             var userId = HttpContext.User.GetUserId();
-
             var appUser = _unitOfWork.AppUser.Get(u => u.Id == userId, includeProperties: "Address");
 
             return View(appUser);
@@ -57,8 +56,8 @@ namespace SCS.Areas.Customer
                 appUser.AddressId = address.Id;
             }
             appUser.Name = user.Name;
-            appUser.PhoneNumber = user.PhoneNumber;
             appUser.Email = user.Email;
+            appUser.PhoneNumber = user.PhoneNumber;
 
             _unitOfWork.AppUser.Update(appUser);
             _unitOfWork.Save();
