@@ -107,15 +107,15 @@ namespace SCS.Areas.Admin
         // --------------------------------------------------
 
         #region API CALLS
-
+        
         [HttpGet]
         public IActionResult GetAll()
         {
-            // Used for excluding Temp Users - excluded now from app 
-            //List<AppUser> objUserList = _unitOfWork.AppUser.GetAll(u => u.NormalizedEmail != null, includeProperties : "Address").ToList();
-            List<AppUser> objUserList = _unitOfWork.AppUser.GetAll(x => x.Email != SD.AdminEmail, includeProperties: "Address").ToList();
-            // Using AspNetUserRoles and AspNetRoles tables
-            // - excluding the AspNet from the table name for all Identity tables works  
+            var userId = HttpContext.User.GetUserId();
+            var userEmail = _unitOfWork.AppUser.GetEmail(userId); 
+            
+            // Excludes the current user - PM
+            List<AppUser> objUserList = _unitOfWork.AppUser.GetAll(x => x.Email != userEmail, includeProperties: "Address").ToList();
 
             foreach (var user in objUserList)
             {

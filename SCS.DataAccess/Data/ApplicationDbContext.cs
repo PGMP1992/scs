@@ -26,9 +26,9 @@ namespace SCS.Data
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Bundle> Bundles { get; set; }
         public DbSet<Booking> Bookings { get; set; }
-        public DbSet<BlogCategory> BlogCategories { get; set; }
-        public DbSet<BlogPost> BlogPosts { get; set; }
-        public DbSet<BlogSubscriber> BlogSubscribers { get; set; }
+        //public DbSet<BlogCategory> BlogCategories { get; set; }
+        //public DbSet<BlogPost> BlogPosts { get; set; }
+        //public DbSet<BlogSubscriber> BlogSubscribers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -313,99 +313,23 @@ namespace SCS.Data
                     BundleId = 1,
                 }
             );
-			modelBuilder.Entity<BlogCategory>().HasData(
-			   new BlogCategory { Id = 1, Name = "Lexicon", Slug = "lexicon", ShowOnNavbar = true },
-			   new BlogCategory { Id = 2, Name = "SCS", Slug = "scs", ShowOnNavbar = true },
-			   new BlogCategory { Id = 3, Name = "C#", Slug = "c-sharp", ShowOnNavbar = true },
-			   new BlogCategory { Id = 4, Name = "ASP.NET Core#", Slug = "asp-net-core", ShowOnNavbar = false },
-			   new BlogCategory { Id = 5, Name = "Blazor", Slug = "blazor", ShowOnNavbar = true },
-			   new BlogCategory { Id = 6, Name = "SQL Server", Slug = "sql-server", ShowOnNavbar = false },
-			   new BlogCategory { Id = 7, Name = "Entity Framework Core", Slug = "ef-core", ShowOnNavbar = false },
-			   new BlogCategory { Id = 8, Name = "Angular", Slug = "angular", ShowOnNavbar = false },
-			   new BlogCategory { Id = 9, Name = "React", Slug = "react", ShowOnNavbar = false },
-			   new BlogCategory { Id = 10, Name = "Vue", Slug = "vue", ShowOnNavbar = false },
-			   new BlogCategory { Id = 11, Name = "JavaScript", Slug = "javascript", ShowOnNavbar = false },
-			   new BlogCategory { Id = 12, Name = "HTML", Slug = "html", ShowOnNavbar = false },
-			   new BlogCategory { Id = 13, Name = "CSS", Slug = "css", ShowOnNavbar = false },
-			   new BlogCategory { Id = 14, Name = "Bootstrap", Slug = "bootstrap", ShowOnNavbar = false },
-			   new BlogCategory { Id = 15, Name = "MVC", Slug = "mvc", ShowOnNavbar = false },
-               new BlogCategory { Id=16 , Name="Blommor" , Slug="blommor" , ShowOnNavbar=true }
-		   );
-            modelBuilder.Entity<BlogPost>().HasData(
-           new BlogPost { 
-               Id = 1, 
-               Title = "Ny hemsida", 
-               Slug = "ny-hemsida",
-               Image = "images/posts/lwbsypfb.rxe.png",
-               Introduction = "scservices har fått en ny mensida",
-               Content= "<p> besök den https:\\scservices.se</p>",
-               BlogCategoryId = 2,
-               IsPublished = true,
-               ViewCount = 2,
-               IsFeatured = true,
-               CreatedAt = DateTime.Now.AddDays(-3),
-               PublishedAt = DateTime.Now.AddDays(-3)
-           },
-           new BlogPost
-           {
-               Id = 2,
-               Title = "Lexicon i Malmö",
-               Slug = "ny-hemsida",
-               Image = "images/posts/e41eigqw.de2.png",
-               Introduction = "Här finns vi",
-               Content = "<p> Du hittar oss på Södergatan 24 mellan Stortorget och Gustav Adolfs Torg. Cirka 10 minuter gångväg från Centralstationen. Ingång mellan Stadium och Indiska.</p><p>Varmt välkommen att kontakta oss för mer information&nbsp;om våra erbjudanden och bokning.</p>",
-               BlogCategoryId = 1,
-               IsPublished = true,
-               ViewCount = 4,
-               IsFeatured = true,
-               CreatedAt = DateTime.Now.AddDays(-4),
-               PublishedAt = DateTime.Now.AddDays(-4)
-           }, new BlogPost
-           {
-               Id = 3,
-               Title = "Rosor",
-               Slug = "rosor",
-               Image = "images/posts/u1q4qomy.loi.png",
-               Introduction = "Rikblommande rosor - floribunda",
-               Content = "<p> <span style=\"color: rgb(71, 71, 71);\">Floribundarosor, en grupp rosor med mycket komplext ursprung. Grunden till gruppen utgörs av korsningar mellan polyantarosor och rosor i andra grupper. Gruppen inkluderar även produktnamn som miniflorarosor, castlerosor och palacerosor. Motsvarar beteckningarna Floribunda och Climbing Floribunda i Modern Roses 11.&nbsp;</span><a href=\"https://sv.wikipedia.org/wiki/Floribundarosor\" target=\"_blank\" style=\"color: var(--JKqx2);\">Wikipedia</a></p>",
-               BlogCategoryId = 16,
-               IsPublished = true,
-               ViewCount = 5,
-               IsFeatured = true,
-               CreatedAt = DateTime.Now.AddDays(-1),
-               PublishedAt = DateTime.Now.AddDays(-1)
-           }, new BlogPost
-           {
-               Id = 4,
-               Title = "Lavendel",
-               Slug = "lavendel",
-               Image = "images/posts/yujd3vy3.mmp.png",
-               Introduction = "Lavendel, Lavandula angustifolia, är en av de mest älskade trädgårdsväxterna. Alla bör unna sig lavendel, den trivs både i rabatten och sommarkrukan",
-               Content = "<p><strong style=\"color: rgb(95, 99, 104);\">Lavendel</strong><span style=\"color: rgb(77, 81, 86);\">, Lavandula angustifolia, är en av de mest älskade trädgårdsväxterna. Alla bör unna sig&nbsp;</span><strong style=\"color: rgb(95, 99, 104);\">lavendel</strong><span style=\"color: rgb(77, 81, 86);\">, den trivs både i rabatten och sommarkrukan</span></p><p><br></p><p><a href=\"https://www.blomsterlandet.se/kundklubb/\" target=\"_blank\" style=\"color: rgb(222, 238, 241);\">Kundklubb</a><a href=\"https://www.blomsterlandet.se/hitta-din-butik/\" target=\"_blank\" style=\"color: rgb(222, 238, 241);\">Våra butiker</a></p><p><img src=\"https://www.blomsterlandet.se/contentassets/309cef56f7d444a0abc60d61ec24da04/lavendelhack.jpg\"></p><p>Lavendel räknas som halvbuske, eftersom den blir förvedad, och är därför inte härdig i hela landet. Ju längre norrut man bor desto viktigare är det att välja ett soligt, varmt och framförallt väldränerat läge. Lavendel älskar torr jord, gärna sandblandad, sol och värme. Även om lavendel under gynnsamma former kan klara sig i zon 5 är det att rekommendera att i zon 3 och norrut plantera lavendeln i en upphöjd rabatt – eller i krukor som du vinterförvarar ljust och frostfritt.</p><p><br></p><p>Lavendel räknas också som medicinalväxt och har lugnande och kramplösande egenskaper. Lavendelblommor ger utsökt smak i olika sorters kakor, både i småkakor, skorpor och sockerkakor.</p><p>Främst är det doften vi tycker så mycket om, denna somriga doft som i fantasin tar oss med på resor till Provence och Toscana.</p>",
-               BlogCategoryId =16,
-               IsPublished = true,
-               ViewCount = 3,
-               IsFeatured = true,
-               CreatedAt = DateTime.Now.AddDays(-7),
-               PublishedAt = DateTime.Now.AddDays(-7)
-           }, new BlogPost
-           {
-               Id = 5,
-               Title = "Guide",
-               Slug = "guide",
-               Image = "images/posts/kcukikkw.lb3.png",
-               Introduction = "C# (C-Sharp) is a programming language developed by Microsoft that runs on the .NET",
-               Content = "<p> https://www.w3schools.com/cs/index.php</p><h2>What is C#?</h2><p>C# is pronounced \"C-Sharp\".</p><p>It is an object-oriented programming language created by Microsoft that runs on the .NET Framework.</p><p>C# has roots from the C family, and the language is close to other popular languages like&nbsp;<a href=\"https://www.w3schools.com/cpp/default.asp\" target=\"_blank\" style=\"color: inherit;\">C++</a>&nbsp;and&nbsp;<a href=\"https://www.w3schools.com/java/default.asp\" target=\"_blank\" style=\"color: inherit;\">Java</a>.</p><p>The first version was released in year 2002. The latest version,&nbsp;<strong>C# 12</strong>, was released in November 2023.</p><p>C# is used for:</p><ul><li>Mobile applications</li><li>Desktop applications</li><li>Web applications</li><li>Web services</li><li>Web sites</li><li>Games</li><li>VR</li><li>Database applications</li><li>And much, much more!</li></ul><h2>Why Use C#?</h2><ul><li>It is one of the most popular programming languages in the world</li><li>It is easy to learn and simple to use</li><li>It has huge community support</li><li>C# is an object-oriented language which gives a clear structure to programs and allows code to be reused, lowering development costs</li><li>As C# is close to&nbsp;<a href=\"https://www.w3schools.com/c/index.php\" target=\"_blank\" style=\"color: inherit;\">C</a>,&nbsp;<a href=\"https://www.w3schools.com/cpp/default.asp\" target=\"_blank\" style=\"color: inherit;\">C++</a>&nbsp;and&nbsp;<a href=\"https://www.w3schools.com/java/default.asp\" target=\"_blank\" style=\"color: inherit;\">Java</a>, it makes it easy for programmers to switch to C# or vice versa</li></ul><h2>Get Started</h2><p>This tutorial will teach you the basics of C#.</p><p>It is not necessary to have any prior programming experience.</p>",
-               BlogCategoryId = 3,
-               IsPublished = true,
-               ViewCount = 1,
-               IsFeatured = true,
-               CreatedAt = DateTime.Now.AddDays(-8),
-               PublishedAt = DateTime.Now.AddDays(-8)
-           }
-
-
-       );
-        }
+			//modelBuilder.Entity<BlogCategory>().HasData(
+			//   new BlogCategory { Id = 1, Name = "Lexicon", Slug = "lexicon", ShowOnNavbar = true },
+			//   new BlogCategory { Id = 2, Name = "SCS", Slug = "scs", ShowOnNavbar = true },
+			//   new BlogCategory { Id = 3, Name = "C#", Slug = "c-sharp", ShowOnNavbar = false },
+			//   new BlogCategory { Id = 4, Name = "ASP.NET Core#", Slug = "asp-net-core", ShowOnNavbar = true },
+			//   new BlogCategory { Id = 5, Name = "Blazor", Slug = "blazor", ShowOnNavbar = true },
+			//   new BlogCategory { Id = 6, Name = "SQL Server", Slug = "sql-server", ShowOnNavbar = false },
+			//   new BlogCategory { Id = 7, Name = "Entity Framework Core", Slug = "ef-core", ShowOnNavbar = false },
+			//   new BlogCategory { Id = 8, Name = "Angular", Slug = "angular", ShowOnNavbar = false },
+			//   new BlogCategory { Id = 9, Name = "React", Slug = "react", ShowOnNavbar = false },
+			//   new BlogCategory { Id = 10, Name = "Vue", Slug = "vue", ShowOnNavbar = false },
+			//   new BlogCategory { Id = 11, Name = "JavaScript", Slug = "javascript", ShowOnNavbar = false },
+			//   new BlogCategory { Id = 12, Name = "HTML", Slug = "html", ShowOnNavbar = false },
+			//   new BlogCategory { Id = 13, Name = "CSS", Slug = "css", ShowOnNavbar = false },
+			//   new BlogCategory { Id = 14, Name = "Bootstrap", Slug = "bootstrap", ShowOnNavbar = false },
+			//   new BlogCategory { Id = 15, Name = "MVC", Slug = "mvc", ShowOnNavbar = true }
+		 //  );
+		}
     }
 }
