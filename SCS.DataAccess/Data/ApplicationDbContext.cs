@@ -26,9 +26,9 @@ namespace SCS.Data
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Bundle> Bundles { get; set; }
         public DbSet<Booking> Bookings { get; set; }
-        public DbSet<BlogCategory> BlogCategories { get; set; }
-        public DbSet<BlogPost> BlogPosts { get; set; }
-        public DbSet<BlogSubscriber> BlogSubscribers { get; set; }
+        //public DbSet<BlogCategory> BlogCategories { get; set; }
+        //public DbSet<BlogPost> BlogPosts { get; set; }
+        //public DbSet<BlogSubscriber> BlogSubscribers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -313,23 +313,23 @@ namespace SCS.Data
                     BundleId = 1,
                 }
             );
-			modelBuilder.Entity<BlogCategory>().HasData(
-			   new BlogCategory { Id = 1, Name = "Lexicon", Slug = "lexicon", ShowOnNavbar = true },
-			   new BlogCategory { Id = 2, Name = "SCS", Slug = "scs", ShowOnNavbar = true },
-			   new BlogCategory { Id = 3, Name = "C#", Slug = "c-sharp", ShowOnNavbar = false },
-			   new BlogCategory { Id = 4, Name = "ASP.NET Core#", Slug = "asp-net-core", ShowOnNavbar = true },
-			   new BlogCategory { Id = 5, Name = "Blazor", Slug = "blazor", ShowOnNavbar = true },
-			   new BlogCategory { Id = 6, Name = "SQL Server", Slug = "sql-server", ShowOnNavbar = false },
-			   new BlogCategory { Id = 7, Name = "Entity Framework Core", Slug = "ef-core", ShowOnNavbar = false },
-			   new BlogCategory { Id = 8, Name = "Angular", Slug = "angular", ShowOnNavbar = false },
-			   new BlogCategory { Id = 9, Name = "React", Slug = "react", ShowOnNavbar = false },
-			   new BlogCategory { Id = 10, Name = "Vue", Slug = "vue", ShowOnNavbar = false },
-			   new BlogCategory { Id = 11, Name = "JavaScript", Slug = "javascript", ShowOnNavbar = false },
-			   new BlogCategory { Id = 12, Name = "HTML", Slug = "html", ShowOnNavbar = false },
-			   new BlogCategory { Id = 13, Name = "CSS", Slug = "css", ShowOnNavbar = false },
-			   new BlogCategory { Id = 14, Name = "Bootstrap", Slug = "bootstrap", ShowOnNavbar = false },
-			   new BlogCategory { Id = 15, Name = "MVC", Slug = "mvc", ShowOnNavbar = true }
-		   );
+			//modelBuilder.Entity<BlogCategory>().HasData(
+			//   new BlogCategory { Id = 1, Name = "Lexicon", Slug = "lexicon", ShowOnNavbar = true },
+			//   new BlogCategory { Id = 2, Name = "SCS", Slug = "scs", ShowOnNavbar = true },
+			//   new BlogCategory { Id = 3, Name = "C#", Slug = "c-sharp", ShowOnNavbar = false },
+			//   new BlogCategory { Id = 4, Name = "ASP.NET Core#", Slug = "asp-net-core", ShowOnNavbar = true },
+			//   new BlogCategory { Id = 5, Name = "Blazor", Slug = "blazor", ShowOnNavbar = true },
+			//   new BlogCategory { Id = 6, Name = "SQL Server", Slug = "sql-server", ShowOnNavbar = false },
+			//   new BlogCategory { Id = 7, Name = "Entity Framework Core", Slug = "ef-core", ShowOnNavbar = false },
+			//   new BlogCategory { Id = 8, Name = "Angular", Slug = "angular", ShowOnNavbar = false },
+			//   new BlogCategory { Id = 9, Name = "React", Slug = "react", ShowOnNavbar = false },
+			//   new BlogCategory { Id = 10, Name = "Vue", Slug = "vue", ShowOnNavbar = false },
+			//   new BlogCategory { Id = 11, Name = "JavaScript", Slug = "javascript", ShowOnNavbar = false },
+			//   new BlogCategory { Id = 12, Name = "HTML", Slug = "html", ShowOnNavbar = false },
+			//   new BlogCategory { Id = 13, Name = "CSS", Slug = "css", ShowOnNavbar = false },
+			//   new BlogCategory { Id = 14, Name = "Bootstrap", Slug = "bootstrap", ShowOnNavbar = false },
+			//   new BlogCategory { Id = 15, Name = "MVC", Slug = "mvc", ShowOnNavbar = true }
+		 //  );
 		}
     }
 }
