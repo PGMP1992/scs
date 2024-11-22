@@ -70,8 +70,7 @@
                     </li>
                 }
 
-                @* Admin ----------------------*@
-                @if (User.IsInRole(SD.Role_Admin))
+                @if (User.IsInRole(SD.Role_Admin)) @* Admin ----------------------- *@
                 {
                     <li class="nav-item dropdown">
                         <a class="nav-link text-light dropdown-toggle" data-bs-toggle="dropdown"
@@ -140,25 +139,6 @@
                         </a>
                     </li>
                 }
-
-                @* About ---------------------- *@
-                @* <li class="nav-item">
-                    <a class="nav-link text-light" asp-area="Customer" asp-controller="Home" asp-action="About">
-                        About
-                    </a>
-                </li> *@
-
-                @* Contact ---------------------- *@
-                @* <li class="nav-item">
-                    <a class="nav-link text-light" asp-area="Customer" asp-controller="Home" asp-action="Contact">
-                        Contact
-                    </a>
-                </li> *@
-
-                @* Blog ---------------------- *@
-                @* <li class="nav-item">
-                    <a class="nav-link text-light" href="https://localhost:7286/" >Blog</a>
-                </li> *@
             </ul>
 
             @* Login/Register/ Languages ---------------------- *@
