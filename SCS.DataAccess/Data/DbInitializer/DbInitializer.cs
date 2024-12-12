@@ -53,7 +53,7 @@ public class DbInitializer : IDbInitializer
             Name = "Scandinavian Certification Services AB",
             UserName = SD.AdminEmail,
             Email = SD.AdminEmail,
-            PhoneNumber= "+46 (0) 12345678",
+            PhoneNumber= "+46 (0) 70-979 73 03",
             Address = new Address
             {
                 Street1 = "Hagastigen 5",

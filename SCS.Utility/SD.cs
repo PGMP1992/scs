@@ -31,9 +31,8 @@
         public const string SessionVoucherId = "SessionVoucherId";
 
         // Admin User
-        public const string AdminEmail = "admin@email.com";
-        public const string Password = "Admin123*";
-        //public const string SendGridEmail = "info@scservices.se";
-        public const string SendGridEmail = "pedro@dkltd.net";
+        public const string AdminEmail = "info@scservices.se";
+        public const string Password = "JS5ANT@4T5cRLUP";
+        public const string SendGridEmail = "info@scservices.se";
     }
 }
