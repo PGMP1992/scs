@@ -48,6 +48,7 @@
         </main>
     </div>
 
+    @* Modal Info ----------------------- *@
     <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -56,51 +57,52 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="h6 text-info">Following are the User Accounts that exist by default (Password: Admin123*): </div>
-                    <p>Admin User :      <b>admin@email.com</b> </p>
-                    <p>Individual User : <b>user1@email.com</b></p>
-
-                    <div class="h6 text-info">How to use the website:</div>
-                    <p>This website is intended to serve as a demo application.</p>
-                    <p>Users can place an order after adding items to Cart.</p>
-                    <p>Once an Order is placed you can login as Admin User and manage orders to see the flow of the application.</p>
-                    <p>In order to place an order you can use any test credit card number supported by Stripe.</p>
-                    <p>A default example is 4242 4242 4242 4242, valid date, any 3 digit CVV.</p>
-
-                    <div class="h6 text-info">How to use a Voucher</div>
-                    <p>Voucher Keys are used for Certifications only.</p>
-                    <p>Check the Calendar for dates available.</p>
-                    <p>Once an Order has been created every item in the order will have a Voucher Key.</p>
-                    <p>Under Booking/Book menu, use the Voucher Key to validate.</p>
-                    <p>Once Voucher is validated use it to create a Booking.</p>
-
-
-                    <div class="row justify-content-between">
-                        <div class="col-6">
-                            <a href="mailto:pedro@dkltd.net">
-                                <i class="bi bi-envelope-fill"></i>
-                                Email
-                            </a>
-                        </div>
-                        <div class="col-6">
-                            <a href="https://www.linkedin.com/in/pedro-martinez-70077691" target="_blank">
-                                <i class="bi bi-linkedin"></i>
-                                Linkedln
-                            </a>
-                        </div>
-                    </div>
+                    
+                    @* Code for PGMP1992 ------------------- *@
+                    <div class="h6">Following are the User Accounts that exist by default (Password: Admin123*): </div>
+                    <ul>
+                        <li>Admin User :      <b>admin@email.com</b> </li>
+                        <li>Individual User : <b>user1@email.com</b></li>
+                    </ul>
+                    
+                    <div class="h6">How to use the website:</div>
+                    <ul>
+                        <li>This website is intended to serve as a demo application.</li>
+                        <li>You can create a new user using Register on the main menu.</li>
+                        <li>Users can place an order after adding items to Cart.</li>
+                        <li>Once an Order is placed you can login as Admin User and manage orders to see the flow of the application.</li>
+                        <li>To place an order you can use any test credit card number supported by Stripe.</li>
+                        <li>Default example: <b>4242 4242 4242 4242, valid date, any 3 digit CVV.</b></li>
+                    </ul>
+                    
+                    <div class="h6">How to use a Voucher</div>
+                    <ul>
+                        <li>Voucher Keys are used for Booking of <b>Certifications</b> only.</li>
+                        <li>Check the Calendar for dates available.</li>
+                        <li>Once an Order has been created every item in the Order will have a Voucher Key.</li>
+                        <li>Under Orders menu select an Order to see the Voucher Key for a Product Certification.</li>
+                        <li>Under Bookings/Book menu, enter the Voucher Key to validate.</li>
+                        <li>Once a Voucher is validated use it to create a Booking for the desired Product Certification.</li>
+                    </ul>
                 </div>
                 <div class="modal-footer">
+                    <a href="mailto:pedro@dkltd.net">
+                        <i class="bi bi-envelope-fill"></i>
+                            Email
+                    </a>
+                    <a href="https://www.linkedin.com/in/pedro-martinez-70077691" target="_blank">
+                        <i class="bi bi-linkedin"></i>
+                        Linkedln
+                    </a>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
-    </div>
+   
     <footer>
         <partial name="_FooterPartial" />
     </footer>
-
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     @* <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script> *@
