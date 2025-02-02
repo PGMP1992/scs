@@ -34,3 +34,43 @@ function clickTab() {
     } let slideIndex = 0;
     showSlides();
 }
+
+
+
+function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'en,sv,fi,no,da',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+    }, 'google_translate_element');
+}
+
+function translateToSwedish() {
+    var translateElement = new google.translate.TranslateElement({ pageLanguage: 'en' });
+    translateElement.showBanner(false);
+    translateElement.translatePage('se');
+}
+
+function translateToEnglish() {
+    var translateElement = new google.translate.TranslateElement({ pageLanguage: 'en' });
+    translateElement.showBanner(false);
+    translateElement.translatePage('en');
+}
+
+function translateToFinish() {
+    var translateElement = new google.translate.TranslateElement({ pageLanguage: 'en' });
+    translateElement.showBanner(false);
+    translateElement.translatePage('fi');
+}
+
+function translateToNorwegian() {
+    var translateElement = new google.translate.TranslateElement({ pageLanguage: 'en' });
+    translateElement.showBanner(false);
+    translateElement.translatePage('no');
+}
+
+function translateToDanish() {
+    var translateElement = new google.translate.TranslateElement({ pageLanguage: 'en' });
+    translateElement.showBanner(false);
+    translateElement.translatePage('dk');
+}

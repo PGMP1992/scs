@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" integrity="sha384-..." crossorigin="anonymous">
 
     <!-- Flag Icons -->
-    @* <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css" integrity="sha384-..." crossorigin="anonymous"> *@
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css" integrity="sha384-..." crossorigin="anonymous">
 
     <!-- Custom Styles -->
     <link rel="stylesheet" href="~/SCS.styles.css" asp-append-version="true">
@@ -33,10 +33,11 @@
     <link rel="stylesheet" href="//cdn.datatables.net/2.1.5/css/dataTables.dataTables.min.css" />
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
-
+    
 </head>
 
 <body>
+   @*  <div id="google_translate_element"></div> *@
     <header>
         <partial name="_NavPartial" />
     </header>
@@ -48,7 +49,7 @@
         </main>
     </div>
 
-    @* Modal Info ----------------------- *@
+    @* Modal App Info ----------------------- *@
     <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -59,13 +60,13 @@
                 <div class="modal-body">
                     
                     @* Code for PGMP1992 ------------------- *@
-                    <div class="h6">Following are the User Accounts that exist by default (Password: Admin123*): </div>
+                    <div class="h6" style="color:blue">Following are the User Accounts that exist by default (Password: Admin123*): </div>
                     <ul>
-                        <li>Admin User :      <b>admin@email.com</b> </li>
+                        <li>Admin User      : <b>admin@email.com</b> </li>
                         <li>Individual User : <b>user1@email.com</b></li>
                     </ul>
                     
-                    <div class="h6">How to use the website:</div>
+                    <div class="h6" style="color:blue">How to use the website:</div>
                     <ul>
                         <li>This website is intended to serve as a demo application.</li>
                         <li>You can create a new user using Register on the main menu.</li>
@@ -75,14 +76,14 @@
                         <li>Default example: <b>4242 4242 4242 4242, valid date, any 3 digit CVV.</b></li>
                     </ul>
                     
-                    <div class="h6">How to use a Voucher</div>
+                    <div class="h6" style="color:blue">How to use a Voucher</div>
                     <ul>
                         <li>Voucher Keys are used for Booking of <b>Certifications</b> only.</li>
                         <li>Check the Calendar for dates available.</li>
-                        <li>Once an Order has been created every item in the Order will have a Voucher Key.</li>
-                        <li>Under Orders menu select an Order to see the Voucher Key for a Product Certification.</li>
+                        <li>Once an Order has been created, every item in the Order will have a Voucher Key.</li>
+                        <li>Under Orders menu, select an Order to see the Voucher Key for a Certification.</li>
                         <li>Under Bookings/Book menu, enter the Voucher Key to validate.</li>
-                        <li>Once a Voucher is validated use it to create a Booking for the desired Product Certification.</li>
+                        <li>Once a Voucher is validated, use it to create a Booking for the desired Certification.</li>
                     </ul>
                 </div>
                 <div class="modal-footer">
@@ -117,7 +118,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tooltip.js/dist/umd/tooltip.min.js"></script>
-
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 

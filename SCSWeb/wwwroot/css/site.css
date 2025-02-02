@@ -179,6 +179,51 @@ body {
         z-index: 1; /* Ensure it's above other elements */
     }
 
+/*
+Google Translation* ---------------------*/
+
+/*.goog-te-banner-frame.skiptranslate {
+    display: none !important;
+}
+
+body {
+    bottom: 0px !important;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+    a:hover {
+        text-decoration: underline;
+    }
+    
+.goog-te-gadget-icon {
+    display: none !important;
+} */
+
+.goog-te-gadget-simple {
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #495057;
+}
+
+    .goog-te-gadget-simple a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+        .goog-te-gadget-simple a:hover {
+            text-decoration: underline;
+        }
+
+ /*End -Google translate */
+
 /*@media only screen and (max-width: 768px) {*/
     /* For mobile phones: */
     /*[class*="col-"] {
