@@ -35,8 +35,8 @@ function clickTab() {
     showSlides();
 }
 
-
-
+/* Google Translate - PM 
+*/
 function googleTranslateElementInit() {
     new google.translate.TranslateElement({
         pageLanguage: 'en',
@@ -45,6 +45,7 @@ function googleTranslateElementInit() {
     }, 'google_translate_element');
 }
 
+/* 
 function translateToSwedish() {
     var translateElement = new google.translate.TranslateElement({ pageLanguage: 'en' });
     translateElement.showBanner(false);
@@ -74,3 +75,4 @@ function translateToDanish() {
     translateElement.showBanner(false);
     translateElement.translatePage('dk');
 }
+*/
