@@ -45,7 +45,7 @@ function googleTranslateElementInit() {
     }, 'google_translate_element');
 }
 
-/* 
+ 
 function translateToSwedish() {
     var translateElement = new google.translate.TranslateElement({ pageLanguage: 'en' });
     translateElement.showBanner(false);
@@ -75,4 +75,3 @@ function translateToDanish() {
     translateElement.showBanner(false);
     translateElement.translatePage('dk');
 }
-*/
