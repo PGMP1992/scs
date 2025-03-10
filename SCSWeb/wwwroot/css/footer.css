@@ -1,5 +1,26 @@
-﻿.footer {
-    background-color: #052742;
+﻿:root {
+    --back: #ffffff;
+    --font: #484d48;
+    --navfont: #ffffff;
+    --a: #0d9fc4;
+    --navbar: #052742;
+    --tablinks : #b8d4ee;
+    --h :   #073d69;
+    --cardheader : #ebf1f7;
+  } 
+  
+  :root .dark-theme {
+    --back: #080808;
+    --font: #b4b1b1;
+    --a: #9cccd8;
+    --navbar: #000000;
+    --tablinks : #011b33;
+    --h : #cacfd3;
+    --cardheader : #1f1f1f;
+  } 
+
+.footer {
+    background-color: var(--navbar);
     padding: 10px 0;
 }
 

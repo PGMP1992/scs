@@ -1,8 +1,7 @@
 ﻿@using SCS.Repository.IRepository
 @model List<CategoryVM>
 
-
-    <div class="card shadow border-0 mt-4 rounded-2 ">
+    <div class="card shadow border-0 rounded-2 ">
 
         <div class=" card-header bg-primary bg-gradient ml-0 py-3 rounded">
             <div class="row">
@@ -11,20 +10,20 @@
                 </div>
             </div>
         </div>
-        <div class="card-body p-4 mb-3">
+        <div class="card-body">
             <div class="row pb-3">
                 @* <div class="col-6"></div> @* Dead Collum *@ 
                 <div class="col-12 text-end">
-                <a asp-controller="Categories" asp-action="Upsert" class="btn btn-primary" style="width:100px">
+                <a asp-controller="Categories" asp-action="Upsert" class="btn btn-primary px-5">
                         <i class="bi bi-plus-circle"></i>
                         New
                     </a>
                 </div>
             </div>
 
-        <div class="table-responsive">
+        <div class="table-responsive table-scroll">
             <table class="table table-sm-3">
-                <thead class="table-success">
+                <thead class="table-info">
                     <tr>
                         <th>Name</th>
                         <th></th>   
@@ -44,7 +43,7 @@
                         <td>
                             <div class="btn-group" role="group">
 
-                                    <a asp-controller="Categories" asp-action="Upsert" asp-route-id="@obj.Category.Id" class="btn btn-primary mx-1" style="width:100px;">
+                                    <a asp-controller="Categories" asp-action="Upsert" asp-route-id="@obj.Category.Id" class="btn btn-primary mx-1 px-5" >
                                     <i class="bi bi-pencil-square"></i>
                                 </a>
                                     
@@ -52,7 +51,7 @@
                                 {
                                 <form method="post" asp-action="Delete" asp-route-id="@obj.Category.Id" id="deleteform" onsubmit="DeleteCategory()" >
                                     <input asp-for="@obj.Category.Id" hidden />
-                                            <button type="submit" class="btn btn-danger mx-1" style="width:100px;">
+                                            <button type="submit" class="btn btn-danger mx-1 px-5">
                                         <i class="bi bi-trash-fill"></i>
                                     </button>
                                 </form>

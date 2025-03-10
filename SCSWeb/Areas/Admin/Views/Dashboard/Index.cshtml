@@ -10,7 +10,7 @@ Action: Index
 
 <div class="border border-1 p-2">
     
-    <div class="row bg-info p-2 m-2">
+    <div class="row bg-primary p-2 m-2">
         
         <h5 class="text-light">
             Customers By Country               
@@ -24,7 +24,7 @@ Action: Index
     @foreach (var user in @Model.Users)
     {
         <div class="row m-2">
-            <div class="col-6">
+            <div class="col-6 px-4">
                 <strong>@user.Key</strong>
             </div>
             <div class="col-6">
@@ -32,11 +32,11 @@ Action: Index
             </div>
         </div>
     }
-    <span class="p-2 text-info m-2">Does not include Users without an Address recorded</span>
+    <span class="p-4 m-2">Does not include Users without an Address recorded</span>
 </div>
 
 <div class="border border-1 p-2 mt-2">
-    <div class="row bg-info p-2 m-2">
+    <div class="row bg-primary p-2 m-2">
         <h5 class="text-light">
             Orders By Status
             <a asp-controller="Order" asp-action="Index">
@@ -45,12 +45,12 @@ Action: Index
         </h5>
     </div>
 
-    @if (Model.Orders.Count() > 0)
+    @if (Model.Orders.Any())
     {
         @foreach (var order in @Model.Orders)
         {
             <div class="row m-2">
-                <div class="col-6">
+                <div class="col-6 px-4">
                     <strong>@order.Key</strong>
                 </div>
                 <div class="col-6">
@@ -59,12 +59,12 @@ Action: Index
             </div>
         }
     } else {
-        <span class="p-2 text-danger">There are no Orders recorded.</span>
+        <span class="p-4 m-2 text-danger">There are no Orders recorded.</span>
     }
 </div>
 
 <div class="border border-1 p-2 mt-2">
-    <div class="row bg-info p-2 m-2">
+    <div class="row bg-primary p-2 m-2">
         <h5 class="text-light">
             Product By Category
             <a asp-controller="Products" asp-action="Index">
@@ -76,7 +76,7 @@ Action: Index
     @foreach (var prod in @Model.Products)
     {
         <div class="row m-2">
-            <div class="col-6">
+            <div class="col-6 px-4">
                 <strong>@prod.Key.Name</strong>
             </div>
             <div class="col-6">
@@ -87,7 +87,7 @@ Action: Index
 </div>
 
 <div class="border border-1 p-2 mt-2">
-    <div class="row bg-info p-2 m-2">
+    <div class="row bg-primary p-2 m-2">
         <h5 class="text-light">
             Bookings
             <a asp-area="Customer" asp-controller="Booking" asp-action="BookingList">
@@ -101,7 +101,7 @@ Action: Index
         @foreach (var book in @Model.Bookings)
         {
             <div class="row m-2">
-                <div class="col-6">
+                <div class="col-6 px-4">
                     <strong>@book.Key</strong>
                 </div>
                 <div class="col-6">
@@ -111,6 +111,6 @@ Action: Index
             <hr />
         }
     } else {
-        <span class="p-2 text-danger">There are no Bookings recorded.</span>
+        <span class="p-4 m-2 text-danger">There are no Bookings recorded.</span>
     }
 </div>

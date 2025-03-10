@@ -1,6 +1,6 @@
 ﻿@model List<BundleVM>
 
-<div class="card border-1 mt-4">
+<div class="card border-1">
 
     <div class=" card-header bg-primary bg-gradient ml-0 py-3 rounded">
         <div class="row">
@@ -11,11 +11,9 @@
         </div>
     </div>
     
-    <div class="card-body p-4">
+    <div class="card-body">
         <div class="row pb-3">
-            <div class="col-6">
-            </div>
-            <div class="col-6 text-end">
+            <div class="col-12 text-end">
                 <a asp-controller="Bundle" asp-action="Upsert" class="btn btn-primary" style="width:100px;">
                     <i class="bi bi-plus-circle"></i>
                     New
@@ -23,9 +21,9 @@
             </div>
         </div>
 
-        <div class="table-responsive">
+        <div class="table-responsive table-scroll">
             <table class="table table-sm-3">
-                <thead class="table-success">
+                <thead class="table-info">
                 <tr>
                     <th>Name</th>
                     <th>Product 1</th>
@@ -57,14 +55,14 @@
                         </td>
                         <td>
                             <div class="btn-group" role="group">
-                                    <a asp-controller="Bundle" asp-action="Upsert" asp-route-id="@obj.Bundle.Id" class="btn btn-primary mx-1" style="width:100px;">
+                                    <a asp-controller="Bundle" asp-action="Upsert" asp-route-id="@obj.Bundle.Id" class="btn btn-primary mx-1 px-5">
                                     <i class="bi bi-pencil-square"></i>
                                 </a> 
                                 @if (@obj.OkToDelete)
                                 {
                                     <form method="post" asp-action="Delete" asp-route-id="@obj.Bundle.Id" id="deleteform" onsubmit="deleteBundle()">
                                         <input asp-for="@obj.Bundle.Id" hidden />
-                                            <button type="submit" class="btn btn-danger mx-1" style="width:100px;">
+                                            <button type="submit" class="btn btn-danger px-5">
                                             <i class="bi bi-trash-fill"></i>
                                         </button>
                                     </form>

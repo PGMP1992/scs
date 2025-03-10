@@ -1,6 +1,6 @@
 ﻿@model CertificationSlotVM
 
-<div class="card shadow border-0 mt-4 mb-4">
+<div class="card shadow border-0">
 
     <div class="card-header bg-primary bg-gradient ml-0 py-4 rounded">
         <div class="row">
@@ -10,7 +10,7 @@
         </div>
     </div>
 
-    <div class="card-body p-4">
+    <div class="card-body">
         <form method="post" class="row">
             <input asp-for="@Model.CertificationSlot.Id" hidden />
             <input asp-for="@Model.CertificationSlot.ShowDays" hidden />
@@ -72,14 +72,15 @@
                         <div class="btn-group" role="group">
                             @if (Model.CertificationSlot.Id == 0)
                             {
-                                <button type="submit" asp-action="ShowDays" class="btn btn mx-1" style="width:100px">Save</button>
+                                <button type="submit" asp-action="ShowDays" class="btn btn mx-1 px-5">Save</button>
                             }
                             else
                             {
-                                <button type="submit" class="btn btn-primary mx-1" style="width:100px">Update</button>
+                                <button type="submit" class="btn btn-primary mx-1 px-5">Update</button>
                             }
 
-                            <a asp-area="Admin" asp-controller="CertificationSlots" asp-action="Index" class="btn btn-outline-primary mx-1" style="width:100px">Back to List</a>
+                            <a asp-area="Admin" asp-controller="CertificationSlots" asp-action="Index" 
+                                class="btn btn-outline-primary px-5">Back</a>
                         </div>
                     </div>
                 </div>

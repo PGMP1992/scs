@@ -6,7 +6,7 @@ namespace SCS.Repository
 {
     internal class AppUserRepository : Repository<AppUser>, IAppUserRepository
     {
-        private ApplicationDbContext _db;
+        private readonly ApplicationDbContext _db;
 
         public AppUserRepository(ApplicationDbContext db) : base(db)
         {
@@ -20,22 +20,30 @@ namespace SCS.Repository
 
         public string GetName(string id)
         {
-            return _db.AppUsers.FirstOrDefault(u => u.Id == id).Name;
+            return _db.AppUsers.FirstOrDefault(u => u.Id == id)?.Name ?? string.Empty;
         }
 
         public string GetEmail(string id)
         {
-            return _db.AppUsers.FirstOrDefault(u => u.Id == id).Email;
+            return _db.AppUsers.FirstOrDefault(u => u.Id == id)?.Email ?? string.Empty;
         }
 
-        public void SetName(string id,string name)
+        public void SetName(string id, string name)
         {
-            _db.AppUsers.FirstOrDefault(u=>u.Id == id).Name = name;
+            var user = _db.AppUsers.FirstOrDefault(u => u.Id == id);
+            if (user != null)
+            {
+                user.Name = name;
+            }
         }
 
-        public void SetEmail(string id, string email) 
+        public void SetEmail(string id, string email)
         {
-            _db.AppUsers.FirstOrDefault(u => u.Id == id).Email = email;
+            var user = _db.AppUsers.FirstOrDefault(u => u.Id == id);
+            if (user != null)
+            {
+                user.Email = email;
+            }
         }
     }
 }

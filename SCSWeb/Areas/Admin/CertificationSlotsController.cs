@@ -46,7 +46,7 @@ public class CertificationSlotsController : Controller
 
     public IActionResult Upsert(int? id)
     {
-        CertificationSlotVM certSlotVM = new CertificationSlotVM()
+        CertificationSlotVM certSlotVM = new ()
         {
             CertificationSlot = new CertificationSlot(),
         };
@@ -56,7 +56,7 @@ public class CertificationSlotsController : Controller
             certSlotVM.CertificationSlot = _unitOfWork.CertificationSlot.Get(u => u.Id == id,includeProperties:"CertificationDays");
             List<CertificationDay> CList = new List<CertificationDay>();
            
-            if(certSlotVM.CertificationSlot.CertificationDays.Count() > 0)
+            if(certSlotVM.CertificationSlot.CertificationDays.Any())
             {
                 certSlotVM.CertificationSlot.CertificationDays.OrderBy(u=>u.Date);
                 CList = certSlotVM.CertificationSlot.CertificationDays.ToList();

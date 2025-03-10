@@ -67,7 +67,7 @@ namespace SCS.Areas.Customer
         //    return View(productList);
         //}
 
-        [Authorize]
+        //[Authorize]
         public IActionResult Details(int productId)
         {
             Cart cart = new()

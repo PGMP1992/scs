@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SCS.Data;
 
@@ -11,9 +12,11 @@ using SCS.Data;
 namespace SCS.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250306161046_InitialZ")]
+    partial class InitialZ
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -436,113 +439,6 @@ namespace SCS.DataAccess.Migrations
                     b.HasIndex("CertSlotId");
 
                     b.ToTable("CertificationDays");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CertSlotId = 1,
-                            Date = new DateOnly(2025, 3, 16),
-                            IsCertDay = false
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CertSlotId = 1,
-                            Date = new DateOnly(2025, 3, 17),
-                            IsCertDay = true
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CertSlotId = 1,
-                            Date = new DateOnly(2025, 3, 18),
-                            IsCertDay = false
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CertSlotId = 1,
-                            Date = new DateOnly(2025, 3, 19),
-                            IsCertDay = true
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CertSlotId = 1,
-                            Date = new DateOnly(2025, 3, 20),
-                            IsCertDay = false
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CertSlotId = 2,
-                            Date = new DateOnly(2025, 3, 26),
-                            IsCertDay = false
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CertSlotId = 2,
-                            Date = new DateOnly(2025, 3, 27),
-                            IsCertDay = true
-                        },
-                        new
-                        {
-                            Id = 8,
-                            CertSlotId = 2,
-                            Date = new DateOnly(2025, 3, 28),
-                            IsCertDay = false
-                        },
-                        new
-                        {
-                            Id = 9,
-                            CertSlotId = 2,
-                            Date = new DateOnly(2025, 3, 29),
-                            IsCertDay = true
-                        },
-                        new
-                        {
-                            Id = 10,
-                            CertSlotId = 2,
-                            Date = new DateOnly(2025, 3, 30),
-                            IsCertDay = true
-                        },
-                        new
-                        {
-                            Id = 11,
-                            CertSlotId = 2,
-                            Date = new DateOnly(2025, 3, 31),
-                            IsCertDay = false
-                        },
-                        new
-                        {
-                            Id = 12,
-                            CertSlotId = 2,
-                            Date = new DateOnly(2025, 4, 1),
-                            IsCertDay = true
-                        },
-                        new
-                        {
-                            Id = 13,
-                            CertSlotId = 2,
-                            Date = new DateOnly(2025, 4, 2),
-                            IsCertDay = false
-                        },
-                        new
-                        {
-                            Id = 14,
-                            CertSlotId = 2,
-                            Date = new DateOnly(2025, 4, 3),
-                            IsCertDay = false
-                        },
-                        new
-                        {
-                            Id = 15,
-                            CertSlotId = 2,
-                            Date = new DateOnly(2025, 4, 4),
-                            IsCertDay = false
-                        });
                 });
 
             modelBuilder.Entity("SCS.Models.CertificationSlot", b =>
@@ -576,26 +472,6 @@ namespace SCS.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CertificationSlots");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Dates = "[\"2025-03-17\",\"2025-03-19\"]",
-                            EndDate = new DateOnly(2025, 3, 20),
-                            Name = "Sanctions",
-                            ShowDays = false,
-                            StartDate = new DateOnly(2025, 3, 16)
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Dates = "[\"2025-03-27\",\"2025-03-30\",\"2025-04-01\"]",
-                            EndDate = new DateOnly(2025, 4, 4),
-                            Name = "C# Beginner",
-                            ShowDays = false,
-                            StartDate = new DateOnly(2025, 3, 26)
-                        });
                 });
 
             modelBuilder.Entity("SCS.Models.OrderDetails", b =>
@@ -731,72 +607,6 @@ namespace SCS.DataAccess.Migrations
                     b.HasIndex("ProviderId");
 
                     b.ToTable("Products");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CategoryId = 1,
-                            Description = "Certificate in Sanctions Description....",
-                            Name = "Certificate in Sanctions",
-                            Price = 7200.0,
-                            ProviderId = 1,
-                            Status = "Active"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CategoryId = 1,
-                            Description = "Certificate in Corporate Governance Description....",
-                            Name = "Certificate in Corporate Governance",
-                            Price = 8400.0,
-                            ProviderId = 1,
-                            Status = "Active"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            BundleId = 1,
-                            CategoryId = 1,
-                            Description = "C# Certification Description...",
-                            Name = "C# Certificate",
-                            Price = 1000.0,
-                            ProviderId = 2,
-                            Status = "Active"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            BundleId = 1,
-                            CategoryId = 2,
-                            Description = "C# Begginner Programming Description...",
-                            Name = "C# Beginner",
-                            Price = 200.0,
-                            ProviderId = 2,
-                            Status = "Active"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            BundleId = 1,
-                            CategoryId = 3,
-                            Description = "C# Begginner Programming Description...",
-                            Name = "C# Beginner",
-                            Price = 300.0,
-                            ProviderId = 2,
-                            Status = "Active"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            BundleId = 1,
-                            CategoryId = 4,
-                            Description = "C# Advanced Programming Description...",
-                            Name = "C# for beginners, Bundle",
-                            Price = 300.0,
-                            ProviderId = 2,
-                            Status = "Active"
-                        });
                 });
 
             modelBuilder.Entity("SCS.Models.ProductImage", b =>
@@ -886,6 +696,14 @@ namespace SCS.DataAccess.Migrations
                             ContactName = "Red Hat Contact Name",
                             ContactPhone = "44444444",
                             Name = "Red Hat"
+                        },
+                        new
+                        {
+                            Id = 1001,
+                            ContactEmail = "info@comptia.com",
+                            ContactName = "CompTIA Contact Name",
+                            ContactPhone = "555555",
+                            Name = "CompTIA"
                         });
                 });
 

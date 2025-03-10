@@ -6,12 +6,14 @@ namespace SCS.Utility
     {
         public static string GetUserId(this ClaimsPrincipal user)
         {
-            return user.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var claim = user.FindFirst(ClaimTypes.NameIdentifier);
+            return claim != null ? claim.Value : string.Empty;
         }
 
         public static string GetUserName(this ClaimsPrincipal user)
         {
-            return user.FindFirst(ClaimTypes.Name).Value;
+            var claim = user.FindFirst(ClaimTypes.Name);
+            return claim != null ? claim.Value : string.Empty;
         }
     }
 }

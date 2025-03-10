@@ -25,19 +25,20 @@ namespace SCSWeb.Areas.Admin
         {
             IEnumerable<AppUser> users = await _unitOfWork.AppUser.GetAllAsync(x => x.AddressId != null && x.Email != SD.AdminEmail, includeProperties: "Address");
             var usersByCountry = users.GroupBy(x => x.Address.Country);
-                
+
             IEnumerable<Product> products = await _unitOfWork.Product.GetAllAsync(includeProperties: "Category");
             var productByCategory = products.GroupBy(x => x.Category);
-            
+
             IEnumerable<OrderHeader> orders = await _unitOfWork.OrderHeader.GetAllAsync();
-            var orderByStatus = orders.GroupBy(x => x.OrderStatus);
+            var orderByStatus = orders.GroupBy(x => x.OrderStatus ?? string.Empty);
 
             IEnumerable<Booking> bookings = await _unitOfWork.Booking.GetAllAsync(includeProperties: "AppUser");
-            var bookingByUser = bookings.GroupBy(x => x.AppUser.Name);
+            // Update the grouping to handle nullable strings
+            var bookingByUser = bookings.GroupBy(x => x.AppUser.Name ?? string.Empty);
 
             DashboardVM dashboardVM = new DashboardVM()
             {
-                Users  = usersByCountry,
+                Users = usersByCountry,
                 Products = productByCategory,
                 Orders = orderByStatus,
                 Bookings = bookingByUser

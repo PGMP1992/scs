@@ -1,6 +1,6 @@
 ﻿@model Category
 
-<div class="card shadow border-0 mt-4 ">
+<div class="card shadow border-0">
     <div class="card-header bg-primary bg-gradient m-lg-0 py-3 rounded">
         <div class="row">
             <div class="col-12 text-center">
@@ -8,7 +8,7 @@
             </div>
         </div>
     </div>
-    <div class="card-body p-4">
+    <div class="card-body">
         <form method="post" class="row">
             <div class="border border-0">
                 <input asp-for="Id" type="hidden" />
@@ -27,14 +27,14 @@
                     @* Insert Mode - PM *@
                     @if (Model.Id == 0)
                     {
-                        <button type="submit" class="btn btn-primary mx-1" style="width:100px">Save</button>
+                        <button type="submit" class="btn btn-primary mx-1 px-5" >Save</button>
                     }
                     else
                     {
-                        <button type="submit" class="btn btn-primary mx-1" style="width:100px">Update</button>
+                        <button type="submit" class="btn btn-primary mx-1 px-5">Update</button>
                     }
-                    <a asp-area="Admin" asp-controller="Categories" asp-action="Index" class="btn btn-outline-primary mx-1" style="width:100px">
-                        Back to List
+                    <a asp-area="Admin" asp-controller="Categories" asp-action="Index" class="btn btn-outline-primary px-5">
+                        Back
                     </a>
                 </div>
             </div>

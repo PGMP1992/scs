@@ -1,5 +1,25 @@
 ﻿
-
+| :root {
+    --back: #ffffff;
+    --font: #484d48;
+    --navfont: #ffffff;
+    --a: #0d9fc4;
+    --navbar: #052742;
+    --tablinks : #b8d4ee;
+    --h :   #073d69;
+    --cardheader : #ebf1f7;
+  } 
+  
+  :root .dark-theme {
+    --back: #080808;
+    --font: #b4b1b1;
+    --a: #9cccd8;
+    --navbar: #000000;
+    --tablinks : #011b33;
+    --h : #cacfd3;
+    --cardheader : #1f1f1f;
+  } 
+  
 .carousel-caption h5 {
     font-size: 28px;
 }
@@ -38,12 +58,12 @@ body {
 
 .bg-primary {
     /*background-color: #002c41 !important;- Original */
-    background-color: #052742 !important; /*- Change the same as Nav bar*/
+    background-color: var(--navbar) !important; /*- Change the same as Nav bar*/
     /*background-color: rgba(255, 255, 255, 0.2);*/
 }
 
 .custom-title {
-    color: #052742 !important;
+    color: var(--navbar) !important;
 }
 
 .custom-margin {

@@ -6,17 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
 	<AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
 	<ServerGarbageCollection>false</ServerGarbageCollection>
-	<UserSecretsId>91fae604-7c47-4ce7-a3ca-37465eea174e</UserSecretsId>
+	<!--<UserSecretsId>91fae604-7c47-4ce7-a3ca-37465eea174e</UserSecretsId>-->
 	<!--<UserSecretsId>3d689ed2-9a8c-456f-b531-7f5bbde3a2c5</UserSecretsId>-->
   </PropertyGroup>
-
-  <ItemGroup>
-    <!--<Content Remove="appsettings.Development.json" />
-    <Content Remove="appsettings.Production.json" />-->
-    <Content Remove="Areas\Customer\Views\Product\BuyOrderConfirmation.cshtml" />
-    <Content Remove="Areas\Customer\Views\Product\BuySummary.cshtml" />
-    <Content Remove="Areas\Customer\Views\Product\IndexList.cshtml" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Azure.Identity" Version="1.13.2" />
@@ -49,10 +41,6 @@
     <ProjectReference Include="..\SCS.Models\SCS.Models.csproj" />
     <ProjectReference Include="..\SCS.Utility\SCS.Utility.csproj" />
   </ItemGroup>
-
-  <!--<ItemGroup>
-    <Folder Include="Properties\PublishProfiles\" />
-  </ItemGroup>-->
 
   <ItemGroup>
     <None Include="appsettings.Development.json" />

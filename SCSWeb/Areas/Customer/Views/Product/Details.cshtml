@@ -5,7 +5,7 @@
 *@
 
 @using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
+@* @inject SignInManager<IdentityUser> SignInManager *@
 
 @model Cart
 
@@ -69,16 +69,16 @@
                         @* Buttons ------------- *@
 
                         <div class="row pt-2 m-2 img-fluid">
-                            @if (SignInManager.IsSignedIn(User))
-                            {
+                            @* @if (SignInManager.IsSignedIn(User))
+                            { *@
                                 <div class="col-4 ">
                                 <a asp-area="Customer" asp-controller="Product" asp-action="AddToCart" asp-route-productId="@Model.Product.Id"
                                    class="btn btn-dark form-control">
                                     <i class="bi bi-cart"></i> @* Cart *@
                                 </a>
                                 </div>
-                            }
-                            else
+                            @* }
+ *@                            @* else
                             {
                                 <div class="col-4 ">
                                     <a asp-area="Customer" asp-controller="Product" asp-action="Buy" asp-route-productId="@Model.Product.Id"
@@ -86,7 +86,7 @@
                                         Buy
                                     </a>
                                 </div>
-                            }
+                            } *@
 
                             <div class="col-4">
                                 <a asp-area="Customer" asp-controller="Product" asp-action="Index"
