@@ -374,3 +374,5 @@ appsettings.json
 /SCSWeb/appsettings.json
 /SCSWeb/wwwroot/images/products
 /SCS.Blog/SCS.Blog.csproj
+/SCS.Blog/appsettings.Development.json
+/SCS.Blog/appsettings.Production.json
