@@ -40,7 +40,7 @@ namespace SCS.Areas.Customer
                 {
                     return View(searchList);
                 }
-                ViewBag.Message = "There are not products within that search.";
+                ViewBag.Message = "There are not products within that search!";
             }
             return View(productList);
         }

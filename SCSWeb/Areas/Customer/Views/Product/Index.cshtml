@@ -27,10 +27,11 @@
     </div>
 </form>
  *@
-
-<div class="col-8 mb-2">
-    <span class="text-danger">@ViewBag.Message </span>
-</div>
+@if(ViewBag.Message != "") {
+    <div class="col-12 p-3 mb-2 bg-danger ">   
+        <span class="text-white"><b>@ViewBag.Message</b></span>
+    </div>
+}
 
 @* Show Products ---------------- *@
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-5 g-2">
