@@ -1,5 +1,4 @@
-﻿
-| :root {
+﻿| :root {
     --back: #ffffff;
     --font: #484d48;
     --navfont: #ffffff;
@@ -106,6 +105,10 @@ body {
         color: #0056b3;
     }
 
+a {
+    cursor: pointer;
+}
+
 .carousel-caption {
     position: absolute;
     left: 20%;
@@ -200,9 +203,8 @@ body {
     }
 
 @media only screen and (max-width: 768px) {
-     For mobile phones:
-     [class*="col-"] {
+    For mobile phones:
+    [class*="col-"] {
         width: 100%;
     }
-
-
+}
