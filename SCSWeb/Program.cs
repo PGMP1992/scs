@@ -76,7 +76,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseSession();
-//SeedDatabase();
+SeedDatabase();
 app.MapRazorPages(); // Added for Routing the Identity Pages - PM
 
 app.MapControllerRoute(
@@ -85,18 +85,18 @@ app.MapControllerRoute(
 
 app.Run();
 
-//void SeedDatabase()
-//{
-//    using (var scope = app.Services.CreateScope())
-//    {
-//        try
-//        {
-//            var DbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
-//            DbInitializer.Initialize();
-//        }
-//        catch (Exception ex)
-//        {
-//            throw;
-//        }
-//    }
-//}
+void SeedDatabase()
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        try
+        {
+            var DbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+            DbInitializer.Initialize();
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
+    }
+}
