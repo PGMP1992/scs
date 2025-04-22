@@ -9,29 +9,9 @@
 @inject SignInManager<IdentityUser> SignInManager
 @model IEnumerable<Product>
 
-@* <form asp-area="Customer" asp-controller="Product" asp-action="Index" class="bg-primary bg-gradient text-light ml-0 py-2 mb-2">
-    <div class="container m-2">
-        <div class="row col-11">
-            <input id="search" class="form-control ms-3" type="text" name="search" placeholder="Search in Products Description" aria-label="Product Search">
-        </div>
-        <div class="row mt-2">
-            <div class="col-4">
-                <button type="submit" value="search" class="btn btn-primary ">
-                    Search
-                </button>
-            </div>
-            <div class="col-8 mt-2">
-                <span class="text-danger">@ViewBag.Message </span>
-            </div>
-        </div>
-    </div>
-</form>
- *@
-@if(ViewBag.Message != "") {
-    <div class="col-12 p-3 mb-2 bg-danger ">   
-        <span class="text-white"><b>@ViewBag.Message</b></span>
-    </div>
-}
+<div class="col-12 mb-3">   
+    <span class="text-danger"><b>@ViewBag.Message</b></span>
+</div>
 
 @* Show Products ---------------- *@
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-5 g-2">
@@ -44,14 +24,18 @@
                         @* Lazy loading and alt attribute for better performance and SEO *@
                         @if (product.ProductImages != null && product.ProductImages.Count > 0)
                         {
-                            <img src="@product.ProductImages.FirstOrDefault().ImageUrl" 
-                                class="card-img-top" 
-                                style="max-height: 200px; object-fit: cover;" 
-                                alt="@product.Name image" loading="lazy" />
+                            // if image not found put default.png instead
+                            <img src="@(product.ProductImages?.FirstOrDefault()?.ImageUrl ?? "/images/default.png")"
+                                 class="card-img-top product-image"
+                                 alt="@(string.IsNullOrWhiteSpace(product.Name) ? "Product image" : product.Name + " image")"
+                                 loading="lazy"
+                                 onerror="this.onerror=null; this.src='/images/default.png';" />
+
                         }
                         else
                         {
-                            <img src="https://placehold.co/600x400/png" 
+                            @* <img src="https://placehold.co/600x400/png"  *@
+                            <img src="./images/default.png" 
                                 class="card-img-top" 
                                 alt="Default product image" 
                                 style="max-height: 200px; object-fit: cover;" loading="lazy" />
