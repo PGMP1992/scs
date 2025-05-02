@@ -30,62 +30,61 @@
         <div class="table-responsive">
             <table class="table table-sm-3">
                 <thead class="table-info">
-                <tr>
-                    <th>Name</th>
-                    <th >Category</th>
-                    <th>Provider</th>
-                    <th>Price</th>
-                    <th>Certification Slot</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var obj in Model.OrderBy(u => u.Product.Name))
-                {
                     <tr>
-                        <td>
-                            <a asp-controller="Products" asp-action="Upsert" asp-route-id="@obj.Product.Id" class="text-black">
-                                @obj.Product.Name
-                            </a>
-                        </td>
-                        <td>
-                            @obj.Product.Category.Name
-                        </td>
-                        <td>
-                            @obj.Product.Provider.Name
-                        </td>
-                        <td>
-                            @obj.Product.Price.ToString("C")
-                        </td>
-                        <td>
-                            @if (obj.Product.CertSlotId > 0)
-                            {
-                                @obj.Product.CertificationSlot.Name
-                            }
-                        </td>
-                        <td>
-                            <div class="btn-group" role="group">
-                                    <a asp-controller="Products" asp-action="Upsert" asp-route-id="@obj.Product.Id" class="btn btn-primary mx-1" style="width:100px;">
-                                <i class="bi bi-pencil-square"></i>
-                            </a>
-                            
-                            @if (@obj.OkToDelete)
-                            {
-                                <form method="post" asp-action="Delete" asp-route-id="@obj.Product.Id" id="deleteform" onsubmit="DeleteProduct()">
-                                    <input asp-for="@obj.Product.Id" hidden />
-                                            <button type="submit" class="btn btn-danger mx-1" style="width:100px;">
-                                        <i class="bi bi-trash-fill"></i>
-                                    </button>
-                                </form>
-                            }
-                            </div>
-                        </td>
-                      
+                        <th>Name</th>
+                        <th >Category</th>
+                        <th>Provider</th>
+                        <th>Price</th>
+                        <th>Certification Slot</th>
+                        <th></th>
                     </tr>
-                }
-            </tbody>
-
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var obj in Model.OrderBy(u => u.Product.Name))
+                    {
+                        <tr>
+                            <td>
+                                <a asp-controller="Products" asp-action="Upsert" asp-route-id="@obj.Product.Id" class="text-black">
+                                    @obj.Product.Name
+                                </a>
+                            </td>
+                            <td>
+                                @obj.Product.Category.Name
+                            </td>
+                            <td>
+                                @obj.Product.Provider.Name
+                            </td>
+                            <td>
+                                @obj.Product.Price.ToString("C")
+                            </td>
+                            <td>
+                                @if (obj.Product.CertSlotId > 0)
+                                {
+                                    @obj.Product.CertificationSlot.Name
+                                }
+                            </td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                        <a asp-controller="Products" asp-action="Upsert" asp-route-id="@obj.Product.Id" class="btn btn-primary mx-1" style="width:100px;">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                            
+                                @if (@obj.OkToDelete)
+                                {
+                                    <form method="post" asp-action="Delete" asp-route-id="@obj.Product.Id" id="deleteform" onsubmit="DeleteProduct()">
+                                        <input asp-for="@obj.Product.Id" hidden />
+                                        <button type="submit" class="btn btn-danger mx-1" style="width:100px;">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </button>
+                                    </form>
+                                }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 

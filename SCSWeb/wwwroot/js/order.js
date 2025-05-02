@@ -29,7 +29,7 @@ $(document).ready(function () {
 
 function loadDataTable(status) {
    
-        dataTable = $('#tblData').DataTable({
+    dataTable = $('#tblData').DataTable({
         //language: {
         //    search: "S\u00F6k:",
         //    lengthMenu: " _MENU_ per sida",
@@ -39,7 +39,7 @@ function loadDataTable(status) {
         //scrollY:400,
         "ajax": { url: '/admin/order/getall?status=' + status },
 
-       "columns": [
+        "columns": [
             { data: 'id', "width": "5%" },
             { data: 'name', "width": "15%" },
             { data: 'email', "width": "15%" },
@@ -54,10 +54,9 @@ function loadDataTable(status) {
                         </a>
                         </div>`
                 },
-               
                 "width": "10%"
             }
-    ]
-    });
+        ]
+    })
 }
 

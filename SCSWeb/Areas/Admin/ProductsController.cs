@@ -200,7 +200,7 @@ public class ProductsController : Controller
         var product = _unitOfWork.Product.Get(u => u.Id == Id);
         if (product == null)
         {
-            TempData["error"] = "Error with deleting";
+            TempData["error"] = "Error deleting";
         }
 
         if (_unitOfWork.Bundle.Any(u => u.ProductId1 == Id)
@@ -225,17 +225,15 @@ public class ProductsController : Controller
                 Directory.Delete(finalPath);
             }
             _unitOfWork.Product.Remove(product);
-            TempData["success"] = "The product was deleted";
+            TempData["success"] = "Product deleted";
         }
         else 
         {
-            TempData["error"] = "The product is a part of a order and cant be deleted.";
+            TempData["error"] = "The product is a part of a order and can't be deleted.";
             return View(product);
         }
        
         _unitOfWork.Save();
-
         return RedirectToAction("Index");
     }
-
 }
